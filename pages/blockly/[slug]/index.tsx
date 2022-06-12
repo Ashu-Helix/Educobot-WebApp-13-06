@@ -16,6 +16,10 @@ import Blockly from "blockly";
 import "blockly/python";
 import "blockly/javascript";
 import React from "react";
+import axios from "axios";
+import FormData from 'form-data';
+import { Button } from "@mui/material";
+import { Icon } from '@iconify/react'
 
 const language = {
   English: 1,
@@ -89,13 +93,24 @@ export const getStaticProps: GetStaticProps = async (context) => {
      }
    }
    */
+
+  var bodyFormData = new FormData();
+  bodyFormData.append('lessonID', context.params.slug);
+
+  const lessonDetails = await axios({
+    method: "post",
+    url: "https://appssl.educobot.com:8443/EduCobotWS/lessonsWS/getLessonsByID",
+    data: bodyFormData,
+    headers: { "Content-Type": "multipart/form-data" },
+  });
+
   return {
-    props: { dataParse, slug: context.params.slug },
+    props: { dataParse, slug: context.params.slug, lessonDetails: lessonDetails.data.DATA[0] },
   };
 };
 
 const Home: NextPage<any> = (props) => {
-  const { dataParse, slug } = props;
+  const { dataParse, slug, lessonDetails } = props;
   const [muteState, setMute] = useState(false);
   const [command, setcommand] = useState("");
   const [reset, setReset] = useState(false);
@@ -183,6 +198,29 @@ const Home: NextPage<any> = (props) => {
 
   return (
     <>
+      <div className={styles.lessonDetailsDiv}>
+        <div className={styles.lessonTitle}>
+          <Button
+            style={{
+              // backgroundColor: theme.palette.grey[200],
+              color: "#000",
+              minWidth: "50px",
+              padding: "6px 0px",
+            }}
+          >
+            <Icon style={{ color: "#fff", fontSize: "18px", }} icon="eva:arrow-ios-back-fill" />
+          </Button>
+          <p style={{ fontSize: "18px", fontWeight: "700", fontFamily: "Public Sans" }}>{lessonDetails.lsName}</p>
+          <p style={{ fontSize: "14px", fontWeight: "300", fontFamily: "Public Sans" }}>{lessonDetails.lsDesc}</p>
+        </div>
+        <div className="select_languageDiv">
+          <select className={`${styles.select_language}`} value={lang} onChange={onChange}>
+            {
+              Object.keys(language).map(key => <option key={key} value={`${language[key]}`}>{key}</option>)
+            }
+          </select>
+        </div>
+      </div>
       <div
         style={{
           display: "grid",
@@ -241,7 +279,7 @@ const Home: NextPage<any> = (props) => {
                 height="30"
               />
             </button>
-            <select className={`${styles.select_language}`} value={lang} onChange={onChange}>
+            {/* <select className={`${styles.select_language}`} value={lang} onChange={onChange}>
               {
                 Object.keys(language).map(key => <option
                   key={language[key]}
@@ -249,7 +287,7 @@ const Home: NextPage<any> = (props) => {
                   {key}
                 </option>)
               }
-            </select>
+            </select> */}
           </div>
           {
             <Canvas
@@ -277,11 +315,13 @@ const Home: NextPage<any> = (props) => {
             {PythonCode}
           </div>
           <TestDialog
+            slug={slug}
+            getCoins={FinalTask}
+            lessonDetails={lessonDetails}
             testDialogInfo={{
               dialogStatus: "test",
             }}
-            slug={slug}
-            getCoins={FinalTask} />
+          />
         </div>
       </div>
 

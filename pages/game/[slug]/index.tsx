@@ -361,6 +361,7 @@ export default function PhaserGame(props) {
           <TestDialog
             getCoins={FinalTask}
             slug={slug}
+            lessonDetails={lessonDetails}
             testDialogInfo={{
               dialogStatus: "test",
             }}

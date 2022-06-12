@@ -46,12 +46,13 @@ const StyledRating = styled(Rating)({
 type Props = {
   getCoins: (value) => void
   slug: any;
+  lessonDetails: any;
   testDialogInfo: {
     dialogStatus: String;
 
   };
 };
-export default function TestDialog({ getCoins, testDialogInfo, slug }: Props) {
+export default function TestDialog({ getCoins, testDialogInfo, lessonDetails, slug }: Props) {
   const [widthState, setWidthState] = useState(0);
   const [heightState, setHeightState] = useState(0);
   const [showConfetti, setShowConfetti] = useState(false);
@@ -507,8 +508,12 @@ export default function TestDialog({ getCoins, testDialogInfo, slug }: Props) {
               fontFamily={"Public Sans"}
             >
               {
-                "With this lesson, you have learned the basics of <tag1>, <tag2> and <tag3>."
+                lessonDetails.lsSkillTag3 === "" ?
+                  `With this lesson, you have learned the basics of ${lessonDetails.lsSkillTag2}.`
+                  :
+                  `With this lesson, you have learned the basics of ${lessonDetails.lsSkillTag2} and ${lessonDetails.lsSkillTag3}.`
               }
+
             </Typography>
           </DialogContent>
           <DialogActions
