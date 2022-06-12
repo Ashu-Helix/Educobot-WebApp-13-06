@@ -1,0 +1,42 @@
+.incorrect_char {
+    color: red;
+    background-color: pink;
+    text-decoration: underline;
+    font-size: x-large;
+  }
+  
+  .correct_char {
+    color: darkgreen;
+  }
+  
+  .right_code {
+    color: rgb(255, 255, 255);
+    font-size: x-large;
+    white-space: pre;
+  }
+  
+  .wrong_code {
+    color: rgb(255, 0, 0);
+    font-size: x-large;
+    background-color: pink;
+    white-space: pre;
+  }
+  
+  .pending_code {
+    color: rgb(122, 122, 122);
+    font-size: x-large;
+    white-space: pre;
+  }
+  .cursor {
+    color: rgb(0, 0, 0);
+    background-color: rgb(125, 228, 116);
+    border: 1px;
+    gap: 2px;
+    font-size: x-large;
+    white-space: pre;
+    animation: cursor-blink 0.75s steps(2) infinite;
+  }
+  
+  .CodeMirror-cursors{
+    display: none;
+  }

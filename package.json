@@ -1,0 +1,43 @@
+{
+  "name": "educobot",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev -p 3003",
+    "build": "next build ",
+    "start": "next start -p 3003",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.9.0",
+    "@emotion/styled": "^11.8.1",
+    "@mui/material": "^5.8.3",
+    "axios": "^0.27.2",
+    "blockly": "^7.20211209.4",
+    "codemirror": "^5.65.2",
+    "form-data": "^4.0.0",
+    "jquery": "^3.6.0",
+    "jquery-ui": "^1.13.1",
+    "jwt-decode": "^3.1.2",
+    "materialize-css": "^1.0.0",
+    "next": "^11.1.0",
+    "phaser": "^3.55.2",
+    "react": "17.0.2",
+    "react-blockly": "^7.0.0-alpha.2",
+    "react-codemirror2": "^7.2.1",
+    "react-confetti": "^6.0.1",
+    "react-dom": "17.0.2",
+    "react-excel-renderer": "^1.1.0",
+    "react-shepherd": "^3.3.6",
+    "react-simple-keyboard": "^3.4.88",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "@iconify/react": "^3.2.2",
+    "@types/node": "17.0.21",
+    "@types/react": "17.0.41",
+    "eslint": "7.32.0",
+    "eslint-config-next": "12.1.0",
+    "typescript": "4.6.2"
+  }
+}

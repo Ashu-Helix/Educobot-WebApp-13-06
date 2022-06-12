@@ -1,0 +1,707 @@
+@keyframes shape1 {
+    0% {
+        transform: rotate(-30deg);
+    }
+
+    50% {
+        transform: rotate(-60deg);
+    }
+
+    100% {
+        transform: rotate(-30deg);
+    }
+}
+
+@keyframes shape2 {
+    0% {
+        transform: rotate(75deg);
+    }
+
+    50% {
+        transform: rotate(45deg);
+    }
+
+    100% {
+        transform: rotate(75deg);
+    }
+}
+
+@keyframes shape3 {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    25% {
+        transform: translate(8px, 8px);
+    }
+
+    50% {
+        transform: translate(0, 0);
+    }
+
+    75% {
+        transform: translate(-8px, -8px);
+    }
+
+    100% {
+        transform: translate(0, 0);
+    }
+}
+
+@keyframes shape4 {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    50% {
+        transform: rotate(30deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+@keyframes shape5 {
+    0% {
+        transform: rotate(60deg);
+    }
+
+    50% {
+        transform: rotate(90deg);
+    }
+
+    100% {
+        transform: rotate(60deg);
+    }
+}
+
+@keyframes shape6 {
+    0% {
+        transform: rotate(-30deg);
+    }
+
+    50% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(-30deg);
+    }
+}
+
+@keyframes shape7 {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    50% {
+        transform: rotate(-30deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+@keyframes n1 {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    25% {
+        transform: rotate(-5deg);
+    }
+
+    50% {
+        transform: rotate(0deg);
+    }
+
+    75% {
+        transform: rotate(5deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+@keyframes o2 {
+    0% {
+        transform: rotate(45deg);
+    }
+
+    25% {
+        transform: rotate(35deg);
+    }
+
+    50% {
+        transform: rotate(45deg);
+    }
+
+    75% {
+        transform: rotate(55deg);
+    }
+
+    100% {
+        transform: rotate(45deg);
+    }
+}
+
+@keyframes n3 {
+    0% {
+        transform: rotate(-45deg);
+    }
+
+    25% {
+        transform: rotate(-35deg);
+    }
+
+    50% {
+        transform: rotate(-45deg);
+    }
+
+    75% {
+        transform: rotate(-55deg);
+    }
+
+    100% {
+        transform: rotate(-45deg);
+    }
+}
+
+@keyframes s4 {
+    0% {
+        transform: rotate(45deg);
+    }
+
+    25% {
+        transform: rotate(35deg);
+    }
+
+    50% {
+        transform: rotate(45deg);
+    }
+
+    75% {
+        transform: rotate(55deg);
+    }
+
+    100% {
+        transform: rotate(45deg);
+    }
+}
+
+@keyframes e5 {
+    0% {
+        transform: rotate(45deg);
+    }
+
+    25% {
+        transform: rotate(35deg);
+    }
+
+    50% {
+        transform: rotate(45deg);
+    }
+
+    75% {
+        transform: rotate(55deg);
+    }
+
+    100% {
+        transform: rotate(45deg);
+    }
+}
+
+@keyframes n6 {
+    0% {
+        transform: rotate(45deg);
+    }
+
+    25% {
+        transform: rotate(35deg);
+    }
+
+    50% {
+        transform: rotate(45deg);
+    }
+
+    75% {
+        transform: rotate(55deg);
+    }
+
+    100% {
+        transform: rotate(45deg);
+    }
+}
+
+@keyframes s7 {
+    0% {
+        transform: rotate(-45deg);
+    }
+
+    25% {
+        transform: rotate(-35deg);
+    }
+
+    50% {
+        transform: rotate(-45deg);
+    }
+
+    75% {
+        transform: rotate(-55deg);
+    }
+
+    100% {
+        transform: rotate(-45deg);
+    }
+}
+
+@keyframes e8 {
+    0% {
+        transform: rotate(45deg);
+    }
+
+    25% {
+        transform: rotate(35deg);
+    }
+
+    50% {
+        transform: rotate(45deg);
+    }
+
+    75% {
+        transform: rotate(55deg);
+    }
+
+    100% {
+        transform: rotate(45deg);
+    }
+}
+
+/* Fonts */
+@font-face {
+    font-display: fallback;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    src: url('/assets/montserrat-600.woff') format('woff');
+    color: white;
+}
+
+@font-face {
+    font-display: fallback;
+    font-family: 'Frank Ruhl Libre Black';
+    font-style: normal;
+    font-weight: 400;
+    src: url('/assets/frank-ruhl-libre-900.woff') format('woff');
+    color: #f1f1f1;
+}
+
+
+
+.sr {
+    border: 0;
+    color: white;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: auto;
+    padding: 10px;
+    margin: auto;
+    width: 100%;
+}
+
+
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding-left: 12px;
+    padding-right: 12px;
+}
+
+.splash {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    margin: 1rem auto 2rem auto;
+}
+
+.n1, .o2, .n3, .s4, .e5, .n6, .s7, .e8 {
+    position: absolute;
+    font-family: Frank Ruhl Libre Black, sans-serif;
+    text-transform: uppercase;
+    font-size: 80px;
+    line-height: normal;
+}
+
+.n1 {
+    top: 80px;
+    left: -10px;
+    animation-name: n1;
+    animation-duration: 16s;
+    animation-fill-mode: both;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+.o2 {
+    top: 170px;
+    left: 0px;
+    transform: rotate(45deg);
+    animation-name: o2;
+    animation-duration: 16s;
+    animation-fill-mode: both;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+.n3 {
+    top: 100px;
+    left: 80px;
+    transform: rotate(-45deg);
+    animation-name: n3;
+    animation-duration: 16s;
+    animation-fill-mode: both;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+.s4 {
+    top: 200px;
+    left: 90px;
+    transform: rotate(45deg);
+    animation-name: s4;
+    animation-duration: 16s;
+    animation-fill-mode: both;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+.e5 {
+    top: 140px;
+    left: 160px;
+    animation-name: e5;
+    animation-duration: 16s;
+    animation-fill-mode: both;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+.n6 {
+    top: 210px;
+    left: 210px;
+    transform: rotate(45deg);
+    animation-name: n6;
+    animation-duration: 16s;
+    animation-fill-mode: both;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+.s7 {
+    top: 70px;
+    left: 210px;
+    transform: rotate(-45deg);
+    animation-name: s7;
+    animation-duration: 16s;
+    animation-fill-mode: both;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+.e8 {
+    top: 140px;
+    left: 270px;
+    transform: rotate(-45deg);
+    animation-name: e8;
+    animation-duration: 16s;
+    animation-fill-mode: both;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+.shape1 {
+    left: 10px;
+    top: 10px;
+    position: absolute;
+    width: 30px;
+    height: 80px;
+    background: #ffb186;
+    border-radius: 100px;
+    transform: rotate(-30deg);
+    animation-name: shape1;
+    animation-duration: 16s;
+    animation-fill-mode: both;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+.shape2 {
+    left: 120px;
+    top: 50px;
+    position: absolute;
+    width: 20px;
+    height: 40px;
+    background: #fff386;
+    border-radius: 100px;
+    transform: rotate(75deg);
+    animation-name: shape2;
+    animation-duration: 16s;
+    animation-fill-mode: both;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+.shape3 {
+    left: 200px;
+    top: 30px;
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background: #ff8d86;
+    border-radius: 100px;
+    animation-name: shape3;
+    animation-duration: 16s;
+    animation-fill-mode: both;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+.shape4 {
+    left: 280px;
+    top: 20px;
+    position: absolute;
+    transform: rotate(-20deg);
+    width: 0;
+    height: 0;
+    border-top: 16px solid transparent;
+    border-bottom: 16px solid transparent;
+    border-left: 29px solid #fbcbff;
+    animation-name: shape4;
+    animation-duration: 16s;
+    animation-fill-mode: both;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-out;
+}
+
+.shape5 {
+    left: 5px;
+    top: 300px;
+    position: absolute;
+    width: 30px;
+    height: 80px;
+    background: #ffcc00;
+    border-radius: 100px;
+    transform: rotate(60deg);
+    animation-name: shape5;
+    animation-duration: 16s;
+    animation-fill-mode: both;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-out;
+}
+
+.shape6 {
+    left: 120px;
+    top: 320px;
+    position: absolute;
+    width: 25px;
+    height: 40px;
+    background: #fff386;
+    border-radius: 100px;
+    transform: rotate(-30deg);
+    animation-name: shape6;
+    animation-duration: 16s;
+    animation-fill-mode: both;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-out;
+}
+
+.shape7 {
+    left: 180px;
+    top: 320px;
+    position: absolute;
+    width: 140px;
+    height: 80px;
+    background: url('/assets/scribble.svg') 50% 50% no-repeat;
+    animation-name: shape7;
+    animation-duration: 16s;
+    animation-fill-mode: both;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-out;
+}
+
+.content {
+    margin: 2rem auto;
+}
+
+.content-inner {
+    max-width: 280px;
+}
+
+@media only screen and (min-width: 768px) {
+    .flex_m {
+        display: flex;
+    }
+
+    .splash {
+        width: 500px;
+        height: 500px;
+    }
+
+    .n1, .o2, .n3, .s4, .e5, .n6, .s7, .e8 {
+        position: absolute;
+        font-family: Frank Ruhl Libre Black, sans-serif;
+        text-transform: uppercase;
+        line-height: normal;
+    }
+
+    .n1 {
+        top: 240px;
+        left: 0;
+    }
+
+    .o2 {
+        top: 180px;
+        left: 100px;
+        transform: rotate(45deg);
+    }
+
+    .n3 {
+        top: 320px;
+        left: 100px;
+    }
+
+    .s4 {
+        top: 180px;
+        left: 220px;
+    }
+
+    .e5 {
+        top: 310px;
+        left: 210px;
+    }
+
+    .n6 {
+        top: 260px;
+        left: 300px;
+    }
+
+    .s7 {
+        top: 160px;
+        left: 360px;
+        transform: rotate(-45deg);
+    }
+
+    .e8 {
+        top: 340px;
+        left: 360px;
+        transform: rotate(-45deg);
+    }
+
+    .shape1 {
+        width: 40px;
+        height: 100px;
+        left: 30px;
+        top: 70px;
+    }
+
+    .shape2 {
+        left: 180px;
+        top: 100px;
+    }
+
+    .shape3 {
+        width: 40px;
+        height: 40px;
+        left: 260px;
+        top: 155px;
+    }
+
+    .shape4 {
+        left: 360px;
+        top: 50px;
+        border-top: 32px solid transparent;
+        border-bottom: 32px solid transparent;
+        border-left: 58px solid #fbcbff;
+    }
+
+    .shape5 {
+        width: 40px;
+        height: 100px;
+        left: 60px;
+        top: 430px;
+    }
+
+    .shape6 {
+        left: 190px;
+        top: 480px;
+    }
+
+    .shape7 {
+        left: 280px;
+        top: 480px;
+    }
+}
+
+.content {
+    width: 320px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.block {
+    display: block;
+}
+
+.padding_top_2rem {
+    padding-top: 2rem;
+}
+
+.padding_top_7rem {
+    padding-top: 7rem;
+}
+
+.padding_bottom_2rem {
+    padding-bottom: 2rem;
+}
+
+.padding_2rem {
+    padding: 2rem;
+}
+
+
+.email {
+    border: 0;
+    width: 160px;
+    border-radius: 100px;
+    background: #fff;
+    height: 32px;
+    padding: 8px 12px;
+    transition: .2s all;
+}
+
+.email:focus {
+    background-color: #f1f1f1;
+}
+
+.button {
+    /* background: url(google-play-secondary.svg) 50% 50% no-repeat #fff; */
+    width: 180px;
+    height: 60px;
+    display: block;
+    border: 2px solid #fff;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: .3s all;
+    cursor: pointer;
+}
+
+.button:hover, .button:focus {
+    /* background: url(google-play.svg) 50% 50% no-repeat; */
+    background-color: transparent;
+}
+
+.button:active {
+    transform: translate(0, 2px);
+}

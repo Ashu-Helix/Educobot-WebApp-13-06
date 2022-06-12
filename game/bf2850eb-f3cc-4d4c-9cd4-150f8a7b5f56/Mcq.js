@@ -1,0 +1,48 @@
+const mcqArr = [{
+        id: 1,
+        correct_answer: true,
+        question: `_________ farm questio 1`,
+        right_answer_message: `Keywords are the reserved words in Python. We cannot use a keyword as a variable name, function name or any other identifier.`,
+        wrong_answer_message: `Keywords are the reserved words in Python. We cannot use a keyword as a variable name, function name or any other identifier.`,
+        button_1_text: `Keywords`,
+        button_2_text: `Special-words`,
+    },
+    {
+        id: 2,
+        correct_answer: false,
+        question: `_________ farm question 2`,
+        right_answer_message: `print() is used to display the output content`,
+        wrong_answer_message: `print() is used to display the output content`,
+        button_1_text: `display_output()`,
+        button_2_text: `print()`,
+    },
+    {
+        id: 3,
+        correct_answer: true,
+        question: `_________ farm question 3`,
+        right_answer_message: `To assign values to a variable in Python, we will use the assignment (=) operator.`,
+        wrong_answer_message: `To assign values to a variable in Python, we will use the assignment (=) operator.`,
+        button_1_text: `= , I.e a = 80`,
+        button_2_text: `->, i.e a -> 80`,
+    },
+    {
+        id: 4,
+        correct_answer: true,
+        question: `_________ farm question 4`,
+        right_answer_message: `You can consider a variable to be a temporary storage space where you can keep changing values.`,
+        wrong_answer_message: `You can consider a variable to be a temporary storage space where you can keep changing values.`,
+        button_1_text: `Variables`,
+        button_2_text: `Data types`,
+    },
+    {
+        id: 5,
+        correct_answer: false,
+        question: `_________ farm question 5`,
+        right_answer_message: `The correct way of declaring and initializing a variable, x with the value 7 is x=7.`,
+        wrong_answer_message: `The correct way of declaring and initializing a variable, x with the value 7 is x=7.`,
+        button_1_text: `declare x=7`,
+        button_2_text: `x=7`,
+    },
+];
+
+export { mcqArr };
