@@ -42,11 +42,11 @@ function play_audio_tutorial(lesson_id, file) {
     audio.play();
 }
 
-function chk() {
-    if (user_code.join("") === `name`)
-        return "step 1 tutorial";
-    else return false;
-}
+// function chk() {
+//     if (user_code.join("") === `name`)
+//         return "step 1 tutorial";
+//     else return false;
+// }
 
 function make_pred_guide(id, file, code, audio, lesson_id, type) {
     if (type === 1) {
@@ -108,11 +108,12 @@ pred_guide.forEach((i) => {
     document.querySelector('dialog')
 });
 
-function helpCode(user_code) {
+function helpCode(lesson_id, user_code) {
+
     pred_guide.forEach((i) => {
         i.shown = false;
     });
-    tutorial_guide_updater(user_code);
+    tutorial_guide_updater(lesson_id, user_code);
 };
 
 function tutorial_guide_updater(lesson_id, user_code) {

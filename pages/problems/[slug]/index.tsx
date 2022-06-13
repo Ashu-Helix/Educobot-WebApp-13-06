@@ -34,9 +34,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
 export default function Slug(props) {
     const router = useRouter()
-    //const { slug } = router.query
     const { slug } = props
-
     const [script, setScript] = useState('');
     const [command, setcommand] = useState('')
     const [output, setOutput] = useState('')

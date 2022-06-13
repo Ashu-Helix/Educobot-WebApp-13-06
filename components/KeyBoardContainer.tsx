@@ -26,7 +26,8 @@ function KeyBoardContainer({ script, setScript }: Props) {
             setScript(`${script}\n`)
         }
         else if (input === "{tab}") {
-            setScript(`${script}\t`)
+
+            setScript(`${script}    `)
         }
         else if (input === "{space}") {
             setScript(`${script} `)

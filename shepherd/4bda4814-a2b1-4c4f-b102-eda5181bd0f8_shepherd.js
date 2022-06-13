@@ -41,7 +41,7 @@ function image_scaler(file) { let path = `../assets/` + language.guide_folder + 
 // );
 
 function handPointAt(hand, element, visibility) {
-    let pos = element.position(),
+    let pos = element.offset(),
         ele_oh = element.outerHeight(true),
         ele_ow = element.outerWidth(true),
         h_oh = hand.outerHeight(true),
@@ -49,17 +49,19 @@ function handPointAt(hand, element, visibility) {
 
     if (ele_oh > h_oh) {
         pos.top += (ele_oh - h_oh) / 2;
+
     } else {
         true;
     }
     if (ele_ow > h_ow) {
         pos.left += (ele_ow - h_ow) / 2;
     }
+
     try { hand.css("visibility", visibility); } catch { }
     try { hand.css("top", pos.top); } catch { }
     try { hand.css("left", pos.left); } catch { }
     element.on("dragstop", function (event, ui) {
-        hand.css("top", pos.top);
+        hand.css("top", (pos.top));
         hand.css("left", pos.left);
     });
 
@@ -113,7 +115,7 @@ function loadAgain() {
         },
         title: 'Task',
         arrow: true,
-        attachTo: { element: '#blocklyDiv', on: adapt_orientation('left', 'bottom') },
+        attachTo: { element: '#game_page', on: adapt_orientation('left', 'top') },
         text: image_scaler("Task.png"),
         buttons: [{ action() { return this.back(); }, classes: 'shepherd-button-secondary', text: 'Back' }, {
             action() {
