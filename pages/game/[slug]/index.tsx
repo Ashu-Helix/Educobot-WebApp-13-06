@@ -52,6 +52,17 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
     const sheetNames = readedData.SheetNames;
     let index = -1;
+
+    const staticSlug = [
+        "1d749e84-1155-4269-93ab-550ee7aabd4a",
+        "4bda4814-a2b1-4c4f-b102-eda5181bd0f8",
+        "e0c38e50-cbb3-455f-ae16-d737fc624b24"
+    ]
+    sheetNames.forEach((s, i) => {
+        //context.params.slug === s.toLowerCase() ? index = i : -1
+        context.params.slug === staticSlug[i] ? index = i : -1
+    })
+
     sheetNames.forEach((s, i) => {
         context.params.slug === s.toLowerCase() ? index = i : -1
     })
@@ -197,7 +208,7 @@ export default function PhaserGame(props) {
                     />
                 </div>
 
-                <div className={styles.canvas} style={{ padding: "0 1rem" }}>
+                <div className={styles.canvas} style={{ padding: "0 0.5rem" }}>
                     <div className={""}>
                         <button
                             className={`${styles.normal_button} `}

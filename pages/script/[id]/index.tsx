@@ -183,6 +183,8 @@ export default function Scripts(props) {
     };
 
     function runCodeForce() {
+        user_code.splice(0, user_code.length);
+
         code.split("").forEach(w => setUser_code(c => [...c, w]));
         //htmlmaker(code, user_code);
     }
