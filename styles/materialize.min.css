@@ -3226,7 +3226,7 @@ span.badge.new:after {
 }
 
 span.badge[data-badge-caption]::after {
-    content: " " attr(data-badge-caption)
+    content: " "attr(data-badge-caption)
 }
 
 nav ul a span.badge {
@@ -4979,7 +4979,7 @@ small {
 @media only screen and (max-width: 600px) {
     #toast-container {
         min-width: 100%;
-        bottom: 0%
+        top: 0%
     }
 }
 
