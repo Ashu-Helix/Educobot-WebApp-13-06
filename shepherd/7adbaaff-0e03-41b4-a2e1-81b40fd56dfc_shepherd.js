@@ -95,7 +95,7 @@ function loadAgain() {
     tour.addStep({
         eval() { return false },
         title: "Introduction",
-
+        attachTo: { element: '#game_page', on: adapt_orientation('left', 'bottom') },
         text: image_scaler("Introduction.png"),
         buttons: [{
             action: function () {

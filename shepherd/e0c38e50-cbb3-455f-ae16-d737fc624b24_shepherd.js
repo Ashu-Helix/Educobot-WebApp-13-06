@@ -50,7 +50,7 @@ function handPointAt(hand, element, visibility) {
     //     top: element.getBoundingClientRect().top,
     //     left: element.getBoundingClientRect().left,
     // }
-    let pos = element.position(),
+    let pos = element.offset(),
         ele_oh = element.outerHeight(true),
         ele_ow = element.outerWidth(true),
         h_oh = hand.outerHeight(true),

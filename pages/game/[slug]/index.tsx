@@ -164,21 +164,17 @@ export default function PhaserGame(props) {
 
     return (
         <>
-            <div className={styles.lessonDetailsDiv} id="">
+            <div className={styles.lessonDetailsDiv} id="game_page">
                 <div className={styles.lessonTitle}>
-                    <Button
-                        style={{
-                            color: "#000",
-                            minWidth: "50px",
-                            padding: "6px 0px",
-                        }}
-                    >
-                        <Icon style={{ color: "#fff", fontSize: "18px", }} icon="eva:arrow-ios-back-fill" />
-                    </Button>
-                    <p style={{ fontSize: "18px", fontWeight: "700", fontFamily: "Public Sans" }}>{lessonDetails.lsName}</p>
-                    <p style={{ fontSize: "14px", fontWeight: "300", fontFamily: "Public Sans" }}>{lessonDetails.lsDesc}</p>
+                    <div className={styles.lesson_div} >
+                        <Button className={styles.backbtn}>
+                            <Icon style={{ color: "#fff", fontSize: "18px", }} icon="eva:arrow-ios-back-fill" />
+                        </Button>
+                        <p style={{ fontSize: "18px", fontWeight: "700", fontFamily: "Public Sans" }}>{lessonDetails.lsName}</p>
+                    </div>
+                    <p className={styles.description} >{lessonDetails.lsDesc}</p>
                 </div>
-                <div className="select_languageDiv">
+                <div className={styles.select_languageDiv}>
                     <select className={`${styles.select_language}`} value={lang} onChange={onChange}>
                         {
                             Object.keys(language).map(key => <option key={key} value={`${language[key]}`}>{key}</option>)
@@ -188,9 +184,10 @@ export default function PhaserGame(props) {
             </div>
             <div
                 style={{
-                    height: "100%",
+                    height: "93%",
                     display: "flex"
                 }}
+                className={styles.blocklycontainer}
             >
                 <div className="fill-blockly" id="blocklyDiv">
                     <Blocky

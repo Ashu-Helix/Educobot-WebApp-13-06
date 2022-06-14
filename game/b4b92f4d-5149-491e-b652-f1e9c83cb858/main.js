@@ -59,7 +59,8 @@ let canShowTimer = false;
 let canHideMosquitoOnTouch = false;
 let canShowGameOverMsg = false;
 let timerInterval = null;
-let isMosquitoHitByBat = false;
+// let isMosquitoHitByBat = false;
+window['isMosquitoHitByBat'] = false;
 let health = 0;
 // Phaser config
 let config = {
@@ -85,7 +86,7 @@ let config = {
 };
 
 // Initialize Phaser with config
-window['game'] = new Phaser.Game(config);
+let game = new Phaser.Game(config);
 
 // Phaser preload function
 function preload() {
@@ -218,7 +219,7 @@ async function init() {
         mosquitoRandomMove(oTargetMosquito);
         oTargetMosquito.setInteractive();
         oTargetMosquito.on('pointerdown', async function (pointer, x, y, event) {
-            isMosquitoHitByBat = true;
+            window['isMosquitoHitByBat'] = true;
             this.x = pointer.position.x;
             this.y = pointer.position.y;
             await moveBat({ x: pointer.position.x, y: pointer.position.y });
@@ -364,7 +365,7 @@ function reInitValues() {
     canShowTimer = false;
     canHideMosquitoOnTouch = false;
     canShowGameOverMsg = false;
-    isMosquitoHitByBat = false;
+    window['isMosquitoHitByBat'] = false;
     stopTimer();
 }
 
@@ -374,10 +375,10 @@ function reset_output() {
     _gameThis.scene.restart();
 }
 
-let repeat_forever_flag = true;
+var repeat_forever_flag = true;
 
 function runCode() {
-
+    // tour_over && tour.complete();
     reInitValues();
     window.LoopTrap = 1E3;
     Blockly.JavaScript.INFINITE_LOOP_TRAP = 'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
@@ -390,8 +391,13 @@ function runCode() {
         setTimeout(() => {
             repeat_forever_flag = true;
         }, 1000);
-    } catch (b) { console.log(b) }
-
+    } catch (b) { alert(b) }
+    // try {
+    //     if (tour.getCurrentStep().options.title.includes("Run")) {
+    //         let btns = document.querySelectorAll('.shepherd-button');
+    //         btns[btns.length - 1].click();
+    //     }
+    // } catch { }
 }
 
 // function helpCode() {
@@ -426,18 +432,13 @@ const updateImports = ["from mosquito_room_lesson import *"]
 
 
 export {
-    update,
-    preload,
-    create,
-    gameHeight,
-    gameWidth,
     completedFlag,
-    repeat_forever_flag,
+    // myUpdateFunction,
     helpCode,
     runCode,
     reset_output,
     reInitValues,
-    isMosquitoHitByBat,
+    // isMosquitoHitByBat,
     increaseHealthBy,
     displayElementByName,
     showGameOverMsg,
@@ -447,5 +448,12 @@ export {
     health,
     timer,
     getNoOfBlocks,
-    updateImports
+    updateImports,
+    repeat_forever_flag,
+    update,
+    game,
+    preload,
+    create,
+    gameHeight,
+    gameWidth,
 }

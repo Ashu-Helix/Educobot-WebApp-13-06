@@ -25,7 +25,7 @@
     padding: 3px;
     color: white;
     background: #161c24;
-    margin: 4px;
+    margin: 10px;
     display: inline-block;
     width: auto;
     height: 30px;
@@ -200,6 +200,7 @@
 }
 
 .lessonDetailsDiv {
+    height: 7%;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -209,4 +210,70 @@
     display: flex;
     gap: 0.5rem;
     align-items: center;
+}
+
+/* .blocklycontainer {
+  height: "93%";
+  display: "flex";
+} */
+
+.backbtn {
+    color: #000;
+    min-width: 50px;
+    padding: 6px 0px;
+}
+
+.lesson_div {
+    display: flex;
+}
+
+.description {
+    fontSize: 14px;
+    fontWeight: 300;
+    fontFamily: Public Sans;
+}
+
+@media screen and (max-width: 600px) {
+    .blocklycontainer {
+        height: auto;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .canvas {
+        width: 100%;
+    }
+
+    .fill-blockly {
+        width: 100%;
+        height: calc(95vh - (9/16*95vw));
+    }
+
+    .lessonDetailsDiv {
+        height: auto;
+        flex-direction: column;
+    }
+
+    .lessonTitle {
+        height: auto;
+        flex-direction: column;
+    }
+
+    .lesson_div {
+        width: 100%;
+    }
+
+    .select_languageDiv {
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+
+    .backbtn {
+        min-width: 30px;
+    }
+
+    .description {
+        margin: 0px 10px;
+    }
 }
