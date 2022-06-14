@@ -52,6 +52,17 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
     const sheetNames = readedData.SheetNames;
     let index = -1;
+
+    const staticSlug = [
+        "1d749e84-1155-4269-93ab-550ee7aabd4a",
+        "4bda4814-a2b1-4c4f-b102-eda5181bd0f8",
+        "e0c38e50-cbb3-455f-ae16-d737fc624b24"
+    ]
+    sheetNames.forEach((s, i) => {
+        //context.params.slug === s.toLowerCase() ? index = i : -1
+        context.params.slug === staticSlug[i] ? index = i : -1
+    })
+
     sheetNames.forEach((s, i) => {
         context.params.slug === s.toLowerCase() ? index = i : -1
     })
@@ -197,7 +208,7 @@ export default function PhaserGame(props) {
                     />
                 </div>
 
-                <div className={styles.canvas} style={{ padding: "0 1rem" }}>
+                <div className={styles.canvas} style={{ padding: "0 0.5rem" }}>
                     <div className={""}>
                         <button
                             className={`${styles.normal_button} `}
@@ -207,7 +218,7 @@ export default function PhaserGame(props) {
                             onClick={handleClick}
                         >
                             <Image
-                                src="/assets/run_button_icon_landscape.png"
+                                src="/assets/green_flag.png"
                                 width="30"
                                 height="30"
                             />
@@ -218,7 +229,7 @@ export default function PhaserGame(props) {
                             data-tooltip="Reset Output"
                             onClick={reSet}
                         >
-                            <img src="/assets/reset_button_icon.png" width="30" height="30" />
+                            <img src="/assets/reset_icon.png" width="30" height="30" />
                         </button>
                         <button
                             className={`${styles.normal_button}  ${styles.sound}`}
@@ -228,7 +239,7 @@ export default function PhaserGame(props) {
                             onClick={() => setMute(!muteState)}
                         >
                             <img
-                                src={muteState ? "/assets/mute.png" : "/assets/unmute.png"}
+                                src={muteState ? "/assets/sound_icon.png" : "/assets/sound_unmute.png"}
                                 width="30"
                                 height="30"
                             />

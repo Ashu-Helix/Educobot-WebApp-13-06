@@ -87,8 +87,10 @@
     display: flex;
     overflow: auto;
     margin-top: 2vh;
-    margin-left: 0.8vh;
-    margin-right: 0.8vh;
+    /* margin-left: 0.8vh;
+    margin-right: 0.8vh; */
+    margin-left: -0.2vh;
+    margin-right: -0.2vh;
     margin-bottom: 1vh;
     background-size: cover;
     border-radius: 10px;
@@ -228,9 +230,29 @@
 }
 
 .description {
-    fontSize: 14px;
-    fontWeight: 300;
-    fontFamily: Public Sans;
+    font-size: 14px;
+    font-weight: 300;
+    font-family: Public Sans;
+}
+
+.select_language {
+    border: none;
+    outline: none;
+    scroll-behavior: smooth;
+    font-family: Public Sans;
+    font-weight: 600;
+    color: #919EAB;
+}
+
+.select_language:focus {
+    border: none;
+    outline: none;
+}
+
+.blocklybunny {
+    display: grid;
+    height: 100%;
+    grid-template-columns: repeat(2, 1fr);
 }
 
 @media screen and (max-width: 600px) {
@@ -256,6 +278,8 @@
 
     .lessonTitle {
         height: auto;
+        width: 100%;
+        align-items: flex-start;
         flex-direction: column;
     }
 
@@ -279,5 +303,10 @@
 
     .output {
         display: none;
+    }
+
+    .blocklybunny {
+        display: flex;
+        flex-direction: column;
     }
 }

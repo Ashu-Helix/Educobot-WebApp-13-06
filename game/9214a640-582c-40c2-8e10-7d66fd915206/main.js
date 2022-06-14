@@ -101,6 +101,7 @@ let config = {
 // Initialize Phaser with config
 let game = new Phaser.Game(config);
 // Phaser preload function
+
 function preload() {
     window["_gameThis"] = this;
     window["_gameThis"].load.setBaseURL(baseURL);
