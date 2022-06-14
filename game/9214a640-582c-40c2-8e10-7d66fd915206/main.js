@@ -123,16 +123,6 @@ function create() {
     // mixSalad();
 }
 
-async function init() {
-    // await moveFruitSliceToPot(FRUITS.banana, 2);
-    // await moveFruitSliceToPot(FRUITS.strawberry, 2);
-    // await moveFruitSliceToPot(FRUITS.grape, 3);
-    // await mixSalad();
-    // await moveFruitSliceToPot(FRUITS.blackBerry, 2);
-    // await moveFruitSliceToPot(FRUITS.strawberry, 2);
-    // await mixSalad();
-    // await moveFruitSliceToPot(FRUITS.banana, 6);
-}
 
 // Load images
 function loadImages() {

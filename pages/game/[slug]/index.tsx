@@ -18,7 +18,7 @@ import axios from "axios";
 import FormData from 'form-data';
 import { Button } from "@mui/material";
 import { Icon } from '@iconify/react'
-const Blocky = dynamic(import("../../../components/Blocky"), { ssr: false });
+const Blockly = dynamic(import("../../../components/Blockly"), { ssr: false });
 
 
 const Tour = dynamic(import("../../../components/Tour"), { ssr: false, });
@@ -51,9 +51,9 @@ export const getStaticProps: GetStaticProps = async (context) => {
     });
 
     const sheetNames = readedData.SheetNames;
-    let index = 2;
+    let index = -1;
     sheetNames.forEach((s, i) => {
-        context.params.slug === s.toLowerCase() ? index = i : 0
+        context.params.slug === s.toLowerCase() ? index = i : -1
     })
 
     const wsname = readedData.SheetNames[index];
@@ -116,10 +116,10 @@ export default function PhaserGame(props) {
 
     function onChange(e) {
         setLang(parseInt(e.target.value))
+        if (dataParse.length == 0) return;
         const tut: any[] = dataParse.map(data => (data[e.target.value]))
         tut.shift();
         window['tutorials'] = tut
-        console.log(window['tutorials'])
         window['loadAgain']()
     }
 
@@ -190,7 +190,7 @@ export default function PhaserGame(props) {
                 className={styles.blocklycontainer}
             >
                 <div className="fill-blockly" id="blocklyDiv">
-                    <Blocky
+                    <Blockly
                         childFunc={childFunc}
                         slug={slug}
                         setPythonCode={setPythonCode}

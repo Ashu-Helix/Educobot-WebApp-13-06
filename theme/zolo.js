@@ -1,7 +1,14 @@
 import Blockly from "blockly";
 
-//Blockly.registry.unregister('theme', 'educo');
+'use strict';
 
+// goog.provide('Blockly.Themes.Zelos');
+
+// goog.require('Blockly.Theme');
+
+
+// Temporary holding object.
+Blockly.Themes.Zelos = {};
 const blockStyles =
 {
     "colour_blocks": {
@@ -62,21 +69,37 @@ const fontStyle = {
 }
 export default Blockly.Theme.defineTheme('educo',
     {
-        'base': Blockly.Themes.Classic,
+        // 'base': Blockly.Themes.Classic,
+        // 'blockStyles': blockStyles,
+        // 'categoryStyles': categoryStyles,
+        // 'componentStyles': {
+        //     'workspaceBackgroundColour': 'rgba(33,43,54,1)',
+        //     'toolboxBackgroundColour': 'rgba(22,28,36,1)',
+        //     'toolboxForegroundColour': 'rgba(145, 158, 171, 1)',
+        //     'flyoutBackgroundColour': 'rgba(0, 35, 102, 0.3)',
+        //     'flyoutForegroundColour': '#ccc',
+        //     'flyoutOpacity': 1, 'scrollbarColour': '#797979',
+        //     'insertionMarkerColour': '#fff',
+        //     'insertionMarkerOpacity': 0.3, 'scrollbarOpacity': 0.4,
+        //     'cursorColour': '#d0d0d0', 'blackBackground': '#333',
+
+        // },
+        // 'fontStyle': fontStyle,
+        // 'startHats': true
+        base: Blockly.Themes.Classic,
+        componentStyles: {
+            workspaceBackgroundColour: "rgba(33,43,54,1)",
+            toolboxBackgroundColour: "rgba(22,28,36,1)",
+            toolboxForegroundColour: "rgba(145, 158, 171, 1)",
+            flyoutBackgroundColour: "rgba(0, 35, 102, 0.3)",
+            flyoutForegroundColour: "#ccc",
+            flyoutOpacity: 1, scrollbarColour: "#797979",
+            insertionMarkerColour: "#fff",
+            insertionMarkerOpacity: .3,
+            scrollbarOpacity: .4,
+            cursorColour: "#d0d0d0",
+            blackBackground: "#333"
+        },
         'blockStyles': blockStyles,
         'categoryStyles': categoryStyles,
-        'componentStyles': {
-            'workspaceBackgroundColour': 'rgba(33,43,54,1)',
-            'toolboxBackgroundColour': 'rgba(22,28,36,1)',
-            'toolboxForegroundColour': 'rgba(145, 158, 171, 1)',
-            'flyoutBackgroundColour': 'rgba(0, 35, 102, 0.3)',
-            'flyoutForegroundColour': '#ccc',
-            'flyoutOpacity': 1, 'scrollbarColour': '#797979',
-            'insertionMarkerColour': '#fff',
-            'insertionMarkerOpacity': 0.3, 'scrollbarOpacity': 0.4,
-            'cursorColour': '#d0d0d0', 'blackBackground': '#333',
-
-        },
-        'fontStyle': fontStyle,
-        'startHats': true
     })

@@ -7,7 +7,7 @@ import { GetStaticPaths, GetStaticProps } from "next/types";
 import Canvas from "../../../components/Canvas";
 import styles from "../../../styles/Problems.module.css";
 import TestDialog from "../../../MyComponents/DialogBoxes/TutorialDialog";
-const Blocky = dynamic(import("../../../components/Blocky"), { ssr: false });
+const Blockly = dynamic(import("../../../components/Blockly"), { ssr: false });
 const Tour = dynamic(import("../../../components/Tour"), { ssr: false });
 import * as XLSX from "xlsx";
 import React from "react";
@@ -188,7 +188,7 @@ const Home: NextPage<any> = (props) => {
                 className={styles.blocklybunny}
             >
                 <div className="fill-bunny" id="blocklyDiv">
-                    <Blocky
+                    <Blockly
                         childFunc={childFunc}
                         slug={slug}
                         setPythonCode={setPythonCode}
