@@ -228,9 +228,29 @@
 }
 
 .description {
-    fontSize: 14px;
-    fontWeight: 300;
-    fontFamily: Public Sans;
+    font-size: 14px;
+    font-weight: 300;
+    font-family: Public Sans;
+}
+
+.select_language {
+    border: none;
+    outline: none;
+    scroll-behavior: smooth;
+    font-family: Public Sans;
+    font-weight: 600;
+    color: #919EAB;
+}
+
+.select_language:focus {
+    border: none;
+    outline: none;
+}
+
+.blocklybunny {
+    display: grid;
+    height: 100%;
+    grid-template-columns: repeat(2, 1fr);
 }
 
 @media screen and (max-width: 600px) {
@@ -279,5 +299,10 @@
 
     .output {
         display: none;
+    }
+
+    .blocklybunny {
+        display: flex;
+        flex-direction: column;
     }
 }

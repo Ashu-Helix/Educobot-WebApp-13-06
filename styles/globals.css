@@ -31,10 +31,15 @@ body {
     /* height: calc(100vh - 206px); */
     height: 100%;
     width: 100%;
+    padding: 0 0.5rem 0.5rem 0.5rem;
 }
 
 .fill-blockly {
     width: 50%;
+}
+
+.fill-bunny {
+    width: 100%;
 }
 
 /* .blocklyToolboxContents {
@@ -281,6 +286,11 @@ code {
 
 @media screen and (max-width: 600px) {
     .fill-blockly {
+        width: 100%;
+        height: calc(95vh - (9/16*95vw));
+    }
+
+    .fill-bunny {
         width: 100%;
         height: calc(95vh - (9/16*95vw));
     }

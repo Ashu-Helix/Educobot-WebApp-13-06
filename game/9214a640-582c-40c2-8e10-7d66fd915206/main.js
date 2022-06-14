@@ -9,7 +9,7 @@ let demoWorkspace = Blockly.getMainWorkspace();
 let noOfBlocks;
 
 let is_game_completed = false;
-let _gameThis = null;
+window["_gameThis"] = null;
 const baseURL = "../img";
 let is_mixed = false;
 const gameWidth = 1920;
@@ -101,9 +101,10 @@ let config = {
 // Initialize Phaser with config
 let game = new Phaser.Game(config);
 // Phaser preload function
+
 function preload() {
-    _gameThis = this;
-    _gameThis.load.setBaseURL(baseURL);
+    window["_gameThis"] = this;
+    window["_gameThis"].load.setBaseURL(baseURL);
     // Initialize MS phaser library - param -> phaser object, development-mode, depth-manager-start-index
     _oMSPhaserLib = new MSPhaserLib(this, true, 100);
     loadImages();
@@ -111,7 +112,7 @@ function preload() {
 
 // Phaser create function
 function create() {
-    let gameBg = _gameThis.add.image(
+    let gameBg = window["_gameThis"].add.image(
         gameWidth / 2,
         gameHeight / 2,
         GAME_CONSTANT.saladBG
@@ -135,41 +136,41 @@ async function init() {
 
 // Load images
 function loadImages() {
-    _gameThis.load.image(
+    window["_gameThis"].load.image(
         GAME_CONSTANT.saladBG,
         "images/" + GAME_CONSTANT.saladBG + ".png"
     );
 
     for (let i = 0; i < BANANA.length; i++) {
-        _gameThis.load.image(
+        window["_gameThis"].load.image(
             FRUITS.banana + i,
             "images/" + (FRUITS.banana + i) + ".png"
         );
     }
 
     for (let i = 0; i < BLACK_BERRY.length; i++) {
-        _gameThis.load.image(
+        window["_gameThis"].load.image(
             FRUITS.blackBerry + i,
             "images/" + (FRUITS.blackBerry + i) + ".png"
         );
     }
 
     for (let i = 0; i < BLUE_BERY.length; i++) {
-        _gameThis.load.image(
+        window["_gameThis"].load.image(
             FRUITS.blueBerry + i,
             "images/" + (FRUITS.blueBerry + i) + ".png"
         );
     }
 
     for (let i = 0; i < GRAPE.length; i++) {
-        _gameThis.load.image(
+        window["_gameThis"].load.image(
             FRUITS.grape + i,
             "images/" + (FRUITS.grape + i) + ".png"
         );
     }
 
     for (let i = 0; i < STRAWBERRY.length; i++) {
-        _gameThis.load.image(
+        window["_gameThis"].load.image(
             FRUITS.strawberry + i,
             "images/" + (FRUITS.strawberry + i) + ".png"
         );
@@ -181,12 +182,12 @@ function renderFruits() {
     bananaArr = [];
     for (let i = 0; i < BANANA.length; i++) {
         const element = BANANA[i];
-        bananaArr[i] = _gameThis.add.image(element.x, element.y, FRUITS.banana + i);
+        bananaArr[i] = window["_gameThis"].add.image(element.x, element.y, FRUITS.banana + i);
     }
     blackBerryArr = [];
     for (let i = 0; i < BLACK_BERRY.length; i++) {
         const element = BLACK_BERRY[i];
-        blackBerryArr[i] = _gameThis.add.image(
+        blackBerryArr[i] = window["_gameThis"].add.image(
             element.x,
             element.y,
             FRUITS.blackBerry + i
@@ -196,7 +197,7 @@ function renderFruits() {
     blueBerryArr = [];
     for (let i = 0; i < BLUE_BERY.length; i++) {
         const element = BLUE_BERY[i];
-        blueBerryArr[i] = _gameThis.add.image(
+        blueBerryArr[i] = window["_gameThis"].add.image(
             element.x,
             element.y,
             FRUITS.blueBerry + i
@@ -206,13 +207,13 @@ function renderFruits() {
     grapeArr = [];
     for (let i = 0; i < GRAPE.length; i++) {
         const element = GRAPE[i];
-        grapeArr[i] = _gameThis.add.image(element.x, element.y, FRUITS.grape + i);
+        grapeArr[i] = window["_gameThis"].add.image(element.x, element.y, FRUITS.grape + i);
     }
 
     strawberryArr = [];
     for (let i = 0; i < STRAWBERRY.length; i++) {
         const element = STRAWBERRY[i];
-        strawberryArr[i] = _gameThis.add.image(
+        strawberryArr[i] = window["_gameThis"].add.image(
             element.x,
             element.y,
             FRUITS.strawberry + i
@@ -408,7 +409,7 @@ function reset_output() {
     quantity_history = [];
     is_game_completed = false;
     arrAddedFruits = [];
-    _gameThis.scene.restart();
+    window["_gameThis"].scene.restart();
 }
 
 function completedFlag() {

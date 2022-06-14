@@ -207,7 +207,7 @@ export default function PhaserGame(props) {
                             onClick={handleClick}
                         >
                             <Image
-                                src="/assets/run_button_icon_landscape.png"
+                                src="/assets/green_flag.png"
                                 width="30"
                                 height="30"
                             />
@@ -218,7 +218,7 @@ export default function PhaserGame(props) {
                             data-tooltip="Reset Output"
                             onClick={reSet}
                         >
-                            <img src="/assets/reset_button_icon.png" width="30" height="30" />
+                            <img src="/assets/reset_icon.png" width="30" height="30" />
                         </button>
                         <button
                             className={`${styles.normal_button}  ${styles.sound}`}
@@ -228,7 +228,7 @@ export default function PhaserGame(props) {
                             onClick={() => setMute(!muteState)}
                         >
                             <img
-                                src={muteState ? "/assets/mute.png" : "/assets/unmute.png"}
+                                src={muteState ? "/assets/sound_icon.png" : "/assets/sound_unmute.png"}
                                 width="30"
                                 height="30"
                             />
