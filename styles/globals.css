@@ -287,13 +287,13 @@ code {
 
 
 @media screen and (max-width: 600px) {
-    .fill-blockly {
-        width: 100%;
+
+    .fill-height {
         height: calc(95vh - (9/16*95vw));
     }
 
-    .fill-bunny {
+    /* .fill-bunny {
         width: 100%;
         height: calc(95vh - (9/16*95vw));
-    }
+    } */
 }

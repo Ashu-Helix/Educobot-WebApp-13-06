@@ -62,7 +62,7 @@ function CustomTour({ slug }) {
         return document
             .getElementById("soundBtn")
             .removeEventListener("click", () => { });
-    }, []);
+    }, [slug]);
 
 
 
