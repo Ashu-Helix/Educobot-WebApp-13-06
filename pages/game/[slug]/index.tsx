@@ -178,7 +178,7 @@ export default function PhaserGame(props) {
             <div className={styles.lessonDetailsDiv} id="game_page">
                 <div className={styles.lessonTitle}>
                     <div className={styles.lesson_div} >
-                        <Button className={styles.backbtn}>
+                        <Button className={styles.backbtn} onClick={() => { router.back(); }}>
                             <Icon style={{ color: "#fff", fontSize: "18px", }} icon="eva:arrow-ios-back-fill" />
                         </Button>
                         <p style={{ fontSize: "18px", fontWeight: "700", fontFamily: "Public Sans" }}>{lessonDetails.lsName}</p>
@@ -208,7 +208,9 @@ export default function PhaserGame(props) {
                     />
                 </div>
 
-                <div className={styles.canvas} style={{ padding: "0 0.5rem" }}>
+                <div className={styles.canvas}
+                // style={{ padding: "0 0.6rem 0rem 0.3rem" }}
+                >
                     <div className={""}>
                         <button
                             className={`${styles.normal_button} `}
@@ -219,8 +221,8 @@ export default function PhaserGame(props) {
                         >
                             <Image
                                 src="/assets/green_flag.png"
-                                width="30"
-                                height="30"
+                                width="22.5"
+                                height="25.5"
                             />
                         </button>
                         <button
@@ -229,7 +231,7 @@ export default function PhaserGame(props) {
                             data-tooltip="Reset Output"
                             onClick={reSet}
                         >
-                            <img src="/assets/reset_icon.png" width="30" height="30" />
+                            <img src="/assets/reset_icon.png" width="22.5" height="25.5" />
                         </button>
                         <button
                             className={`${styles.normal_button}  ${styles.sound}`}
@@ -240,8 +242,8 @@ export default function PhaserGame(props) {
                         >
                             <img
                                 src={muteState ? "/assets/sound_icon.png" : "/assets/sound_unmute.png"}
-                                width="30"
-                                height="30"
+                                width="22.5"
+                                height="25.5"
                             />
                         </button>
                         <button
@@ -250,7 +252,7 @@ export default function PhaserGame(props) {
                             data-tooltip="Help"
                             onClick={() => typeof window !== "undefined" && childFunc.current && childFunc?.current(window["helpCode"])}
                         >
-                            <img src="/assets/help_button_icon.png" width="30" height="30" />
+                            <img src="/assets/help_button_icon.png" width="22.5" height="25.5" />
                         </button>
 
                     </div>

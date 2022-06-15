@@ -164,7 +164,7 @@ const Home: NextPage<any> = (props) => {
             <div className={styles.lessonDetailsDiv} id="game_page">
                 <div className={styles.lessonTitle}>
                     <div className={styles.lesson_div} >
-                        <Button className={styles.backbtn}>
+                        <Button className={styles.backbtn} onClick={() => { router.back(); }}>
                             <Icon style={{ color: "#fff", fontSize: "18px", }} icon="eva:arrow-ios-back-fill" />
                         </Button>
                         <p style={{ fontSize: "18px", fontWeight: "700", fontFamily: "Public Sans" }}>{lessonDetails.lsName}</p>
@@ -197,7 +197,7 @@ const Home: NextPage<any> = (props) => {
                 <div
                     // id="circle"
                     // className={styles.canvas}
-                    style={{ padding: "0 1rem" }}
+                    style={{ padding: "0 0.6rem 0rem 0.3rem" }}
                 >
                     <div className={""}>
                         <button
@@ -209,8 +209,8 @@ const Home: NextPage<any> = (props) => {
                         >
                             <Image
                                 src="/assets/green_flag.png"
-                                width="30"
-                                height="30"
+                                width="22.5"
+                                height="25.5"
                             />
                         </button>
                         <button
@@ -219,7 +219,7 @@ const Home: NextPage<any> = (props) => {
                             data-tooltip="Reset Output"
                             onClick={() => setReset(!reset)}
                         >
-                            <img src="/assets/reset_icon.png" width="30" height="30" />
+                            <img src="/assets/reset_icon.png" width="22.5" height="25.5" />
                         </button>
                         <button
                             className={`${styles.normal_button}  ${styles.sound}`}
@@ -234,8 +234,8 @@ const Home: NextPage<any> = (props) => {
                         >
                             <img
                                 src={muteState ? "/assets/sound_icon.png" : "/assets/sound_unmute.png"}
-                                width="30"
-                                height="30"
+                                width="22.5"
+                                height="25.5"
                             />
                         </button>
                     </div>
