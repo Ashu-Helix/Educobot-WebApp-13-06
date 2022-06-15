@@ -67,7 +67,7 @@ function CustomTour({ slug }) {
 
 
     return (
-        <div>
+        <>
             {/* <script src="../shepherd/shepherd.min.js "></script > */}
             {/* <ShepherdTour steps={[]} tourOptions={tourOptions}>
                 <TourMethods>
@@ -75,7 +75,7 @@ function CustomTour({ slug }) {
                 </TourMethods>
             </ShepherdTour> */}
             {/* <Start /> */}
-        </div>
+        </>
     );
 }
 
