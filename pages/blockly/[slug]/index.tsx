@@ -163,19 +163,15 @@ const Home: NextPage<any> = (props) => {
         <>
             <div className={styles.lessonDetailsDiv} id="game_page">
                 <div className={styles.lessonTitle}>
-                    <Button
-                        style={{
-                            color: "#000",
-                            minWidth: "50px",
-                            padding: "6px 0px",
-                        }}
-                    >
-                        <Icon style={{ color: "#fff", fontSize: "18px", }} icon="eva:arrow-ios-back-fill" />
-                    </Button>
-                    <p style={{ fontSize: "18px", fontWeight: "700", fontFamily: "Public Sans" }}>{lessonDetails.lsName}</p>
-                    <p style={{ fontSize: "14px", fontWeight: "300", fontFamily: "Public Sans" }}>{lessonDetails.lsDesc}</p>
+                    <div className={styles.lesson_div} >
+                        <Button className={styles.backbtn}>
+                            <Icon style={{ color: "#fff", fontSize: "18px", }} icon="eva:arrow-ios-back-fill" />
+                        </Button>
+                        <p style={{ fontSize: "18px", fontWeight: "700", fontFamily: "Public Sans" }}>{lessonDetails.lsName}</p>
+                    </div>
+                    <p className={styles.description} >{lessonDetails.lsDesc}</p>
                 </div>
-                <div className="select_languageDiv">
+                <div className={styles.select_languageDiv}>
                     <select className={`${styles.select_language}`} value={lang} onChange={onChange}>
                         {
                             Object.keys(language).map(key => <option key={key} value={`${language[key]}`}>{key}</option>)
@@ -184,13 +180,14 @@ const Home: NextPage<any> = (props) => {
                 </div>
             </div>
             <div
-                style={{
-                    display: "grid",
-                    height: "100%",
-                    gridTemplateColumns: "repeat(2, 1fr)",
-                }}
+                // style={{
+                //     display: "grid",
+                //     height: "100%",
+                //     gridTemplateColumns: "repeat(2, 1fr)",
+                // }}
+                className={styles.blocklybunny}
             >
-                <div id="blocklyDiv">
+                <div className="fill-bunny" id="blocklyDiv">
                     <Blockly
                         childFunc={childFunc}
                         slug={slug}
@@ -211,7 +208,7 @@ const Home: NextPage<any> = (props) => {
                             onClick={handleClick}
                         >
                             <Image
-                                src="/assets/run_button_icon_landscape.png"
+                                src="/assets/green_flag.png"
                                 width="30"
                                 height="30"
                             />
@@ -222,7 +219,7 @@ const Home: NextPage<any> = (props) => {
                             data-tooltip="Reset Output"
                             onClick={() => setReset(!reset)}
                         >
-                            <img src="/assets/reset_button_icon.png" width="30" height="30" />
+                            <img src="/assets/reset_icon.png" width="30" height="30" />
                         </button>
                         <button
                             className={`${styles.normal_button}  ${styles.sound}`}
@@ -236,7 +233,7 @@ const Home: NextPage<any> = (props) => {
                             }}
                         >
                             <img
-                                src={muteState ? "/assets/mute.png" : "/assets/unmute.png"}
+                                src={muteState ? "/assets/sound_icon.png" : "/assets/sound_unmute.png"}
                                 width="30"
                                 height="30"
                             />
