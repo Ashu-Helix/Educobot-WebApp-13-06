@@ -16,7 +16,10 @@ import {
     FormControlLabel,
     Snackbar,
     Alert,
+    IconButton
 } from "@mui/material";
+
+import CloseIcon from '@mui/icons-material/Close';
 
 // import SuccessDialog from "./successDialog";
 import MotivationIllustration from "../assets/illustration_motivation";
@@ -43,20 +46,55 @@ const StyledRating = styled(Rating)({
     //   },
 });
 
+export interface DialogTitleProps {
+    id: string;
+    children?: React.ReactNode;
+    onClose: () => void;
+    sx: any;
+}
+
+const BootstrapDialogTitle = (props: DialogTitleProps) => {
+    const { children, onClose, ...sx } = props;
+
+    return (
+        <DialogTitle {...sx} >
+            {children}
+            {onClose ? (
+                <IconButton
+                    aria-label="close"
+                    onClick={onClose}
+                    sx={{
+                        position: 'absolute',
+                        right: 8,
+                        top: 8,
+                        color: (theme) => theme.palette.grey[500],
+                    }}
+                >
+                    <CloseIcon />
+                </IconButton>
+            ) : null}
+        </DialogTitle>
+    );
+};
+
 type Props = {
     // getCoins: (value) => void
     // slug: any;
+    // lessonDetails: any;
     testDialogInfo: {
         dialogStatus: String;
 
     };
 };
-export default function TestDialog({
-    // getCoins, slug, 
-    testDialogInfo }: Props) {
+export default function TestDialog(
+    {
+        // getCoins, lessonDetails, slug,
+        testDialogInfo }: Props
+) {
     const [widthState, setWidthState] = useState(0);
     const [heightState, setHeightState] = useState(0);
     const [showConfetti, setShowConfetti] = useState(false);
+    const [recycleConfetti, setRecycleConfetti] = useState(false);
     //const { dialogStatus, questionArray } = testDialogInfo;
     const [open, setOpen] = useState(null);
     const [questionIndex, setQuestionIndex] = useState(0);
@@ -114,7 +152,6 @@ export default function TestDialog({
         button_2_text: `x=7`,
     },];
 
-
     // console.log(questionArray)
     const previousQuestion = () => {
         if (questionIndex !== 0) {
@@ -143,12 +180,12 @@ export default function TestDialog({
     const evaluateTutorial = () => {
         let obtainedMarks = 0;
         userQuestionPaper.forEach((obj, index) => {
-            console.log(
-                "From TestDialog",
-                obj.answer + " " + questionArray[index].correct_answer
-            );
+            // console.log(
+            //   "From TestDialog",
+            //   obj.answer + " " + questionArray[index].correct_answer
+            // );
             if (String(obj.answer) === String(questionArray[index].correct_answer)) {
-                console.log("Correct Answer");
+                // console.log("Correct Answer");
                 obtainedMarks = obtainedMarks + 1;
             }
         });
@@ -218,6 +255,11 @@ export default function TestDialog({
                 },
             ]);
         }
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+        setRecycleConfetti(false);
     };
 
     // const closeError = (
@@ -460,6 +502,7 @@ export default function TestDialog({
                                         evaluateTutorial();
                                         setOpen("second");
                                         setShowConfetti(true);
+                                        setRecycleConfetti(true);
                                     }}
                                     disabled={disabledBtn}
                                     autoFocus
@@ -484,18 +527,31 @@ export default function TestDialog({
                     }}
                 // onClose={handleClose}
                 >
-                    <DialogTitle
+                    <BootstrapDialogTitle id="customized-dialog-title"
                         sx={{
+                            m: 0, p: 2,
                             textAlign: "center",
                             fontSize: { md: "20px", xs: "18px" },
                             color: "#fff",
                             padding: "2rem",
                             fontWeight: 600,
+                            fontFamily: "Public Sans"
                         }}
-                        fontFamily={"Public Sans"}
-                    >
+                        onClose={handleClose}>
                         {"Code written successfully"}
-                    </DialogTitle>
+                    </BootstrapDialogTitle>
+                    {/* <DialogTitle
+            sx={{
+              textAlign: "center",
+              fontSize: { md: "20px", xs: "18px" },
+              color: "#fff",
+              padding: "2rem",
+              fontWeight: 600,
+            }}
+            fontFamily={"Public Sans"}
+          >
+            {"Code written successfully"}
+          </DialogTitle> */}
                     <DialogContent
                         sx={{
                             padding: "0",
@@ -557,9 +613,16 @@ export default function TestDialog({
                             }}
                             fontFamily={"Public Sans"}
                         >
+                            {/* {
+                                lessonDetails.lsSkillTag3 === "" ?
+                                    `With this lesson, you have learned the basics of ${lessonDetails.lsSkillTag2}.`
+                                    :
+                                    `With this lesson, you have learned the basics of ${lessonDetails.lsSkillTag2} and ${lessonDetails.lsSkillTag3}.`
+                            } */}
                             {
-                                "With this lesson, you have learned the basics of <tag1>, <tag2> and <tag3>."
+                                `With this lesson, you have learned the basics of <tag2> and <tag3>. `
                             }
+
                         </Typography>
                     </DialogContent>
                     <DialogActions
@@ -579,7 +642,7 @@ export default function TestDialog({
                                 fontFamily: "Public Sans"
                             }}
                             onClick={() => {
-                                router.push("http://localhost:3001/dashboard/app/");
+                                router.push(`${process.env.Dashboard_URL}`);
                             }}
                             autoFocus
                         >
@@ -592,6 +655,7 @@ export default function TestDialog({
                 <Confetti
                     style={{ zIndex: 999 }}
                     run={showConfetti}
+                    recycle={recycleConfetti}
                     width={widthState}
                     height={heightState}
                     numberOfPieces={200}

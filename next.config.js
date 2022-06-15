@@ -64,6 +64,8 @@ const nextConfig = {
 
         SERVER_URL: "https://app.educobot.com",
         SERVER_URL1: "http://localhost:7001",
+        Dashboard_URL: "http://localhost:3000/dashboard/app/",
+        InternalServer: "http://localhost:3003",
     },
     // URL: 'http://192.168.1.33:3000/api',
 
