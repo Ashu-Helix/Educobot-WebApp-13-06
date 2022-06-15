@@ -538,17 +538,17 @@ function setAudioPreference() {
 }
 
 setInterval(function () {
-    $(".shepherd-content").draggable({
-        containment: "body"
-    })
-    $(".shepherd-text").resizable();
+
     try {
+        $(".shepherd-content").draggable({
+            containment: "body"
+        })
+        $(".shepherd-text").resizable();
         if (tour.getCurrentStep().options.eval()) {
             let btns = document.querySelectorAll('.shepherd-button');
             btns[btns.length - 1].click();
         }
     } catch { }
-    // }
 }, 100);
 window.addEventListener('resize', () => { for (let i = 0; i < tour.steps.length; i++) { try { tour.steps[i].options.attachTo.on = isPortrait() ? adapt_orientation_array[i][0] : adapt_orientation_array[i][1]; } catch (error) { true; } } });
 
