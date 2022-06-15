@@ -221,7 +221,7 @@ export default function Scripts(props) {
                             data-position="bottom"
                             data-tooltip="Reset Output"
                             // onClick={() => setReset(!reset)}
-                            onClick={() => { user_code.splice(0, user_code.length); htmlmaker(code, user_code); }}
+                            onClick={() => { user_code.splice(0, user_code.length); htmlmaker(code, user_code); setUser_code(user_code.splice(0, user_code.length)); }}
                         >
                             <span className={`${styles.tooltiptext}`}>Run Scritp</span>
                             <img src="/assets/reset_button_icon.png" width="30" height="30" />

@@ -31,7 +31,8 @@ body {
     /* height: calc(100vh - 206px); */
     height: 100%;
     width: 100%;
-    padding: 0 0.5rem 0.7rem 0.5rem;
+    /* padding: 0 0.5rem 0.7rem 0.5rem; */
+    padding: 0 0.3rem 0.7rem 0.6rem;
 }
 
 .fill-blockly {
@@ -255,4 +256,9 @@ code {
         width: 100%;
         height: calc(95vh - (9/16*95vw));
     } */
+    /* } */
+
+    .fill-height {
+        padding: 0 0.5rem 0.7rem 0.5rem;
+    }
 }

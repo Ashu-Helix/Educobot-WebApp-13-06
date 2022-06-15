@@ -5,6 +5,7 @@ import styles from "../../../styles/Problems.module.css";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 import KeyBoardContainer from "../../../components/KeyBoardContainer";
+import ScriptDialog from "../../../MyComponents/DialogBoxes/ScriptMcqDialog";
 const PythonCode = dynamic(import("../../../components/pythonCode"), {
     ssr: false,
 });
@@ -29,7 +30,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 export default function Scripts(props) {
     const { id, code, guide, type } = props;
     //const [script, setScript] = useState(``);
-    let script = ''
+    // let script = ''
+    const [script, setScript] = useState("")
+    const [user_code, setUser_code] = useState([])
+
     const [reset, setReset] = useState(false);
     const [keyboardState, setkeyboardState] = useState(false);
     // const [isCompleted, setisCompleted] = useState(false)
@@ -48,17 +52,23 @@ export default function Scripts(props) {
         }
         document.getElementsByClassName("CodeMirror-cursors")[0]?.remove();
     };
-    const user_code = [];
-    const setScript1 = (input) => {
-        console.log(input)
-        if (input === "{bksp}")
-            user_code.pop()
-        else {
-            user_code.push(input)
-            script = input
+    // const user_code = [];
+    // const setScript1 = (input) => {
+    //     console.log(input)
+    //     if (input === "{bksp}")
+    //         user_code.pop()
+    //     else {
+    //         user_code.push(input)
+    //         script = input
+    //     }
+    //     htmlmaker(code, user_code)
+    // }
+    useEffect(() => {
+        if (window !== undefined && document.getElementsByClassName(" CodeMirror-line ")[0] !== undefined) {
+            htmlmaker(code, user_code)
+            setScript(user_code.join(""))
         }
-        htmlmaker(code, user_code)
-    }
+    }, [user_code])
 
     function htmlmaker(code, user_code) {
         const tutorial = require("../../../tutorial/tutorial.js");
@@ -118,13 +128,18 @@ export default function Scripts(props) {
             const { runIt } = script;
             const py = user_code.join('');
             runIt(py, code)
-            console.log(script.SuccessfulOutput);
+            // console.log(script.SuccessfulOutput);
+
+            let interval = setTimeout(() => {
+                console.log(script.completedFlag());
+                if (script.completedFlag()) {
+                    document.getElementById("openTest").click();
+                }
+                clearInterval(interval);
+            }, 5000);
         }
     };
-    function runCodeForce() {
-        code.split("").forEach(w => user_code.push(w));
-        htmlmaker(code, user_code);
-    }
+
     const help = () => {
         const tutorial = require("../../../tutorial/tutorial.js");
         const { helpCode } = tutorial;
@@ -132,33 +147,66 @@ export default function Scripts(props) {
     };
 
     const handleKeyDown = (_, e) => {
+
         e.preventDefault();
-        //console.log(user_code);
         if (user_code.length < code.length) {
             if (
                 "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890-=!@#$%^&*()_+[]{}\\|'\";:.>,</?`~".includes(
                     e.key
                 )
-            )
-                user_code.push(e.key);
+            ) {
+                // user_code.push(e.key);
+                setUser_code(c => [...c, e.key])
+            }
 
             if (e.key === " ") {
-                user_code.push(" ");
+                //user_code.push(" ");
+                setUser_code(c => [...c, e.key])
             }
             if (e.key === "Tab") {
-                user_code.push(" ");
-                user_code.push(" ");
-                user_code.push(" ");
-                user_code.push(" ");
+                // user_code.push(" ");
+                // user_code.push(" ");
+                // user_code.push(" ");
+                // user_code.push(" ");
+                setUser_code(c => [...c, " ", " ", " ", " "])
             }
             if (e.key === "Enter") {
-                user_code.push("\n");
+                // user_code.push("\n");
+                setUser_code(c => [...c, "\n"])
             }
-        }
-        if (e.key === "Backspace") user_code.pop();
 
-        htmlmaker(code, user_code);
+        }
+        if (e.key === "Backspace") {
+            // user_code.pop();
+            setUser_code(user_code => user_code.slice(0, -1))
+
+        }
+
+        //htmlmaker(code, user_code);
     };
+
+    function runCodeForce() {
+        // code.split("").forEach(w => user_code.push(w));
+        // htmlmaker(code, user_code);
+
+        user_code.splice(0, user_code.length);
+
+        code.split("").forEach(w => setUser_code(c => [...c, w]));
+    }
+
+    const updateUserCodeFromKeyboard = (input) => {
+
+        if (input === "{bksp}")
+            setUser_code(user_code => user_code.slice(0, -1))
+        ///user_code.pop()
+        else {
+            //user_code.push(input)
+            //script = input
+            setUser_code([...input.split("")])
+            //setScript(input)
+        }
+        //htmlmaker(code, user_code)
+    }
 
     return (
         <>
@@ -191,7 +239,8 @@ export default function Scripts(props) {
                             className={`${styles.neumorphic_button}  ${styles.tooltip}`}
                             data-position="bottom"
                             data-tooltip="Reset Output"
-                            onClick={() => setReset(!reset)}
+                            // onClick={() => setReset(!reset)}
+                            onClick={() => { user_code.splice(0, user_code.length); htmlmaker(code, user_code); setUser_code(user_code.splice(0, user_code.length)); }}
                         >
                             <span className={`${styles.tooltiptext}`}>Run Scritp</span>
                             <img src="/assets/reset_button_icon.png" width="30" height="30" />
@@ -232,10 +281,15 @@ export default function Scripts(props) {
                     </div>
                     <div id="circle" className="center" style={{ aspectRatio: "2/1" }} />
                     <div id="output" className={styles.output_for_script} style={{ height: '37%' }} />
+                    <ScriptDialog
+                        testDialogInfo={{
+                            dialogStatus: "test",
+                        }}
+                    />
                     <dialog id="modal" />
                 </div>
                 {keyboardState && (
-                    <KeyBoardContainer script={script} setScript={(value) => setScript1(value)} />
+                    <KeyBoardContainer script={script} setScript={(value) => updateUserCodeFromKeyboard(value)} />
                 )}
             </div>
         </>
