@@ -251,7 +251,7 @@ export default function TestDialog({ getCoins, testDialogInfo, lessonDetails, sl
               textAlign: "center",
               fontSize: { md: "20px", xs: "18px" },
               color: "#fff",
-              padding: "2rem",
+              padding: { md: "2rem", xs: "2rem 0" },
               fontWeight: 600,
             }}
             fontFamily={"Public Sans"}
@@ -276,7 +276,7 @@ export default function TestDialog({ getCoins, testDialogInfo, lessonDetails, sl
               variant="subtitle1"
               sx={{
                 textAlign: "center",
-                padding: "0rem 1rem",
+                padding: { md: "0rem 1rem", xs: "0rem" },
                 fontWeight: 400,
                 fontSize: "16px",
                 color: "#fff",
@@ -481,7 +481,7 @@ export default function TestDialog({ getCoins, testDialogInfo, lessonDetails, sl
               textAlign: "center",
               fontSize: { md: "20px", xs: "18px" },
               color: "#fff",
-              padding: "2rem",
+              padding: { md: "2rem", xs: "2rem 0" },
               fontWeight: 600,
               fontFamily: "Public Sans"
             }}
@@ -554,7 +554,7 @@ export default function TestDialog({ getCoins, testDialogInfo, lessonDetails, sl
               variant="subtitle1"
               sx={{
                 textAlign: "center",
-                padding: "0rem 1rem",
+                padding: { md: "0rem 1rem", xs: "0" },
                 fontWeight: 400,
                 fontSize: "16px",
                 color: "#fff",

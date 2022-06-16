@@ -221,13 +221,24 @@
 .shepherd-modal-overlay-container.shepherd-modal-is-visible path {
     pointer-events: all
 }
-.educobot-shepherd{
- height: 0;
-    
+
+.educobot-shepherd {
+    height: 0;
+
 }
-.shepherd-content{
+
+.shepherd-content {
     box-shadow: 0 1px 4px rgb(0 0 0 / 20%);
 }
-.shepherd-arrow{
+
+.shepherd-arrow {
     display: none;
+}
+
+
+
+@media screen and (max-width: 600px) {
+    .shepherd-text {
+        text-align: center;
+    }
 }
