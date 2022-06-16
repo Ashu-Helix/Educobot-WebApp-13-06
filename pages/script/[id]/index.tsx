@@ -14,6 +14,7 @@ import { GetServerSideProps } from "next/types";
 export const getServerSideProps: GetServerSideProps = async (context) => {
 
     const response1 = await fetch(`https://app.educobot.com/liveLessons/python/${context.params.id}/code.json`);
+    // const response1 = await fetch(`http://localhost:7001/scripts/${context.params.id}/code.json`);
     if (response1.status === 404) {
         return {
             notFound: true,
@@ -33,6 +34,7 @@ export default function Scripts(props) {
     const [script, setScript] = useState("")
     const [user_code, setUser_code] = useState([])
     const [keyboardState, setkeyboardState] = useState(false);
+    const [testTaken, setTestTaken] = useState(false);
 
 
     const onLoad = () => {
@@ -114,13 +116,19 @@ export default function Scripts(props) {
             console.log(user_code);
             const py = user_code.join('');
             runIt(py, code)
-            let interval = setTimeout(() => {
-                console.log(script.completedFlag());
-                if (script.completedFlag()) {
-                    document.getElementById("openTest").click();
-                }
-                clearInterval(interval);
-            }, 5000);
+            const runbtn = document.getElementById('runbtn') as HTMLButtonElement | null;
+            runbtn.disabled = true;
+            if (!testTaken) {
+                let interval = setTimeout(() => {
+                    console.log(script.completedFlag());
+                    if (script.completedFlag()) {
+                        runbtn.disabled = false;
+                        setTestTaken(true);
+                        document.getElementById("openTest").click();
+                    }
+                    clearInterval(interval);
+                }, 5000);
+            }
         }
     };
 
