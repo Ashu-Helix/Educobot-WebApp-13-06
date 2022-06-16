@@ -211,9 +211,8 @@ export default function Scripts(props) {
                         >
                             <span className={`${styles.tooltiptext}`}>Run Scritp</span>
                             <Image
-                                src="/assets/run_button_icon_landscape.png"
-                                width="30"
-                                height="30"
+                                src="/assets/green_flag.png"
+                                width="22.5" height="25.5"
                             />
                         </button>
                         <button
@@ -224,7 +223,7 @@ export default function Scripts(props) {
                             onClick={() => { user_code.splice(0, user_code.length); htmlmaker(code, user_code); setUser_code(user_code.splice(0, user_code.length)); }}
                         >
                             <span className={`${styles.tooltiptext}`}>Run Scritp</span>
-                            <img src="/assets/reset_button_icon.png" width="30" height="30" />
+                            <Image src="/assets/reset_icon.png" width="22.5" height="25.5" />
                         </button>
                         <button
                             className={`${styles.neumorphic_button}  ${styles.tooltip}`}
@@ -233,7 +232,7 @@ export default function Scripts(props) {
                             onClick={help}
                         >
                             <span className={`${styles.tooltiptext}`}>Help</span>
-                            <img src="/assets/help_button_icon.png" width="30" height="30" />
+                            <Image src="/assets/help_icon.png" width="22.5" height="25.5" />
                         </button>
                         <button
                             id="keyboardbutton"
@@ -243,7 +242,7 @@ export default function Scripts(props) {
                             onClick={() => setkeyboardState(!keyboardState)}
                         >
                             <span className={`${styles.tooltiptext}`}>Open Keyboard</span>
-                            <img src="/assets/Keyboard.png" width="30" height="30" />
+                            <Image src="/assets/keyboard_icon.png" width="26.5" height="25.5" />
                         </button>
                         <button
                             id="autofill"
@@ -253,10 +252,9 @@ export default function Scripts(props) {
                             onClick={runCodeForce}
                         >
                             <span className={`${styles.tooltiptext}`}>Reset Scritp</span>
-                            <img
+                            <Image
                                 src="/assets/Auto_fill_button_icon.png"
-                                width="30"
-                                height="30"
+                                width="25.5" height="25.5"
                             />
                         </button>
                     </div>

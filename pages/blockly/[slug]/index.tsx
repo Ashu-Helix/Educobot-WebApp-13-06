@@ -255,11 +255,17 @@ const Home: NextPage<any> = (props) => {
                         className={styles.output}
                         style={{ minHeight: "9vh" }}
                     >
+
                         {imt.map(res => {
-                            return (<><b style={{ color: "#fff", display: "contents" }}>
-                                import {res}
-                            </b>
-                                <br /></>)
+                            return (<div key={res} style={{
+                                color: "#fff",
+                                display: "contents",
+                                padding: 0, margin: 0
+                            }}>
+                                <b style={{ display: "contents" }}>
+                                    {res}
+                                </b>
+                                <br /></div>)
                         })}
                         {PythonCode}
                     </div>

@@ -2,10 +2,13 @@
     /* background: #3288e6; */
     background: rgba(255, 255, 255, .4);
     border: 0;
+    font-weight: 700;
     border-radius: 3px;
     color: black;
     cursor: pointer;
     margin-right: .5rem;
+    border: 1px solid rgba(145, 158, 171, 0.24);
+    border-radius: 8px;
     padding: .5rem 1.5rem;
     transition: all .5s ease
 }
@@ -18,8 +21,12 @@
 .shepherd-button.shepherd-button-secondary {
     /* background: #f1f2f3;
     color: rgba(0, 0, 0, .75) */
-    background: rgba(0, 0, 0, .75);
-    color: darkgray;
+    /* background: rgba(0, 0, 0, .75);
+    color: darkgray; */
+
+    background: transparent;
+    color: rgba(145, 158, 171, 0.8);
+
 }
 
 .shepherd-button.shepherd-button-secondary:not(:disabled):hover {
@@ -66,7 +73,7 @@
 
 .shepherd-has-title .shepherd-content .shepherd-cancel-icon {
     /* color: hsla(0, 0%, 50.2%, .75) */
-    color: rgb(110, 110, 110);
+    color: rgb(3, 3, 3);
     /* color: rgba(0, 0, 0, 0); */
 }
 
@@ -76,7 +83,8 @@
 
 .shepherd-title {
     /* color: rgba(0, 0, 0, .75); */
-    color: #d6d9db;
+    font-weight: 600;
+    color: black;
     display: flex;
     font-size: 1rem;
     font-weight: 400;
@@ -96,15 +104,16 @@
 }
 
 .shepherd-has-title .shepherd-content .shepherd-header {
-    /* background: rgba(255, 255, 255, 0.75); */
-    background: rgba(0, 0, 0, .75);
+    background: rgba(255, 255, 255, 0.75);
+    /* background: rgba(0, 0, 0, .75); */
     padding-left: 7px;
     /* padding: 1em */
 }
 
 .shepherd-text {
-    color: rgba(0, 0, 0, 0);
-    font-size: 1rem;
+    /* color: rgba(0, 0, 0, 0); */
+    color: black;
+    /* font-size: 1rem; */
     line-height: 1.3em;
     /* padding: .75em */
 }
@@ -221,13 +230,25 @@
 .shepherd-modal-overlay-container.shepherd-modal-is-visible path {
     pointer-events: all
 }
-.educobot-shepherd{
- height: 0;
-    
+
+.educobot-shepherd {
+    height: 0;
+
 }
-.shepherd-content{
+
+.shepherd-content {
     box-shadow: 0 1px 4px rgb(0 0 0 / 20%);
+    background: rgba(255, 255, 255, 1);
 }
-.shepherd-arrow{
+
+.shepherd-arrow {
     display: none;
+}
+
+
+
+@media screen and (max-width: 600px) {
+    .shepherd-text {
+        text-align: center;
+    }
 }

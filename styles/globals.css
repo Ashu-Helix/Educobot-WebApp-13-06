@@ -261,4 +261,9 @@ code {
     .fill-height {
         padding: 0 0.5rem 0.7rem 0.5rem;
     }
+
+    .tutorial_image {
+        width: 60vw !important
+    }
+
 }

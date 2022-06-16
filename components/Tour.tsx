@@ -1,4 +1,4 @@
-import "shepherd.js/dist/css/shepherd.css";
+//import "shepherd.js/dist/css/shepherd.css";
 import React, { CSSProperties, useEffect } from "react";
 import { new_script } from "./helpers/scriptLoader"
 import $ from 'jquery';

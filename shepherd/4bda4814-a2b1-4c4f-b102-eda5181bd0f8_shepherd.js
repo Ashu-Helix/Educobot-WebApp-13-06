@@ -520,7 +520,8 @@ function setAudioPreference() {
     }
 }
 window.setAudioPreference = setAudioPreference
-setInterval(function () {
+const tt = setInterval(function () {
+    //clearInterval(tt)
     $(".shepherd-content").draggable({
         containment: "body"
     })

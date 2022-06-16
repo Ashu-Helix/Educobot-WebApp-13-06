@@ -268,8 +268,7 @@ export default function PhaserGame(props) {
                                 display: "contents",
                                 padding: 0, margin: 0
                             }}>
-                                <b style={{ display: "contents" }}
-                                >
+                                <b style={{ display: "contents" }}>
                                     {res}
                                 </b>
                                 <br /></div>)
