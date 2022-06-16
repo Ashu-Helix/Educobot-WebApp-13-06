@@ -85,7 +85,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
 
     return {
-        props: { dataParse, slug: context.params.slug, lessonDetails: lessonDetails.data.DATA[0] },
+        props: { dataParse, slug: context.params.slug, lessonDetails: lessonDetails.data.DATA[0] ?? null },
     };
 };
 const language = { English: 1, Hindi: 2, Marathi: 3, Spanish: 4, Arabic: 5, Swaheli: 6 }
@@ -233,19 +233,7 @@ export default function PhaserGame(props) {
                         >
                             <img src="/assets/reset_icon.png" width="22.5" height="25.5" />
                         </button>
-                        <button
-                            className={`${styles.normal_button}  ${styles.sound}`}
-                            data-position="bottom"
-                            data-tooltip="Open Keyboard"
-                            id="soundBtn"
-                            onClick={() => setMute(!muteState)}
-                        >
-                            <img
-                                src={muteState ? "/assets/sound_icon.png" : "/assets/sound_unmute.png"}
-                                width="22.5"
-                                height="25.5"
-                            />
-                        </button>
+
                         <button
                             className={`${styles.normal_button}`}
                             data-position="bottom"

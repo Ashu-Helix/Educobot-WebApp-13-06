@@ -221,11 +221,11 @@ const Home: NextPage<any> = (props) => {
                         >
                             <img src="/assets/reset_icon.png" width="22.5" height="25.5" />
                         </button>
-                        <button
+                        {/* <button
                             className={`${styles.normal_button}  ${styles.sound}`}
                             data-position="bottom"
                             data-tooltip="Open Keyboard"
-                            id="soundBtn"
+                            //id="soundBtn"
                             onClick={() => {
                                 if (typeof window !== 'undefined' && window['setAudioPreference'])
                                     window['setAudioPreference']()
@@ -237,7 +237,7 @@ const Home: NextPage<any> = (props) => {
                                 width="22.5"
                                 height="25.5"
                             />
-                        </button>
+                        </button> */}
                     </div>
                     {
                         <Canvas

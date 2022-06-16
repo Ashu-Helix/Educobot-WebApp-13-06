@@ -92,7 +92,7 @@ let tour = new Shepherd.Tour({
 function loadAgain() {
 
     const tut = window['tutorials'].map(
-        (data) => `<p><span style="color: rgb(239, 239, 239); font-family: Verdana, Geneva, sans-serif; font-size: 20px;">
+        (data) => `<p><span style="">
             ${data}
             </span></p>`
     );
@@ -517,23 +517,19 @@ function check_toolbox_selection(id) {
     }
 }
 
+document.getElementById('soundBtn').addEventListener('click', setAudioPreference)
 //NGS Sound Enhancement
 function setAudioPreference() {
-    var elementId;
+
     if (playAudio) {
         kill_audio();
     }
     if (!(playAudio)) {
         playAudio = true;
-        elementId = document.getElementById('soundButton');
-        elementId = document.getElementById('soundButton2');
-        document.getElementById('soundButton').src = "assets/unmute.png";
-        document.getElementById('soundButton2').src = "assets/unmute.png";
+        document.getElementById('soundImg').src = "../assets/sound_icon.png";
     } else {
         playAudio = false;
-        elementId = document.getElementById('soundButton');
-        document.getElementById('soundButton').src = "assets/mute.png";
-        document.getElementById('soundButton2').src = "assets/mute.png";
+        document.getElementById('soundImg').src = "../assets/sound_unmute.png";
     }
 }
 

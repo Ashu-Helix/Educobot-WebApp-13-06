@@ -13,6 +13,13 @@
     transition: all .5s ease
 }
 
+#soundBtn {
+    border: none;
+    cursor: pointer;
+    background-color: transparent;
+
+}
+
 .shepherd-button:not(:disabled):hover {
     background: rgba(0, 0, 0, .75);
     color: darkgray
@@ -83,7 +90,7 @@
 
 .shepherd-title {
     /* color: rgba(0, 0, 0, .75); */
-    font-weight: 600;
+    font-weight: 600 !important;
     color: black;
     display: flex;
     font-size: 1rem;
@@ -127,7 +134,7 @@
 }
 
 .shepherd-content {
-    border-radius: 5px;
+    border-radius: 16px;
     outline: none;
     padding: 0;
     color: rgba(0, 0, 0, 100);
@@ -239,6 +246,9 @@
 .shepherd-content {
     box-shadow: 0 1px 4px rgb(0 0 0 / 20%);
     background: rgba(255, 255, 255, 1);
+    padding: 0.5rem;
+    font-family: 'Public Sans';
+
 }
 
 .shepherd-arrow {

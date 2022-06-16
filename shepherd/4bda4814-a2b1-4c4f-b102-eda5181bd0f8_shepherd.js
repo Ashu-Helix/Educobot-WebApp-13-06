@@ -92,11 +92,11 @@ let tour = new Shepherd.Tour({
 });
 function loadAgain() {
     lang = window["language"]
-    console.log(lang);
+
     const tut = window['tutorials'].map(
-        (data) => `<p><span style="color: rgb(239, 239, 239); font-family: Verdana, Geneva, sans-serif; font-size: 20px;">
+        (data) => `<p><span style="sans-serif;">
             ${data}
-            </span></p>`
+        </span></p>`
     );
     if (tour)
         tour.complete();
@@ -135,7 +135,6 @@ function loadAgain() {
         eval() {
             // console.log(tut[1])
             let id = (demoWorkspace.getToolbox().contents_[0].id_)
-            //console.log(id)
             return check_toolbox_selection(id)
             //return check_toolbox_selection('blockly-5')
         },
@@ -153,6 +152,7 @@ function loadAgain() {
             text: 'Back'
         }, {
             action() {
+                if (!check_toolbox_selection(demoWorkspace.getToolbox().contents_[0].id_)) return;
                 t1();
                 return this.next();
             },
@@ -499,29 +499,25 @@ function check_toolbox_selection(id) {
         return false;
     }
 }
-
+document.getElementById('soundBtn').addEventListener('click', setAudioPreference)
 //NGS Sound Enhancement
 function setAudioPreference() {
-    var elementId;
+
     if (playAudio) {
         kill_audio();
     }
     if (!(playAudio)) {
         playAudio = true;
-        // elementId = document.getElementById('soundButton');
-        // elementId = document.getElementById('soundButton2');
-        // document.getElementById('soundButton').src = "assets/unmute.png";
-        // document.getElementById('soundButton2').src = "assets/unmute.png";
+        document.getElementById('soundImg').src = "../assets/sound_icon.png";
     } else {
         playAudio = false;
-        // elementId = document.getElementById('soundButton');
-        // document.getElementById('soundButton').src = "assets/mute.png";
-        // document.getElementById('soundButton2').src = "assets/mute.png";
+        document.getElementById('soundImg').src = "../assets/sound_unmute.png";
     }
 }
-window.setAudioPreference = setAudioPreference
 const tt = setInterval(function () {
     //clearInterval(tt)
+    // document.getElementById('soundBtn').addEventListener('click', () => setAudioPreference())
+
     $(".shepherd-content").draggable({
         containment: "body"
     })
