@@ -60,9 +60,9 @@ body {
   font: 18px sans-serif;
 } */
 
-svg>g>rect {
+/* svg>g>rect {
     fill: transparent !important;
-}
+} */
 
 /* #toast-container {
   position: fixed;
@@ -302,4 +302,9 @@ code {
     .fill-height {
         padding: 0 0.5rem 0.7rem 0.5rem;
     }
+
+    .tutorial_image {
+        width: 60vw !important
+    }
+
 }
