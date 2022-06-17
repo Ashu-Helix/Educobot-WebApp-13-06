@@ -261,4 +261,20 @@
     .shepherd-text {
         text-align: center;
     }
+
+    /* .shepherd-has-title .shepherd-content .shepherd-cancel-icon {
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        margin: 0px;
+        transform: translate(-50%, -50%);
+    } */
+
+    .shepherd-has-cancel-icon .shepherd-has-title .shepherd-element .shepherd-centered .shepherd-enabled {
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        margin: 0px;
+        transform: translate(-50%, -50%);
+    }
 }

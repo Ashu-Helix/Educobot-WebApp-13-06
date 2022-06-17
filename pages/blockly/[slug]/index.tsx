@@ -167,7 +167,7 @@ const Home: NextPage<any> = (props) => {
                         <Button className={styles.backbtn} onClick={() => { router.back(); }}>
                             <Icon style={{ color: "#fff", fontSize: "18px", }} icon="eva:arrow-ios-back-fill" />
                         </Button>
-                        <p style={{ fontSize: "18px", fontWeight: "700", fontFamily: "Public Sans" }}>{lessonDetails.lsName}</p>
+                        <p className={styles.lesson_name} >{lessonDetails.lsName}</p>
                     </div>
                     <p className={styles.description} >{lessonDetails.lsDesc}</p>
                 </div>

@@ -141,7 +141,7 @@ function loadAgain() {
         title: 'Step 1',
         text: tut[1],
         arrow: true,
-        attachTo: { element: '#sprite', on: adapt_orientation('bottom', 'bottom') },
+        attachTo: { element: '#sprite', on: adapt_orientation('top', 'bottom') },
         buttons: [{
             action() {
                 clearInterval(myInterval);
@@ -167,7 +167,7 @@ function loadAgain() {
         text: tut[2],
         arrow: true,
         // attachTo: { element: '.injectionDiv', on: adapt_orientation('bottom', 'right') },
-        attachTo: { element: '#sprite', on: adapt_orientation('bottom', 'bottom') },
+        attachTo: { element: '#sprite', on: adapt_orientation('top', 'bottom') },
         buttons: [{
             action() {
                 play_audio_tutorial("line2.mp3", lang);
@@ -200,7 +200,7 @@ function loadAgain() {
         text: tut[3],
         arrow: true,
         // attachTo: { element: '.injectionDiv', on: adapt_orientation('bottom', 'right') },
-        attachTo: { element: '#sprite', on: adapt_orientation('bottom', 'bottom') },
+        attachTo: { element: '#sprite', on: adapt_orientation('top', 'bottom') },
         buttons: [{ action() { t1(); return this.back(); }, classes: 'shepherd-button-secondary', text: 'Back' }, {
             action() {
                 clearInterval(myInterval);
@@ -221,7 +221,7 @@ function loadAgain() {
         text: tut[4],
         arrow: true,
         // attachTo: { element: '.injectionDiv', on: adapt_orientation('bottom', 'right') },
-        attachTo: { element: '#sprite', on: adapt_orientation('bottom', 'bottom') },
+        attachTo: { element: '#sprite', on: adapt_orientation('top', 'bottom') },
         buttons: [{ action() { t2(); return this.back(); }, classes: 'shepherd-button-secondary', text: 'Back' }, {
             action() {
                 clearInterval(myInterval);
@@ -247,7 +247,7 @@ function loadAgain() {
         text: tut[5],
         arrow: true,
         // attachTo: { element: '.injectionDiv', on: adapt_orientation('bottom', 'right') },
-        attachTo: { element: '#sprite', on: adapt_orientation('bottom', 'bottom') },
+        attachTo: { element: '#sprite', on: adapt_orientation('top', 'bottom') },
         buttons: [{
             action() {
                 t3();
@@ -271,7 +271,7 @@ function loadAgain() {
         text: tut[6],
         arrow: true,
         // attachTo: { element: '.injectionDiv', on: adapt_orientation('bottom', 'right') },
-        attachTo: { element: '#sprite', on: adapt_orientation('bottom', 'bottom') },
+        attachTo: { element: '#sprite', on: adapt_orientation('top', 'bottom') },
         buttons: [{
             action() {
                 t4();
@@ -304,7 +304,7 @@ function loadAgain() {
         text: tut[7],
         arrow: true,
         // attachTo: { element: '.injectionDiv', on: adapt_orientation('bottom', 'right') },
-        attachTo: { element: '#sprite', on: adapt_orientation('bottom', 'bottom') },
+        attachTo: { element: '#sprite', on: adapt_orientation('top', 'bottom') },
         buttons: [{
             action() {
                 t5();
@@ -327,7 +327,7 @@ function loadAgain() {
         text: tut[8],
         arrow: true,
         // attachTo: { element: '.injectionDiv', on: adapt_orientation('bottom', 'right') },
-        attachTo: { element: '#sprite', on: adapt_orientation('bottom', 'bottom') },
+        attachTo: { element: '#sprite', on: adapt_orientation('top', 'bottom') },
         buttons: [{ action() { t6(); return this.back(); }, classes: 'shepherd-button-secondary', text: 'Back' }, {
             action() {
                 clearInterval(myInterval);
@@ -347,7 +347,7 @@ function loadAgain() {
         text: tut[9],
         arrow: true,
         // attachTo: { element: '.injectionDiv', on: adapt_orientation('bottom', 'right') },
-        attachTo: { element: '#sprite', on: adapt_orientation('bottom', 'bottom') },
+        attachTo: { element: '#sprite', on: adapt_orientation('top', 'bottom') },
         buttons: [{ action() { t7(); return this.back(); }, classes: 'shepherd-button-secondary', text: 'Back' }, {
             action() {
                 if (step4_2_val()) {

@@ -261,6 +261,12 @@
     grid-template-columns: repeat(2, 1fr);
 }
 
+.lesson_name {
+    fontSize: "18px";
+    fontWeight: "700";
+    fontFamily: "Public Sans";
+}
+
 @media screen and (max-width: 600px) {
     .blocklycontainer {
         height: auto;
@@ -320,7 +326,8 @@
         flex-direction: column;
     }
 
-    .description {
+    .description,
+    .lesson_name {
         display: none;
     }
 }
