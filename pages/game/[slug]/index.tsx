@@ -85,7 +85,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
 
     return {
-        props: { dataParse, slug: context.params.slug, lessonDetails: lessonDetails.data.DATA[0] ?? null },
+        props: { dataParse, slug: context.params.slug, lessonDetails: lessonDetails.data.DATA[0] },
     };
 };
 const language = { English: 1, Hindi: 2, Marathi: 3, Spanish: 4, Arabic: 5, Swaheli: 6 }
@@ -233,7 +233,19 @@ export default function PhaserGame(props) {
                         >
                             <img src="/assets/reset_icon.png" width="22.5" height="25.5" />
                         </button>
-
+                        {/* <button
+                            className={`${styles.normal_button}  ${styles.sound}`}
+                            data-position="bottom"
+                            data-tooltip="Open Keyboard"
+                            id="soundBtn"
+                            onClick={() => setMute(!muteState)}
+                        >
+                            <img
+                                src={muteState ? "/assets/sound_icon.png" : "/assets/sound_unmute.png"}
+                                width="22.5"
+                                height="25.5"
+                            />
+                        </button> */}
                         <button
                             className={`${styles.normal_button}`}
                             data-position="bottom"
@@ -256,7 +268,8 @@ export default function PhaserGame(props) {
                                 display: "contents",
                                 padding: 0, margin: 0
                             }}>
-                                <b style={{ display: "contents" }}>
+                                <b style={{ display: "contents" }}
+                                >
                                     {res}
                                 </b>
                                 <br /></div>)
@@ -264,17 +277,17 @@ export default function PhaserGame(props) {
 
                         {PythonCode}
                     </div>
-                    <TestDialog
-                        getCoins={FinalTask}
-                        slug={slug}
-                        lessonDetails={lessonDetails}
-                        testDialogInfo={{
-                            dialogStatus: "test",
-                        }}
-                    />
+
                 </div>
             </div>
-
+            <TestDialog
+                getCoins={FinalTask}
+                slug={slug}
+                lessonDetails={lessonDetails}
+                testDialogInfo={{
+                    dialogStatus: "test",
+                }}
+            />
             <Tour slug={slug} />
             <label id="hand" htmlFor="test">
                 <img src="/assets/hand_upward.png" width="50px" height="60px" />

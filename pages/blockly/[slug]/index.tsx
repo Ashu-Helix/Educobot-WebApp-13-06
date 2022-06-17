@@ -269,17 +269,16 @@ const Home: NextPage<any> = (props) => {
                         })}
                         {PythonCode}
                     </div>
-                    <TestDialog
-                        slug={slug}
-                        getCoins={FinalTask}
-                        lessonDetails={lessonDetails}
-                        testDialogInfo={{
-                            dialogStatus: "test",
-                        }}
-                    />
                 </div>
             </div>
-
+            <TestDialog
+                slug={slug}
+                getCoins={FinalTask}
+                lessonDetails={lessonDetails}
+                testDialogInfo={{
+                    dialogStatus: "test",
+                }}
+            />
             <Tour slug={slug} />
             <label id="hand" htmlFor="test">
                 <img src="/assets/hand_upward.png" width="50px" height="60px" />

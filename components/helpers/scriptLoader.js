@@ -8,6 +8,6 @@ export function new_script(src) {
         script.addEventListener('error', function (e) {
             reject(e);
         });
-        document.body.appendChild(script);
+        document.head.appendChild(script);
     })
 };
