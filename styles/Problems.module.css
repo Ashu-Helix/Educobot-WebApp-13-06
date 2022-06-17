@@ -310,7 +310,9 @@
     }
 
     .output {
-        display: none;
+        /* display: none; */
+        max-height: 12rem;
+        overflow-y: auto;
     }
 
     .blocklybunny {
