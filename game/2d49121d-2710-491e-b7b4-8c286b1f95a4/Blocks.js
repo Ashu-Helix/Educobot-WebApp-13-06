@@ -2,19 +2,9 @@ import Blockly from "blockly";
 import "blockly/python";
 import "blockly/javascript";
 
-import {
-    update,
-    preload,
-    create,
-    gameHeight,
-    gameWidth,
-    repeat_forever_flag
-} from "./main"
-
-import { Game, AUTO } from "phaser";
-
 Blockly.HSV_SATURATION = 1;
 Blockly.HSV_VALUE = 1;
+
 Blockly.Blocks['action_block'] = {
     init: function () {
         this.appendDummyInput()
@@ -97,13 +87,12 @@ Blockly.JavaScript['forever_repeat_block'] = function (block) {
         ` + branch + `
    }}`
     if (repeat_forever_flag) {
-        console.log(code)
         eval(code);
-        window["game"].destroy();
+        game.destroy();
         document.getElementById('sprite-container').innerHTML = "";
         setTimeout(() => {
             let config = {
-                type: AUTO,
+                type: Phaser.AUTO,
                 width: gameWidth,
                 height: gameHeight,
                 backgroundColor: "#eeeeee",
@@ -124,7 +113,7 @@ Blockly.JavaScript['forever_repeat_block'] = function (block) {
                     update: update,
                 },
             };
-            window["game"] = new Game(config);
+            let game1 = new Phaser.Game(config);
         }, 100);
 
     }
@@ -259,45 +248,4 @@ var a = {
     "colour": "#D4AF37"
 }
 
-export const blocks = {
-    kind: "categoryToolbox",
-    contents: [
-        {
-            kind: "CATEGORY",
-            contents: [{ kind: "BLOCK", blockxml: "", type: "spritetouch__block" },],
-            name: "Events",
-            colour: "#FFFF00",
-        },
-        {
-            kind: "CATEGORY",
-            contents: [
-                { kind: "BLOCK", blockxml: "", type: "action_block" },
-                { kind: "BLOCK", blockxml: "", type: "drink_block" },
-                { kind: "BLOCK", blockxml: "", type: "wait_block" },
-            ],
-            name: "Actions",
-            colour: " #FFA500",
-        },
-        {
-            kind: "CATEGORY",
-            contents: [
-                { kind: "BLOCK", blockxml: "", type: "controls_if" },
-                { kind: "BLOCK", blockxml: "", type: "logic_compare" },
-                { kind: "BLOCK", blockxml: "", type: "logic_operation" },
-                { kind: "BLOCK", blockxml: "", type: "logic_negate" },
-                { kind: "BLOCK", blockxml: "", type: "logic_boolean" },
-            ],
-            name: "Conditons",
-            colour: "%{BKY_LOGIC_HUE}",
-        },
-        {
-            kind: "CATEGORY",
-            contents: [{ kind: "BLOCK", blockxml: "", type: "forever_repeat_block" }],
-            name: "Loops",
-            colour: "%{BKY_LOOPS_HUE}",
-        },
-    ],
-    id: "toolbox",
-    style: "display: none",
-    colour: "#D4AF37",
-};
+export const blocks = { kind: "categoryToolbox", "contents": [{ "kind": "CATEGORY", "contents": [{ "kind": "BLOCK", "blockxml": "", "type": "spritetouch__block" }], "name": "Events", "colour": "#FFFF00" }, { "kind": "CATEGORY", "contents": [{ "kind": "BLOCK", "blockxml": "", "type": "action_block" }, { "kind": "BLOCK", "blockxml": "", "type": "drink_block" }, { "kind": "BLOCK", "blockxml": "", "type": "wait_block" }], "name": "Actions", "colour": " #FFA500" }, { "kind": "CATEGORY", "contents": [{ "kind": "BLOCK", "blockxml": "", "type": "controls_if" }, { "kind": "BLOCK", "blockxml": "", "type": "logic_compare" }, { "kind": "BLOCK", "blockxml": "", "type": "logic_operation" }, { "kind": "BLOCK", "blockxml": "", "type": "logic_negate" }, { "kind": "BLOCK", "blockxml": "", "type": "logic_boolean" }], "name": "Conditons", "colour": "%{BKY_LOGIC_HUE}" }, { "kind": "CATEGORY", "contents": [{ "kind": "BLOCK", "blockxml": "", "type": "forever_repeat_block" }], "name": "Loops", "colour": "%{BKY_LOOPS_HUE}" }], "id": "toolbox", "style": "display: none", "colour": "#D4AF37" }

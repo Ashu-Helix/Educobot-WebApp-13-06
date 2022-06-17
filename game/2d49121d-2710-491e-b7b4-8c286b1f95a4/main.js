@@ -43,10 +43,10 @@ const spritesElement = {
 
 let _oMSPhaserLib;
 let currentFrameCrow = 0;
-window['hasDroppedpabel'] = false;
+let hasDroppedpabel = false;
 let hasDrunkWater = false;
 let afterDrinkInterval = null;
-window['isDropping'] = false;
+let isDropping = false;
 let pabelCount = 0;
 
 // Phaser config
@@ -73,7 +73,7 @@ let config = {
 };
 
 // Initialize Phaser with config
-window["game"] = new Phaser.Game(config);
+let game = new Phaser.Game(config);
 
 // Phaser preload function
 function preload() {
@@ -145,7 +145,7 @@ async function init() {
 
 // Drink water
 async function drinkWater() {
-    if (window['hasDroppedpabel'] && !hasDrunkWater) {
+    if (hasDroppedpabel && !hasDrunkWater) {
         let spritesImages = GAME_CONSTANT.spritesImages;
         let elementNameCrow = spritesImages.cleverCrowSprite;
         let oTargetCrow = _gameThis[elementNameCrow];
@@ -159,11 +159,7 @@ async function drinkWater() {
             await sleep(3000);
             afterDrinkWater();
             M.toast({ html: CORRECT_MESSAGE });
-            is_game_completed = true;
-            console.log(is_game_completed)
-            // setTimeout(() => {
-            //     is_game_completed = true;
-            // }, 2500)
+            setTimeout(() => { is_game_completed = true; }, 2500)
         }, 500);
     }
     /* else {
@@ -185,16 +181,16 @@ async function waitDuration(time) {
     if (hasDrunkWater) {
         clearTimeout(afterDrinkInterval);
         await sleep(time);
+
         afterDrinkWater();
         M.toast({ html: CORRECT_MESSAGE });
-        setTimeout(() => { is_game_completed = true; }, 2500)
     }
 }
 
 // Drop pabel and drink water
 async function dropPabel() {
     pabelCount++;
-    window['isDropping'] = true;
+    isDropping = true;
     let spritesImages = GAME_CONSTANT.spritesImages;
     let elementNameCrow = spritesImages.cleverCrowSprite;
     let oTargetCrow = _gameThis[elementNameCrow];
@@ -221,9 +217,9 @@ async function dropPabel() {
         }, 500);
 
         await sleep(500 * waitTime);
-        window['isDropping'] = false;
+        isDropping = false;
     } else {
-        window['hasDroppedpabel'] = true;
+        hasDroppedpabel = true;
     }
 }
 
@@ -231,9 +227,9 @@ async function dropPabel() {
 function reInitValues() {
     is_game_completed = false;
     currentFrameCrow = 0;
-    window['hasDroppedpabel'] = false;
+    hasDroppedpabel = false;
     hasDrunkWater = false;
-    window['isDropping'] = false;
+    isDropping = false;
     pabelCount = 0;
 }
 
@@ -294,7 +290,6 @@ function myUpdateFunction(a) {
 // demoWorkspace.addChangeListener(myUpdateFunction);
 
 function completedFlag() {
-    // console.log(is_game_completed)
     return is_game_completed;
 }
 
@@ -309,19 +304,25 @@ const updateImports = ["from clever_crow import *", "from time import sleep"]
 
 export {
     completedFlag,
+    myUpdateFunction,
     helpCode,
     runCode,
     reset_output,
     reInitValues,
     waitDuration,
+    // drink_Water,
+    hasDroppedpabel,
+    // water,
+    // potLid,
     dropPabel,
+    isDropping,
     updateImports,
     getNoOfBlocks,
     update,
+    game,
     preload,
     create,
     gameHeight,
     gameWidth,
-    drinkWater,
     repeat_forever_flag
 }

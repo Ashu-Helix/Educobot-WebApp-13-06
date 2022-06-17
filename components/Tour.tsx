@@ -15,8 +15,13 @@ function CustomTour({ slug }) {
             await new_script("../jquery-ui.js");
             await new_script("../jquery.ui.touch-punch.js");
 
-            if (slug === '4bda4814-a2b1-4c4f-b102-eda5181bd0f8' || slug === 'e0c38e50-cbb3-455f-ae16-d737fc624b24' || slug === '7adbaaff-0e03-41b4-a2e1-81b40fd56dfc') {
+            // if (slug === '4bda4814-a2b1-4c4f-b102-eda5181bd0f8' || slug === '6e1aa2cc-7e72-40ac-834f-8c8b08fb5aa9' || slug === 'e0c38e50-cbb3-455f-ae16-d737fc624b24' || slug === '7adbaaff-0e03-41b4-a2e1-81b40fd56dfc') {
+            //     await import(`../shepherd/${slug}_shepherd.js`)
+            // }
+            try {
                 await import(`../shepherd/${slug}_shepherd.js`)
+            } catch (err) {
+                return null;
             }
             window["amber_ref"] = () => {
                 $("#amber_ref").toggle("slow");
