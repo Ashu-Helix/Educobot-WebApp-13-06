@@ -136,6 +136,7 @@
     font-size: 16px;
     line-height: 24px;
     height: 90%;
+    min-height: 9rem;
 }
 
 .tooltip {
