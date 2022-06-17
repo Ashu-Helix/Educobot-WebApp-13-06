@@ -10,8 +10,8 @@ $jscomp.createTemplateTagFirstArgWithRaw = function (a, b) { a.raw = b; return a
 var playAudio = true;
 let myInterval;
 const tut = {
-    1: `<p><span style="color: rgb(239, 239, 239); font-family: Verdana, Geneva, sans-serif; font-size: 20px;">Let's use the looping concept and make Shivani jump for 50 times with 0.1 secs wait time inbetween each jump. Try on your own.</span></p>`,
-    2: `<p><span style="color: rgb(239, 239, 239); font-family: Verdana, Geneva, sans-serif; font-size: 20px;">That's it! Now Run the code and make her fit!</span></p>`,
+    1: `<p><span style="color: rgb(0, 0, 0); font-family: Verdana, Geneva, sans-serif; font-size: 20px;">Let's use the looping concept and make Shivani jump for 50 times with 0.1 secs wait time inbetween each jump. Try on your own.</span></p>`,
+    2: `<p><span style="color: rgb(0, 0, 0); font-family: Verdana, Geneva, sans-serif; font-size: 20px;">That's it! Now Run the code and make her fit!</span></p>`,
 }
 
 function tutm(i) {
@@ -172,25 +172,21 @@ function check_toolbox_selection(id) {
     }
 }
 
+document.getElementById('soundBtn').addEventListener('click', setAudioPreference)
+//NGS Sound Enhancement
 function setAudioPreference() {
-    var elementId;
+
     if (playAudio) {
         kill_audio();
     }
     if (!(playAudio)) {
         playAudio = true;
-        elementId = document.getElementById('soundButton');
-        elementId = document.getElementById('soundButton2');
-        document.getElementById('soundButton').src = "../assets/unmute.png";
-        document.getElementById('soundButton2').src = "../assets/unmute.png";
+        document.getElementById('soundImg').src = "../assets/sound_icon.png";
     } else {
         playAudio = false;
-        elementId = document.getElementById('soundButton');
-        document.getElementById('soundButton').src = "../assets/mute.png";
-        document.getElementById('soundButton2').src = "../assets/mute.png";
+        document.getElementById('soundImg').src = "../assets/sound_unmute.png";
     }
 }
-
 window.addEventListener("resize", function () {
     for (var a = 0; a < tour.steps.length; a++)
         tour.steps[a].options.attachTo.on =

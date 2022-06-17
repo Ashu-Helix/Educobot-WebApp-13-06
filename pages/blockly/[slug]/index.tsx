@@ -167,7 +167,7 @@ const Home: NextPage<any> = (props) => {
                         <Button className={styles.backbtn} onClick={() => { router.back(); }}>
                             <Icon style={{ color: "#fff", fontSize: "18px", }} icon="eva:arrow-ios-back-fill" />
                         </Button>
-                        <p style={{ fontSize: "18px", fontWeight: "700", fontFamily: "Public Sans" }}>{lessonDetails.lsName}</p>
+                        <p className={styles.lesson_name} >{lessonDetails.lsName}</p>
                     </div>
                     <p className={styles.description} >{lessonDetails.lsDesc}</p>
                 </div>
@@ -221,11 +221,11 @@ const Home: NextPage<any> = (props) => {
                         >
                             <img src="/assets/reset_icon.png" width="22.5" height="25.5" />
                         </button>
-                        <button
+                        {/* <button
                             className={`${styles.normal_button}  ${styles.sound}`}
                             data-position="bottom"
                             data-tooltip="Open Keyboard"
-                            id="soundBtn"
+                            //id="soundBtn"
                             onClick={() => {
                                 if (typeof window !== 'undefined' && window['setAudioPreference'])
                                     window['setAudioPreference']()
@@ -237,7 +237,7 @@ const Home: NextPage<any> = (props) => {
                                 width="22.5"
                                 height="25.5"
                             />
-                        </button>
+                        </button> */}
                     </div>
                     {
                         <Canvas
@@ -255,25 +255,30 @@ const Home: NextPage<any> = (props) => {
                         className={styles.output}
                         style={{ minHeight: "9vh" }}
                     >
+
                         {imt.map(res => {
-                            return (<><b style={{ color: "#fff", display: "contents" }}>
-                                import {res}
-                            </b>
-                                <br /></>)
+                            return (<div key={res} style={{
+                                color: "#fff",
+                                display: "contents",
+                                padding: 0, margin: 0
+                            }}>
+                                <b style={{ display: "contents" }}>
+                                    {res}
+                                </b>
+                                <br /></div>)
                         })}
                         {PythonCode}
                     </div>
-                    <TestDialog
-                        slug={slug}
-                        getCoins={FinalTask}
-                        lessonDetails={lessonDetails}
-                        testDialogInfo={{
-                            dialogStatus: "test",
-                        }}
-                    />
                 </div>
             </div>
-
+            <TestDialog
+                slug={slug}
+                getCoins={FinalTask}
+                lessonDetails={lessonDetails}
+                testDialogInfo={{
+                    dialogStatus: "test",
+                }}
+            />
             <Tour slug={slug} />
             <label id="hand" htmlFor="test">
                 <img src="/assets/hand_upward.png" width="50px" height="60px" />

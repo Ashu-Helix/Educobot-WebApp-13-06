@@ -181,7 +181,7 @@ export default function PhaserGame(props) {
                         <Button className={styles.backbtn} onClick={() => { router.back(); }}>
                             <Icon style={{ color: "#fff", fontSize: "18px", }} icon="eva:arrow-ios-back-fill" />
                         </Button>
-                        <p style={{ fontSize: "18px", fontWeight: "700", fontFamily: "Public Sans" }}>{lessonDetails.lsName}</p>
+                        <p className={styles.lesson_name} >{lessonDetails.lsName}</p>
                     </div>
                     <p className={styles.description} >{lessonDetails.lsDesc}</p>
                 </div>
@@ -233,7 +233,7 @@ export default function PhaserGame(props) {
                         >
                             <img src="/assets/reset_icon.png" width="22.5" height="25.5" />
                         </button>
-                        <button
+                        {/* <button
                             className={`${styles.normal_button}  ${styles.sound}`}
                             data-position="bottom"
                             data-tooltip="Open Keyboard"
@@ -245,7 +245,7 @@ export default function PhaserGame(props) {
                                 width="22.5"
                                 height="25.5"
                             />
-                        </button>
+                        </button> */}
                         <button
                             className={`${styles.normal_button}`}
                             data-position="bottom"
@@ -277,17 +277,17 @@ export default function PhaserGame(props) {
 
                         {PythonCode}
                     </div>
-                    <TestDialog
-                        getCoins={FinalTask}
-                        slug={slug}
-                        lessonDetails={lessonDetails}
-                        testDialogInfo={{
-                            dialogStatus: "test",
-                        }}
-                    />
+
                 </div>
             </div>
-
+            <TestDialog
+                getCoins={FinalTask}
+                slug={slug}
+                lessonDetails={lessonDetails}
+                testDialogInfo={{
+                    dialogStatus: "test",
+                }}
+            />
             <Tour slug={slug} />
             <label id="hand" htmlFor="test">
                 <img src="/assets/hand_upward.png" width="50px" height="60px" />

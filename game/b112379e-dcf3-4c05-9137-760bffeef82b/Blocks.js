@@ -450,7 +450,7 @@ export const blocks = {
             contents: [
                 { kind: "BLOCK", blockxml: "", type: "set_variable_holder" },
                 { kind: "BLOCK", blockxml: "", type: "change_variable_holder" },
-                // { kind: "BLOCK", blockxml: "", type: "variables" },
+                { kind: "BLOCK", blockxml: "", type: "variables" },
                 { kind: "BLOCK", blockxml: "", type: "math_number" },
             ],
             name: "Game Variables",

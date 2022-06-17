@@ -149,37 +149,4 @@ Blockly.Python['set_variable_holder'] = function (block) {
     return code;
 };
 
-export const blocks = {
-    kind: "categoryToolbox",
-    contents: [
-        {
-            kind: "CATEGORY",
-            contents: [
-                { kind: "BLOCK", blockxml: "", type: "set_variable_holder" },
-                { kind: "BLOCK", blockxml: "", type: "math_number" },
-            ],
-            name: "Game Variables",
-            colour: "%{BKY_VARIABLES_HUE}",
-        },
-        {
-            kind: "CATEGORY",
-            contents: [
-                { kind: "BLOCK", blockxml: "", type: "say_block" },
-                { kind: "BLOCK", blockxml: "", type: "wait" },
-                { kind: "BLOCK", blockxml: "", type: "display_details" },
-            ],
-            name: "Actions",
-            colour: "#B430FF",
-        },
-        {
-            kind: "CATEGORY",
-            contents: [{ kind: "BLOCK", blockxml: "", type: "input_block" }],
-            name: "Inputs",
-            colour: "#D4AF37",
-        },
-    ],
-    xmlns: "https://developers.google.com/blockly/xml",
-    id: "toolbox",
-    style: "display: none",
-    colour: "#D4AF37",
-};
+export const blocks = { kind: "categoryToolbox", "contents": [{ "kind": "CATEGORY", "contents": [{ "kind": "BLOCK", "blockxml": "", "type": "set_variable_holder" }, { "kind": "BLOCK", "blockxml": "", "type": "math_number" }], "name": "Game Variables", "colour": "%{BKY_VARIABLES_HUE}" }, { "kind": "CATEGORY", "contents": [{ "kind": "BLOCK", "blockxml": "", "type": "say_block" }, { "kind": "BLOCK", "blockxml": "", "type": "wait" }, { "kind": "BLOCK", "blockxml": "", "type": "display_details" }], "name": "Actions", "colour": "#B430FF" }, { "kind": "CATEGORY", "contents": [{ "kind": "BLOCK", "blockxml": "", "type": "input_block" }], "name": "Inputs", "colour": "#D4AF37" }], "xmlns": "https://developers.google.com/blockly/xml", "id": "toolbox", "style": "display: none", "colour": "#D4AF37" }
