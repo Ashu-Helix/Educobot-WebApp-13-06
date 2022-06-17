@@ -8,7 +8,6 @@ import "./toolbox";
 import zolo from "../theme/zolo";
 
 export default function BlocklyContainer(props) {
-    // const block = require("../public/block/" + props.slug + "_Blocks");
     let block = {
         blocks: {
             kind: "", name: "", colour: "", contents: [
@@ -38,128 +37,8 @@ export default function BlocklyContainer(props) {
     }
 
 
-    //   {
-    //     kind: "CATEGORY",
-    //     contents: [{ kind: "BLOCK", blockxml: "", type: "math_number" },],
-    //     name: "Math",
-    //     colour: "%{BKY_LOOPS_HUE}",
-    // },
-
     const [setXml] = useState(null);
     const initialXml = '<xml xmlns="http://www.w3.org/1999/xhtml"></xml>';
-
-    // const toolboxCategories = {
-    //   kind: "categoryToolbox",
-    //   collapsed: false,
-    //   contents: [
-    //     // {
-    //     //   kind: "category",
-    //     //   name: "Bunny",
-    //     //   colour: "#e0006f",
-    //     //   contents: [
-    //     //     {
-    //     //       kind: "block",
-    //     //       type: "move",
-    //     //       id: 'blockly-3'
-    //     //     },
-    //     //     {
-    //     //       kind: "block",
-    //     //       type: "eatcarrot",
-    //     //     }]
-    //     // },
-    //     {
-    //       kind: block.blocks.kind,
-    //       name: block.blocks.name,
-    //       colour: block.blocks.colour,
-    //       contents: block.blocks.contents,
-    //     },
-    //     {
-    //       kind: "category",
-    //       name: "Logic",
-    //       colour: "#006ad6",
-    //       contents: [
-    //         {
-    //           kind: "block",
-    //           type: "controls_if",
-    //         },
-    //         {
-    //           kind: "block",
-    //           type: "logic_negate",
-    //         },
-    //       ],
-    //     },
-    //     {
-    //       kind: "category",
-    //       name: "Boolean",
-    //       colour: "#74caff",
-    //       contents: [
-    //         {
-    //           kind: "block",
-    //           type: "logic_compare",
-    //         },
-    //         {
-    //           kind: "block",
-    //           type: "logic_operation",
-    //         },
-    //         {
-    //           kind: "block",
-    //           type: "logic_boolean",
-    //         },
-    //       ],
-    //     },
-    //     {
-    //       kind: "category",
-    //       name: "Loop",
-    //       colour: "#00ef00",
-    //       contents: [
-    //         {
-    //           kind: "block",
-    //           type: "controls_whileUntil",
-    //         },
-    //         {
-    //           kind: "block",
-    //           type: "controls_for",
-    //         },
-    //         {
-    //           kind: "block",
-    //           type: "controls_forEach",
-    //         },
-    //         {
-    //           kind: "block",
-    //           type: "controls_repeat",
-    //         },
-    //         {
-    //           kind: "block",
-    //           type: "controls_flow_statements",
-    //         },
-    //       ],
-    //     },
-    //     {
-    //       kind: "category",
-    //       name: "Math",
-    //       colour: "#5CA65C",
-    //       contents: [
-    //         {
-    //           kind: "block",
-    //           type: "math_round",
-    //         },
-    //         {
-    //           kind: "block",
-    //           type: "math_number",
-    //         },
-    //         {
-    //           kind: "block",
-    //           type: "math_arithmetic",
-    //         },
-    //         {
-    //           kind: "block",
-    //           type: "math_single",
-    //           //"disabled": "true"
-    //         },
-    //       ],
-    //     },
-    //   ],
-    // };
 
     useEffect(() => {
         props.childFunc.current = setBlocks
@@ -190,6 +69,8 @@ export default function BlocklyContainer(props) {
             workspaceConfiguration={{
                 horizontalLayout: true,
                 media: "../media/",
+                grid: false,
+                trashcan: true,
                 zoom: {
                     controls: true,
                     wheel: true,
@@ -199,10 +80,15 @@ export default function BlocklyContainer(props) {
                     scaleSpeed: 1.2,
                     pinch: true,
                 },
-                move: { scrollbars: { horizontal: false, vertical: true }, drag: true, wheel: false },
-                grid: false,
-                trashcan: true,
+                move: {
+                    scrollbars: {
+                        horizontal: false,
+                        vertical: true
+                    },
+                    drag: true, wheel: false
+                },
                 renderer: "zelos",
+
                 theme: zolo,
             }}
             onWorkspaceChange={workspaceDidChange}

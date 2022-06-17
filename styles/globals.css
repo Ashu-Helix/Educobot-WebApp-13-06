@@ -24,6 +24,7 @@ body {
     /* background-color: rgba(0, 0, 0, 0.1); */
     background: #161C24;
     color: #fff;
+    /* position: fixed; */
 }
 
 /* canvas*/
@@ -36,7 +37,6 @@ body {
 }
 
 .fill-blockly {
-    /* width: 50%; */
     height: 100%;
     width: 100%;
 }
@@ -45,46 +45,6 @@ body {
     width: 100%;
 }
 
-/* .blocklyToolboxContents {
-  flex-direction: row;
-} */
-
-/* .blocklyToolboxDiv {
-  background-color: rgba(150, 150, 150, 0.5);
-} */
-/* 
-.blocklySvg {
-  background-color: transparent;
-} */
-/* .blocklyTreeLabel {
-  font: 18px sans-serif;
-} */
-
-/* svg>g>rect {
-    fill: transparent !important;
-} */
-
-/* #toast-container {
-  position: fixed;
-  top: auto !important;
-  right: auto !important;
-  bottom: 50%;
-  left: 7%;
-} */
-
-/* shepard*/
-/* .shepherd-element {
-  background-color: transparent !important;
-  width: auto !important;
-}
-.shepherd-has-title .shepherd-content .shepherd-header{
-  background: transparent !important;
-}
-
-.shepherd-title{
-  color: #fff !important;
-  font-size: 1.5rem !important;
-} */
 /*>>>>>>>>>>>>>>>>*/
 #__next {
     width: 100%;

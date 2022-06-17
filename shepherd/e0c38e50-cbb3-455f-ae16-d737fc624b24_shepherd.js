@@ -73,6 +73,7 @@ function handPointAt(hand, element, visibility) {
     });
 
 }
+
 $("#hand").css("visibility", 'hidden');
 function play_audio_tutorial(file) {
     let path = `assets/` + language.guide_folder + `/` + language.language_packs_folder + `/` + language.language + `/` + language.audio_folder + `/`;
@@ -92,7 +93,7 @@ let tour = new Shepherd.Tour({
 function loadAgain() {
 
     const tut = window['tutorials'].map(
-        (data) => `<p><span style="color: rgb(239, 239, 239); font-family: Verdana, Geneva, sans-serif; font-size: 20px;">
+        (data) => `<p><span style="">
             ${data}
             </span></p>`
     );
@@ -149,7 +150,7 @@ function loadAgain() {
         title: 'Step 1',
         text: tut[1],
         arrow: true,
-        attachTo: { element: '#sprite-container', on: adapt_orientation('bottom', 'bottom') },
+        attachTo: { element: '#sprite-container', on: adapt_orientation('top', 'bottom') },
         // attachTo: { element: '.blocklyToolboxContents', on: adapt_orientation('bottom', 'right') },
         buttons: [{
             action() {
@@ -181,7 +182,7 @@ function loadAgain() {
         text: tut[2],
         arrow: true,
         // attachTo: { element: '.injectionDiv', on: adapt_orientation('bottom', 'right') },
-        attachTo: { element: '#sprite-container', on: adapt_orientation('bottom', 'bottom') },
+        attachTo: { element: '#sprite-container', on: adapt_orientation('top', 'bottom') },
         buttons: [{
             action() {
                 // play_audio_tutorial("line2.mp3");
@@ -212,7 +213,7 @@ function loadAgain() {
         text: tut[3],
         arrow: true,
         // attachTo: { element: '.injectionDiv', on: adapt_orientation('bottom', 'right') },
-        attachTo: { element: '#sprite-container', on: adapt_orientation('bottom', 'bottom') },
+        attachTo: { element: '#sprite-container', on: adapt_orientation('top', 'bottom') },
         buttons: [{ action() { t1(); return this.back(); }, classes: 'shepherd-button-secondary', text: 'Back' }, {
             action() {
                 clearInterval(myInterval);
@@ -233,7 +234,7 @@ function loadAgain() {
         text: tut[4],
         arrow: true,
         // attachTo: { element: '.injectionDiv', on: adapt_orientation('bottom', 'right') },
-        attachTo: { element: '#sprite-container', on: adapt_orientation('bottom', 'bottom') },
+        attachTo: { element: '#sprite-container', on: adapt_orientation('top', 'bottom') },
         buttons: [{
             action() { t2(); return this.back(); }
             , classes: 'shepherd-button-secondary', text: 'Back'
@@ -260,7 +261,7 @@ function loadAgain() {
         text: tut[5],
         arrow: true,
         // attachTo: { element: '.injectionDiv', on: adapt_orientation('bottom', 'right') },
-        attachTo: { element: '#sprite-container', on: adapt_orientation('bottom', 'bottom') },
+        attachTo: { element: '#sprite-container', on: adapt_orientation('top', 'bottom') },
         buttons: [{
             action() {
                 t3();
@@ -284,7 +285,7 @@ function loadAgain() {
         text: tut[6],
         arrow: true,
         // attachTo: { element: '.injectionDiv', on: adapt_orientation('bottom', 'right') },
-        attachTo: { element: '#sprite-container', on: adapt_orientation('bottom', 'bottom') },
+        attachTo: { element: '#sprite-container', on: adapt_orientation('top', 'bottom') },
         buttons: [{
             action() {
                 t4();
@@ -314,7 +315,7 @@ function loadAgain() {
         text: tut[7],
         arrow: true,
         // attachTo: { element: '.injectionDiv', on: adapt_orientation('bottom', 'right') },
-        attachTo: { element: '#sprite-container', on: adapt_orientation('bottom', 'bottom') },
+        attachTo: { element: '#sprite-container', on: adapt_orientation('top', 'bottom') },
         buttons: [{
             action() {
                 t5();
@@ -337,7 +338,7 @@ function loadAgain() {
         text: tut[8],
         arrow: true,
         // attachTo: { element: '.injectionDiv', on: adapt_orientation('bottom', 'right') },
-        attachTo: { element: '#sprite-container', on: adapt_orientation('bottom', 'bottom') },
+        attachTo: { element: '#sprite-container', on: adapt_orientation('top', 'bottom') },
         buttons: [{ action() { t6(); return this.back(); }, classes: 'shepherd-button-secondary', text: 'Back' }, {
             action() {
                 clearInterval(myInterval);
@@ -357,7 +358,7 @@ function loadAgain() {
         text: tut[8] + hint_maker("animal_farm.png", "amber_ref", "Show Ready Reference"),
         arrow: true,
         // attachTo: { element: '.injectionDiv', on: adapt_orientation('bottom', 'right') },
-        attachTo: { element: '#sprite-container', on: adapt_orientation('bottom', 'bottom') },
+        attachTo: { element: '#sprite-container', on: adapt_orientation('top', 'bottom') },
         buttons: [{ action() { t7(); return this.back(); }, classes: 'shepherd-button-secondary', text: 'Back' }, {
             action() {
                 if (step4_2_val()) {
@@ -377,7 +378,7 @@ function loadAgain() {
         title: 'Nicee, Run it now!',
         text: tut[9],
         arrow: true,
-        attachTo: { element: '#sprite-container', on: adapt_orientation('bottom', 'bottom') },
+        attachTo: { element: '#sprite-container', on: adapt_orientation('top', 'bottom') },
         buttons: [{ action() { t8(); return this.back(); }, classes: 'shepherd-button-secondary', text: 'Back' }, { action() { return this.next(); }, text: 'Close' }],
         id: 'creating'
     });
@@ -517,38 +518,34 @@ function check_toolbox_selection(id) {
     }
 }
 
+document.getElementById('soundBtn').addEventListener('click', setAudioPreference)
 //NGS Sound Enhancement
 function setAudioPreference() {
-    var elementId;
+
     if (playAudio) {
         kill_audio();
     }
     if (!(playAudio)) {
         playAudio = true;
-        elementId = document.getElementById('soundButton');
-        elementId = document.getElementById('soundButton2');
-        document.getElementById('soundButton').src = "assets/unmute.png";
-        document.getElementById('soundButton2').src = "assets/unmute.png";
+        document.getElementById('soundImg').src = "../assets/sound_icon.png";
     } else {
         playAudio = false;
-        elementId = document.getElementById('soundButton');
-        document.getElementById('soundButton').src = "assets/mute.png";
-        document.getElementById('soundButton2').src = "assets/mute.png";
+        document.getElementById('soundImg').src = "../assets/sound_unmute.png";
     }
 }
 
 setInterval(function () {
-    $(".shepherd-content").draggable({
-        containment: "body"
-    })
-    $(".shepherd-text").resizable();
+
     try {
+        $(".shepherd-content").draggable({
+            containment: "body"
+        })
+        $(".shepherd-text").resizable();
         if (tour.getCurrentStep().options.eval()) {
             let btns = document.querySelectorAll('.shepherd-button');
             btns[btns.length - 1].click();
         }
     } catch { }
-    // }
 }, 100);
 window.addEventListener('resize', () => { for (let i = 0; i < tour.steps.length; i++) { try { tour.steps[i].options.attachTo.on = isPortrait() ? adapt_orientation_array[i][0] : adapt_orientation_array[i][1]; } catch (error) { true; } } });
 

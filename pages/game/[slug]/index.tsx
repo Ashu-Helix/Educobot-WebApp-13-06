@@ -233,7 +233,7 @@ export default function PhaserGame(props) {
                         >
                             <img src="/assets/reset_icon.png" width="22.5" height="25.5" />
                         </button>
-                        <button
+                        {/* <button
                             className={`${styles.normal_button}  ${styles.sound}`}
                             data-position="bottom"
                             data-tooltip="Open Keyboard"
@@ -245,7 +245,7 @@ export default function PhaserGame(props) {
                                 width="22.5"
                                 height="25.5"
                             />
-                        </button>
+                        </button> */}
                         <button
                             className={`${styles.normal_button}`}
                             data-position="bottom"
@@ -277,17 +277,17 @@ export default function PhaserGame(props) {
 
                         {PythonCode}
                     </div>
-                    <TestDialog
-                        getCoins={FinalTask}
-                        slug={slug}
-                        lessonDetails={lessonDetails}
-                        testDialogInfo={{
-                            dialogStatus: "test",
-                        }}
-                    />
+
                 </div>
             </div>
-
+            <TestDialog
+                getCoins={FinalTask}
+                slug={slug}
+                lessonDetails={lessonDetails}
+                testDialogInfo={{
+                    dialogStatus: "test",
+                }}
+            />
             <Tour slug={slug} />
             <label id="hand" htmlFor="test">
                 <img src="/assets/hand_upward.png" width="50px" height="60px" />
