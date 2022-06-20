@@ -210,61 +210,65 @@ export default function Scripts(props) {
 
                 <div id="" className={styles.canvas_for_script}>
                     <div className={styles.neumorphic_button_container}>
-                        <button
-                            className={`${styles.neumorphic_button}  ${styles.tooltip}`}
-                            data-position="bottom"
-                            data-tooltip="Run Code"
-                            id="runbtn"
-                            onClick={handleClick}
-                        >
-                            <span className={`${styles.tooltiptext}`}>Run Scritp</span>
-                            <Image
-                                src="/assets/green_flag.png"
-                                width="22.5" height="25.5"
-                            />
-                        </button>
-                        <button
-                            className={`${styles.neumorphic_button}  ${styles.tooltip}`}
-                            data-position="bottom"
-                            data-tooltip="Reset Output"
-                            // onClick={() => setReset(!reset)}
-                            onClick={() => { user_code.splice(0, user_code.length); htmlmaker(code, user_code); setUser_code(user_code.splice(0, user_code.length)); }}
-                        >
-                            <span className={`${styles.tooltiptext}`}>Run Scritp</span>
-                            <Image src="/assets/reset_icon.png" width="22.5" height="25.5" />
-                        </button>
-                        <button
-                            className={`${styles.neumorphic_button}  ${styles.tooltip}`}
-                            data-position="bottom"
-                            data-tooltip="Help"
-                            onClick={help}
-                        >
-                            <span className={`${styles.tooltiptext}`}>Help</span>
-                            <Image src="/assets/help_icon.png" width="22.5" height="25.5" />
-                        </button>
-                        <button
-                            id="keyboardbutton"
-                            className={`${styles.neumorphic_button}  ${styles.tooltip}`}
-                            data-position="bottom"
-                            data-tooltip="Open Keyboard"
-                            onClick={() => setkeyboardState(!keyboardState)}
-                        >
-                            <span className={`${styles.tooltiptext}`}>Open Keyboard</span>
-                            <Image src="/assets/keyboard_icon.png" width="26.5" height="25.5" />
-                        </button>
-                        <button
-                            id="autofill"
-                            className={`${styles.neumorphic_button}  ${styles.tooltip}`}
-                            data-position="bottom"
-                            data-tooltip="Demo Run Code"
-                            onClick={runCodeForce}
-                        >
-                            <span className={`${styles.tooltiptext}`}>Reset Scritp</span>
-                            <Image
-                                src="/assets/Auto_fill_button_icon.png"
-                                width="25.5" height="25.5"
-                            />
-                        </button>
+                        <div style={{ display: "inline-block" }}>
+                            <button
+                                className={`${styles.neumorphic_button}  ${styles.tooltip}`}
+                                data-position="bottom"
+                                data-tooltip="Run Code"
+                                id="runbtn"
+                                onClick={handleClick}
+                            >
+                                <span className={`${styles.tooltiptext}`}>Run Scritp</span>
+                                <Image
+                                    src="/assets/green_flag.png"
+                                    width="22.5" height="25.5"
+                                />
+                            </button>
+                            <button
+                                className={`${styles.neumorphic_button}  ${styles.tooltip}`}
+                                data-position="bottom"
+                                data-tooltip="Reset Output"
+                                // onClick={() => setReset(!reset)}
+                                onClick={() => { user_code.splice(0, user_code.length); htmlmaker(code, user_code); setUser_code(user_code.splice(0, user_code.length)); }}
+                            >
+                                <span className={`${styles.tooltiptext}`}>Run Scritp</span>
+                                <Image src="/assets/reset_icon.png" width="22.5" height="25.5" />
+                            </button>
+                        </div>
+                        <div style={{ display: "inline-block" }}>
+                            <button
+                                className={`${styles.neumorphic_button}  ${styles.tooltip}`}
+                                data-position="bottom"
+                                data-tooltip="Help"
+                                onClick={help}
+                            >
+                                <span className={`${styles.tooltiptext}`}>Help</span>
+                                <Image src="/assets/help_icon.png" width="22.5" height="25.5" />
+                            </button>
+                            <button
+                                id="keyboardbutton"
+                                className={`${styles.neumorphic_button}  ${styles.tooltip}`}
+                                data-position="bottom"
+                                data-tooltip="Open Keyboard"
+                                onClick={() => setkeyboardState(!keyboardState)}
+                            >
+                                <span className={`${styles.tooltiptext}`}>Open Keyboard</span>
+                                <Image src="/assets/keyboard_icon.png" width="26.5" height="25.5" />
+                            </button>
+                            <button
+                                id="autofill"
+                                className={`${styles.neumorphic_button}  ${styles.tooltip}`}
+                                data-position="bottom"
+                                data-tooltip="Demo Run Code"
+                                onClick={runCodeForce}
+                            >
+                                <span className={`${styles.tooltiptext}`}>Reset Scritp</span>
+                                <Image
+                                    src="/assets/Auto_fill_button_icon.png"
+                                    width="25.5" height="25.5"
+                                />
+                            </button>
+                        </div>
                     </div>
                     <div id="output" className={styles.output_for_script} />
                     <ScriptDialog

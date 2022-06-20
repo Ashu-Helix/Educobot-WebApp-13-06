@@ -35,18 +35,25 @@
 }
 
 .neumorphic_button_container {
-    width: fit-content;
-    margin: auto;
+    /* width: fit-content;
+    margin: auto; */
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    overflow: hidden;
 }
 
 .neumorphic_button {
     height: 45px;
     width: 45px;
     margin: 6px;
-    background: rgba(0, 0, 0, 0.35);
+    /* background: rgba(0, 0, 0, 0.35); */
+    background: inherit;
+    border: inherit;
     border-radius: 22%;
-    box-shadow: 2px 2px 1px #b87333, -1.5px -1.5px 0.7px rgb(0 0 0 / 50%);
+    /* box-shadow: 2px 2px 1px #b87333, -1.5px -1.5px 0.7px rgb(0 0 0 / 50%); */
     transition: box-shadow .25s;
+    cursor: pointer;
 }
 
 .normal_button {
@@ -329,5 +336,16 @@
     .description,
     .lesson_name {
         display: none;
+    }
+
+    .editor {
+        pointer-events: none;
+    }
+
+    .neumorphic_button_container {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        overflow: hidden;
     }
 }
