@@ -1,3 +1,4 @@
+import { formControlClasses } from '@mui/material';
 import { useEffect } from 'react';
 import { UnControlled, Controlled } from 'react-codemirror2'
 interface EditorProps {
@@ -23,10 +24,25 @@ function PythonCode({ language, theme, handleKeyDown, className, onLoad }: Edito
                 // mode: { name: "xml", htmlMode: true, language },
             }}
             onKeyDown={handleKeyDown}
-            //onFocus={(editor) => { console.log(editor) }}
+            // onFocus={(editor) => { var ele = editor.display.input.textarea; ele.setAttribute("readonly", "readonly"); }}
+            // onFocus={(editor) => { try { editor.display.input.textarea.setAttribute("readonly", "readonly"); } catch (err) { console.log(err); } }}
+            // onFocus={(editor) => { hideKeyboard(editor) }}
             className={className}
         />
     )
+
+    function hideKeyboard(element) {
+        console.log("I AM", element);
+
+        element.attr('readonly', 'readonly'); // Force keyboard to hide on input field.
+        element.attr('disabled', 'true'); // Force keyboard to hide on textarea field.
+        setTimeout(function () {
+            element.blur();  //actually close the keyboard
+            // Remove readonly attribute after keyboard is hidden.
+            element.removeAttr('readonly');
+            element.removeAttr('disabled');
+        }, 100);
+    }
 
 }
 

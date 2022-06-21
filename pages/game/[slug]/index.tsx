@@ -251,8 +251,9 @@ export default function PhaserGame(props) {
                             data-position="bottom"
                             data-tooltip="Help"
                             onClick={() => typeof window !== "undefined" && childFunc.current && childFunc?.current(window["helpCode"])}
+                            style={{ position: "absolute", right: 0 }}
                         >
-                            <img src="/assets/help_button_icon.png" width="22.5" height="25.5" />
+                            <img src="/assets/help_icon.png" width="22.5" height="25.5" />
                         </button>
 
                     </div>
