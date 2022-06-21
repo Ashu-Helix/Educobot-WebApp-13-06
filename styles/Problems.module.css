@@ -270,9 +270,9 @@
 }
 
 .lesson_name {
-    fontSize: "18px";
-    fontWeight: "700";
-    fontFamily: "Public Sans";
+    font-size: "18px";
+    font-weight: "700";
+    font-family: "Public Sans";
 }
 
 @media screen and (max-width: 600px) {
@@ -297,10 +297,6 @@
        height: auto;
         flex-direction: column; 
 }*/
-
-    /* .editor {
-        pointer-events: none;
-    } */
 
     .lessonTitle {
         height: auto;

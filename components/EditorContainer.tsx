@@ -4,8 +4,6 @@ interface EditorProps {
     language?: 'python';
     theme?: 'material';
     handleChange?: any;
-    //handleKeyDown?: any;
-    //onLoad?: any;
     value: string;
     className?: string;
 }
@@ -14,9 +12,8 @@ function EditorContainer({ language, theme, handleChange, value, className }: Ed
 
 
     return (
-        // <Editor language={language} theme={theme} onChange={handleChange}></Editor>
-        <Controlled
 
+        <Controlled
             value={value}
             options={{
                 mode: language,
@@ -26,8 +23,7 @@ function EditorContainer({ language, theme, handleChange, value, className }: Ed
                     "Ctrl-Space": "autocomplete"
                 },
                 matchBrackets: true,
-                inputStyle: "contenteditable",
-                readOnly: 'nocursor'
+                //inputStyle: "contenteditable",
                 // mode: { name: "xml", htmlMode: true, language },
             }}
             onBeforeChange={(editor, data, value) => {
@@ -36,8 +32,6 @@ function EditorContainer({ language, theme, handleChange, value, className }: Ed
             onChange={(editor, data, value) => {
                 handleChange(value)
             }}
-            // onKeyDown={handleKeyDown}
-            //onFocus={(editor) => { console.log(editor) }}
             className={className}
 
         />

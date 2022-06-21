@@ -21,12 +21,15 @@ function PythonCode({ language, theme, handleKeyDown, className, onLoad }: Edito
                 mode: language,
                 theme: theme,
                 lineNumbers: true,
+                matchBrackets: true,
+                inputStyle: "contenteditable",
+                //readOnly: 'nocursor'
                 // mode: { name: "xml", htmlMode: true, language },
             }}
             onKeyDown={handleKeyDown}
             // onFocus={(editor) => { var ele = editor.display.input.textarea; ele.setAttribute("readonly", "readonly"); }}
             // onFocus={(editor) => { try { editor.display.input.textarea.setAttribute("readonly", "readonly"); } catch (err) { console.log(err); } }}
-            // onFocus={(editor) => { hideKeyboard(editor) }}
+            // onFocus={(editor) => { }}
             className={className}
         />
     )
