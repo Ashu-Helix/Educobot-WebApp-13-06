@@ -16,11 +16,18 @@ function EditorContainer({ language, theme, handleChange, value, className }: Ed
     return (
         // <Editor language={language} theme={theme} onChange={handleChange}></Editor>
         <Controlled
+
             value={value}
             options={{
                 mode: language,
                 theme: theme,
                 lineNumbers: true,
+                extraKeys: {
+                    "Ctrl-Space": "autocomplete"
+                },
+                matchBrackets: true,
+                inputStyle: "contenteditable",
+                readOnly: 'nocursor'
                 // mode: { name: "xml", htmlMode: true, language },
             }}
             onBeforeChange={(editor, data, value) => {
@@ -32,6 +39,7 @@ function EditorContainer({ language, theme, handleChange, value, className }: Ed
             // onKeyDown={handleKeyDown}
             //onFocus={(editor) => { console.log(editor) }}
             className={className}
+
         />
     )
 }

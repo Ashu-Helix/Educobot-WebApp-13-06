@@ -153,12 +153,13 @@
     padding: 5px 0;
     border-radius: 6px;
     position: absolute;
-    bottom: -12px;
+    left: -37px;
+    bottom: -30px;
     z-index: 1;
 }
 
-.tooltip:hover,
-.tooltip:active .tooltiptext {
+.tooltip:active,
+.tooltip:hover .tooltiptext {
     visibility: visible;
     outline: none;
 }
@@ -285,10 +286,14 @@
         height: calc(95vh - (9/16*95vw));
     }
 
-    .lessonDetailsDiv {
-        /* height: auto;
-        flex-direction: column; */
-    }
+    /*.lessonDetailsDiv {
+       height: auto;
+        flex-direction: column; 
+}*/
+
+    /* .editor {
+        pointer-events: none;
+    } */
 
     .lessonTitle {
         height: auto;

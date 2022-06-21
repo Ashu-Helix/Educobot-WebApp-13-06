@@ -33,13 +33,22 @@ function builtinRead(file) {
 
 function outf(text) {
     const mypre = document.getElementById("output");
-    // mypre.innerHTML = mypre.innerHTML + text;
+    if (/^\s*$/.test(text)) return
     mypre.innerHTML = text;
 }
 function runIt(pythonCode, finalCode) {
 
     Sk.pre = "output";
-    Sk.configure({ output: outf, read: builtinRead, __future__: Sk.python3, });
+    //Sk.configure({ output: outf, read: builtinRead, __future__: Sk.python3, });
+    Sk.configure({
+        inputfun: function (prompt) {
+            return window.prompt(prompt);
+        },
+        inputfunTakesPrompt: true,
+        output: outf,
+        read: builtinRead,
+        retainglobals: true,
+    });
     (Sk.TurtleGraphics || (Sk.TurtleGraphics = {})).target = 'circle';
     var myPromise = Sk.misceval.asyncToPromise(function () {
         Sk.TurtleGraphics.width = (document.getElementById('circle')?.clientWidth);
@@ -48,12 +57,10 @@ function runIt(pythonCode, finalCode) {
     });
     myPromise.then(
         function (mod) {
-            // console.log(pythonCode, finalCode)
 
             // finalCode = finalCode.join('');
             if (pythonCode == finalCode) {
                 SuccessfulOutput = true
-                console.log("Hello")
             }
 
             //console.log(Sk.ffi.remapToJs(Sk.globals["phase"]));
@@ -69,7 +76,7 @@ function runIt(pythonCode, finalCode) {
 
 }
 
-function handleMessage(event) {
+/* function handleMessage(event) {
     const action = event.data.action,
         messageId = event.data.messageId,
         params = event.data.params,
@@ -78,10 +85,10 @@ function handleMessage(event) {
         data: data,
         messageId: messageId
     };
-}
+}*/
 
 function completedFlag() {
     return SuccessfulOutput;
 }
 
-export { handleMessage, externalLibs, runIt, outf, SuccessfulOutput, completedFlag }
+export { runIt, completedFlag }
