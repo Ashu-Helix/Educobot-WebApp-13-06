@@ -33,13 +33,24 @@ function builtinRead(file) {
 
 function outf(text) {
     const mypre = document.getElementById("output");
-    // mypre.innerHTML = mypre.innerHTML + text;
-    mypre.innerHTML = text;
+    mypre.innerHTML = mypre.innerHTML + text;
+    // mypre.innerHTML = text;
 }
-function runIt(pythonCode, finalCode) {
 
+function runIt(pythonCode, finalCode) {
+    document.getElementById("output").innerHTML = "";
     Sk.pre = "output";
-    Sk.configure({ output: outf, read: builtinRead, __future__: Sk.python3, });
+    // Sk.configure({ output: outf, read: builtinRead, __future__: Sk.python3, });
+    Sk.configure({
+        inputfun: function (prompt) {
+            return window.prompt(prompt);
+        },
+        inputfunTakesPrompt: true,
+        output: outf,
+        read: builtinRead,
+        // retainglobals: true,
+        __future__: Sk.python3,
+    });
     (Sk.TurtleGraphics || (Sk.TurtleGraphics = {})).target = 'circle';
     var myPromise = Sk.misceval.asyncToPromise(function () {
         Sk.TurtleGraphics.width = (document.getElementById('circle')?.clientWidth);

@@ -70,8 +70,17 @@ export const getStaticProps: GetStaticProps = async (context) => {
     const wsname = readedData.SheetNames[index];
     const ws = readedData.Sheets[wsname];
 
+
+
     /* Convert array to json*/
     const dataParse: any[] = XLSX.utils.sheet_to_json(ws, { header: 1 });
+
+    const languageObj = {};
+    let i = 1;
+    dataParse[0] && dataParse[0].forEach((language: any) => { if (language != dataParse[0][0]) { languageObj[language] = i; i++; } });
+    // dataParse[0].map(({ language, index }: any) => { if (language != dataParse[0][0]) { languageObj[language] = index; } });
+
+    // console.log(languageObj);
 
     var bodyFormData = new FormData();
     bodyFormData.append('lessonID', context.params.slug);
@@ -85,22 +94,24 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
 
     return {
-        props: { dataParse, slug: context.params.slug, lessonDetails: lessonDetails.data.DATA[0] },
+        props: { dataParse, slug: context.params.slug, lessonDetails: lessonDetails.data.DATA[0], languageObj: languageObj },
     };
 };
-const language = { English: 1, Hindi: 2, Marathi: 3, Spanish: 4, Arabic: 5, Swaheli: 6 }
+
 
 export default function PhaserGame(props) {
     const [timer, setTimer] = useState(0);
     const [imt, setImt] = useState([]);
     const router = useRouter();
-    const { dataParse, slug, lessonDetails } = props;
+    const { dataParse, slug, lessonDetails, languageObj } = props;
     const [muteState, setMute] = useState(false);
     const [lang, setLang] = useState(1);
     const [PythonCode, setPythonCode] = useState("");
     const tut: any[] = dataParse.map(data => (data[lang]))
     tut.shift();
     const childFunc = React.useRef(null)
+    // const language = { English: 1, Hindi: 2, Marathi: 3, Spanish: 4, Arabic: 5, Swaheli: 6 }
+    const language = languageObj;
 
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
@@ -186,11 +197,15 @@ export default function PhaserGame(props) {
                     <p className={styles.description} >{lessonDetails.lsDesc}</p>
                 </div>
                 <div className={styles.select_languageDiv}>
-                    <select className={`${styles.select_language}`} value={lang} onChange={onChange}>
-                        {
-                            Object.keys(language).map(key => <option key={key} value={`${language[key]}`}>{key}</option>)
-                        }
-                    </select>
+                    {
+
+                        Object.keys(language).length > 0 &&
+                        <select className={`${styles.select_language}`} value={lang} onChange={onChange}>
+                            {
+                                Object.keys(language).map(key => <option key={key} value={`${language[key]}`}>{key}</option>)
+                            }
+                        </select>
+                    }
                 </div>
             </div>
             <div
@@ -251,8 +266,9 @@ export default function PhaserGame(props) {
                             data-position="bottom"
                             data-tooltip="Help"
                             onClick={() => typeof window !== "undefined" && childFunc.current && childFunc?.current(window["helpCode"])}
+                            style={{ position: "absolute", right: 0 }}
                         >
-                            <img src="/assets/help_button_icon.png" width="22.5" height="25.5" />
+                            <img src="/assets/help_icon.png" width="22.5" height="25.5" />
                         </button>
 
                     </div>

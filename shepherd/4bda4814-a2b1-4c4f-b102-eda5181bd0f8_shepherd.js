@@ -66,7 +66,7 @@ function handPointAt(hand, element, visibility) {
     });
 
 }
-$("#hand").css("visibility", 'hidden');
+// $("#hand").css("visibility", 'hidden');
 
 function play_audio_tutorial(file, lang) {
     let path = `../assets/` + language.guide_folder + `/` + language.language_packs_folder + `/` + lang + `/` + language.audio_folder + `/`;
@@ -91,6 +91,10 @@ let tour = new Shepherd.Tour({
     }
 });
 function loadAgain() {
+    // $("#hand").css("visibility", 'hidden');
+    clearInterval(myInterval);
+    document.getElementById('hand').style.visibility = "hidden";
+
     lang = window["language"]
 
     const tut = window['tutorials'].map(
@@ -374,6 +378,8 @@ function loadAgain() {
         id: 'run'
     });
     tour.start();
+
+    document.getElementById('soundBtn').addEventListener('click', setAudioPreference)
 }
 
 function t1() {
@@ -502,7 +508,7 @@ function check_toolbox_selection(id) {
 document.getElementById('soundBtn').addEventListener('click', setAudioPreference)
 //NGS Sound Enhancement
 function setAudioPreference() {
-
+    console.log(playAudio);
     if (playAudio) {
         kill_audio();
     }
