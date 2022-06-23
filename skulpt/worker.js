@@ -35,19 +35,33 @@ function outf(text) {
     const mypre = document.getElementById("output");
     if (/^\s*$/.test(text)) return
     mypre.innerHTML = text;
+    mypre.innerHTML = mypre.innerHTML + text;
+    // mypre.innerHTML = text;
 }
-function runIt(pythonCode, finalCode) {
 
+function runIt(pythonCode, finalCode) {
+    document.getElementById("output").innerHTML = "";
     Sk.pre = "output";
+<<<<<<< HEAD
     //Sk.configure({ output: outf, read: builtinRead, __future__: Sk.python3, });
+=======
+    // Sk.configure({ output: outf, read: builtinRead, __future__: Sk.python3, });
+>>>>>>> 38115cfa398e6d8af41724567b0e6510129d4bcd
     Sk.configure({
         inputfun: function (prompt) {
             return window.prompt(prompt);
         },
         inputfunTakesPrompt: true,
+<<<<<<< HEAD
         retainglobals: true,
         output: outf,
         read: builtinRead,
+=======
+        output: outf,
+        read: builtinRead,
+        // retainglobals: true,
+        __future__: Sk.python3,
+>>>>>>> 38115cfa398e6d8af41724567b0e6510129d4bcd
     });
     (Sk.TurtleGraphics || (Sk.TurtleGraphics = {})).target = 'circle';
     var myPromise = Sk.misceval.asyncToPromise(function () {

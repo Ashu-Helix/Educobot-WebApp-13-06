@@ -384,6 +384,8 @@ function loadAgain() {
     });
 
     tour.start();
+
+    document.getElementById('soundBtn').addEventListener('click', setAudioPreference)
 }
 function t1() {
     clearInterval(myInterval);
