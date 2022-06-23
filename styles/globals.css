@@ -85,9 +85,11 @@ code {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: #161c24;
+    /* background: #161c24; */
+    background: #fff;
     border: none;
-    border-radius: 2rem;
+    /* border-radius: 2rem */
+    border-radius: 16px;
     padding: 0px;
 }
 

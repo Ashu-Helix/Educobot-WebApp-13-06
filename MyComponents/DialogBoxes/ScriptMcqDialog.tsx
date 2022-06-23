@@ -80,7 +80,7 @@ const BootstrapDialogTitle = (props: DialogTitleProps) => {
 type Props = {
     // getCoins: (value) => void
     // slug: any;
-    // lessonDetails: any;
+    lessonDetails?: any;
     testDialogInfo: {
         dialogStatus: String;
 
@@ -88,7 +88,8 @@ type Props = {
 };
 export default function TestDialog(
     {
-        // getCoins, lessonDetails, slug,
+        // getCoins,  slug,
+        lessonDetails,
         testDialogInfo }: Props
 ) {
     const [widthState, setWidthState] = useState(0);
@@ -613,14 +614,15 @@ export default function TestDialog(
                             }}
                             fontFamily={"Public Sans"}
                         >
-                            {/* {
-                                lessonDetails.lsSkillTag3 === "" ?
-                                    `With this lesson, you have learned the basics of ${lessonDetails.lsSkillTag2}.`
-                                    :
-                                    `With this lesson, you have learned the basics of ${lessonDetails.lsSkillTag2} and ${lessonDetails.lsSkillTag3}.`
-                            } */}
                             {
-                                `With this lesson, you have learned the basics of <tag2> and <tag3>. `
+                                lessonDetails ?
+                                    lessonDetails.lsSkillTag3 === "" ?
+                                        `With this lesson, you have learned the basics of ${lessonDetails.lsSkillTag2}.`
+                                        :
+                                        `With this lesson, you have learned the basics of ${lessonDetails.lsSkillTag2} and ${lessonDetails.lsSkillTag3}.`
+
+                                    :
+                                    `With this lesson, you have learned the basics of <tag2> and <tag3>. `
                             }
 
                         </Typography>
