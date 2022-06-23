@@ -78,7 +78,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
 const Home: NextPage<any> = (props) => {
     const { dataParse, slug, lessonDetails } = props;
-    const [muteState, setMute] = useState(false);
     const [command, setcommand] = useState("");
     const [reset, setReset] = useState(false);
     const [lang, setLang] = useState(1);

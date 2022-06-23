@@ -92,6 +92,8 @@ let tour = new Shepherd.Tour({
 });
 function loadAgain() {
     lang = window["language"]
+    clearInterval(myInterval)
+    $("#hand").css("visibility", 'hidden');
 
     const tut = window['tutorials'].map(
         (data) => `<p><span style="sans-serif;">
@@ -374,6 +376,8 @@ function loadAgain() {
         id: 'run'
     });
     tour.start();
+
+    document.getElementById('soundBtn').addEventListener('click', setAudioPreference)
 }
 
 function t1() {

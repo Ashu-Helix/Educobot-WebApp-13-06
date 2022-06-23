@@ -45,9 +45,9 @@ function runIt(pythonCode, finalCode) {
             return window.prompt(prompt);
         },
         inputfunTakesPrompt: true,
+        retainglobals: true,
         output: outf,
         read: builtinRead,
-        retainglobals: true,
     });
     (Sk.TurtleGraphics || (Sk.TurtleGraphics = {})).target = 'circle';
     var myPromise = Sk.misceval.asyncToPromise(function () {
