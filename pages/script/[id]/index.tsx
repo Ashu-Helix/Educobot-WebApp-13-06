@@ -29,7 +29,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     let { code, guide, type } = res
 
     var bodyFormData = new FormData();
-    bodyFormData.append('lessonID', context.params.id);
+    bodyFormData.append('lessonID', "4a46c77f-562b-464c-b906-6417bb0c7ac9");
 
     const lessonDetails = await axios({
         method: "post",
@@ -56,15 +56,24 @@ export default function Scripts(props) {
     const [keyboardState, setkeyboardState] = useState(false);
     const [testTaken, setTestTaken] = useState(false);
     const [dialogOpen, setDialogOpen] = useState(false);
-    const language = { English: 1 };
-    const [lang, setLang] = useState(1);
+    const language = { English: "English", Hindi: "Hindi" };
+    const [lang, setLang] = useState("English");
     const router = useRouter();
+    let tutorial = require("../../../tutorial/tutorial.js");
+    const { getPlayAudio } = tutorial;
+    const [playAudio, setPlayAudio] = useState(true);
 
     const onLoad = () => {
         let tutorial = require("../../../tutorial/tutorial.js");
         const { tutorial_guide_updater, make_pred_guide } = tutorial;
         tutorial_guide_updater(id, user_code);
-        guide.forEach(g => make_pred_guide(g.id, g.img, g.code, g.audio, id, type))
+        console.log(guide);
+        console.log(Array.isArray(guide));
+        if (Array.isArray(guide)) {
+            guide.forEach(g => make_pred_guide(g.id, g.img, g.code, g.audio, id, type))
+        } else {
+            guide[lang].forEach(g => make_pred_guide(g.id, g.img, g.code, g.audio, id, type))
+        }
         htmlmaker(code, user_code);
         if (typeof window !== "undefined") {
             const script = require("../../../skulpt/worker");
@@ -73,6 +82,17 @@ export default function Scripts(props) {
         }
         document.getElementsByClassName("CodeMirror-cursors")[0]?.remove();
     };
+
+    useEffect(() => {
+        let tutorial = require("../../../tutorial/tutorial.js");
+        const { tutorial_guide_updater, make_pred_guide } = tutorial;
+        tutorial_guide_updater(id, user_code);
+        if (Array.isArray(guide)) {
+            guide.forEach(g => make_pred_guide(g.id, g.img, g.code, g.audio, id, type))
+        } else {
+            guide[lang].forEach(g => make_pred_guide(g.id, g.img, g.code, g.audio, id, type))
+        }
+    }, [lang]);
 
     useEffect(() => {
         if (window !== undefined && document.getElementsByClassName(" CodeMirror-line ")[0] !== undefined) {
@@ -236,7 +256,8 @@ export default function Scripts(props) {
     }
 
     function onChange(e) {
-        setLang(parseInt(e.target.value))
+        // setLang(parseInt(e.target.value))
+        setLang(e.target.value);
     }
 
     function reset_output() {
@@ -244,6 +265,15 @@ export default function Scripts(props) {
         htmlmaker(code, user_code);
         setUser_code(user_code.splice(0, user_code.length));
         document.getElementById("output").innerHTML = "";
+    }
+
+    function checkAudio() {
+        setPlayAudio(getPlayAudio());
+    }
+
+    function closeModal() {
+        let myDialog: any = document.getElementById("modal");
+        myDialog.close();
     }
 
     return (
@@ -348,19 +378,25 @@ export default function Scripts(props) {
                             dialogStatus: "test",
                         }}
                     />
-                    <dialog id="modal" />
-                    {/* <dialog id="modal">
-                        <div className="sound_close_container">
-                            <img src="/assets/sound_icon.png"
-                                width="25.5" height="25.5"
-                            />
-                            <svg width="35" viewBox="0 0 21 19" stroke="black" xmlns="http://www.w3.org/2000/svg">
+                    {/* <dialog id="modal" /> */}
+                    <dialog id="modal">
+                        <div className={styles.sound_close_container}>
+                            {
+                                playAudio ? <img src="/assets/sound_icon.png"
+                                    width="25.5" height="25.5"
+                                    onClick={checkAudio}
+                                /> : <img src="/assets/sound_unmute.png"
+                                    width="25.5" height="25.5"
+                                    onClick={checkAudio}
+                                />
+                            }
+                            <svg width="30" viewBox="0 0 21 19" stroke="black" xmlns="http://www.w3.org/2000/svg" onClick={closeModal}>
                                 <path d="M8.4042 6.00409L12.7042 1.71409C13.0963 1.32197 13.0963 0.686214 12.7042 0.294092C12.3121 -0.0980305 11.6763 -0.0980305 11.2842 0.294092L6.9942 4.59409L2.7042 0.294092C2.31208 -0.0980305 1.67632 -0.0980305 1.2842 0.294092C0.892079 0.686214 0.89208 1.32197 1.2842 1.71409L5.5842 6.00409L1.2842 10.2941C1.09489 10.4819 0.988403 10.7375 0.988403 11.0041C0.988403 11.2707 1.09489 11.5263 1.2842 11.7141C1.47197 11.9034 1.72756 12.0099 1.9942 12.0099C2.26084 12.0099 2.51644 11.9034 2.7042 11.7141L6.9942 7.41409L11.2842 11.7141C11.472 11.9034 11.7276 12.0099 11.9942 12.0099C12.2608 12.0099 12.5164 11.9034 12.7042 11.7141C12.8935 11.5263 13 11.2707 13 11.0041C13 10.7375 12.8935 10.4819 12.7042 10.2941L8.4042 6.00409Z"
                                     fill="black" />
                             </svg>
                         </div>
                         <div> </div>
-                    </dialog> */}
+                    </dialog>
 
                 </div>
                 {keyboardState && (
