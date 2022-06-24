@@ -59,15 +59,9 @@ function runIt(pythonCode, finalCode) {
     });
     myPromise.then(
         function (mod) {
-            // console.log(pythonCode, finalCode)
-
-            // finalCode = finalCode.join('');
             if (pythonCode == finalCode) {
                 SuccessfulOutput = true
-                console.log("Hello")
             }
-
-            //console.log(Sk.ffi.remapToJs(Sk.globals["phase"]));
         },
         function (err) {
             console.log(err.toString());

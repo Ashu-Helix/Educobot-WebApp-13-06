@@ -1,20 +1,19 @@
+import dynamic from 'next/dynamic';
 import { useEffect } from 'react';
-import { Controlled } from 'react-codemirror2'
+import { Controlled } from 'react-codemirror2';
+import "codemirror/theme/yonce.css"
+import "codemirror/mode/python/python"
 interface EditorProps {
-    language?: 'python';
-    theme?: 'material';
+    language?: string;
+    theme?: string;
     handleChange?: any;
-    //handleKeyDown?: any;
-    //onLoad?: any;
     value: string;
     className?: string;
 }
 
 function EditorContainer({ language, theme, handleChange, value, className }: EditorProps) {
 
-
     return (
-        // <Editor language={language} theme={theme} onChange={handleChange}></Editor>
         <Controlled
             value={value}
             options={{
@@ -29,8 +28,6 @@ function EditorContainer({ language, theme, handleChange, value, className }: Ed
             onChange={(editor, data, value) => {
                 handleChange(value)
             }}
-            // onKeyDown={handleKeyDown}
-            //onFocus={(editor) => { console.log(editor) }}
             className={className}
         />
     )

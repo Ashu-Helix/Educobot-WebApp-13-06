@@ -57,6 +57,7 @@ body {
     margin: 5px;
 }
 
+
 .CodeMirror-gutters,
 .CodeMirror-linenumbers {
     background-color: transparent !important;
@@ -67,10 +68,7 @@ code {
         monospace;
 }
 
-.CodeMirror-gutters,
-.CodeMirror-linenumbers {
-    background-color: transparent !important;
-}
+
 
 
 #sprite {
