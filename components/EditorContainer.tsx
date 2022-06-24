@@ -1,7 +1,8 @@
+import dynamic from 'next/dynamic';
 import { useEffect } from 'react';
 import { Controlled } from 'react-codemirror2';
-import "../node_modules/codemirror/theme/yonce.css"
-import "../node_modules/codemirror/mode/python/python"
+import "codemirror/theme/yonce.css"
+import "codemirror/mode/python/python"
 interface EditorProps {
     language?: string;
     theme?: string;
