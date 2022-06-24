@@ -1,8 +1,11 @@
 import { typography } from "@mui/system";
 
 var tour_over = false;
-var audio = new Audio();
+
+// var audio = new Audio();
+var audio = { paused: true };
 let kill_audio = () => { if (!audio.paused) audio.pause(); }
+
 let language = {
     language_packs_folder: 'languages',
     language: 'english',
@@ -34,14 +37,35 @@ function image_scaler_our_version(lesson_id, file, id, type) {
     }
 }
 
+var playAudio = true;
+
+function getPlayAudio() {
+
+    if (playAudio) {
+        kill_audio();
+    }
+
+    if (playAudio) {
+        playAudio = false;
+    } else {
+        playAudio = true;
+    }
+    return playAudio
+}
 
 function play_audio_tutorial(lesson_id, file) {
     let path = `https://app.educobot.com/liveLessons/python/${lesson_id}/audio/`;
     // let path = `http://localhost:7001/scripts/${lesson_id}/audio/`;
     // let path = `../` + language.audio_folder + `/`;
-    if (!audio.paused) audio.pause();
-    audio = new Audio(path + file);
-    audio.play();
+
+    // if (!audio.paused) audio.pause();
+    // audio = new Audio(path + file);
+    // audio.play();
+    kill_audio();
+    if (playAudio) {
+        audio = new Audio(path + file);
+        audio.play();
+    }
 }
 
 // function chk() {
@@ -129,11 +153,11 @@ function helpCode(lesson_id, user_code) {
 function tutorial_guide_updater(lesson_id, user_code) {
     pred_guide.forEach((i) => {
         if (i.shown == false && i.code === user_code.join("")) {
-            document.getElementById('modal').innerHTML = i.html;
-            document.getElementById('modal').show();
-            // const elem = document.getElementById('modal') //.innerHTML = i.html;
-            // elem.children[2].innerHTML = i.html;
+            // document.getElementById('modal').innerHTML = i.html;
             // document.getElementById('modal').show();
+            const elem = document.getElementById('modal') //.innerHTML = i.html;
+            elem.children[1].innerHTML = i.html;
+            document.getElementById('modal').show();
 
             i.shown = true;
             if (!(i.audio === undefined || i.audio == "")) {
@@ -144,4 +168,4 @@ function tutorial_guide_updater(lesson_id, user_code) {
 }
 
 
-export { tutorial_guide_updater, make_pred_guide, helpCode }
+export { tutorial_guide_updater, make_pred_guide, helpCode, getPlayAudio }
