@@ -132,6 +132,7 @@ export default function PythonEditor(props) {
                     handleChange={(value) => setScript(value)}
                     className={openEditor.open_code_editor}
                     //className={styles.editor}
+                    setkeyboardState={setkeyboardState}
                     value={script} />
 
                 <div id="" className={styles.canvas_for_script}>
