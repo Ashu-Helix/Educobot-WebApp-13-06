@@ -18,8 +18,8 @@ import { useRouter } from "next/router";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
 
-    const response1 = await fetch(`https://app.educobot.com/liveLessons/python/${context.params.id}/code.json`);
-    // const response1 = await fetch(`http://localhost:7001/scripts/${context.params.id}/code.json`);
+    // const response1 = await fetch(`https://app.educobot.com/liveLessons/python/${context.params.id}/code.json`);
+    const response1 = await fetch(`http://localhost:7001/scripts/${context.params.id}/code.json`);
     if (response1.status === 404) {
         return {
             notFound: true,
@@ -29,7 +29,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     let { code, guide, type } = res
 
     var bodyFormData = new FormData();
-    bodyFormData.append('lessonID', context.params.id);
+    //bodyFormData.append('lessonID', context.params.id);
+    bodyFormData.append('lessonID', "7adbaaff-0e03-41b4-a2e1-81b40fd56dfc");
 
     const lessonDetails = await axios({
         method: "post",
@@ -37,8 +38,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         data: bodyFormData,
         headers: { "Content-Type": "multipart/form-data" },
     });
-
-    // console.log(lessonDetails.data.DATA[0]);
 
     return {
         props: { id: context.params.id, code, guide, type, lessonDetails: lessonDetails.data.DATA[0] },
