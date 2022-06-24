@@ -343,8 +343,8 @@
     }
 
     .editor {
-        /* pointer-events: none; */
-        margin-left: 0rem;
+        pointer-events: none;
+        margin: 0 1rem;
     }
 
     .neumorphic_button_container {

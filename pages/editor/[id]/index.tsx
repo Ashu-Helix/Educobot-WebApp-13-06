@@ -19,16 +19,16 @@ import { useRouter } from "next/router";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
 
-    /*const response1 = await fetch(`https://app.educobot.com/liveLessons/python/${context.params.id}/code.json`);
-    // const response1 = await fetch(`http://localhost:7001/scripts/${context.params.id}/code.json`);
+    // const response1 = await fetch(`https://app.educobot.com/liveLessons/python/${context.params.id}/code.json`);
+    const response1 = await fetch(`http://localhost:7001/scripts/${context.params.id}/code.json`);
     if (response1.status === 404) {
         return {
             notFound: true,
         }
     }
     let res = await response1.json() ?? "";
-    let { code,  type } = res
-*/
+    let { code, type } = res
+
     var bodyFormData = new FormData();
     bodyFormData.append('lessonID', "7adbaaff-0e03-41b4-a2e1-81b40fd56dfc");
 
@@ -39,45 +39,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         headers: { "Content-Type": "multipart/form-data" },
     });
 
-    let code = 'name = input("What is your name?")\nprint("hello "+name)\na=3\nb=5\nprint(a+b)';
-    let code2 = `import turtle
-import datetime as dt
-
-wn = turtle.Screen()
-wn.bgcolor("white")
-t1 = turtle.Turtle()
-t1.pensize(3)
-t1.color('black')
-t1.penup()
-
-t1.goto(-50, 0)
-t1.pendown()
-
-for i in range(2):
-	t1.forward(250)
-	t1.left(90)
-	t1.forward(70)
-	t1.left(90)
-
-t1.hideturtle()
-t = turtle.Turtle()
-t.goto(0,10)
-
-hr = dt.datetime.now().hour
-mn = dt.datetime.now().minute
-sec = dt.datetime.now().second
-
-while True:
-    t.hideturtle()
-    t.clear()
-    t.write(str(hr).zfill(2)+":"
-    +str(mn).zfill(2)+":"
-    +str(sec).zfill(2),
-    font =("Arial Narrow", 35, "bold"))
-
-    sec = dt.datetime.now().second
-    mn = dt.datetime.now().minute
-    hr = dt.datetime.now().hour`
+    // let code = 'name = input("What is your name?")\nprint("hello "+name)\na=3\nb=5\nprint(a+b)';
     return {
         props: { id: context.params.id, code, lessonDetails: lessonDetails.data.DATA[0] },
     };
