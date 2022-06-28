@@ -16,7 +16,9 @@ import { GetServerSideProps, GetStaticProps } from "next/types";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
 
-    const response1 = await fetch(`http://app.educobot.com/liveLessons/turtle/${context.params.id}/code.json`);
+    //const response1 = await fetch(`http://app.educobot.com/liveLessons/turtle/${context.params.id}/code.json`);
+    const response1 = await fetch(`http://localhost:7001/turtle/${context.params.id}/code.json`);
+
     if (response1.status === 404) {
         return {
             notFound: true,
@@ -294,7 +296,7 @@ export default function Scripts(props) {
                                 // onClick={() => setReset(!reset)}
                                 onClick={reset_output}
                             >
-                                <span className={`${styles.tooltiptext}`}>Run Script</span>
+                                <span className={`${styles.tooltiptext}`}>Reset Output</span>
                                 <Image src="/assets/reset_icon.png" width="22.5" height="25.5" />
                             </button>
                         </div>
@@ -325,7 +327,7 @@ export default function Scripts(props) {
                                 data-tooltip="Demo Run Code"
                                 onClick={runCodeForce}
                             >
-                                <span className={`${styles.tooltiptext}`}>Reset Script</span>
+                                <span className={`${styles.tooltiptext}`}>Autofill</span>
                                 <Image
                                     src="/assets/Auto_fill_button_icon.png"
                                     width="25.5" height="25.5"
@@ -362,7 +364,7 @@ export default function Scripts(props) {
                     </dialog>
                 </div>
                 {keyboardState && (
-                    <KeyBoardContainer script={script} setScript={(value) => updateUserCodeFromKeyboard(value)} />
+                    <KeyBoardContainer script={script} setScript={(value) => updateUserCodeFromKeyboard(value)} onlyKeyboard={false} />
                 )}
             </div>
         </>

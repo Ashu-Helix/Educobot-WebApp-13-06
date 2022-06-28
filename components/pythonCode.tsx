@@ -2,8 +2,8 @@ import { formControlClasses } from '@mui/material';
 import { useEffect } from 'react';
 import { UnControlled, Controlled } from 'react-codemirror2'
 interface EditorProps {
-    language?: 'python';
-    theme?: 'material';
+    language?: string;
+    theme?: string;
     handleKeyDown?: any;
     onLoad?: any;
     className?: string;
@@ -21,8 +21,10 @@ function PythonCode({ language, theme, handleKeyDown, className, onLoad }: Edito
                 mode: language,
                 theme: theme,
                 lineNumbers: true,
+                readOnly: true
                 // mode: { name: "xml", htmlMode: true, language },
             }}
+
             onKeyDown={handleKeyDown}
             // onFocus={(editor) => { var ele = editor.display.input.textarea; ele.setAttribute("readonly", "readonly"); }}
             // onFocus={(editor) => { try { editor.display.input.textarea.setAttribute("readonly", "readonly"); } catch (err) { console.log(err); } }}

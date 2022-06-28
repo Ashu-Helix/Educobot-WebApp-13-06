@@ -218,6 +218,10 @@
     margin-left: 1rem;
 }
 
+.editor [class*=CodeMirror-lines] {
+    overflow-x: scroll;
+}
+
 
 .lessonDetailsDiv {
     height: 7%;
@@ -339,7 +343,8 @@
     }
 
     .editor {
-        pointer-events: none;
+        /* pointer-events: none; */
+        margin-left: 0rem;
     }
 
     .neumorphic_button_container {

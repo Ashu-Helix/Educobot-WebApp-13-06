@@ -40,6 +40,44 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     });
 
     let code = 'name = input("What is your name?")\nprint("hello "+name)\na=3\nb=5\nprint(a+b)';
+    let code2 = `import turtle
+import datetime as dt
+
+wn = turtle.Screen()
+wn.bgcolor("white")
+t1 = turtle.Turtle()
+t1.pensize(3)
+t1.color('black')
+t1.penup()
+
+t1.goto(-50, 0)
+t1.pendown()
+
+for i in range(2):
+	t1.forward(250)
+	t1.left(90)
+	t1.forward(70)
+	t1.left(90)
+
+t1.hideturtle()
+t = turtle.Turtle()
+t.goto(0,10)
+
+hr = dt.datetime.now().hour
+mn = dt.datetime.now().minute
+sec = dt.datetime.now().second
+
+while True:
+    t.hideturtle()
+    t.clear()
+    t.write(str(hr).zfill(2)+":"
+    +str(mn).zfill(2)+":"
+    +str(sec).zfill(2),
+    font =("Arial Narrow", 35, "bold"))
+
+    sec = dt.datetime.now().second
+    mn = dt.datetime.now().minute
+    hr = dt.datetime.now().hour`
     return {
         props: { id: context.params.id, code, lessonDetails: lessonDetails.data.DATA[0] },
     };
@@ -50,6 +88,8 @@ export default function PythonEditor(props) {
     const { id, code, lessonDetails } = props;
     const [script, setScript] = useState(code)
     const [keyboardState, setkeyboardState] = useState(false);
+    const [editor, setEdior] = useState(null);
+    const [onlyKeyboard, setOnlyKeyboard] = useState(false);
     const [testTaken, setTestTaken] = useState(false);
     const [dialogOpen, setDialogOpen] = useState(false);
     const language = { English: 1 };
@@ -61,12 +101,22 @@ export default function PythonEditor(props) {
             require("../../../skulpt/worker").runIt("")
         }
     }, [])
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            if (!editor) return;
+            if (!editor.hasFocus())
+                editor.focus();
+        }, 500);
+        return () => clearInterval(timer);
+    }, [editor])
     const runScript = () => {
         if (typeof window !== "undefined") {
             const script1 = require("../../../skulpt/worker");
             const { runIt } = script1;
             const py = script;
             runIt(py)
+            setkeyboardState(false)
             // if (!testTaken) {
             //     let interval = setInterval(() => {
             //         if (!dialogOpen) {
@@ -83,9 +133,9 @@ export default function PythonEditor(props) {
         }
     };
 
-
-
     const updateUserCodeFromKeyboard = (input) => {
+        if (editor && onlyKeyboard) { insertTextAtCursor(input); return; }
+
         if (input === "{bksp}")
             setScript(script => script.slice(0, -1))
 
@@ -97,8 +147,63 @@ export default function PythonEditor(props) {
     }
 
     function reset_output() {
-        setScript("")
+        //setScript("")
         document.getElementById("output").innerHTML = "";
+    }
+
+    function insertTextAtCursor(key) {
+        var doc = editor.getDoc();
+        var cursor = doc.getCursor();
+
+        if (key === "{space}") {
+            doc.replaceRange(" ", doc.getCursor(true), doc.getCursor(false));
+            setScript(editor.getValue())
+            return;
+        }
+        if (key === "{tab}") {
+            doc.replaceRange("    ", doc.getCursor(true), doc.getCursor(false));
+            setScript(editor.getValue())
+            return;
+        }
+        if (key === "{enter}") {
+            doc.replaceRange("\n", doc.getCursor(true), doc.getCursor(false));
+            setScript(editor.getValue())
+            return;
+        }
+
+        if (key === "{bksp}") {
+
+            const code = (editor.getValue())
+            const { line, ch } = editor.getCursor(); //returns lines and chars staring with 1
+            let lineArr = code.split("\n")
+            let newline = lineArr[line]; //select line where cursor is pointing
+            //replace characher at ch-1 position with blank 
+            newline = newline.replace(/./g, (c, i) => i == ch - 1 ? '' : c)
+
+            lineArr[line] = newline;  //replace line in array
+            if (lineArr[line] === '') { // if nothing in line delete it from arry
+                delete lineArr[line]
+                lineArr = lineArr.filter(item => item !== "empty") //filter empty obj
+
+                setScript(lineArr.join("\n"));
+                doc.setCursor({ line: line - 1 }) //move cursor to next top line
+
+                editor.focus();
+                return;
+            }
+
+            setScript(lineArr.join("\n"))
+            doc.setCursor({ line, ch: ch - 1 }) //remain at char which is deleted
+            editor.focus();
+
+            return;
+        }
+
+
+        doc.replaceRange(key, doc.getCursor(true), doc.getCursor(false));
+        setScript(editor.getValue())
+        editor.focus();
+
     }
 
     return (
@@ -133,7 +238,9 @@ export default function PythonEditor(props) {
                     className={openEditor.open_code_editor}
                     //className={styles.editor}
                     setkeyboardState={setkeyboardState}
-                    value={script} />
+                    setEditorState={setEdior}
+                    value={script}
+                    setOnlyKeyboard={setOnlyKeyboard} />
 
                 <div id="" className={styles.canvas_for_script}>
                     <div className={styles.neumorphic_button_container}>
@@ -175,6 +282,8 @@ export default function PythonEditor(props) {
                             </button>
                         </div>
                     </div>
+                    {/* <div id="circle" className="center" style={{ aspectRatio: "2/1" }} /> */}
+
                     <div id="output" className={styles.output_for_script} />
                     <ScriptDialog
                         lessonDetails={lessonDetails}
@@ -198,7 +307,7 @@ export default function PythonEditor(props) {
 
                 </div>
                 {keyboardState && (
-                    <KeyBoardContainer script={script} setScript={(value) => updateUserCodeFromKeyboard(value)} />
+                    <KeyBoardContainer onlyKeyboard={onlyKeyboard} script={script} setScript={(value) => updateUserCodeFromKeyboard(value)} />
                 )}
             </div>
         </>
