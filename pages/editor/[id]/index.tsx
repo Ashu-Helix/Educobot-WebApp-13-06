@@ -109,7 +109,7 @@ export default function PythonEditor(props) {
     }
 
     function reset_output() {
-        //setScript("")
+        // setScript("")
         document.getElementById("output").innerHTML = "";
     }
 

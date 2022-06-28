@@ -8,8 +8,9 @@
 
 @media screen and (max-width: 600px) {
 
-    /* .open_code_editor {
-        pointer-events: none;
-    } */
+    .open_code_editor {
+        /* pointer-events: none; */
+        margin: 0 1rem;
+    }
 
 }

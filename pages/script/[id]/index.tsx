@@ -305,6 +305,7 @@ export default function Scripts(props) {
                     handleKeyDown={handleKeyDown}
                     onLoad={onLoad}
                     className={styles.editor}
+                    setkeyboardState={setkeyboardState}
                 />
 
                 <div id="" className={styles.canvas_for_script}>
