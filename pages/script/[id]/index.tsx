@@ -65,8 +65,8 @@ export default function Scripts(props) {
         let tutorial = require("../../../tutorial/tutorial.js");
         const { tutorial_guide_updater, make_pred_guide } = tutorial;
         tutorial_guide_updater(id, user_code);
-        console.log(guide);
-        console.log(Array.isArray(guide));
+        // console.log(guide);
+        // console.log(Array.isArray(guide));
         if (Array.isArray(guide)) {
             guide.forEach(g => make_pred_guide(g.id, g.img, g.code, g.audio, id, type))
         } else {
@@ -330,7 +330,7 @@ export default function Scripts(props) {
                                 // onClick={() => setReset(!reset)}
                                 onClick={reset_output}
                             >
-                                <span className={`${styles.tooltiptext}`}>Run Script</span>
+                                <span className={`${styles.tooltiptext}`}>Reset Output</span>
                                 <Image src="/assets/reset_icon.png" width="22.5" height="25.5" />
                             </button>
                         </div>
@@ -361,7 +361,7 @@ export default function Scripts(props) {
                                 data-tooltip="Demo Run Code"
                                 onClick={runCodeForce}
                             >
-                                <span className={`${styles.tooltiptext}`}>Reset Script</span>
+                                <span className={`${styles.tooltiptext}`}>Autofill</span>
                                 <Image
                                     src="/assets/Auto_fill_button_icon.png"
                                     width="25.5" height="25.5"
@@ -398,7 +398,7 @@ export default function Scripts(props) {
 
                 </div>
                 {keyboardState && (
-                    <KeyBoardContainer script={script} setScript={(value) => updateUserCodeFromKeyboard(value)} />
+                    <KeyBoardContainer script={script} setScript={(value) => updateUserCodeFromKeyboard(value)} onlyKeyboard={false} />
                 )}
             </div>
         </>
