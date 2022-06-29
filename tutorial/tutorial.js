@@ -1,4 +1,3 @@
-import { typography } from "@mui/system";
 
 var tour_over = false;
 
