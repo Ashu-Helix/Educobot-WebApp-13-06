@@ -1,27 +1,25 @@
 import React, { useEffect, useState } from "react";
-import type {
-    GetServerSideProps,
-    GetStaticPaths,
-    GetStaticProps,
-    NextPage,
-} from "next";
+import type { GetStaticProps } from "next";
 import Image from "next/image";
 import dynamic from "next/dynamic";
-import styles from "../../../styles/Problems.module.css";
-import Game from "./game";
 import { useRouter } from "next/router";
-import { existsSync, mkdirSync, readdir, readdirSync, writeFileSync } from "fs";
-import path from "path";
 import * as XLSX from "xlsx";
-import TestDialog from "../../../MyComponents/DialogBoxes/TutorialDialog";
 import axios from "axios";
 import FormData from 'form-data';
 import { Button } from "@mui/material";
 import { Icon } from '@iconify/react'
-const Blockly = dynamic(import("../../../components/Blockly"), { ssr: false });
-
-
+const BlocklyComp = dynamic(import("../../../components/Blockly"), { ssr: false });
 const Tour = dynamic(import("../../../components/Tour"), { ssr: false, });
+import TestDialog from "../../../MyComponents/DialogBoxes/TutorialDialog";
+import Help from "../../../components/Help";
+import Game from "./game";
+import styles from "../../../styles/Problems.module.css";
+
+
+import Blockly from "blockly";
+import "blockly/python";
+import "blockly/javascript";
+
 
 export const getStaticPaths = async () => {
 
@@ -37,12 +35,15 @@ export const getStaticPaths = async () => {
 
 
     return {
+        // paths: [
+        //     { params: { slug: "956dfe60-ed8a-45a4-8fac-dd3d72137944" } },
+        //     { params: { slug: "ce19a96e-3800-4251-b08f-079b8b45a135" } },
+        //     { params: { slug: "e0c38e50-cbb3-455f-ae16-d737fc624b24" } }
+        // ],
         paths,
         fallback: false,
     };
 };
-
-
 
 export const getStaticProps: GetStaticProps = async (context) => {
 
@@ -78,9 +79,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
     const languageObj = {};
     let i = 1;
     dataParse[0] && dataParse[0].forEach((language: any) => { if (language != dataParse[0][0]) { languageObj[language] = i; i++; } });
-    // dataParse[0].map(({ language, index }: any) => { if (language != dataParse[0][0]) { languageObj[language] = index; } });
-
-    // console.log(languageObj);
 
     var bodyFormData = new FormData();
     bodyFormData.append('lessonID', context.params.slug);
@@ -91,10 +89,107 @@ export const getStaticProps: GetStaticProps = async (context) => {
         data: bodyFormData,
         headers: { "Content-Type": "multipart/form-data" },
     });
-
+    const instruction = context.params.slug === "e0c38e50-cbb3-455f-ae16-d737fc624b24" ? [{
+        col1: (`The task is to place the monument at the appropriate country through blocks`),
+        col2: ``,
+        rescue: false,
+        checkbox: false,
+        workspace: '',
+    },
+    {
+        col1: `Touch the country and obtain the x,y coordinate for placing the monument at thier respective country`,
+        col2: ``,
+        rescue: false,
+        checkbox: false,
+        workspace: '',
+    },
+    {
+        col1: `Send Horse to stable`,
+        col2: `Set Country's x & y coordinates`,
+        rescue: true,
+        checkbox: true,
+        workspace: '<xml xmlns="https://developers.google.com/blockly/xml"><block type="send__block" id="h0XdfPSk|OXns`9+*t?I" x="58" y="127"><field name="options1">horse</field><field name="options2">sty</field><next><block type="wait_block" id=".8[e}M}p6c/b9)KYR5d1"><field name="milli">6</field></block></next></block></xml>',
+    },
+    {
+        col1: ``,
+        col2: `send pig`,
+        rescue: true,
+        checkbox: true,
+        workspace: '<xml xmlns="https://developers.google.com/blockly/xml"><block type="send__block" id="Z_.;V0s!(K6f,T:[Y2Xv" x="27" y="113"><field name="options1">horse</field><field name="options2">stable</field><next><block type="wait_block" id="1HgQ/DGvN,F`6;o)yDYN"><field name="milli">6</field><next><block type="send__block" id="^$oefJlcH}G7W6i3:b5U"><field name="options1">pig</field><field name="options2">sty</field><next><block type="wait_block" id="%;@JELa)A9Q~ICHP!.z}"><field name="milli">11</field></block></next></block></next></block></next></block></xml>',
+    },
+    {
+        col1: `ALL`,
+        col2: ``,
+        rescue: true,
+        checkbox: true,
+        workspace: '<xml xmlns="https://developers.google.com/blockly/xml"><block type = "send__block" id = "Z_.;V0s!(K6f,T:[Y2Xv" x = "27" y = "113"><field name="options1">horse</field><field name="options2">stable</field><next><block type="wait_block" id="1HgQ/DGvN,F`6;o)yDYN"><field name="milli">6</field><next><block type="send__block" id="^$oefJlcH}G7W6i3:b5U"><field name="options1">pig</field><field name="options2">sty</field><next><block type="wait_block" id="%;@JELa)A9Q~ICHP!.z}"><field name="milli">11</field><next><block type="send__block" id="):ViSC):@~M91cL^I)QX"><field name="options1">cow</field><field name="options2">shed</field></block></next></block></next></block></next></block></next></block></xml>',
+    }]
+        : [{
+            col1: (`The task is to place the monument at the appropriate country through blocks`),
+            col2: ``,
+            rescue: false,
+            checkbox: false,
+            workspace: '',
+        },
+        {
+            col1: `Touch the country and obtain the x,y coordinate for placing the monument at thier respective country`,
+            col2: ``,
+            rescue: false,
+            checkbox: false,
+            workspace: '',
+        },
+        {
+            col1: `Send Monument to respective Country`,
+            col2: `Set Country's x & y coordinates`,
+            rescue: true,
+            checkbox: true,
+            workspace: '<xml xmlns="https://developers.google.com/blockly/xml"><block type="variable_holder" id="g)`%]AL[j7-a)qH!yFyd" x="52" y="-113"><field name="countryName">India</field><value name="NAME"><block type="xy" id="YbCA1lsnfRlHrY@!Y~HX"><field name="x_coordinate">1265</field><field name="y_coordinate">649</field></block></value></block></xml>',
+        },
+        {
+            col1: ``,
+            col2: `place monument in Country`,
+            rescue: true,
+            checkbox: true,
+            workspace: '<xml xmlns="https://developers.google.com/blockly/xml"><block type="variable_holder" id="g)`%]AL[j7-a)qH!yFyd" x="52" y="-113"><field name="countryName">India</field><value name="NAME"><block type="xy" id="YbCA1lsnfRlHrY@!Y~HX"><field name="x_coordinate">1265</field><field name="y_coordinate">649</field></block></value><next><block type="place_block" id="0R{]X0`E`:jFi$F=Oudf"><field name="options1">tajMahal</field><field name="options2">India</field></block></next></block></xml>',
+        },
+        {
+            col1: `USA`,
+            col2: ``,
+            rescue: true,
+            checkbox: true,
+            workspace: '<xml xmlns="https://developers.google.com/blockly/xml"><block type="variable_holder" id="g)`%]AL[j7-a)qH!yFyd" x="52" y="-113"><field name="countryName">India</field><value name="NAME"><block type="xy" id="YbCA1lsnfRlHrY@!Y~HX"><field name="x_coordinate">1265</field><field name="y_coordinate">649</field></block></value><next><block type="place_block" id="0R{]X0`E`:jFi$F=Oudf"><field name="options1">tajMahal</field><field name="options2">India</field><next><block type="variable_holder" id="Aq+QaW%]IAS%ogM;e~${"><field name="countryName">UnitedStates</field><value name="NAME"><block type="xy" id="]qw~qxHc#1Ha1ABENRpm"><field name="x_coordinate">500</field><field name="y_coordinate">500</field></block></value><next><block type="place_block" id="c+i]m@ZxUSr#YLHxiQ,n"><field name="options1">statueOfLib</field><field name="options2">UnitedStates</field></block></next></block></next></block></next></block></xml>',
+        },
+        {
+            col1: `Australia`,
+            col2: ``,
+            rescue: true,
+            checkbox: true,
+            workspace: '<xml xmlns="https://developers.google.com/blockly/xml"><block type="variable_holder" id="g)`%]AL[j7-a)qH!yFyd" x="52" y="-113"><field name="countryName">India</field><value name="NAME"><block type="xy" id="YbCA1lsnfRlHrY@!Y~HX"><field name="x_coordinate">1265</field><field name="y_coordinate">649</field></block></value><next><block type="place_block" id="0R{]X0`E`:jFi$F=Oudf"><field name="options1">tajMahal</field><field name="options2">India</field><next><block type="variable_holder" id="Aq+QaW%]IAS%ogM;e~${"><field name="countryName">UnitedStates</field><value name="NAME"><block type="xy" id="]qw~qxHc#1Ha1ABENRpm"><field name="x_coordinate">500</field><field name="y_coordinate">500</field></block></value><next><block type="place_block" id="c+i]m@ZxUSr#YLHxiQ,n"><field name="options1">statueOfLib</field><field name="options2">UnitedStates</field><next><block type="variable_holder" id="bm(rB`Dt39-ttN+YpXB/"><field name="countryName">Australia</field><value name="NAME"><block type="xy" id="U|h?hwQY9HOOI=8?r_6$"><field name="x_coordinate">1500</field><field name="y_coordinate">900</field></block></value><next><block type="place_block" id="#ZXlhG!0b%[_=b4o0~HT"><field name="options1">lotus</field><field name="options2">Australia</field></block></next></block></next></block></next></block></next></block></next></block></xml>',
+        },
+        {
+            col1: `UK`,
+            col2: ``,
+            rescue: true,
+            checkbox: true,
+            workspace: '<xml xmlns="https://developers.google.com/blockly/xml"><block type="variable_holder" id="g)`%]AL[j7-a)qH!yFyd" x="52" y="-113"><field name="countryName">India</field><value name="NAME"><block type="xy" id="YbCA1lsnfRlHrY@!Y~HX"><field name="x_coordinate">1265</field><field name="y_coordinate">649</field></block></value><next><block type="place_block" id="0R{]X0`E`:jFi$F=Oudf"><field name="options1">tajMahal</field><field name="options2">India</field><next><block type="variable_holder" id="Aq+QaW%]IAS%ogM;e~${"><field name="countryName">UnitedStates</field><value name="NAME"><block type="xy" id="]qw~qxHc#1Ha1ABENRpm"><field name="x_coordinate">500</field><field name="y_coordinate">500</field></block></value><next><block type="place_block" id="c+i]m@ZxUSr#YLHxiQ,n"><field name="options1">statueOfLib</field><field name="options2">UnitedStates</field><next><block type="variable_holder" id="bm(rB`Dt39-ttN+YpXB/"><field name="countryName">Australia</field><value name="NAME"><block type="xy" id="U|h?hwQY9HOOI=8?r_6$"><field name="x_coordinate">1500</field><field name="y_coordinate">900</field></block></value><next><block type="place_block" id="#ZXlhG!0b%[_=b4o0~HT"><field name="options1">lotus</field><field name="options2">Australia</field><next><block type="variable_holder" id="am/zqu%njldM94K??20/"><field name="countryName">London</field><value name="NAME"><block type="xy" id="/+bNm3?wV!MN^xTNdyv["><field name="x_coordinate">900</field><field name="y_coordinate">450</field></block></value><next><block type="place_block" id="9vIJT*/`=$EnWxG}h9p]"><field name="options1">london</field><field name="options2">London</field></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></xml>',
+        },
+        {
+            col1: `Egypt`,
+            col2: ``,
+            rescue: true,
+            checkbox: true,
+            workspace: '<xml xmlns="https://developers.google.com/blockly/xml"><block type="variable_holder" id="g)`%]AL[j7-a)qH!yFyd" x="52" y="-113"><field name="countryName">India</field><value name="NAME"><block type="xy" id="YbCA1lsnfRlHrY@!Y~HX"><field name="x_coordinate">1265</field><field name="y_coordinate">649</field></block></value><next><block type="place_block" id="0R{]X0`E`:jFi$F=Oudf"><field name="options1">tajMahal</field><field name="options2">India</field><next><block type="variable_holder" id="Aq+QaW%]IAS%ogM;e~${"><field name="countryName">UnitedStates</field><value name="NAME"><block type="xy" id="]qw~qxHc#1Ha1ABENRpm"><field name="x_coordinate">500</field><field name="y_coordinate">500</field></block></value><next><block type="place_block" id="c+i]m@ZxUSr#YLHxiQ,n"><field name="options1">statueOfLib</field><field name="options2">UnitedStates</field><next><block type="variable_holder" id="bm(rB`Dt39-ttN+YpXB/"><field name="countryName">Australia</field><value name="NAME"><block type="xy" id="U|h?hwQY9HOOI=8?r_6$"><field name="x_coordinate">1500</field><field name="y_coordinate">900</field></block></value><next><block type="place_block" id="#ZXlhG!0b%[_=b4o0~HT"><field name="options1">lotus</field><field name="options2">Australia</field><next><block type="variable_holder" id="am/zqu%njldM94K??20/"><field name="countryName">London</field><value name="NAME"><block type="xy" id="/+bNm3?wV!MN^xTNdyv["><field name="x_coordinate">900</field><field name="y_coordinate">450</field></block></value><next><block type="place_block" id="9vIJT*/`=$EnWxG}h9p]"><field name="options1">london</field><field name="options2">London</field><next><block type="variable_holder" id="*zu}*gySEp+Hw0B6T#Y="><field name="countryName">Egypt</field><value name="NAME"><block type="xy" id="aA!q):%d[#YQ)SYi?RiV"><field name="x_coordinate">1050</field><field name="y_coordinate">620</field></block></value><next><block type="place_block" id=".P=W`.:,(+!vjcCfro(V"><field name="options1">egypt</field><field name="options2">Egypt</field></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></xml>',
+        },
+        {
+            col1: `Brazil`,
+            col2: ``,
+            rescue: true,
+            checkbox: true,
+            workspace: '<xml xmlns="https://developers.google.com/blockly/xml"><block type="variable_holder" id="g)`%]AL[j7-a)qH!yFyd" x="52" y="-113"><field name="countryName">India</field><value name="NAME"><block type="xy" id="YbCA1lsnfRlHrY@!Y~HX"><field name="x_coordinate">1265</field><field name="y_coordinate">649</field></block></value><next><block type="place_block" id="0R{]X0`E`:jFi$F=Oudf"><field name="options1">tajMahal</field><field name="options2">India</field><next><block type="variable_holder" id="Aq+QaW%]IAS%ogM;e~${"><field name="countryName">UnitedStates</field><value name="NAME"><block type="xy" id="]qw~qxHc#1Ha1ABENRpm"><field name="x_coordinate">500</field><field name="y_coordinate">500</field></block></value><next><block type="place_block" id="c+i]m@ZxUSr#YLHxiQ,n"><field name="options1">statueOfLib</field><field name="options2">UnitedStates</field><next><block type="variable_holder" id="bm(rB`Dt39-ttN+YpXB/"><field name="countryName">Australia</field><value name="NAME"><block type="xy" id="U|h?hwQY9HOOI=8?r_6$"><field name="x_coordinate">1500</field><field name="y_coordinate">900</field></block></value><next><block type="place_block" id="#ZXlhG!0b%[_=b4o0~HT"><field name="options1">lotus</field><field name="options2">Australia</field><next><block type="variable_holder" id="am/zqu%njldM94K??20/"><field name="countryName">London</field><value name="NAME"><block type="xy" id="/+bNm3?wV!MN^xTNdyv["><field name="x_coordinate">900</field><field name="y_coordinate">450</field></block></value><next><block type="place_block" id="9vIJT*/`=$EnWxG}h9p]"><field name="options1">london</field><field name="options2">London</field><next><block type="variable_holder" id="*zu}*gySEp+Hw0B6T#Y="><field name="countryName">Egypt</field><value name="NAME"><block type="xy" id="aA!q):%d[#YQ)SYi?RiV"><field name="x_coordinate">1050</field><field name="y_coordinate">620</field></block></value><next><block type="place_block" id=".P=W`.:,(+!vjcCfro(V"><field name="options1">egypt</field><field name="options2">Egypt</field><next><block type="variable_holder" id="j@G6vf(#2Jzp;p1_$*Jd"><field name="countryName">Brazil</field><value name="NAME"><block type="xy" id="6IHd)bAdr(_w/8cQol5R"><field name="x_coordinate">600</field><field name="y_coordinate">800</field></block></value><next><block type="place_block" id="qN2+:UF[er)z[^zdr!Zm"><field name="options1">brazil</field><field name="options2">Brazil</field></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></xml>',
+        }]
 
     return {
-        props: { dataParse, slug: context.params.slug, lessonDetails: lessonDetails.data.DATA[0], languageObj: languageObj },
+        props: { dataParse, slug: context.params.slug, lessonDetails: lessonDetails.data.DATA[0], languageObj: languageObj, instruction },
     };
 };
 
@@ -103,8 +198,8 @@ export default function PhaserGame(props) {
     const [timer, setTimer] = useState(0);
     const [imt, setImt] = useState([]);
     const router = useRouter();
-    const { dataParse, slug, lessonDetails, languageObj } = props;
-    const [muteState, setMute] = useState(false);
+    const { dataParse, slug, lessonDetails, languageObj, } = props;
+    const [open, setOpen] = useState(false);
     const [lang, setLang] = useState(1);
     const [PythonCode, setPythonCode] = useState("");
     const tut: any[] = dataParse.map(data => (data[lang]))
@@ -112,7 +207,6 @@ export default function PhaserGame(props) {
     const childFunc = React.useRef(null)
     // const language = { English: 1, Hindi: 2, Marathi: 3, Spanish: 4, Arabic: 5, Swaheli: 6 }
     const language = languageObj;
-
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('Accept', 'application/json');
@@ -166,11 +260,72 @@ export default function PhaserGame(props) {
             .then(res => console.log(res))
 
     }
-
+    //ce19a96e-3800-4251-b08f-079b8b45a135
+    const instruction = [
+        {
+            col1: `Program the luggage machine in the airport to check the luggage weight and allow luggages that are under 30 KG and reject the rest.`,
+            col2: ``,
+            rescue: false,
+            checkbox: false,
+            workspace: '',
+        },
+        {
+            col1: `Start checking the luggages`,
+            col2: `Start checking`,
+            rescue: true,
+            checkbox: true,
+            workspace: '<xml xmlns="https://developers.google.com/blockly/xml"><block type="single_action_block" id="%!(`([BxZrE[J;Yc{^CP" x="73" y="62"></block></xml>',
+        },
+        {
+            col1: `Check 4 luggages`,
+            col2: `repeat 4 times, place all the following blocks inside`,
+            rescue: true,
+            checkbox: true,
+            workspace: '<xml xmlns="https://developers.google.com/blockly/xml"><block type="single_action_block" id="%!(`([BxZrE[J;Yc{^CP" x="73" y="62"><next><block type="controls_repeat_ext" id="5eT:uEEvr.$C0pmmxP.r"><value name="TIMES"><block type="math_number" id="ZbQImS%XtSu|E*z2@sCJ"><field name="NUM">4</field></block></value></block></next></block></xml>',
+        },
+        {
+            col1: `Get next luggages`,
+            col2: `next luggages`,
+            rescue: true,
+            checkbox: true,
+            workspace: '<xml xmlns="https://developers.google.com/blockly/xml"><block type="single_action_block" id="%!(`([BxZrE[J;Yc{^CP" x="73" y="62"><next><block type="controls_repeat_ext" id="5eT:uEEvr.$C0pmmxP.r"><value name="TIMES"><block type="math_number" id="ZbQImS%XtSu|E*z2@sCJ"><field name="NUM">4</field></block></value><statement name="DO"><block type="repeated_action_block" id="Rn-f6m:{mw{T_.s^[[dM"></block></statement></block></next></block></xml>',
+        },
+        {
+            col1: `measure weight`,
+            col2: `get measured weight of bag and set it to weight variable`,
+            rescue: true,
+            checkbox: true,
+            workspace: '<xml xmlns="https://developers.google.com/blockly/xml"><block type="single_action_block" id="%!(`([BxZrE[J;Yc{^CP" x="73" y="62"><next><block type="controls_repeat_ext" id="5eT:uEEvr.$C0pmmxP.r"><value name="TIMES"><block type="math_number" id="ZbQImS%XtSu|E*z2@sCJ"><field name="NUM">4</field></block></value><statement name="DO"><block type="repeated_action_block" id="Rn-f6m:{mw{T_.s^[[dM"><next><block type="set_variable_holder" id="06/-?1TJ/YE)=reriuYl"><field name="Variable name">weight</field><value name="NAME"><block type="display_block" id="oh2TYh;/mrZ}ooj9p$)l"></block></value></block></next></block></statement></block></next></block></xml>',
+        },
+        {
+            col1: `Condition to pass or reject luggage`,
+            col2: `if weight if less than or equal to 30, pass the luggage`,
+            rescue: true,
+            checkbox: true,
+            workspace: '<xml xmlns="https://developers.google.com/blockly/xml"><block type="single_action_block" id="%!(`([BxZrE[J;Yc{^CP" x="73" y="62"><next><block type="controls_repeat_ext" id="5eT:uEEvr.$C0pmmxP.r"><value name="TIMES"><block type="math_number" id="ZbQImS%XtSu|E*z2@sCJ"><field name="NUM">4</field></block></value><statement name="DO"><block type="repeated_action_block" id="Rn-f6m:{mw{T_.s^[[dM"><next><block type="set_variable_holder" id="06/-?1TJ/YE)=reriuYl"><field name="Variable name">weight</field><value name="NAME"><block type="display_block" id="oh2TYh;/mrZ}ooj9p$)l"></block></value><next><block type="controls_if" id="]_=$@fOwz9I1[ZP;PB/Y"><value name="IF0"><block type="logic_compare" id="W(`(C04B@+FY!dx|$KSI"><field name="OP">LTE</field><value name="A"><block type="variables" id="g1rt}3=#[T26R^^5EB74"><field name="Options">weight</field></block></value><value name="B"><block type="math_number" id="NN5p$JIC=Ywzv/xspdMo"><field name="NUM">30</field></block></value></block></value><statement name="DO0"><block type="action_block" id="(c|d5Rn~g.3~(D=?j1E`"></block></statement></block></next></block></next></block></statement></block></next></block></xml>',
+        },
+        {
+            col1: ``,
+            col2: `else, reject the luggage`,
+            rescue: true,
+            checkbox: true,
+            workspace: '<xml xmlns="https://developers.google.com/blockly/xml"><block type="single_action_block" id="%!(`([BxZrE[J;Yc{^CP" x="73" y="62"><next><block type="controls_repeat_ext" id="5eT:uEEvr.$C0pmmxP.r"><value name="TIMES"><block type="math_number" id="ZbQImS%XtSu|E*z2@sCJ"><field name="NUM">4</field></block></value><statement name="DO"><block type="repeated_action_block" id="Rn-f6m:{mw{T_.s^[[dM"><next><block type="set_variable_holder" id="06/-?1TJ/YE)=reriuYl"><field name="Variable name">weight</field><value name="NAME"><block type="display_block" id="oh2TYh;/mrZ}ooj9p$)l"></block></value><next><block type="controls_if" id="]_=$@fOwz9I1[ZP;PB/Y"><mutation else="1"></mutation><value name="IF0"><block type="logic_compare" id="W(`(C04B@+FY!dx|$KSI"><field name="OP">LTE</field><value name="A"><block type="variables" id="g1rt}3=#[T26R^^5EB74"><field name="Options">weight</field></block></value><value name="B"><block type="math_number" id="NN5p$JIC=Ywzv/xspdMo"><field name="NUM">30</field></block></value></block></value><statement name="DO0"><block type="action_block" id="(c|d5Rn~g.3~(D=?j1E`"></block></statement><statement name="ELSE"><block type="secondary_action_block" id="fp+)+3/+A.vfmz7`Aigo"></block></statement></block></next></block></next></block></statement></block></next></block></xml>',
+        },
+        {
+            col1: `Wait time`,
+            col2: `wait for 2 secs before repeating the process for next luggage`,
+            rescue: true,
+            checkbox: true,
+            workspace: '<xml xmlns="https://developers.google.com/blockly/xml"><block type="single_action_block" id="%!(`([BxZrE[J;Yc{^CP" x="73" y="62"><next><block type="controls_repeat_ext" id="5eT:uEEvr.$C0pmmxP.r"><value name="TIMES"><block type="math_number" id="ZbQImS%XtSu|E*z2@sCJ"><field name="NUM">4</field></block></value><statement name="DO"><block type="repeated_action_block" id="Rn-f6m:{mw{T_.s^[[dM"><next><block type="set_variable_holder" id="06/-?1TJ/YE)=reriuYl"><field name="Variable name">weight</field><value name="NAME"><block type="display_block" id="oh2TYh;/mrZ}ooj9p$)l"></block></value><next><block type="controls_if" id="]_=$@fOwz9I1[ZP;PB/Y"><mutation else="1"></mutation><value name="IF0"><block type="logic_compare" id="W(`(C04B@+FY!dx|$KSI"><field name="OP">LTE</field><value name="A"><block type="variables" id="g1rt}3=#[T26R^^5EB74"><field name="Options">weight</field></block></value><value name="B"><block type="math_number" id="NN5p$JIC=Ywzv/xspdMo"><field name="NUM">30</field></block></value></block></value><statement name="DO0"><block type="action_block" id="(c|d5Rn~g.3~(D=?j1E`"></block></statement><statement name="ELSE"><block type="secondary_action_block" id="fp+)+3/+A.vfmz7`Aigo"></block></statement><next><block type="wait_block" id=",NxBE6qT,jR?P6pRELRU"><field name="NAME">Wait for</field><value name="NAME"><block type="math_number" id="p-l$ze*}7s62va2jyTOv"><field name="NUM">2</field></block></value></block></next></block></next></block></next></block></statement></block></next></block></xml>',
+        },
+    ]
     useEffect(() => {
 
-        if (typeof window !== "undefined" && window['updateImports'])
+        if (typeof window !== "undefined" && window['updateImports']) {
             setImt([...window['updateImports']])
+            //  window["update_rescue_workspace"] = update_rescue_workspace;
+            // helpCode()
+        }
         window['tutorials'] = tut
         let interval = setInterval(() => {
             setTimer(t => t + 1);
@@ -184,6 +339,12 @@ export default function PhaserGame(props) {
         return () => clearInterval(interval);
     }, [router.query]);
 
+
+    function HelpCode() {
+        var xmlDom = Blockly.Xml.workspaceToDom(Blockly.getMainWorkspace());
+        var xmlText = Blockly.Xml.domToPrettyText(xmlDom);
+        console.log(xmlText);
+    }
     return (
         <>
             <div className={styles.lessonDetailsDiv} id="game_page">
@@ -216,7 +377,7 @@ export default function PhaserGame(props) {
                 className={styles.blocklycontainer}
             >
                 <div className="fill-blockly" id="blocklyDiv">
-                    <Blockly
+                    <BlocklyComp
                         childFunc={childFunc}
                         slug={slug}
                         setPythonCode={setPythonCode}
@@ -265,7 +426,9 @@ export default function PhaserGame(props) {
                             className={`${styles.normal_button}`}
                             data-position="bottom"
                             data-tooltip="Help"
-                            onClick={() => typeof window !== "undefined" && childFunc.current && childFunc?.current(window["helpCode"])}
+                            //onClick={() => typeof window !== "undefined" && childFunc.current && childFunc?.current(window["helpCode"])}
+                            onClick={() => setOpen(!open)}
+                            //onClick={HelpCode}
                             style={{ position: "absolute", right: 0 }}
                         >
                             <img src="/assets/help_icon.png" width="22.5" height="25.5" />
@@ -305,9 +468,11 @@ export default function PhaserGame(props) {
                 }}
             />
             <Tour slug={slug} />
+            <Help instruction={instruction} open={open} />
             <label id="hand" htmlFor="test">
                 <img src="/assets/hand_upward.png" width="50px" height="60px" />
             </label>
+
         </>
     );
 }
