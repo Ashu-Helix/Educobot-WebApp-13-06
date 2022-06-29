@@ -242,7 +242,8 @@ function storeCountryCords(countryName, x, y) {
         countryCordsByUser[countryName].y = y;
     } else {
         M.Toast.dismissAll();
-        M.toast({ html: INCORRECT_COUNTRY + countryName });
+        // M.toast({ html: INCORRECT_COUNTRY + countryName });
+        whichToast("error", INCORRECT_COUNTRY + countryName);
     }
 }
 
@@ -271,7 +272,8 @@ async function moveWondersTo(monument, country) {
                     isCorrect = true;
             } else {
                 M.Toast.dismissAll();
-                M.toast({ html: INCORRECT_COUNTRY + country });
+                // M.toast({ html: INCORRECT_COUNTRY + country });
+                whichToast("error", INCORRECT_COUNTRY + countryName);
             }
 
             if (isCorrect) {
@@ -285,10 +287,17 @@ async function moveWondersTo(monument, country) {
                         location.duration * 1000
                     );
                 if (run_) await _oMSPhaserLib.scaleTo(objMonument, 1, duration, true);
-                M.toast({ html: CORRECT_MESSAGE + country });
+                // M.toast({ html: CORRECT_MESSAGE + country });
+                whichToast("success", CORRECT_MESSAGE + country);
                 correct_countries.push(country);
-            } else M.toast({ html: INCORRECT_COUNTRY_CORDS + country });
-        } else M.toast({ html: INCORRECT_MESSAGE + country });
+            } else {
+                // M.toast({ html: INCORRECT_COUNTRY_CORDS + country });
+                whichToast("error", INCORRECT_COUNTRY_CORDS + country);
+            }
+        } else {
+            // M.toast({ html: INCORRECT_MESSAGE + country })
+            whichToast("error", INCORRECT_MESSAGE + country);
+        };
     }
 }
 
@@ -431,6 +440,28 @@ function getNoOfBlocks() {
 }
 
 const updateImports = ["import wonders"]
+
+function whichToast(toastType, message) {
+    var toastHTML1;
+    if (toastType == "success") {
+        toastHTML1 = ` <div class="grid-container" >
+          <img src="/assets/success-toast.png" class="custom-toast-icon"/>
+          <div class="custom-toast-text"> ${message}</div>`;
+    } else if (toastType == "warning") {
+        toastHTML1 = `<div class="grid-container" >
+          <img src="/assets/warning-toast.png" class="custom-toast-icon"/>
+          <div class="custom-toast-text"> ${message}</div>`;
+    } else if (toastType == "error") {
+        toastHTML1 = `<div class="grid-container" >
+          <img src="/assets/error-toast.png" class="custom-toast-icon"/>
+          <div class="custom-toast-text"> ${message}</div>`;
+    } else if (toastType == "info") {
+        toastHTML1 = `<div class="grid-container" >
+          <img src="/assets/info-toast.png" class="custom-toast-icon"/>
+          <div class="custom-toast-text"> ${message}</div>`;
+    }
+    M.toast({ html: toastHTML1 });
+}
 
 export {
     completedFlag,

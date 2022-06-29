@@ -260,65 +260,14 @@ export default function PhaserGame(props) {
             .then(res => console.log(res))
 
     }
-    //ce19a96e-3800-4251-b08f-079b8b45a135
-    const instruction = [
-        {
-            col1: `Program the luggage machine in the airport to check the luggage weight and allow luggages that are under 30 KG and reject the rest.`,
-            col2: ``,
-            rescue: false,
-            checkbox: false,
-            workspace: '',
-        },
-        {
-            col1: `Start checking the luggages`,
-            col2: `Start checking`,
-            rescue: true,
-            checkbox: true,
-            workspace: '<xml xmlns="https://developers.google.com/blockly/xml"><block type="single_action_block" id="%!(`([BxZrE[J;Yc{^CP" x="73" y="62"></block></xml>',
-        },
-        {
-            col1: `Check 4 luggages`,
-            col2: `repeat 4 times, place all the following blocks inside`,
-            rescue: true,
-            checkbox: true,
-            workspace: '<xml xmlns="https://developers.google.com/blockly/xml"><block type="single_action_block" id="%!(`([BxZrE[J;Yc{^CP" x="73" y="62"><next><block type="controls_repeat_ext" id="5eT:uEEvr.$C0pmmxP.r"><value name="TIMES"><block type="math_number" id="ZbQImS%XtSu|E*z2@sCJ"><field name="NUM">4</field></block></value></block></next></block></xml>',
-        },
-        {
-            col1: `Get next luggages`,
-            col2: `next luggages`,
-            rescue: true,
-            checkbox: true,
-            workspace: '<xml xmlns="https://developers.google.com/blockly/xml"><block type="single_action_block" id="%!(`([BxZrE[J;Yc{^CP" x="73" y="62"><next><block type="controls_repeat_ext" id="5eT:uEEvr.$C0pmmxP.r"><value name="TIMES"><block type="math_number" id="ZbQImS%XtSu|E*z2@sCJ"><field name="NUM">4</field></block></value><statement name="DO"><block type="repeated_action_block" id="Rn-f6m:{mw{T_.s^[[dM"></block></statement></block></next></block></xml>',
-        },
-        {
-            col1: `measure weight`,
-            col2: `get measured weight of bag and set it to weight variable`,
-            rescue: true,
-            checkbox: true,
-            workspace: '<xml xmlns="https://developers.google.com/blockly/xml"><block type="single_action_block" id="%!(`([BxZrE[J;Yc{^CP" x="73" y="62"><next><block type="controls_repeat_ext" id="5eT:uEEvr.$C0pmmxP.r"><value name="TIMES"><block type="math_number" id="ZbQImS%XtSu|E*z2@sCJ"><field name="NUM">4</field></block></value><statement name="DO"><block type="repeated_action_block" id="Rn-f6m:{mw{T_.s^[[dM"><next><block type="set_variable_holder" id="06/-?1TJ/YE)=reriuYl"><field name="Variable name">weight</field><value name="NAME"><block type="display_block" id="oh2TYh;/mrZ}ooj9p$)l"></block></value></block></next></block></statement></block></next></block></xml>',
-        },
-        {
-            col1: `Condition to pass or reject luggage`,
-            col2: `if weight if less than or equal to 30, pass the luggage`,
-            rescue: true,
-            checkbox: true,
-            workspace: '<xml xmlns="https://developers.google.com/blockly/xml"><block type="single_action_block" id="%!(`([BxZrE[J;Yc{^CP" x="73" y="62"><next><block type="controls_repeat_ext" id="5eT:uEEvr.$C0pmmxP.r"><value name="TIMES"><block type="math_number" id="ZbQImS%XtSu|E*z2@sCJ"><field name="NUM">4</field></block></value><statement name="DO"><block type="repeated_action_block" id="Rn-f6m:{mw{T_.s^[[dM"><next><block type="set_variable_holder" id="06/-?1TJ/YE)=reriuYl"><field name="Variable name">weight</field><value name="NAME"><block type="display_block" id="oh2TYh;/mrZ}ooj9p$)l"></block></value><next><block type="controls_if" id="]_=$@fOwz9I1[ZP;PB/Y"><value name="IF0"><block type="logic_compare" id="W(`(C04B@+FY!dx|$KSI"><field name="OP">LTE</field><value name="A"><block type="variables" id="g1rt}3=#[T26R^^5EB74"><field name="Options">weight</field></block></value><value name="B"><block type="math_number" id="NN5p$JIC=Ywzv/xspdMo"><field name="NUM">30</field></block></value></block></value><statement name="DO0"><block type="action_block" id="(c|d5Rn~g.3~(D=?j1E`"></block></statement></block></next></block></next></block></statement></block></next></block></xml>',
-        },
-        {
-            col1: ``,
-            col2: `else, reject the luggage`,
-            rescue: true,
-            checkbox: true,
-            workspace: '<xml xmlns="https://developers.google.com/blockly/xml"><block type="single_action_block" id="%!(`([BxZrE[J;Yc{^CP" x="73" y="62"><next><block type="controls_repeat_ext" id="5eT:uEEvr.$C0pmmxP.r"><value name="TIMES"><block type="math_number" id="ZbQImS%XtSu|E*z2@sCJ"><field name="NUM">4</field></block></value><statement name="DO"><block type="repeated_action_block" id="Rn-f6m:{mw{T_.s^[[dM"><next><block type="set_variable_holder" id="06/-?1TJ/YE)=reriuYl"><field name="Variable name">weight</field><value name="NAME"><block type="display_block" id="oh2TYh;/mrZ}ooj9p$)l"></block></value><next><block type="controls_if" id="]_=$@fOwz9I1[ZP;PB/Y"><mutation else="1"></mutation><value name="IF0"><block type="logic_compare" id="W(`(C04B@+FY!dx|$KSI"><field name="OP">LTE</field><value name="A"><block type="variables" id="g1rt}3=#[T26R^^5EB74"><field name="Options">weight</field></block></value><value name="B"><block type="math_number" id="NN5p$JIC=Ywzv/xspdMo"><field name="NUM">30</field></block></value></block></value><statement name="DO0"><block type="action_block" id="(c|d5Rn~g.3~(D=?j1E`"></block></statement><statement name="ELSE"><block type="secondary_action_block" id="fp+)+3/+A.vfmz7`Aigo"></block></statement></block></next></block></next></block></statement></block></next></block></xml>',
-        },
-        {
-            col1: `Wait time`,
-            col2: `wait for 2 secs before repeating the process for next luggage`,
-            rescue: true,
-            checkbox: true,
-            workspace: '<xml xmlns="https://developers.google.com/blockly/xml"><block type="single_action_block" id="%!(`([BxZrE[J;Yc{^CP" x="73" y="62"><next><block type="controls_repeat_ext" id="5eT:uEEvr.$C0pmmxP.r"><value name="TIMES"><block type="math_number" id="ZbQImS%XtSu|E*z2@sCJ"><field name="NUM">4</field></block></value><statement name="DO"><block type="repeated_action_block" id="Rn-f6m:{mw{T_.s^[[dM"><next><block type="set_variable_holder" id="06/-?1TJ/YE)=reriuYl"><field name="Variable name">weight</field><value name="NAME"><block type="display_block" id="oh2TYh;/mrZ}ooj9p$)l"></block></value><next><block type="controls_if" id="]_=$@fOwz9I1[ZP;PB/Y"><mutation else="1"></mutation><value name="IF0"><block type="logic_compare" id="W(`(C04B@+FY!dx|$KSI"><field name="OP">LTE</field><value name="A"><block type="variables" id="g1rt}3=#[T26R^^5EB74"><field name="Options">weight</field></block></value><value name="B"><block type="math_number" id="NN5p$JIC=Ywzv/xspdMo"><field name="NUM">30</field></block></value></block></value><statement name="DO0"><block type="action_block" id="(c|d5Rn~g.3~(D=?j1E`"></block></statement><statement name="ELSE"><block type="secondary_action_block" id="fp+)+3/+A.vfmz7`Aigo"></block></statement><next><block type="wait_block" id=",NxBE6qT,jR?P6pRELRU"><field name="NAME">Wait for</field><value name="NAME"><block type="math_number" id="p-l$ze*}7s62va2jyTOv"><field name="NUM">2</field></block></value></block></next></block></next></block></next></block></statement></block></next></block></xml>',
-        },
-    ]
+
+    // useEffect(() => {
+    //     // instruction_activate();
+    //     window[`instruction_activate`]();
+    //     // document.getElementById('help_practice').modal();
+    //     window[`modal`].modal();
+    // }, []);
+
     useEffect(() => {
 
         if (typeof window !== "undefined" && window['updateImports']) {

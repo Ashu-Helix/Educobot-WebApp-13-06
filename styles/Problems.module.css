@@ -218,9 +218,9 @@
     margin-left: 1rem;
 }
 
-.editor [class*=CodeMirror-lines] {
+/* .editor [class*=CodeMirror-lines] {
     overflow-x: scroll;
-}
+} */
 
 
 .lessonDetailsDiv {
@@ -352,5 +352,9 @@
         display: flex;
         justify-content: space-between;
         overflow: hidden;
+    }
+
+    .editor [class*=CodeMirror-lines] {
+        overflow-x: scroll;
     }
 }

@@ -59,7 +59,7 @@ function runIt(pythonCode, finalCode) {
     myPromise.then(
         function (mod) {
             if (pythonCode == finalCode) {
-                //SuccessfulOutput = true
+                SuccessfulOutput = true
             }
         },
         function (err) {

@@ -7,6 +7,7 @@ const blockly_lessons = ["4bda4814-a2b1-4c4f-b102-eda5181bd0f8", "1d749e84-1155-
 
 async function getFiles() {
     const fetUrl = "http://localhost:7001/liveLessons";
+    // const fetUrl = "https://app.educobot.com/liveLessons/blockly";
 
     const res2 = await fetch(
         `https://api.educobot.com/lessonsRoute/getAllLessonID`, { method: 'POST' }
@@ -72,7 +73,7 @@ const nextConfig = {
     fs: "empty", // This is required
 
     webpack: (config, options) => {
-        //getFiles()
+        getFiles()
         return config
     },
 };
