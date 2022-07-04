@@ -11,7 +11,7 @@ import { Icon } from '@iconify/react'
 const BlocklyComp = dynamic(import("../../../components/Blockly"), { ssr: false });
 const Tour = dynamic(import("../../../components/Tour"), { ssr: false, });
 import TestDialog from "../../../MyComponents/DialogBoxes/TutorialDialog";
-import Help from "../../../components/Help";
+import Help from "../../../components/Help1";
 import Game from "./game";
 import styles from "../../../styles/Problems.module.css";
 
@@ -261,6 +261,7 @@ export default function PhaserGame(props) {
 
     }
 
+
     // useEffect(() => {
     //     // instruction_activate();
     //     window[`instruction_activate`]();
@@ -298,30 +299,42 @@ export default function PhaserGame(props) {
         <>
             <div className={styles.lessonDetailsDiv} id="game_page">
                 <div className={styles.lessonTitle}>
-                    <div className={styles.lesson_div} >
-                        <Button className={styles.backbtn} onClick={() => { router.back(); }}>
-                            <Icon style={{ color: "#fff", fontSize: "18px", }} icon="eva:arrow-ios-back-fill" />
+                    <div className={styles.lesson_div}>
+                        <Button
+                            className={styles.backbtn}
+                            onClick={() => {
+                                router.back();
+                            }}
+                        >
+                            <Icon
+                                style={{ color: "#fff", fontSize: "18px" }}
+                                icon="eva:arrow-ios-back-fill"
+                            />
                         </Button>
-                        <p className={styles.lesson_name} >{lessonDetails.lsName}</p>
+                        <p className={styles.lesson_name}>{lessonDetails.lsName}</p>
                     </div>
-                    <p className={styles.description} >{lessonDetails.lsDesc}</p>
+                    <p className={styles.description}>{lessonDetails.lsDesc}</p>
                 </div>
                 <div className={styles.select_languageDiv}>
-                    {
-
-                        Object.keys(language).length > 0 &&
-                        <select className={`${styles.select_language}`} value={lang} onChange={onChange}>
-                            {
-                                Object.keys(language).map(key => <option key={key} value={`${language[key]}`}>{key}</option>)
-                            }
+                    {Object.keys(language).length > 0 && (
+                        <select
+                            className={`${styles.select_language}`}
+                            value={lang}
+                            onChange={onChange}
+                        >
+                            {Object.keys(language).map(key => (
+                                <option key={key} value={`${language[key]}`}>
+                                    {key}
+                                </option>
+                            ))}
                         </select>
-                    }
+                    )}
                 </div>
             </div>
             <div
                 style={{
                     height: "93%",
-                    display: "flex"
+                    display: "flex",
                 }}
                 className={styles.blocklycontainer}
             >
@@ -333,7 +346,8 @@ export default function PhaserGame(props) {
                     />
                 </div>
 
-                <div className={styles.canvas}
+                <div
+                    className={styles.canvas}
                 // style={{ padding: "0 0.6rem 0rem 0.3rem" }}
                 >
                     <div className={""}>
@@ -375,14 +389,22 @@ export default function PhaserGame(props) {
                             className={`${styles.normal_button}`}
                             data-position="bottom"
                             data-tooltip="Help"
-                            //onClick={() => typeof window !== "undefined" && childFunc.current && childFunc?.current(window["helpCode"])}
-                            onClick={() => setOpen(!open)}
+                            // onClick={() => typeof window !== "undefined" && childFunc.current && childFunc?.current(window["helpCode"])}
+                            // onClick={() => setOpen(!open)}
+                            onClick={() => {
+                                if (typeof window["helpCode"] === "undefined") {
+                                    setOpen(!open);
+                                } else {
+                                    typeof window !== "undefined" &&
+                                        childFunc.current &&
+                                        childFunc?.current(window["helpCode"]);
+                                }
+                            }}
                             //onClick={HelpCode}
                             style={{ position: "absolute", right: 0 }}
                         >
                             <img src="/assets/help_icon.png" width="22.5" height="25.5" />
                         </button>
-
                     </div>
                     <Game slug={slug} />
                     <div
@@ -391,21 +413,24 @@ export default function PhaserGame(props) {
                         style={{ minHeight: "9vh" }}
                     >
                         {imt.map(res => {
-                            return (<div key={res} style={{
-                                color: "#fff",
-                                display: "contents",
-                                padding: 0, margin: 0
-                            }}>
-                                <b style={{ display: "contents" }}
+                            return (
+                                <div
+                                    key={res}
+                                    style={{
+                                        color: "#fff",
+                                        display: "contents",
+                                        padding: 0,
+                                        margin: 0,
+                                    }}
                                 >
-                                    {res}
-                                </b>
-                                <br /></div>)
+                                    <b style={{ display: "contents" }}>{res}</b>
+                                    <br />
+                                </div>
+                            );
                         })}
 
                         {PythonCode}
                     </div>
-
                 </div>
             </div>
             <TestDialog
@@ -417,11 +442,10 @@ export default function PhaserGame(props) {
                 }}
             />
             <Tour slug={slug} />
-            <Help instruction={instruction} open={open} />
+            {(typeof window !== "undefined" && window["instruction"]) && <Help instruction={window["instruction"]} open={open} />}
             <label id="hand" htmlFor="test">
                 <img src="/assets/hand_upward.png" width="50px" height="60px" />
             </label>
-
         </>
     );
 }

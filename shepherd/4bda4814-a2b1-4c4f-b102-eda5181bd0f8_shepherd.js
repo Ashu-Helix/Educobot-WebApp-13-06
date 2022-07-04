@@ -2,6 +2,8 @@ import Blockly from "blockly";
 import "blockly/python";
 import "blockly/javascript";
 
+
+
 var demoWorkspace = Blockly.getMainWorkspace()
 var tour_over = false;
 var playAudio = true;
@@ -91,6 +93,11 @@ let tour = new Shepherd.Tour({
     }
 });
 function loadAgain() {
+    console.log("First", Shepherd?.activeTour?.steps?.indexOf(Shepherd?.activeTour?.currentStep))
+    let nextStep = 0;
+    if (tour.isActive()) {
+        nextStep = Shepherd?.activeTour?.steps?.indexOf(Shepherd?.activeTour?.currentStep);
+    }
     // $("#hand").css("visibility", 'hidden');
     clearInterval(myInterval);
     document.getElementById('hand').style.visibility = "hidden";
@@ -102,9 +109,13 @@ function loadAgain() {
             ${data}
         </span></p>`
     );
+
+
     if (tour)
         tour.complete();
-    // console.log(tour)
+
+
+
     tour = new Shepherd.Tour({
         defaultStepOptions: {
             cancelIcon: { enabled: true },
@@ -377,8 +388,13 @@ function loadAgain() {
         }, { action() { return this.next(); }, text: 'Close' }],
         id: 'run'
     });
+    // if (!tour.isActive()) //tour.show(tour_step);
+    console.log("Last Step", nextStep);
+    console.log("Shepherd Step", Shepherd?.activeTour?.steps?.indexOf(Shepherd?.activeTour?.currentStep))
     tour.start();
-
+    tour.show(nextStep)
+    console.log("After Tour Start Last Step", nextStep);
+    console.log("After Tour Start Shepherd Step", Shepherd?.activeTour?.steps?.indexOf(Shepherd?.activeTour?.currentStep))
     document.getElementById('soundBtn').addEventListener('click', setAudioPreference)
 }
 
@@ -520,10 +536,12 @@ function setAudioPreference() {
         document.getElementById('soundImg').src = "../assets/sound_unmute.png";
     }
 }
+console.log(tour)
+console.log()
+
 const tt = setInterval(function () {
     //clearInterval(tt)
     // document.getElementById('soundBtn').addEventListener('click', () => setAudioPreference())
-
     $(".shepherd-content").draggable({
         containment: "body"
     })
