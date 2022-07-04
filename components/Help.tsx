@@ -1,32 +1,151 @@
 import React, { useEffect, useState } from 'react'
 import Blockly from "blockly";
-// import "blockly/python";
-// import "blockly/javascript";
 let demoWorkspace = Blockly.getMainWorkspace();
 import $ from 'jquery';
 
+let newStyle = ` .modal {
+    max-width: 350px !important;
+    height: 95% !important;
+    border-radius: 25px;
+}
+
+.shepherd-custom-rescue-sutton-white {
+    border: 1px solid rgb(182, 182, 182);
+    background-color: rgba(182, 182, 182, 0.15);
+    color: black;
+    font-size: 12px;
+    cursor: pointer;
+    width: 65px;
+    height: 30px;
+    border-radius: 6px;
+    justify-content: center;
+    align-items: center;
+    transition: 0.5s;
+}
+
+.shepherd-custom-rescue-sutton-white:hover {
+    border: 1px solid rgb(182, 182, 182);
+    background-color: rgb(97, 97, 97);
+    color: rgb(228, 228, 228);
+    font-size: 12px;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: 0.5s;
+}
+
+.shepherd-custom-rescue-sutton-white:active {
+    border: 1px solid rgb(182, 182, 182);
+    background-color: rgb(97, 97, 97);
+    color: rgb(228, 228, 228);
+    padding: 3px 10px;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: 0.5s;
+}
+
+.shepherd-custom-rescue-sutton-white:focus {
+    border: 1px solid rgb(182, 182, 182);
+    background-color: rgb(97, 97, 97);
+    color: rgb(228, 228, 228);
+    padding: 3px 10px;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: 0.5s;
+}
+
+.cbx {
+    margin: auto;
+    -webkit-user-select: none;
+    user-select: none;
+    cursor: pointer;
+}
+
+.cbx span {
+    display: inline-block;
+    vertical-align: middle;
+    transform: translate3d(0, 0, 0);
+}
+
+.cbx span:first-child {
+    position: relative;
+    width: 18px;
+    height: 18px;
+    border-radius: 3px;
+    transform: scale(1);
+    vertical-align: middle;
+    border: 1px solid #9098A9;
+    transition: all 0.2s ease;
+}
+
+.cbx span:first-child svg {
+    position: absolute;
+    top: 3px;
+    left: 2px;
+    fill: none;
+    stroke: #FFFFFF;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 16px;
+    stroke-dashoffset: 16px;
+    transition: all 0.3s ease;
+    transition-delay: 0.1s;
+    transform: translate3d(0, 0, 0);
+}
+
+.cbx span:first-child:before {
+    content: "";
+    width: 100%;
+    height: 100%;
+    background: rgb(100, 100, 100);
+    display: block;
+    transform: scale(0);
+    opacity: 1;
+    border-radius: 50%;
+}
+
+.cbx span:last-child {
+    padding-left: 8px;
+}
+
+.cbx:hover span:first-child {
+    border-color: rgb(100, 100, 100);
+}
+
+.inp-cbx:checked+.cbx span:first-child {
+    background: rgb(100, 100, 100);
+    border-color: rgb(100, 100, 100);
+    animation: wave 0.4s ease;
+}
+
+.inp-cbx:checked+.cbx span:first-child svg {
+    stroke-dashoffset: 0;
+}
+
+@keyframes wave {
+    50% {
+        transform: scale(0.9);
+    }
+}
+
+.row {
+    margin-bottom: 0px !important;
+}`;
 
 export default function Help({ instruction, open }) {
     let workspaces = [];
 
     const [rescued, setRescued] = useState(false)
 
-    function lesson_title(txt) {
-        const hr1 = document.createElement('hr')
-        const hr = document.createElement('hr')
-        const h5 = document.createElement('h5')
-        const br = document.createElement('br')
-        h5.innerText = txt;
-        const comp = document.createElement('div')
-        comp.append(hr1, h5, hr, br)
-        return comp
-
-    }
     useEffect(() => {
         if (typeof window !== "undefined") {
+            var styleSheet = document.createElement("style")
+            styleSheet.innerText = newStyle;
+            document.head.appendChild(styleSheet);
             import("./helpers/openModel.js")
             if (instruction) {
-                instruction.forEach((ele, idx) => { add_instruction(ele, idx) })
+                add_main_heading(instruction.heading)
+                instruction.steps.forEach((ele, idx) => { add_instruction(ele, idx) })
             }
         }
         if (demoWorkspace) {
@@ -45,102 +164,124 @@ export default function Help({ instruction, open }) {
             require("./helpers/openModel.js").helpCode()
     }, [open])
     function update_rescue_workspace(i: number) {
-        demoWorkspace = Blockly.getMainWorkspace();
         var xml = Blockly.Xml.textToDom(workspaces[i]);
-        demoWorkspace.clear();
-        Blockly.Xml.domToWorkspace(xml, demoWorkspace);
+        Blockly.getMainWorkspace().clear();
+        Blockly.Xml.domToWorkspace(xml, Blockly.getMainWorkspace());
         $('#undo_btn').css('display', 'inline-block');
         setRescued(true);
     }
 
 
-    function add_instruction(ele, j: number) {
+    function add_main_heading(text) {
+        const hr = document.createElement('hr')
+        const h5 = document.createElement('h5')
+        h5.innerText = text;
+        const wrapper = document.createElement('div');
+        wrapper.classList.add(...["row", "valign-wrapper"])
+        const comp = document.createElement('div')
+        comp.classList.add(...["col", "s12", "m12", "l12", "xl12", "left-align"])
+        comp.append(hr, h5)
+        wrapper.appendChild(comp)
+        document.getElementById("content").appendChild(wrapper);
+    }
 
-        let col1 = j == 0 ? lesson_title(ele.col1) : ele.col1;
-        let col2 = ele.col2;
-        let rescue = ele.rescue;
-        let checkbox = ele.checkbox;
+    function add_title(text) {
+        const hr = document.createElement('hr')
+        const h6 = document.createElement('h6')
+        h6.innerText = text;
+        h6.classList.add(...["center-align"])
+        const wrapper = document.createElement('div');
+        wrapper.classList.add(...["row", "valign-wrapper"])
+        const comp = document.createElement('div')
+        comp.classList.add(...["col", "s12", "m12", "l12", "xl12", "center-align"])
+        comp.append(hr, h6)
+        wrapper.appendChild(comp)
+        return wrapper;
+    }
+
+    function add_instruction(ele, j: number) {
+        let text = ele.text;
+        let title = ele?.title ? add_title(ele.title) : false;
+        let rescue = ele.rescue ?? false;
+        let checkbox = ele.checkbox ?? false;
         let workspace = '<xml xmlns="https://developers.google.com/blockly/xml"></xml>';
         try {
             if (typeof (ele.workspace) != "undefined")
                 if (ele.workspace != "") workspace = ele.workspace;
         } catch { }
 
-        let rescue_btn = document.createElement('div'); rescue_btn.classList.add(...["col", "s2", "m2", "l2", "xl2"])
-        let btn = document.createElement('button'); btn.classList.add(...["waves-effect", "waves-dark", "btn-small", "black-text", "white"]);
-        btn.style.cssText = "height: 24px;line-height: 24px;padding: 0 0.5rem;"
+        let rescue_btn = document.createElement('div'); rescue_btn.classList.add(...["col", "s3", "m3", "l3", "xl3", "right-align"])
+
+        let btn = document.createElement('button'); btn.classList.add(...["shepherd-custom-rescue-sutton-white", "valign-wrapper", "right-align"]);
+        btn.style.cssText = "height: 24px;line-height: 24px;padding: 0 0.5rem;margin-right: 0px;"
         btn.innerText = "Rescue"
         btn.onclick = () => update_rescue_workspace(j)
 
         rescue_btn.appendChild(btn)
 
+        let rescueDiv = document.createElement('div');
+        rescueDiv.classList.add(...["row", "valign-wrapper", "right-align"]);
+        rescueDiv.style.marginBottom = "0px";
+        rescueDiv.appendChild(rescue_btn)
 
-        let rescue_btn_empty = document.createElement('div'); rescue_btn_empty.classList.add(...["col", "s2", "m2", "l2", "xl2"])
 
-        let checkbox_btn = document.createElement('div'); checkbox_btn.classList.add(...["col", "s1", "m1", "l1", "xl1"])
-        let label = document.createElement("label"); label.classList.add("container");
-        let input = document.createElement("input"); input.type = "checkbox";
-        let span = document.createElement("span"); span.classList.add("checkmark");
-        label.appendChild(input);
+        let checkbox_btn = document.createElement('div'); checkbox_btn.classList.add(...["col", "s2", "m2", "l2", "xl2", "valign-wrapper"]);
+        checkbox_btn.style.cssText = "margin-right: 10px;border: 1px solid rgba(145, 158, 171, 0.32);height: 50px;width: 50px;border-radius: 10px;"
+        let input = document.createElement("input"); input.classList.add("inp-cbx");
+        input.id = `cbx${j}`
+        input.type = "checkbox"; input.style.display = "none"
+        let label = document.createElement("label"); label.classList.add("cbx");
+        label.htmlFor = `cbx${j}`;
+        let span = document.createElement("span");
+        let svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        svg.setAttribute("width", "12px"); svg.setAttribute("height", "10px"); svg.setAttribute("viewbox", "0 0 12 10");
+        let polyline = document.createElementNS('http://www.w3.org/2000/svg', "polyline");
+        polyline.setAttribute("points", "1.5 6 4.5 9 10.5 1")
+
+        svg.appendChild(polyline);
+        span.appendChild(svg);
         label.appendChild(span)
-        checkbox_btn.appendChild(label);
 
-        let checkbox_btn_empty = document.createElement('div'); checkbox_btn_empty.classList.add(...["col", "s1", "m1", "l1", "xl1"])
+        checkbox_btn.append(input, label);
 
+        let checkbox_btn_empty = document.createElement('div'); checkbox_btn_empty.classList.add(...["col", "s1", "m1", "l1", "xl1", "valign-wrapper"])
 
         let component = document.createElement('div');
         component.classList.add(...["row", "valign-wrapper"])
-
-        if ((col1 != "" && col2 != "") || (col1 == "" && col2 != "")) {
-
-            let col1d = document.createElement('div');
-            col1d.classList.add(...["col", "s4", "m4", "l4", "xl4", "left-align"])
-
-            typeof col1 === "object" ? col1d.appendChild(col1) : col1d.innerHTML = col1;
-            let col2d = document.createElement('div');
-            col2d.classList.add(...["col", "s5", "m5", "l5", "xl5", "left-align"])
-            typeof col2 === "object" ? col2d.appendChild(col2) : col2d.innerHTML = col2;
-
-            component.appendChild(col1d);
-            component.appendChild(col2d);
-
-            if (rescue) component.appendChild(rescue_btn);
-            else component.appendChild(rescue_btn_empty);
-
-            if (checkbox) component.appendChild(checkbox_btn);
-            else component.appendChild(checkbox_btn_empty);
-        } else if (col1 != "" && col2 == "") {
-            let col1d = document.createElement('div');
-            col1d.classList.add(...["col", "s9", "m9", "l9", "xl9", "left-align"])
-            typeof col1 === "object" ? col1d.appendChild(col1) : col1d.innerHTML = col1;
-            component.appendChild(col1d);
-
-            if (rescue) component.appendChild(rescue_btn);
-            else component.appendChild(rescue_btn_empty);
-
-            if (checkbox) component.appendChild(checkbox_btn);
-
-            else component.appendChild(checkbox_btn_empty);
+        if (title) {
+            document.getElementById("content").appendChild(title);
         }
 
-        workspaces.push(workspace);
-        document.getElementById("content").appendChild(component);
+        let textDiv = document.createElement("div"); textDiv.innerText = text;
+        textDiv.style.cssText = "text-align:justify;text-justify:inter-word;";
 
+        if (checkbox) {
+            component.appendChild(checkbox_btn);
+            textDiv.classList.add(...["col", "s11", "m10", "l10", "xl10", "left-align"])
+        } else {
+            textDiv.classList.add(...["col", "s12", "m12", "l12", "xl12", "left-align"]);
+        }
+        component.appendChild(textDiv);
+
+        document.getElementById("content").appendChild(component);
+        if (rescue) document.getElementById("content").appendChild(rescueDiv);
+        workspaces.push(workspace);
     }
+
     function undo_button_function() {
         demoWorkspace.undo(false);
         demoWorkspace.undo(false);
         $('#undo_btn').css('display', 'none');
     }
+
     return (
-        <div id="help_practice" className="modal modal-fixed-footer" /*style={{ borderRadius: "18px"  }}*/>
+        <div id="help_practice" className="modal modal-fixed-footer" style={{ maxWidth: "350px", height: "95%", borderRadius: "25px" }}>
             <div className="modal-content center-align" id="content" style={{ paddingTop: "35px" }}>
             </div>
-            <div className="modal-footer">
-                <div style={{ float: "left", marginLeft: "15px" }}>
-                    <button id="undo_btn" style={{ display: "none" }} className="waves-effect waves-gray btn-flat white-text black"
-                        onClick={undo_button_function}>UNDO</button>
-                </div><button className="modal-close waves-effect waves-gray btn-flat white-text black" style={{ marginRight: "15px", marginBottom: "20px" }}>Close</button>
+            <div className="modal-footer right-align" style={{ height: 60 }}>
+                <button id="undo_btn" style={{ display: "none", marginRight: "15px", marginTop: "15px", float: "right" }}
+                    className="shepherd-custom-rescue-sutton-white valign-wrapper"
+                    onClick={undo_button_function}>Undo</button>
             </div>
         </div>
     )
