@@ -4,11 +4,34 @@ import KeyboardReact from 'react-simple-keyboard'
 interface Props {
     script: string;
     setScript: React.Dispatch<React.SetStateAction<string>>;
+    onlyKeyboard: boolean,
+
 }
 
-function KeyBoardContainer({ script, setScript }: Props) {
+function KeyBoardContainer({ script, setScript, onlyKeyboard }: Props) {
     const [layoutName, setlayoutName] = useState("default")
     const handleKeyPress = (input: string) => {
+        if (onlyKeyboard) {
+            if (input === "{shift}") {
+                setlayoutName(layoutName === "shift" ? "default" : "shift")
+                setScript("");
+                return;
+            }
+            else if (input === "{lock}") {
+                setlayoutName(layoutName === "shift" ? "default" : "shift")
+                setScript("");
+                return;
+            }
+            else if (input === "caps") {
+                setlayoutName(layoutName === "caps" ? "default" : "caps")
+                setScript("");
+                return;
+            }
+
+            setScript(input);
+            return;
+        }
+
         if (input === "{bksp}") {
             setScript("{bksp}")
             //setScript(script.slice(0, script.length - 1))

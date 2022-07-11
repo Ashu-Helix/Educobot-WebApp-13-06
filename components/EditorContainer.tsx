@@ -1,18 +1,25 @@
-import { useEffect } from 'react';
-import { Controlled } from 'react-codemirror2'
+import dynamic from 'next/dynamic';
+import { useEffect, useLayoutEffect, useRef } from 'react';
+import { Controlled } from 'react-codemirror2';
+import "codemirror/theme/yonce.css"
+import "codemirror/mode/python/python"
 interface EditorProps {
-    language?: 'python';
-    theme?: 'material';
+    language?: string;
+    theme?: string;
     handleChange?: any;
     value: string;
     className?: string;
+    setkeyboardState?: (value) => void,
+    setEditorState?: (value) => void
+    setOnlyKeyboard?: (value) => void
 }
 
-function EditorContainer({ language, theme, handleChange, value, className }: EditorProps) {
-
+function EditorContainer({ language, theme, handleChange, value, className, setkeyboardState, setEditorState, setOnlyKeyboard }: EditorProps) {
+    useLayoutEffect(() => {
+        document.getElementsByClassName("CodeMirror-code")[0].setAttribute("virtualkeyboardpolicy", "manual")
+    }, [])
 
     return (
-
         <Controlled
             value={value}
             options={{
@@ -30,6 +37,9 @@ function EditorContainer({ language, theme, handleChange, value, className }: Ed
                 handleChange(value)
             }}
             onChange={(editor, data, value) => {
+
+                //if (setEditorState)
+                //  setEditorState(editor)
                 handleChange(value)
             }}
             className={className}

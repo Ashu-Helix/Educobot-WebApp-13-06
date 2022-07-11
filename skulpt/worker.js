@@ -1,12 +1,11 @@
 try {
-    import("./skulpt.min.js");
-    import("./skulpt-stdlib.js");
+    import("./skulpt.min.js").then(res => import("./skulpt-stdlib.js"))
 } catch (exception) {
     console.log(exception);
 }
 
 import Sk from "./skulpt.min.js"
-//const Sk = require("./skulpt.min.js")
+
 var externalLibs = {
     "./numpy/__init__.js": "https://cdn.jsdelivr.net/gh/ebertmi/skulpt_numpy@master/numpy/__init__.js"
 };
@@ -50,7 +49,7 @@ function runIt(pythonCode, finalCode) {
         inputfunTakesPrompt: true,
         output: outf,
         read: builtinRead,
-        // retainglobals: true,
+        retainGlobals: true,
         __future__: Sk.python3,
     });
     (Sk.TurtleGraphics || (Sk.TurtleGraphics = {})).target = 'circle';
@@ -66,8 +65,6 @@ function runIt(pythonCode, finalCode) {
             if (pythonCode == finalCode) {
                 SuccessfulOutput = true
             }
-
-            //console.log(Sk.ffi.remapToJs(Sk.globals["phase"]));
         },
         function (err) {
             console.log(err.toString());
