@@ -269,8 +269,8 @@ export default function Help({ instruction, open }) {
     }
 
     function undo_button_function() {
-        demoWorkspace.undo(false);
-        demoWorkspace.undo(false);
+        Blockly.getMainWorkspace().undo(false);
+        Blockly.getMainWorkspace().undo(false);
         $('#undo_btn').css('display', 'none');
     }
 

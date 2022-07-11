@@ -277,4 +277,8 @@ function getNoOfBlocks() {
 
 const updateImports = ["import birds"]
 
-export { completedFlag, reset_output, nest1, nest2, default_, init, runCode, updateImports, getNoOfBlocks };
+function returnDemo() {
+    return Blockly.Xml.workspaceToDom(Blockly.getMainWorkspace());
+}
+
+export { completedFlag, reset_output, nest1, nest2, default_, init, runCode, updateImports, getNoOfBlocks, returnDemo };

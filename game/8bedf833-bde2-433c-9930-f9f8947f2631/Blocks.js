@@ -160,4 +160,37 @@ Blockly.Python["variables"] = function (block) {
     return [code, Blockly.Python.ORDER_NONE];
 };
 
-export const blocks = { kind: "categoryToolbox", "contents": [{ "kind": "CATEGORY", "contents": [{ "kind": "BLOCK", "blockxml": "", "type": "set_variable_holder" }, { "kind": "BLOCK", "blockxml": "", "type": "change_variable_holder" }, { "kind": "BLOCK", "blockxml": "", "type": "variables" }, { "kind": "BLOCK", "blockxml": "", "type": "math_number" }], "name": "Game Variables", "categorystyle": "variable_category" }, { "kind": "CATEGORY", "contents": [{ "kind": "BLOCK", "blockxml": "", "type": "serve_block" }], "name": "Serve", "colour": "#B430FF", "cssConfig": { "container": "cat1" } }], "id": "toolbox", "style": "display: none", "colour": "#D4AF37" }
+export const blocks = {
+    kind: "categoryToolbox",
+    contents: [
+        {
+            kind: "CATEGORY",
+            contents: [
+                {
+                    kind: "BLOCK",
+                    blockxml: '<block type="set_variable_holder"><value name = "NAME"><block type = "math_number"><field name="NUM">0</field></block></value></block>',
+                    type: "set_variable_holder"
+                },
+                {
+                    kind: "BLOCK",
+                    blockxml: '<block type="change_variable_holder"><value name = "NAME"><block type = "math_number"><field name="NUM">-1</field></block></value></block>',
+                    type: "change_variable_holder"
+                },
+                { kind: "BLOCK", blockxml: "", type: "variables" },
+                { kind: "BLOCK", blockxml: "", type: "math_number" },
+            ],
+            name: "Game Variables",
+            categorystyle: "variable_category",
+        },
+        {
+            kind: "CATEGORY",
+            contents: [{ kind: "BLOCK", blockxml: "", type: "serve_block" }],
+            name: "Serve",
+            colour: "#B430FF",
+            cssConfig: { container: "cat1" },
+        },
+    ],
+    id: "toolbox",
+    style: "display: none",
+    colour: "#D4AF37",
+};

@@ -463,73 +463,130 @@ function whichToast(toastType, message) {
     M.toast({ html: toastHTML1 });
 }
 
-const instruction = [
-    {
-        type: "heading",
-        text: `The task is to place the monument at the appropriate country through blocks`,
-    },
-    {
-        type: "title",
-        text: `Touch the country and obtain the x,y coordinate for placing the monument at thier respective country`,
-    },
-    {
-        type: "title",
-        text: `Send Monument to respective Country (India)`,
-    },
-    {
-        type: "step",
-        text: `Set Country's x & y coordinates`,
-        rescue: true,
-        checkbox: true,
-        workspace: '<xml xmlns="https://developers.google.com/blockly/xml"><block type="variable_holder" id="g)`%]AL[j7-a)qH!yFyd" x="52" y="-113"><field name="countryName">India</field><value name="NAME"><block type="xy" id="YbCA1lsnfRlHrY@!Y~HX"><field name="x_coordinate">1265</field><field name="y_coordinate">649</field></block></value></block></xml>',
-    },
-    {
-        type: "step",
-        text: `place monument in Country`,
-        rescue: true,
-        checkbox: true,
-        workspace: '<xml xmlns="https://developers.google.com/blockly/xml"><block type="variable_holder" id="g)`%]AL[j7-a)qH!yFyd" x="52" y="-113"><field name="countryName">India</field><value name="NAME"><block type="xy" id="YbCA1lsnfRlHrY@!Y~HX"><field name="x_coordinate">1265</field><field name="y_coordinate">649</field></block></value><next><block type="place_block" id="0R{]X0`E`:jFi$F=Oudf"><field name="options1">tajMahal</field><field name="options2">India</field></block></next></block></xml>',
-    },
-    {
-        type: "title",
-        text: `Similarly, Finish rest of the countries`,
-    },
-    {
-        type: "step",
-        text: `USA`,
-        rescue: true,
-        checkbox: true,
-        workspace: '<xml xmlns="https://developers.google.com/blockly/xml"><block type="variable_holder" id="g)`%]AL[j7-a)qH!yFyd" x="52" y="-113"><field name="countryName">India</field><value name="NAME"><block type="xy" id="YbCA1lsnfRlHrY@!Y~HX"><field name="x_coordinate">1265</field><field name="y_coordinate">649</field></block></value><next><block type="place_block" id="0R{]X0`E`:jFi$F=Oudf"><field name="options1">tajMahal</field><field name="options2">India</field><next><block type="variable_holder" id="Aq+QaW%]IAS%ogM;e~${"><field name="countryName">UnitedStates</field><value name="NAME"><block type="xy" id="]qw~qxHc#1Ha1ABENRpm"><field name="x_coordinate">500</field><field name="y_coordinate">500</field></block></value><next><block type="place_block" id="c+i]m@ZxUSr#YLHxiQ,n"><field name="options1">statueOfLib</field><field name="options2">UnitedStates</field></block></next></block></next></block></next></block></xml>',
-    },
-    {
-        type: "step",
-        text: `Australia`,
-        rescue: true,
-        checkbox: true,
-        workspace: '<xml xmlns="https://developers.google.com/blockly/xml"><block type="variable_holder" id="g)`%]AL[j7-a)qH!yFyd" x="52" y="-113"><field name="countryName">India</field><value name="NAME"><block type="xy" id="YbCA1lsnfRlHrY@!Y~HX"><field name="x_coordinate">1265</field><field name="y_coordinate">649</field></block></value><next><block type="place_block" id="0R{]X0`E`:jFi$F=Oudf"><field name="options1">tajMahal</field><field name="options2">India</field><next><block type="variable_holder" id="Aq+QaW%]IAS%ogM;e~${"><field name="countryName">UnitedStates</field><value name="NAME"><block type="xy" id="]qw~qxHc#1Ha1ABENRpm"><field name="x_coordinate">500</field><field name="y_coordinate">500</field></block></value><next><block type="place_block" id="c+i]m@ZxUSr#YLHxiQ,n"><field name="options1">statueOfLib</field><field name="options2">UnitedStates</field><next><block type="variable_holder" id="bm(rB`Dt39-ttN+YpXB/"><field name="countryName">Australia</field><value name="NAME"><block type="xy" id="U|h?hwQY9HOOI=8?r_6$"><field name="x_coordinate">1500</field><field name="y_coordinate">900</field></block></value><next><block type="place_block" id="#ZXlhG!0b%[_=b4o0~HT"><field name="options1">lotus</field><field name="options2">Australia</field></block></next></block></next></block></next></block></next></block></next></block></xml>',
-    },
-    {
-        type: "step",
-        text: `UK`,
-        rescue: true,
-        checkbox: true,
-        workspace: '<xml xmlns="https://developers.google.com/blockly/xml"><block type="variable_holder" id="g)`%]AL[j7-a)qH!yFyd" x="52" y="-113"><field name="countryName">India</field><value name="NAME"><block type="xy" id="YbCA1lsnfRlHrY@!Y~HX"><field name="x_coordinate">1265</field><field name="y_coordinate">649</field></block></value><next><block type="place_block" id="0R{]X0`E`:jFi$F=Oudf"><field name="options1">tajMahal</field><field name="options2">India</field><next><block type="variable_holder" id="Aq+QaW%]IAS%ogM;e~${"><field name="countryName">UnitedStates</field><value name="NAME"><block type="xy" id="]qw~qxHc#1Ha1ABENRpm"><field name="x_coordinate">500</field><field name="y_coordinate">500</field></block></value><next><block type="place_block" id="c+i]m@ZxUSr#YLHxiQ,n"><field name="options1">statueOfLib</field><field name="options2">UnitedStates</field><next><block type="variable_holder" id="bm(rB`Dt39-ttN+YpXB/"><field name="countryName">Australia</field><value name="NAME"><block type="xy" id="U|h?hwQY9HOOI=8?r_6$"><field name="x_coordinate">1500</field><field name="y_coordinate">900</field></block></value><next><block type="place_block" id="#ZXlhG!0b%[_=b4o0~HT"><field name="options1">lotus</field><field name="options2">Australia</field><next><block type="variable_holder" id="am/zqu%njldM94K??20/"><field name="countryName">London</field><value name="NAME"><block type="xy" id="/+bNm3?wV!MN^xTNdyv["><field name="x_coordinate">900</field><field name="y_coordinate">450</field></block></value><next><block type="place_block" id="9vIJT*/`=$EnWxG}h9p]"><field name="options1">london</field><field name="options2">London</field></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></xml>',
-    },
-    {
-        type: "step",
-        text: `Egypt`,
-        rescue: true,
-        checkbox: true,
-        workspace: '<xml xmlns="https://developers.google.com/blockly/xml"><block type="variable_holder" id="g)`%]AL[j7-a)qH!yFyd" x="52" y="-113"><field name="countryName">India</field><value name="NAME"><block type="xy" id="YbCA1lsnfRlHrY@!Y~HX"><field name="x_coordinate">1265</field><field name="y_coordinate">649</field></block></value><next><block type="place_block" id="0R{]X0`E`:jFi$F=Oudf"><field name="options1">tajMahal</field><field name="options2">India</field><next><block type="variable_holder" id="Aq+QaW%]IAS%ogM;e~${"><field name="countryName">UnitedStates</field><value name="NAME"><block type="xy" id="]qw~qxHc#1Ha1ABENRpm"><field name="x_coordinate">500</field><field name="y_coordinate">500</field></block></value><next><block type="place_block" id="c+i]m@ZxUSr#YLHxiQ,n"><field name="options1">statueOfLib</field><field name="options2">UnitedStates</field><next><block type="variable_holder" id="bm(rB`Dt39-ttN+YpXB/"><field name="countryName">Australia</field><value name="NAME"><block type="xy" id="U|h?hwQY9HOOI=8?r_6$"><field name="x_coordinate">1500</field><field name="y_coordinate">900</field></block></value><next><block type="place_block" id="#ZXlhG!0b%[_=b4o0~HT"><field name="options1">lotus</field><field name="options2">Australia</field><next><block type="variable_holder" id="am/zqu%njldM94K??20/"><field name="countryName">London</field><value name="NAME"><block type="xy" id="/+bNm3?wV!MN^xTNdyv["><field name="x_coordinate">900</field><field name="y_coordinate">450</field></block></value><next><block type="place_block" id="9vIJT*/`=$EnWxG}h9p]"><field name="options1">london</field><field name="options2">London</field><next><block type="variable_holder" id="*zu}*gySEp+Hw0B6T#Y="><field name="countryName">Egypt</field><value name="NAME"><block type="xy" id="aA!q):%d[#YQ)SYi?RiV"><field name="x_coordinate">1050</field><field name="y_coordinate">620</field></block></value><next><block type="place_block" id=".P=W`.:,(+!vjcCfro(V"><field name="options1">egypt</field><field name="options2">Egypt</field></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></xml>',
-    },
-    {
-        type: "step",
-        text: `Brazil`,
-        rescue: true,
-        checkbox: true,
-        workspace: '<xml xmlns="https://developers.google.com/blockly/xml"><block type="variable_holder" id="g)`%]AL[j7-a)qH!yFyd" x="52" y="-113"><field name="countryName">India</field><value name="NAME"><block type="xy" id="YbCA1lsnfRlHrY@!Y~HX"><field name="x_coordinate">1265</field><field name="y_coordinate">649</field></block></value><next><block type="place_block" id="0R{]X0`E`:jFi$F=Oudf"><field name="options1">tajMahal</field><field name="options2">India</field><next><block type="variable_holder" id="Aq+QaW%]IAS%ogM;e~${"><field name="countryName">UnitedStates</field><value name="NAME"><block type="xy" id="]qw~qxHc#1Ha1ABENRpm"><field name="x_coordinate">500</field><field name="y_coordinate">500</field></block></value><next><block type="place_block" id="c+i]m@ZxUSr#YLHxiQ,n"><field name="options1">statueOfLib</field><field name="options2">UnitedStates</field><next><block type="variable_holder" id="bm(rB`Dt39-ttN+YpXB/"><field name="countryName">Australia</field><value name="NAME"><block type="xy" id="U|h?hwQY9HOOI=8?r_6$"><field name="x_coordinate">1500</field><field name="y_coordinate">900</field></block></value><next><block type="place_block" id="#ZXlhG!0b%[_=b4o0~HT"><field name="options1">lotus</field><field name="options2">Australia</field><next><block type="variable_holder" id="am/zqu%njldM94K??20/"><field name="countryName">London</field><value name="NAME"><block type="xy" id="/+bNm3?wV!MN^xTNdyv["><field name="x_coordinate">900</field><field name="y_coordinate">450</field></block></value><next><block type="place_block" id="9vIJT*/`=$EnWxG}h9p]"><field name="options1">london</field><field name="options2">London</field><next><block type="variable_holder" id="*zu}*gySEp+Hw0B6T#Y="><field name="countryName">Egypt</field><value name="NAME"><block type="xy" id="aA!q):%d[#YQ)SYi?RiV"><field name="x_coordinate">1050</field><field name="y_coordinate">620</field></block></value><next><block type="place_block" id=".P=W`.:,(+!vjcCfro(V"><field name="options1">egypt</field><field name="options2">Egypt</field><next><block type="variable_holder" id="j@G6vf(#2Jzp;p1_$*Jd"><field name="countryName">Brazil</field><value name="NAME"><block type="xy" id="6IHd)bAdr(_w/8cQol5R"><field name="x_coordinate">600</field><field name="y_coordinate">800</field></block></value><next><block type="place_block" id="qN2+:UF[er)z[^zdr!Zm"><field name="options1">brazil</field><field name="options2">Brazil</field></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></xml>',
-    },
-]
+// const instruction = [
+//     {
+//         type: "heading",
+//         text: `The task is to place the monument at the appropriate country through blocks`,
+//     },
+//     {
+//         type: "title",
+//         text: `Touch the country and obtain the x,y coordinate for placing the monument at thier respective country`,
+//     },
+//     {
+//         type: "title",
+//         text: `Send Monument to respective Country (India)`,
+//     },
+//     {
+//         type: "step",
+//         text: `Set Country's x & y coordinates`,
+//         rescue: true,
+//         checkbox: true,
+//         workspace: '<xml xmlns="https://developers.google.com/blockly/xml"><block type="variable_holder" id="g)`%]AL[j7-a)qH!yFyd" x="52" y="-113"><field name="countryName">India</field><value name="NAME"><block type="xy" id="YbCA1lsnfRlHrY@!Y~HX"><field name="x_coordinate">1265</field><field name="y_coordinate">649</field></block></value></block></xml>',
+//     },
+//     {
+//         type: "step",
+//         text: `place monument in Country`,
+//         rescue: true,
+//         checkbox: true,
+//         workspace: '<xml xmlns="https://developers.google.com/blockly/xml"><block type="variable_holder" id="g)`%]AL[j7-a)qH!yFyd" x="52" y="-113"><field name="countryName">India</field><value name="NAME"><block type="xy" id="YbCA1lsnfRlHrY@!Y~HX"><field name="x_coordinate">1265</field><field name="y_coordinate">649</field></block></value><next><block type="place_block" id="0R{]X0`E`:jFi$F=Oudf"><field name="options1">tajMahal</field><field name="options2">India</field></block></next></block></xml>',
+//     },
+//     {
+//         type: "title",
+//         text: `Similarly, Finish rest of the countries`,
+//     },
+//     {
+//         type: "step",
+//         text: `USA`,
+//         rescue: true,
+//         checkbox: true,
+//         workspace: '<xml xmlns="https://developers.google.com/blockly/xml"><block type="variable_holder" id="g)`%]AL[j7-a)qH!yFyd" x="52" y="-113"><field name="countryName">India</field><value name="NAME"><block type="xy" id="YbCA1lsnfRlHrY@!Y~HX"><field name="x_coordinate">1265</field><field name="y_coordinate">649</field></block></value><next><block type="place_block" id="0R{]X0`E`:jFi$F=Oudf"><field name="options1">tajMahal</field><field name="options2">India</field><next><block type="variable_holder" id="Aq+QaW%]IAS%ogM;e~${"><field name="countryName">UnitedStates</field><value name="NAME"><block type="xy" id="]qw~qxHc#1Ha1ABENRpm"><field name="x_coordinate">500</field><field name="y_coordinate">500</field></block></value><next><block type="place_block" id="c+i]m@ZxUSr#YLHxiQ,n"><field name="options1">statueOfLib</field><field name="options2">UnitedStates</field></block></next></block></next></block></next></block></xml>',
+//     },
+//     {
+//         type: "step",
+//         text: `Australia`,
+//         rescue: true,
+//         checkbox: true,
+//         workspace: '<xml xmlns="https://developers.google.com/blockly/xml"><block type="variable_holder" id="g)`%]AL[j7-a)qH!yFyd" x="52" y="-113"><field name="countryName">India</field><value name="NAME"><block type="xy" id="YbCA1lsnfRlHrY@!Y~HX"><field name="x_coordinate">1265</field><field name="y_coordinate">649</field></block></value><next><block type="place_block" id="0R{]X0`E`:jFi$F=Oudf"><field name="options1">tajMahal</field><field name="options2">India</field><next><block type="variable_holder" id="Aq+QaW%]IAS%ogM;e~${"><field name="countryName">UnitedStates</field><value name="NAME"><block type="xy" id="]qw~qxHc#1Ha1ABENRpm"><field name="x_coordinate">500</field><field name="y_coordinate">500</field></block></value><next><block type="place_block" id="c+i]m@ZxUSr#YLHxiQ,n"><field name="options1">statueOfLib</field><field name="options2">UnitedStates</field><next><block type="variable_holder" id="bm(rB`Dt39-ttN+YpXB/"><field name="countryName">Australia</field><value name="NAME"><block type="xy" id="U|h?hwQY9HOOI=8?r_6$"><field name="x_coordinate">1500</field><field name="y_coordinate">900</field></block></value><next><block type="place_block" id="#ZXlhG!0b%[_=b4o0~HT"><field name="options1">lotus</field><field name="options2">Australia</field></block></next></block></next></block></next></block></next></block></next></block></xml>',
+//     },
+//     {
+//         type: "step",
+//         text: `UK`,
+//         rescue: true,
+//         checkbox: true,
+//         workspace: '<xml xmlns="https://developers.google.com/blockly/xml"><block type="variable_holder" id="g)`%]AL[j7-a)qH!yFyd" x="52" y="-113"><field name="countryName">India</field><value name="NAME"><block type="xy" id="YbCA1lsnfRlHrY@!Y~HX"><field name="x_coordinate">1265</field><field name="y_coordinate">649</field></block></value><next><block type="place_block" id="0R{]X0`E`:jFi$F=Oudf"><field name="options1">tajMahal</field><field name="options2">India</field><next><block type="variable_holder" id="Aq+QaW%]IAS%ogM;e~${"><field name="countryName">UnitedStates</field><value name="NAME"><block type="xy" id="]qw~qxHc#1Ha1ABENRpm"><field name="x_coordinate">500</field><field name="y_coordinate">500</field></block></value><next><block type="place_block" id="c+i]m@ZxUSr#YLHxiQ,n"><field name="options1">statueOfLib</field><field name="options2">UnitedStates</field><next><block type="variable_holder" id="bm(rB`Dt39-ttN+YpXB/"><field name="countryName">Australia</field><value name="NAME"><block type="xy" id="U|h?hwQY9HOOI=8?r_6$"><field name="x_coordinate">1500</field><field name="y_coordinate">900</field></block></value><next><block type="place_block" id="#ZXlhG!0b%[_=b4o0~HT"><field name="options1">lotus</field><field name="options2">Australia</field><next><block type="variable_holder" id="am/zqu%njldM94K??20/"><field name="countryName">London</field><value name="NAME"><block type="xy" id="/+bNm3?wV!MN^xTNdyv["><field name="x_coordinate">900</field><field name="y_coordinate">450</field></block></value><next><block type="place_block" id="9vIJT*/`=$EnWxG}h9p]"><field name="options1">london</field><field name="options2">London</field></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></xml>',
+//     },
+//     {
+//         type: "step",
+//         text: `Egypt`,
+//         rescue: true,
+//         checkbox: true,
+//         workspace: '<xml xmlns="https://developers.google.com/blockly/xml"><block type="variable_holder" id="g)`%]AL[j7-a)qH!yFyd" x="52" y="-113"><field name="countryName">India</field><value name="NAME"><block type="xy" id="YbCA1lsnfRlHrY@!Y~HX"><field name="x_coordinate">1265</field><field name="y_coordinate">649</field></block></value><next><block type="place_block" id="0R{]X0`E`:jFi$F=Oudf"><field name="options1">tajMahal</field><field name="options2">India</field><next><block type="variable_holder" id="Aq+QaW%]IAS%ogM;e~${"><field name="countryName">UnitedStates</field><value name="NAME"><block type="xy" id="]qw~qxHc#1Ha1ABENRpm"><field name="x_coordinate">500</field><field name="y_coordinate">500</field></block></value><next><block type="place_block" id="c+i]m@ZxUSr#YLHxiQ,n"><field name="options1">statueOfLib</field><field name="options2">UnitedStates</field><next><block type="variable_holder" id="bm(rB`Dt39-ttN+YpXB/"><field name="countryName">Australia</field><value name="NAME"><block type="xy" id="U|h?hwQY9HOOI=8?r_6$"><field name="x_coordinate">1500</field><field name="y_coordinate">900</field></block></value><next><block type="place_block" id="#ZXlhG!0b%[_=b4o0~HT"><field name="options1">lotus</field><field name="options2">Australia</field><next><block type="variable_holder" id="am/zqu%njldM94K??20/"><field name="countryName">London</field><value name="NAME"><block type="xy" id="/+bNm3?wV!MN^xTNdyv["><field name="x_coordinate">900</field><field name="y_coordinate">450</field></block></value><next><block type="place_block" id="9vIJT*/`=$EnWxG}h9p]"><field name="options1">london</field><field name="options2">London</field><next><block type="variable_holder" id="*zu}*gySEp+Hw0B6T#Y="><field name="countryName">Egypt</field><value name="NAME"><block type="xy" id="aA!q):%d[#YQ)SYi?RiV"><field name="x_coordinate">1050</field><field name="y_coordinate">620</field></block></value><next><block type="place_block" id=".P=W`.:,(+!vjcCfro(V"><field name="options1">egypt</field><field name="options2">Egypt</field></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></xml>',
+//     },
+//     {
+//         type: "step",
+//         text: `Brazil`,
+//         rescue: true,
+//         checkbox: true,
+//         workspace: '<xml xmlns="https://developers.google.com/blockly/xml"><block type="variable_holder" id="g)`%]AL[j7-a)qH!yFyd" x="52" y="-113"><field name="countryName">India</field><value name="NAME"><block type="xy" id="YbCA1lsnfRlHrY@!Y~HX"><field name="x_coordinate">1265</field><field name="y_coordinate">649</field></block></value><next><block type="place_block" id="0R{]X0`E`:jFi$F=Oudf"><field name="options1">tajMahal</field><field name="options2">India</field><next><block type="variable_holder" id="Aq+QaW%]IAS%ogM;e~${"><field name="countryName">UnitedStates</field><value name="NAME"><block type="xy" id="]qw~qxHc#1Ha1ABENRpm"><field name="x_coordinate">500</field><field name="y_coordinate">500</field></block></value><next><block type="place_block" id="c+i]m@ZxUSr#YLHxiQ,n"><field name="options1">statueOfLib</field><field name="options2">UnitedStates</field><next><block type="variable_holder" id="bm(rB`Dt39-ttN+YpXB/"><field name="countryName">Australia</field><value name="NAME"><block type="xy" id="U|h?hwQY9HOOI=8?r_6$"><field name="x_coordinate">1500</field><field name="y_coordinate">900</field></block></value><next><block type="place_block" id="#ZXlhG!0b%[_=b4o0~HT"><field name="options1">lotus</field><field name="options2">Australia</field><next><block type="variable_holder" id="am/zqu%njldM94K??20/"><field name="countryName">London</field><value name="NAME"><block type="xy" id="/+bNm3?wV!MN^xTNdyv["><field name="x_coordinate">900</field><field name="y_coordinate">450</field></block></value><next><block type="place_block" id="9vIJT*/`=$EnWxG}h9p]"><field name="options1">london</field><field name="options2">London</field><next><block type="variable_holder" id="*zu}*gySEp+Hw0B6T#Y="><field name="countryName">Egypt</field><value name="NAME"><block type="xy" id="aA!q):%d[#YQ)SYi?RiV"><field name="x_coordinate">1050</field><field name="y_coordinate">620</field></block></value><next><block type="place_block" id=".P=W`.:,(+!vjcCfro(V"><field name="options1">egypt</field><field name="options2">Egypt</field><next><block type="variable_holder" id="j@G6vf(#2Jzp;p1_$*Jd"><field name="countryName">Brazil</field><value name="NAME"><block type="xy" id="6IHd)bAdr(_w/8cQol5R"><field name="x_coordinate">600</field><field name="y_coordinate">800</field></block></value><next><block type="place_block" id="qN2+:UF[er)z[^zdr!Zm"><field name="options1">brazil</field><field name="options2">Brazil</field></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></xml>',
+//     },
+// ]
+
+const instruction = {
+    heading: `The task is to place the monument at the appropriate country through blocks`,
+    steps: [
+        {
+            title: `Touch the country and obtain the x,y coordinate for placing the monument at thier respective country`,
+            text: ``,
+            rescue: false,
+            checkbox: false,
+            workspace: '',
+        },
+        {
+            title: `Send Monument to respective Country (India)`,
+            text: `Set Country's x & y coordinates`,
+            rescue: true,
+            checkbox: true,
+            workspace: '<xml xmlns="https://developers.google.com/blockly/xml"><block type="variable_holder" id="g)`%]AL[j7-a)qH!yFyd" x="52" y="-113"><field name="countryName">India</field><value name="NAME"><block type="xy" id="YbCA1lsnfRlHrY@!Y~HX"><field name="x_coordinate">1265</field><field name="y_coordinate">649</field></block></value></block></xml>',
+        },
+        {
+            text: `place monument in Country`,
+            rescue: true,
+            checkbox: true,
+            workspace: '<xml xmlns="https://developers.google.com/blockly/xml"><block type="variable_holder" id="g)`%]AL[j7-a)qH!yFyd" x="52" y="-113"><field name="countryName">India</field><value name="NAME"><block type="xy" id="YbCA1lsnfRlHrY@!Y~HX"><field name="x_coordinate">1265</field><field name="y_coordinate">649</field></block></value><next><block type="place_block" id="0R{]X0`E`:jFi$F=Oudf"><field name="options1">tajMahal</field><field name="options2">India</field></block></next></block></xml>',
+        },
+        {
+            title: `Similarly, Finish rest of the countries`,
+            text: `USA`,
+            rescue: true,
+            checkbox: true,
+            workspace: '<xml xmlns="https://developers.google.com/blockly/xml"><block type="variable_holder" id="g)`%]AL[j7-a)qH!yFyd" x="52" y="-113"><field name="countryName">India</field><value name="NAME"><block type="xy" id="YbCA1lsnfRlHrY@!Y~HX"><field name="x_coordinate">1265</field><field name="y_coordinate">649</field></block></value><next><block type="place_block" id="0R{]X0`E`:jFi$F=Oudf"><field name="options1">tajMahal</field><field name="options2">India</field><next><block type="variable_holder" id="Aq+QaW%]IAS%ogM;e~${"><field name="countryName">UnitedStates</field><value name="NAME"><block type="xy" id="]qw~qxHc#1Ha1ABENRpm"><field name="x_coordinate">500</field><field name="y_coordinate">500</field></block></value><next><block type="place_block" id="c+i]m@ZxUSr#YLHxiQ,n"><field name="options1">statueOfLib</field><field name="options2">UnitedStates</field></block></next></block></next></block></next></block></xml>',
+        },
+        {
+            text: `Australia`,
+            rescue: true,
+            checkbox: true,
+            workspace: '<xml xmlns="https://developers.google.com/blockly/xml"><block type="variable_holder" id="g)`%]AL[j7-a)qH!yFyd" x="52" y="-113"><field name="countryName">India</field><value name="NAME"><block type="xy" id="YbCA1lsnfRlHrY@!Y~HX"><field name="x_coordinate">1265</field><field name="y_coordinate">649</field></block></value><next><block type="place_block" id="0R{]X0`E`:jFi$F=Oudf"><field name="options1">tajMahal</field><field name="options2">India</field><next><block type="variable_holder" id="Aq+QaW%]IAS%ogM;e~${"><field name="countryName">UnitedStates</field><value name="NAME"><block type="xy" id="]qw~qxHc#1Ha1ABENRpm"><field name="x_coordinate">500</field><field name="y_coordinate">500</field></block></value><next><block type="place_block" id="c+i]m@ZxUSr#YLHxiQ,n"><field name="options1">statueOfLib</field><field name="options2">UnitedStates</field><next><block type="variable_holder" id="bm(rB`Dt39-ttN+YpXB/"><field name="countryName">Australia</field><value name="NAME"><block type="xy" id="U|h?hwQY9HOOI=8?r_6$"><field name="x_coordinate">1500</field><field name="y_coordinate">900</field></block></value><next><block type="place_block" id="#ZXlhG!0b%[_=b4o0~HT"><field name="options1">lotus</field><field name="options2">Australia</field></block></next></block></next></block></next></block></next></block></next></block></xml>',
+        },
+        {
+            text: `UK`,
+            rescue: true,
+            checkbox: true,
+            workspace: '<xml xmlns="https://developers.google.com/blockly/xml"><block type="variable_holder" id="g)`%]AL[j7-a)qH!yFyd" x="52" y="-113"><field name="countryName">India</field><value name="NAME"><block type="xy" id="YbCA1lsnfRlHrY@!Y~HX"><field name="x_coordinate">1265</field><field name="y_coordinate">649</field></block></value><next><block type="place_block" id="0R{]X0`E`:jFi$F=Oudf"><field name="options1">tajMahal</field><field name="options2">India</field><next><block type="variable_holder" id="Aq+QaW%]IAS%ogM;e~${"><field name="countryName">UnitedStates</field><value name="NAME"><block type="xy" id="]qw~qxHc#1Ha1ABENRpm"><field name="x_coordinate">500</field><field name="y_coordinate">500</field></block></value><next><block type="place_block" id="c+i]m@ZxUSr#YLHxiQ,n"><field name="options1">statueOfLib</field><field name="options2">UnitedStates</field><next><block type="variable_holder" id="bm(rB`Dt39-ttN+YpXB/"><field name="countryName">Australia</field><value name="NAME"><block type="xy" id="U|h?hwQY9HOOI=8?r_6$"><field name="x_coordinate">1500</field><field name="y_coordinate">900</field></block></value><next><block type="place_block" id="#ZXlhG!0b%[_=b4o0~HT"><field name="options1">lotus</field><field name="options2">Australia</field><next><block type="variable_holder" id="am/zqu%njldM94K??20/"><field name="countryName">London</field><value name="NAME"><block type="xy" id="/+bNm3?wV!MN^xTNdyv["><field name="x_coordinate">900</field><field name="y_coordinate">450</field></block></value><next><block type="place_block" id="9vIJT*/`=$EnWxG}h9p]"><field name="options1">london</field><field name="options2">London</field></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></xml>',
+        },
+        {
+            text: `Egypt`,
+            rescue: true,
+            checkbox: true,
+            workspace: '<xml xmlns="https://developers.google.com/blockly/xml"><block type="variable_holder" id="g)`%]AL[j7-a)qH!yFyd" x="52" y="-113"><field name="countryName">India</field><value name="NAME"><block type="xy" id="YbCA1lsnfRlHrY@!Y~HX"><field name="x_coordinate">1265</field><field name="y_coordinate">649</field></block></value><next><block type="place_block" id="0R{]X0`E`:jFi$F=Oudf"><field name="options1">tajMahal</field><field name="options2">India</field><next><block type="variable_holder" id="Aq+QaW%]IAS%ogM;e~${"><field name="countryName">UnitedStates</field><value name="NAME"><block type="xy" id="]qw~qxHc#1Ha1ABENRpm"><field name="x_coordinate">500</field><field name="y_coordinate">500</field></block></value><next><block type="place_block" id="c+i]m@ZxUSr#YLHxiQ,n"><field name="options1">statueOfLib</field><field name="options2">UnitedStates</field><next><block type="variable_holder" id="bm(rB`Dt39-ttN+YpXB/"><field name="countryName">Australia</field><value name="NAME"><block type="xy" id="U|h?hwQY9HOOI=8?r_6$"><field name="x_coordinate">1500</field><field name="y_coordinate">900</field></block></value><next><block type="place_block" id="#ZXlhG!0b%[_=b4o0~HT"><field name="options1">lotus</field><field name="options2">Australia</field><next><block type="variable_holder" id="am/zqu%njldM94K??20/"><field name="countryName">London</field><value name="NAME"><block type="xy" id="/+bNm3?wV!MN^xTNdyv["><field name="x_coordinate">900</field><field name="y_coordinate">450</field></block></value><next><block type="place_block" id="9vIJT*/`=$EnWxG}h9p]"><field name="options1">london</field><field name="options2">London</field><next><block type="variable_holder" id="*zu}*gySEp+Hw0B6T#Y="><field name="countryName">Egypt</field><value name="NAME"><block type="xy" id="aA!q):%d[#YQ)SYi?RiV"><field name="x_coordinate">1050</field><field name="y_coordinate">620</field></block></value><next><block type="place_block" id=".P=W`.:,(+!vjcCfro(V"><field name="options1">egypt</field><field name="options2">Egypt</field></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></xml>',
+        },
+        {
+            text: `Brazil`,
+            rescue: true,
+            checkbox: true,
+            workspace: '<xml xmlns="https://developers.google.com/blockly/xml"><block type="variable_holder" id="g)`%]AL[j7-a)qH!yFyd" x="52" y="-113"><field name="countryName">India</field><value name="NAME"><block type="xy" id="YbCA1lsnfRlHrY@!Y~HX"><field name="x_coordinate">1265</field><field name="y_coordinate">649</field></block></value><next><block type="place_block" id="0R{]X0`E`:jFi$F=Oudf"><field name="options1">tajMahal</field><field name="options2">India</field><next><block type="variable_holder" id="Aq+QaW%]IAS%ogM;e~${"><field name="countryName">UnitedStates</field><value name="NAME"><block type="xy" id="]qw~qxHc#1Ha1ABENRpm"><field name="x_coordinate">500</field><field name="y_coordinate">500</field></block></value><next><block type="place_block" id="c+i]m@ZxUSr#YLHxiQ,n"><field name="options1">statueOfLib</field><field name="options2">UnitedStates</field><next><block type="variable_holder" id="bm(rB`Dt39-ttN+YpXB/"><field name="countryName">Australia</field><value name="NAME"><block type="xy" id="U|h?hwQY9HOOI=8?r_6$"><field name="x_coordinate">1500</field><field name="y_coordinate">900</field></block></value><next><block type="place_block" id="#ZXlhG!0b%[_=b4o0~HT"><field name="options1">lotus</field><field name="options2">Australia</field><next><block type="variable_holder" id="am/zqu%njldM94K??20/"><field name="countryName">London</field><value name="NAME"><block type="xy" id="/+bNm3?wV!MN^xTNdyv["><field name="x_coordinate">900</field><field name="y_coordinate">450</field></block></value><next><block type="place_block" id="9vIJT*/`=$EnWxG}h9p]"><field name="options1">london</field><field name="options2">London</field><next><block type="variable_holder" id="*zu}*gySEp+Hw0B6T#Y="><field name="countryName">Egypt</field><value name="NAME"><block type="xy" id="aA!q):%d[#YQ)SYi?RiV"><field name="x_coordinate">1050</field><field name="y_coordinate">620</field></block></value><next><block type="place_block" id=".P=W`.:,(+!vjcCfro(V"><field name="options1">egypt</field><field name="options2">Egypt</field><next><block type="variable_holder" id="j@G6vf(#2Jzp;p1_$*Jd"><field name="countryName">Brazil</field><value name="NAME"><block type="xy" id="6IHd)bAdr(_w/8cQol5R"><field name="x_coordinate">600</field><field name="y_coordinate">800</field></block></value><next><block type="place_block" id="qN2+:UF[er)z[^zdr!Zm"><field name="options1">brazil</field><field name="options2">Brazil</field></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></xml>',
+        }
+    ]
+}
 
 
 export {

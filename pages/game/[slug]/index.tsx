@@ -11,7 +11,7 @@ import { Icon } from '@iconify/react'
 const BlocklyComp = dynamic(import("../../../components/Blockly"), { ssr: false });
 const Tour = dynamic(import("../../../components/Tour"), { ssr: false, });
 import TestDialog from "../../../MyComponents/DialogBoxes/TutorialDialog";
-import Help from "../../../components/Help1";
+import Help from "../../../components/Help";
 import Game from "./game";
 import styles from "../../../styles/Problems.module.css";
 
@@ -203,6 +203,15 @@ export default function PhaserGame(props) {
     const [lang, setLang] = useState(1);
     const [PythonCode, setPythonCode] = useState("");
     const tut: any[] = dataParse.map(data => (data[lang]))
+    if (tut.length > 0) {
+        if (typeof window !== "undefined") {
+            window["language"] = tut[0].toLowerCase();
+        }
+    } else {
+        if (typeof window !== "undefined") {
+            window["language"] = "english";
+        }
+    }
     tut.shift();
     const childFunc = React.useRef(null)
     // const language = { English: 1, Hindi: 2, Marathi: 3, Spanish: 4, Arabic: 5, Swaheli: 6 }
@@ -234,6 +243,7 @@ export default function PhaserGame(props) {
         setLang(parseInt(e.target.value))
         if (dataParse.length == 0) return;
         const tut: any[] = dataParse.map(data => (data[e.target.value]))
+        window["language"] = tut[0].toLowerCase();
         tut.shift();
         window['tutorials'] = tut
         window['loadAgain']()
@@ -270,7 +280,7 @@ export default function PhaserGame(props) {
     // }, []);
 
     useEffect(() => {
-
+        window["slug"] = slug;
         if (typeof window !== "undefined" && window['updateImports']) {
             setImt([...window['updateImports']])
             //  window["update_rescue_workspace"] = update_rescue_workspace;
