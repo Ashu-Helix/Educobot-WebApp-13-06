@@ -42,6 +42,24 @@ function EditorContainer({ language, theme, handleChange, value, className, setk
                 //  setEditorState(editor)
                 handleChange(value)
             }}
+            onFocus={(editor, event) => {
+
+                if (window.screen.availWidth > 600) return;
+                if (setEditorState)
+                    setEditorState(editor)
+                setkeyboardState(true)
+                setOnlyKeyboard(true)
+            }}
+            onCursorActivity={(editor) => {
+                if (setEditorState)
+                    setEditorState(editor)
+            }}
+            onBlur={(editor, event) => {
+                if (window.screen.availWidth > 600) return;
+
+                editor.focus()
+
+            }}
             className={className}
 
         />

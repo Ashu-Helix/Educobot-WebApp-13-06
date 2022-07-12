@@ -5,3 +5,12 @@
     font-size: 1.5rem;
     margin-left: 1rem;
 }
+
+@media screen and (max-width: 600px) {
+
+    .open_code_editor {
+        /* pointer-events: none; */
+        margin: 0 1rem;
+    }
+
+}

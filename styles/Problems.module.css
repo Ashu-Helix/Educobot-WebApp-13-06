@@ -218,9 +218,9 @@
     margin-left: 1rem;
 }
 
-.editor [class*=CodeMirror-lines] {
+/* .editor [class*=CodeMirror-lines] {
     overflow-x: scroll;
-}
+} */
 
 
 .lessonDetailsDiv {
@@ -344,7 +344,7 @@
 
     .editor {
         /* pointer-events: none; */
-        margin-left: 0rem;
+        margin: 0 1rem;
     }
 
     .neumorphic_button_container {
@@ -352,5 +352,9 @@
         display: flex;
         justify-content: space-between;
         overflow: hidden;
+    }
+
+    .editor [class*=CodeMirror-lines] {
+        overflow-x: scroll;
     }
 }

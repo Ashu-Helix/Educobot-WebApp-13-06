@@ -212,9 +212,9 @@ export default function Help({ instruction, open }) {
 
         let rescue_btn = document.createElement('div'); rescue_btn.classList.add(...["col", "s3", "m3", "l3", "xl3", "right-align"])
 
-        let btn = document.createElement('button'); btn.classList.add(...["shepherd-custom-rescue-sutton-white", "valign-wrapper", "right-align"]);
+        let btn = document.createElement('button'); btn.classList.add(...["shepherd-custom-rescue-sutton-white", "valign-wrapper", "right-align", "rescue_button_id"]);
         btn.style.cssText = "height: 24px;line-height: 24px;padding: 0 0.5rem;margin-right: 0px;"
-        btn.innerText = "Rescue"
+        btn.innerText = "Rescue";
         btn.onclick = () => update_rescue_workspace(j)
 
         rescue_btn.appendChild(btn)
@@ -269,8 +269,8 @@ export default function Help({ instruction, open }) {
     }
 
     function undo_button_function() {
-        demoWorkspace.undo(false);
-        demoWorkspace.undo(false);
+        Blockly.getMainWorkspace().undo(false);
+        Blockly.getMainWorkspace().undo(false);
         $('#undo_btn').css('display', 'none');
     }
 

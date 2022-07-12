@@ -60,8 +60,6 @@ function runIt(pythonCode, finalCode) {
     });
     myPromise.then(
         function (mod) {
-
-            // finalCode = finalCode.join('');
             if (pythonCode == finalCode) {
                 SuccessfulOutput = true
             }

@@ -180,7 +180,7 @@ export default function Slug(props) {
                 {error && <div id="error" className={styles.output}>{error}</div>}
                 {output && <div className={styles.output}>{output}</div>}
             </div >
-            {keyboardState && <KeyBoardContainer script={script} setScript={setScript} />}
+            {keyboardState && <KeyBoardContainer script={script} setScript={setScript} onlyKeyboard={false} />}
         </div >
     </>
     );

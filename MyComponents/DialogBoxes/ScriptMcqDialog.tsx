@@ -281,7 +281,13 @@ export default function TestDialog(
                     variant="outlined"
                     id="openTest"
                     onClick={() => {
-                        setOpen("test");
+                        // setOpen("test");
+                        if (questionArray.length === 0) {
+                            setOpen("second");
+                            setMarks(3);
+                        } else {
+                            setOpen("test");
+                        }
                     }}
                     sx={{ display: "none" }}
                 >

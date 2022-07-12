@@ -81,12 +81,12 @@ type Props = {
     getCoins: (value) => void
     slug: any;
     lessonDetails: any;
+    noOfClicks: number;
     testDialogInfo: {
         dialogStatus: String;
-
     };
 };
-export default function TestDialog({ getCoins, testDialogInfo, lessonDetails, slug }: Props) {
+export default function TestDialog({ getCoins, lessonDetails, slug, noOfClicks }: Props) {
     const [widthState, setWidthState] = useState(0);
     const [heightState, setHeightState] = useState(0);
     const [showConfetti, setShowConfetti] = useState(false);
@@ -139,9 +139,10 @@ export default function TestDialog({ getCoins, testDialogInfo, lessonDetails, sl
                 obtainedMarks = obtainedMarks + 1;
             }
         });
-        if (getCoins)
-            getCoins(obtainedMarks)
-        setMarks(obtainedMarks);
+        // if (getCoins)
+        //     getCoins(obtainedMarks)
+        // setMarks(obtainedMarks);
+        setCoins(obtainedMarks);
     };
 
     const setActualWidthHeight = () => {
@@ -150,6 +151,7 @@ export default function TestDialog({ getCoins, testDialogInfo, lessonDetails, sl
     };
 
     useEffect(() => {
+        console.log(lessonDetails)
         setActualWidthHeight();
         window.addEventListener("resize", setActualWidthHeight);
         try {
@@ -157,15 +159,6 @@ export default function TestDialog({ getCoins, testDialogInfo, lessonDetails, sl
         } catch (err) {
             console.log(err)
         }
-        // questionArray = require(`../../public/mcq/${slug}Mcq.js`).mcqArr;
-        // try {
-        //   questionArray = require(`../../public/mcq/${slug}Mcq.js`).mcqArr
-        // } catch (err) {
-        //   // setTimeout(() => {
-        //   //   questionArray = require(`../../public/mcq/${slug}Mcq.js`).mcqArr
-        //   // }, 3000);
-        //   router.reload();
-        // }
 
         return () => {
             window.removeEventListener("resize", setActualWidthHeight);
@@ -210,16 +203,54 @@ export default function TestDialog({ getCoins, testDialogInfo, lessonDetails, sl
         setRecycleConfetti(false);
     };
 
-    // const closeError = (
-    //   event?: React.SyntheticEvent | Event,
-    //   reason?: string
-    // ) => {
-    //   if (reason === "clickaway") {
-    //     return;
-    //   }
+    function setCoins(obtainedMarks) {
+        let inv = 1.0 / 0.25;
 
-    //   setShowError(false);
-    // };
+        let earnCoins = 0, value = 0, steps = lessonDetails?.steps, quiz = 0, mcq = 0, penalty = 0;
+        switch (lessonDetails.lsSkillTag1) {
+            case "Test":
+                if (getCoins)
+                    getCoins(3)
+                setMarks(3);
+                break;
+            case "Practice":
+                penalty = 2, quiz = 1, penalty = 2;
+                value = (penalty / steps) * (steps - noOfClicks);
+                mcq = (quiz / questionArray.length) * (obtainedMarks);
+                value += mcq;
+                value = Math.round(value * inv) / inv;
+                console.log(value);
+                setMarks(value);
+                if (getCoins)
+                    getCoins(value)
+                break;
+
+            case "Partialy Guided":
+                earnCoins = 1; quiz = 1, penalty = 1;
+                value = (penalty / steps) * (steps - window['click']);
+                mcq = (quiz / questionArray.length) * (obtainedMarks);
+                value += mcq;
+                value = Math.round(value * inv) / inv;
+                console.log(earnCoins + value);
+                if (getCoins)
+                    getCoins(earnCoins + value);
+                setMarks(earnCoins + value);
+                break;
+            case "Guided":
+                earnCoins = 1; quiz = 2, value = 0;
+                mcq = (quiz / questionArray.length) * (obtainedMarks);
+                value += mcq;
+                value = Math.round(value * inv) / inv;
+                console.log(earnCoins + value);
+                if (getCoins)
+                    getCoins(earnCoins + value);
+                setMarks(earnCoins + value);
+                break;
+            default: break;
+
+        }
+
+    }
     return (
         <div style={{ display }}>
             <Button
@@ -227,7 +258,14 @@ export default function TestDialog({ getCoins, testDialogInfo, lessonDetails, sl
                 variant="outlined"
                 id="openTest"
                 onClick={() => {
-                    setOpen("test");
+                    //setOpen("test");
+
+                    if (questionArray.length === 0) {
+                        setOpen("second");
+                        setMarks(3);
+                    } else {
+                        setOpen("test");
+                    }
                     setDisplay("block")
                 }}
                 sx={{ display: "none" }}

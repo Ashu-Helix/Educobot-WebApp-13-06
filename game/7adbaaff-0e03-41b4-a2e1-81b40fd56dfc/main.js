@@ -253,4 +253,31 @@ function getNoOfBlocks() {
 
 const updateImports = ["import girl", "import time"]
 
-export { reset_output, completedFlag, runCode, getNoOfBlocks, updateImports };
+const instruction = {
+    heading: `Make Shivani do 50 quick jumps for today to stay healthy`,
+    steps: [
+        {
+            title: `Repeat 50 times`,
+            text: `Add the loop and do all the following operations in it`,
+            rescue: true,
+            checkbox: true,
+            workspace: '<xml xmlns="https://developers.google.com/blockly/xml"><block type="controls_repeat_ext" id="R]QK9Xcla{$`+t_g,nP-" x="119" y="191"><value name="TIMES"><block type="math_number" id="p#?@#CTHJzy$8f+=t,ZB"><field name="NUM">50</field></block></value></block></xml>',
+        },
+        {
+            title: `Jump`,
+            text: `Jump`,
+            rescue: true,
+            checkbox: true,
+            workspace: '<xml xmlns="https://developers.google.com/blockly/xml"><block type="controls_repeat_ext" id="R]QK9Xcla{$`+t_g,nP-" x="119" y="191"><value name="TIMES"><block type="math_number" id="p#?@#CTHJzy$8f+=t,ZB"><field name="NUM">50</field></block></value><statement name="DO"><block type="action_block" id="R@#1J@Zk*qD|(bvWednN"></block></statement></block></xml>',
+        },
+        {
+            title: `Wait`,
+            text: `wait for 0.1 secs`,
+            rescue: true,
+            checkbox: true,
+            workspace: '<xml xmlns="https://developers.google.com/blockly/xml"><block type="controls_repeat_ext" id="R]QK9Xcla{$`+t_g,nP-" x="119" y="191"><value name="TIMES"><block type="math_number" id="p#?@#CTHJzy$8f+=t,ZB"><field name="NUM">50</field></block></value><statement name="DO"><block type="action_block" id="R@#1J@Zk*qD|(bvWednN"><next><block type="wait_block" id="i=VA.TMisoUCFHB`Vr|0"><field name="NAME">Wait for</field><value name="NAME"><block type="math_number" id="`9k,uUB`~OeV@)fu%M+d"><field name="NUM">0.1</field></block></value></block></next></block></statement></block></xml>',
+        }
+    ]
+}
+
+export { reset_output, completedFlag, runCode, getNoOfBlocks, updateImports, instruction };

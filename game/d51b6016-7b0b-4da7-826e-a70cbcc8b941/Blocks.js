@@ -158,12 +158,12 @@ export const blocks = {
         "kind": "CATEGORY",
         "contents": [{
             "kind": "BLOCK",
-            "blockxml": "",
+            "blockxml": "<block type='set_variable_holder'><value name='NAME'><block type = 'math_number'><field name = 'NUM'> 0</field></block></value></block>",
             "type": "set_variable_holder"
         },
         {
             "kind": "BLOCK",
-            "blockxml": "",
+            "blockxml": "<block type='change_variable_holder'><value name = 'NAME'><block type = 'math_number'><field name='NUM'>-1</field></block></value></block> ",
             "type": "change_variable_holder"
         },
         {

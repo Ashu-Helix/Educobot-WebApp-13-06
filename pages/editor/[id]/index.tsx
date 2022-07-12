@@ -19,16 +19,16 @@ import { useRouter } from "next/router";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
 
-    /*const response1 = await fetch(`https://app.educobot.com/liveLessons/python/${context.params.id}/code.json`);
-    // const response1 = await fetch(`http://localhost:7001/scripts/${context.params.id}/code.json`);
+    // const response1 = await fetch(`https://app.educobot.com/liveLessons/python/${context.params.id}/code.json`);
+    const response1 = await fetch(`http://localhost:7001/scripts/${context.params.id}/code.json`);
     if (response1.status === 404) {
         return {
             notFound: true,
         }
     }
     let res = await response1.json() ?? "";
-    let { code,  type } = res
-*/
+    let { code, type } = res
+
     var bodyFormData = new FormData();
     bodyFormData.append('lessonID', "7adbaaff-0e03-41b4-a2e1-81b40fd56dfc");
 
@@ -39,45 +39,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         headers: { "Content-Type": "multipart/form-data" },
     });
 
-    let code = 'name = input("What is your name?")\nprint("hello "+name)\na=3\nb=5\nprint(a+b)';
-    let code2 = `import turtle
-import datetime as dt
-
-wn = turtle.Screen()
-wn.bgcolor("white")
-t1 = turtle.Turtle()
-t1.pensize(3)
-t1.color('black')
-t1.penup()
-
-t1.goto(-50, 0)
-t1.pendown()
-
-for i in range(2):
-	t1.forward(250)
-	t1.left(90)
-	t1.forward(70)
-	t1.left(90)
-
-t1.hideturtle()
-t = turtle.Turtle()
-t.goto(0,10)
-
-hr = dt.datetime.now().hour
-mn = dt.datetime.now().minute
-sec = dt.datetime.now().second
-
-while True:
-    t.hideturtle()
-    t.clear()
-    t.write(str(hr).zfill(2)+":"
-    +str(mn).zfill(2)+":"
-    +str(sec).zfill(2),
-    font =("Arial Narrow", 35, "bold"))
-
-    sec = dt.datetime.now().second
-    mn = dt.datetime.now().minute
-    hr = dt.datetime.now().hour`
+    // let code = 'name = input("What is your name?")\nprint("hello "+name)\na=3\nb=5\nprint(a+b)';
     return {
         props: { id: context.params.id, code, lessonDetails: lessonDetails.data.DATA[0] },
     };
@@ -147,7 +109,7 @@ export default function PythonEditor(props) {
     }
 
     function reset_output() {
-        //setScript("")
+        // setScript("")
         document.getElementById("output").innerHTML = "";
     }
 
@@ -204,6 +166,16 @@ export default function PythonEditor(props) {
         setScript(editor.getValue())
         editor.focus();
 
+    }
+
+    typeof window !== "undefined" && window.addEventListener("load", function () {
+        let myDialog: any = document.getElementById("modal");
+        myDialog.show();
+    });
+
+    function closeModal() {
+        let myDialog: any = document.getElementById("modal");
+        myDialog.close();
     }
 
     return (
@@ -291,7 +263,20 @@ export default function PythonEditor(props) {
                             dialogStatus: "test",
                         }}
                     />
-                    <dialog id="modal" />
+                    <dialog id="modal" >
+                        <div className={styles.sound_close_container}>
+                            <svg width="16" viewBox="0 0 14 14" stroke="black" xmlns="http://www.w3.org/2000/svg" onClick={closeModal}>
+                                <path d="M8.4042 6.00409L12.7042 1.71409C13.0963 1.32197 13.0963 0.686214 12.7042 0.294092C12.3121 -0.0980305 11.6763 -0.0980305 11.2842 0.294092L6.9942 4.59409L2.7042 0.294092C2.31208 -0.0980305 1.67632 -0.0980305 1.2842 0.294092C0.892079 0.686214 0.89208 1.32197 1.2842 1.71409L5.5842 6.00409L1.2842 10.2941C1.09489 10.4819 0.988403 10.7375 0.988403 11.0041C0.988403 11.2707 1.09489 11.5263 1.2842 11.7141C1.47197 11.9034 1.72756 12.0099 1.9942 12.0099C2.26084 12.0099 2.51644 11.9034 2.7042 11.7141L6.9942 7.41409L11.2842 11.7141C11.472 11.9034 11.7276 12.0099 11.9942 12.0099C12.2608 12.0099 12.5164 11.9034 12.7042 11.7141C12.8935 11.5263 13 11.2707 13 11.0041C13 10.7375 12.8935 10.4819 12.7042 10.2941L8.4042 6.00409Z"
+                                    fill="black" />
+                            </svg>
+                        </div>
+                        <div>
+                            <p style={{ padding: "1rem", margin: "0.5rem 0 1rem 0", fontSize: "24px" }}>This is an unevaluated open editor for you to play around.</p>
+                        </div>
+                        <div style={{ textAlign: "right" }}>
+                            <p style={{ margin: "1rem", fontSize: "14px", textTransform: "uppercase" }} onClick={closeModal}>Understood</p>
+                        </div>
+                    </dialog>
                     {/* <dialog id="modal">
                         <div className="sound_close_container">
                             <img src="/assets/sound_icon.png"
