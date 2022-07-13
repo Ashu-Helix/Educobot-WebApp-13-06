@@ -1,9 +1,11 @@
 import Blockly from "blockly";
 import "blockly/python";
 import "blockly/javascript";
-import { right } from "../game/4bda4814-a2b1-4c4f-b102-eda5181bd0f8/main";
+// import { right } from "../game/4bda4814-a2b1-4c4f-b102-eda5181bd0f8/main";
 
 const slug = window["slug"];
+window['total_rescue_btns'] = 0;
+window['rescue_btn_click_count'] = 0;
 
 var demoWorkspace = Blockly.getMainWorkspace()
 var tour_over = false;
@@ -124,6 +126,8 @@ function play_audio_tutorial(file, lang) {
 window['rescue_button_click'] = () => {
     try {
         if (typeof tour.getCurrentStep().tour.currentStep.options.workspace !== "undefined") {
+            window['rescue_btn_click_count'] +=  1
+
             var xml_wkspace = tour.getCurrentStep().tour.currentStep.options.workspace;
             var xml = Blockly.Xml.textToDom(xml_wkspace);
             demoWorkspace.clear();
@@ -160,6 +164,8 @@ function add_back_button() {
 }
 
 function add_rescue_button() {
+    window['total_rescue_btns'] += 1;
+
     return "<div class='row' style='text-align:right;margin-top:10px' ><button id='rescue_button_id' class='shepherd-custom-rescue-button-white' onclick='rescue_button_click();'>Rescue</button></div>"
 }
 

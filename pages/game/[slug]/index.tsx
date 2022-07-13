@@ -29,18 +29,18 @@ export const getStaticPaths = async () => {
     // const data = await res.json();
     // const paths = data.data.map((t) => ({ params: { slug: t.lsID } }));
 
-    const res = await fetch(`${process.env.URL}/all`);
-    const data = await res.json();
-    const paths = data;
+    // const res = await fetch(`${process.env.URL}/all`);
+    // const data = await res.json();
+    // const paths = data;
 
 
     return {
-        // paths: [
-        //     { params: { slug: "956dfe60-ed8a-45a4-8fac-dd3d72137944" } },
-        //     { params: { slug: "ce19a96e-3800-4251-b08f-079b8b45a135" } },
-        //     { params: { slug: "e0c38e50-cbb3-455f-ae16-d737fc624b24" } }
-        // ],
-        paths,
+        paths: [
+            { params: { slug: "956dfe60-ed8a-45a4-8fac-dd3d72137944" } },
+            { params: { slug: "4bda4814-a2b1-4c4f-b102-eda5181bd0f8" } },
+            { params: { slug: "e0c38e50-cbb3-455f-ae16-d737fc624b24" } }
+        ],
+        // paths,
         fallback: false,
     };
 };
@@ -55,7 +55,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     let index = -1;
 
     const staticSlug = [
-        "1d749e84-1155-4269-93ab-550ee7aabd4a",
+        "956dfe60-ed8a-45a4-8fac-dd3d72137944",
         "4bda4814-a2b1-4c4f-b102-eda5181bd0f8",
         "e0c38e50-cbb3-455f-ae16-d737fc624b24"
     ]
@@ -83,12 +83,15 @@ export const getStaticProps: GetStaticProps = async (context) => {
     var bodyFormData = new FormData();
     bodyFormData.append('lessonID', context.params.slug);
 
+    // lesson details
     const lessonDetails = await axios({
         method: "post",
         url: "https://appssl.educobot.com:8443/EduCobotWS/lessonsWS/getLessonsByID",
         data: bodyFormData,
         headers: { "Content-Type": "multipart/form-data" },
     });
+    
+    
     const instruction = context.params.slug === "e0c38e50-cbb3-455f-ae16-d737fc624b24" ? [{
         col1: (`The task is to place the monument at the appropriate country through blocks`),
         col2: ``,
@@ -202,6 +205,67 @@ export default function PhaserGame(props) {
     const [open, setOpen] = useState(false);
     const [lang, setLang] = useState(1);
     const [PythonCode, setPythonCode] = useState("");
+    const [userDetails, setUserDetails] = useState([]);
+
+    const getUserDetails = async(otp: string | string[]) =>{
+        try {
+            let formD = new FormData();
+            formD.append("sdUID", router.query.user_id)
+
+            const userDetails = await axios({
+                method: "post",
+                url: "https://appssl.educobot.com:8443/EduCobotWS/studentsWS/getStudents",
+                data: formD,
+                headers: { "Content-Type": "multipart/form-data" },
+            });
+            {
+                let newData = {...userDetails.data.DATA[0], otp}
+                setUserDetails(newData)
+                console.log("got user details")
+            }
+        }
+        catch (error) {
+            console.log(error.message)
+            setUserDetails([])
+        }
+    }
+
+    useEffect(() => {
+        router.query.otp && getUserDetails(router.query.otp)
+    },[router.query.otp])
+    
+
+    // whitebox rescue count logic
+    let clickArray = [];
+    const [clickcnt, setClickCnt] = useState(0);
+    const [mount, setMount] = useState(false);
+
+    function increamentClick(idx) {
+        if (clickArray.includes(idx)) return;
+        clickArray.push(idx)
+        setClickCnt(c => c += 1);
+    }
+
+    useEffect(() => {
+        if (mount) {
+            const element: HTMLCollectionOf<Element> = document.getElementsByClassName("rescue_button_id");
+            if (element.length) {
+                console.log(element);
+                for (let i = 0; i < element.length; i++) {
+                    element[i].addEventListener('click', () => increamentClick(i));
+                }
+                lessonDetails["steps"] = element.length;
+            }
+            else {
+                if (window["totlResBtn"])
+                    lessonDetails["steps"] = window["totlResBtn"];
+            }
+        }
+        else setMount(true);
+    }, [mount]);
+    
+
+    
     const tut: any[] = dataParse.map(data => (data[lang]))
     if (tut.length > 0) {
         if (typeof window !== "undefined") {
@@ -255,19 +319,17 @@ export default function PhaserGame(props) {
         let blocks = 0
         if (typeof window !== "undefined" && window['getNoOfBlocks'])
             blocks = window['getNoOfBlocks']();
-
-        console.log(blocks, value, user_id, timer)
-        fetch(`https://api.educobot.com/users/postEvalData`, {
-            method: 'POST',
-            headers: headers,
-            body: JSON.stringify({
-                timeTaken: timer,
-                userID: user_id,//"d45c7cb9-831e-4a2c-9372-0b1f34a0fae6",
-                lessonID: slug, blocks,
-                coins: value
-            })
-        }).then(res => res.json())
-            .then(res => console.log(res))
+        // fetch(`https://api.educobot.com/users/postEvalData`, {
+        //     method: 'POST',
+        //     headers: headers,
+        //     body: JSON.stringify({
+        //         timeTaken: timer,
+        //         userID: user_id,//"d45c7cb9-831e-4a2c-9372-0b1f34a0fae6",
+        //         lessonID: slug, blocks,
+        //         coins: value
+        //     })
+        // }).then(res => res.json())
+        //     .then(res => console.log(res))
 
     }
 
@@ -447,7 +509,9 @@ export default function PhaserGame(props) {
             <TestDialog
                 getCoins={FinalTask}
                 slug={slug}
-                lessonDetails={lessonDetails}
+                noOfClicks={clickcnt}
+                lessonDetails = {lessonDetails}
+                userDetails = {userDetails}
                 testDialogInfo={{
                     dialogStatus: "test",
                 }}
