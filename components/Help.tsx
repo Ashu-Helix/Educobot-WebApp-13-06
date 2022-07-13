@@ -3,6 +3,11 @@ import Blockly from "blockly";
 let demoWorkspace = Blockly.getMainWorkspace();
 import $ from 'jquery';
 
+if(typeof window !== "undefined"){
+    window['total_rescue_btns_wb'] = 0;
+    window['rescue_btn_click_count_wb'] = [];
+}
+
 let newStyle = ` .modal {
     max-width: 350px !important;
     height: 95% !important;
@@ -159,16 +164,20 @@ export default function Help({ instruction, open }) {
             });
         }
     }, [])
+
     useEffect(() => {
         if (open)
             require("./helpers/openModel.js").helpCode()
     }, [open])
-    function update_rescue_workspace(i: number) {
+    function update_rescue_workspace(i: number, btn: string) {
         var xml = Blockly.Xml.textToDom(workspaces[i]);
         Blockly.getMainWorkspace().clear();
         Blockly.Xml.domToWorkspace(xml, Blockly.getMainWorkspace());
         $('#undo_btn').css('display', 'inline-block');
         setRescued(true);
+
+        !window['rescue_btn_click_count_wb'].includes(btn) &&
+        window['rescue_btn_click_count_wb'].push(btn)
     }
 
 
@@ -210,12 +219,14 @@ export default function Help({ instruction, open }) {
                 if (ele.workspace != "") workspace = ele.workspace;
         } catch { }
 
-        let rescue_btn = document.createElement('div'); rescue_btn.classList.add(...["col", "s3", "m3", "l3", "xl3", "right-align"])
+        let rescue_btn = document.createElement('div'); 
+        rescue_btn.classList.add(...["col", "s3", "m3", "l3", "xl3", "right-align", `rescue_btn`])
+        window['total_rescue_btns_wb'] += 1;
 
         let btn = document.createElement('button'); btn.classList.add(...["shepherd-custom-rescue-sutton-white", "valign-wrapper", "right-align"]);
         btn.style.cssText = "height: 24px;line-height: 24px;padding: 0 0.5rem;margin-right: 0px;"
         btn.innerText = "Rescue"
-        btn.onclick = () => update_rescue_workspace(j)
+        btn.onclick = () => update_rescue_workspace(j, `rescue_btn${j}`)
 
         rescue_btn.appendChild(btn)
 

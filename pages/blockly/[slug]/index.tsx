@@ -106,17 +106,17 @@ const Home: NextPage<any> = (props) => {
             blocks = window['getNoOfBlocks']();
 
         console.log(blocks, value, user_id, timer)
-        fetch(`https://api.educobot.com/users/postEvalData`, {
-            method: 'POST',
-            headers: headers,
-            body: JSON.stringify({
-                timeTaken: timer,
-                userID: user_id,//"d45c7cb9-831e-4a2c-9372-0b1f34a0fae6",
-                lessonID: slug, blocks,
-                coins: value
-            })
-        }).then(res => res.json())
-            .then(res => console.log(res))
+        // fetch(`https://api.educobot.com/users/postEvalData`, {
+        //     method: 'POST',
+        //     headers: headers,
+        //     body: JSON.stringify({
+        //         timeTaken: timer,
+        //         userID: user_id,//"d45c7cb9-831e-4a2c-9372-0b1f34a0fae6",
+        //         lessonID: slug, blocks,
+        //         coins: value
+        //     })
+        // }).then(res => res.json())
+        //     .then(res => console.log(res))
 
     }
 
@@ -277,8 +277,9 @@ const Home: NextPage<any> = (props) => {
                 lessonDetails={lessonDetails}
                 testDialogInfo={{
                     dialogStatus: "test",
-                }}
-            />
+                }} 
+                userDetails={undefined}
+                />
             <Tour slug={slug} />
             <label id="hand" htmlFor="test">
                 <img src="/assets/hand_upward.png" width="50px" height="60px" />

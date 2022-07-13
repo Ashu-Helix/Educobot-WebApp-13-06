@@ -4,6 +4,8 @@ import "blockly/javascript";
 
 const slug = window["slug"];
 let lang = window["language"]
+window['rescue_btn_click_count'] = 0
+window['total_rescue_btns'] = 0
 const demoWorkspace = Blockly.getMainWorkspace();
 
 var tour_over = false;
@@ -98,12 +100,16 @@ function add_back_button() {
 }
 
 function add_rescue_button() {
+    window['total_rescue_btns'] += 1;
+    
     return "<div class='row' style='text-align:right;margin-top:10px' ><button id='rescue_button_id' class='shepherd-custom-rescue-button-white' onclick='rescue_button_click();'>Rescue</button></div>"
 }
 
 window['rescue_button_click'] = () => {
     try {
         if (typeof tour.getCurrentStep().tour.currentStep.options.workspace !== "undefined") {
+            window['rescue_btn_click_count'] += 1
+
             var xml_wkspace = tour.getCurrentStep().tour.currentStep.options.workspace;
             var xml = Blockly.Xml.textToDom(xml_wkspace);
             demoWorkspace.clear();
