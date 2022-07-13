@@ -30,7 +30,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     let { code, type } = res
 
     var bodyFormData = new FormData();
-    bodyFormData.append('lessonID', "7adbaaff-0e03-41b4-a2e1-81b40fd56dfc");
+    bodyFormData.append('lessonID', context.params.id);
 
     const lessonDetails = await axios({
         method: "post",

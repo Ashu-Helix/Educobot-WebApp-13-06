@@ -29,18 +29,18 @@ export const getStaticPaths = async () => {
     // const data = await res.json();
     // const paths = data.data.map((t) => ({ params: { slug: t.lsID } }));
 
-    // const res = await fetch(`${process.env.URL}/all`);
-    // const data = await res.json();
-    // const paths = data;
+    const res = await fetch(`${process.env.URL}/all`);
+    const data = await res.json();
+    const paths = data;
 
 
     return {
-        paths: [
-            { params: { slug: "956dfe60-ed8a-45a4-8fac-dd3d72137944" } },
-            { params: { slug: "4bda4814-a2b1-4c4f-b102-eda5181bd0f8" } },
-            { params: { slug: "e0c38e50-cbb3-455f-ae16-d737fc624b24" } }
-        ],
-        // paths,
+        // paths: [
+        //     { params: { slug: "956dfe60-ed8a-45a4-8fac-dd3d72137944" } },
+        //     { params: { slug: "4bda4814-a2b1-4c4f-b102-eda5181bd0f8" } },
+        //     { params: { slug: "e0c38e50-cbb3-455f-ae16-d737fc624b24" } }
+        // ],
+        paths,
         fallback: false,
     };
 };
@@ -90,8 +90,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
         data: bodyFormData,
         headers: { "Content-Type": "multipart/form-data" },
     });
-    
-    
+
+
     const instruction = context.params.slug === "e0c38e50-cbb3-455f-ae16-d737fc624b24" ? [{
         col1: (`The task is to place the monument at the appropriate country through blocks`),
         col2: ``,
@@ -207,7 +207,7 @@ export default function PhaserGame(props) {
     const [PythonCode, setPythonCode] = useState("");
     const [userDetails, setUserDetails] = useState([]);
 
-    const getUserDetails = async(otp: string | string[]) =>{
+    const getUserDetails = async (otp: string | string[]) => {
         try {
             let formD = new FormData();
             formD.append("sdUID", router.query.user_id)
@@ -219,7 +219,7 @@ export default function PhaserGame(props) {
                 headers: { "Content-Type": "multipart/form-data" },
             });
             {
-                let newData = {...userDetails.data.DATA[0], otp}
+                let newData = { ...userDetails.data.DATA[0], otp }
                 setUserDetails(newData)
                 console.log("got user details")
             }
@@ -232,8 +232,8 @@ export default function PhaserGame(props) {
 
     useEffect(() => {
         router.query.otp && getUserDetails(router.query.otp)
-    },[router.query.otp])
-    
+    }, [router.query.otp])
+
 
     // whitebox rescue count logic
     let clickArray = [];
@@ -263,9 +263,9 @@ export default function PhaserGame(props) {
         }
         else setMount(true);
     }, [mount]);
-    
 
-    
+
+
     const tut: any[] = dataParse.map(data => (data[lang]))
     if (tut.length > 0) {
         if (typeof window !== "undefined") {
@@ -510,8 +510,8 @@ export default function PhaserGame(props) {
                 getCoins={FinalTask}
                 slug={slug}
                 noOfClicks={clickcnt}
-                lessonDetails = {lessonDetails}
-                userDetails = {userDetails}
+                lessonDetails={lessonDetails}
+                userDetails={userDetails}
                 testDialogInfo={{
                     dialogStatus: "test",
                 }}

@@ -18,8 +18,8 @@ let pred_guide = [];
 
 function image_scaler(lesson_id, file) {
     // let path = `../` + language.image_folder + `/`;
-    // let path = `https://app.educobot.com/liveLessons/python/${lesson_id}/images/`;
-    let path = `http://localhost:7001/scripts/${lesson_id}/images/`;
+    let path = `https://app.educobot.com/liveLessons/python/${lesson_id}/images/`;
+    // let path = `http://localhost:7001/scripts/${lesson_id}/images/`;
     return `<img src = "` + path + file + `" class="responsive-img">`
 }
 
@@ -53,8 +53,8 @@ function getPlayAudio() {
 }
 
 function play_audio_tutorial(lesson_id, file, language) {
-    // let path = `https://app.educobot.com/liveLessons/python/${lesson_id}/audio/`;
-    let path = `http://localhost:7001/scripts/${lesson_id}/audios/${language}/`;
+    let path = `https://app.educobot.com/liveLessons/python/${lesson_id}/audios/${language}/`;
+    // let path = `http://localhost:7001/scripts/${lesson_id}/audios/${language}/`;
     // let path = `../` + language.audio_folder + `/`;
     // console.log(language);
     // if (!audio.paused) audio.pause();
