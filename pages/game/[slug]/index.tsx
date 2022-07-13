@@ -325,21 +325,22 @@ export default function PhaserGame(props) {
                     </div>
                     <p className={styles.description}>{lessonDetails.lsDesc}</p>
                 </div>
-                <div className={styles.select_languageDiv}>
-                    {Object.keys(language).length > 0 && (
-                        <select
-                            className={`${styles.select_language}`}
-                            value={lang}
-                            onChange={onChange}
-                        >
-                            {Object.keys(language).map(key => (
-                                <option key={key} value={`${language[key]}`}>
-                                    {key}
-                                </option>
-                            ))}
-                        </select>
-                    )}
-                </div>
+                {
+                    slug !== '1d749e84-1155-4269-93ab-550ee7aabd4a' && <div className={styles.select_languageDiv}>
+                        {Object.keys(language).length > 0 && (
+                            <select
+                                className={`${styles.select_language}`}
+                                value={lang}
+                                onChange={onChange}
+                            >
+                                {Object.keys(language).map(key => (
+                                    <option key={key} value={`${language[key]}`}>
+                                        {key}
+                                    </option>
+                                ))}
+                            </select>
+                        )}
+                    </div>}
             </div>
             <div
                 style={{

@@ -213,7 +213,7 @@ function loadAgain() {
     // );
 
     const tut = {
-        0: `<p style="text-align: center;"><strong><span style="font-family: Helvetica; font-size: 45px;">Help Bunny<br><br> eat carrot and<br><br> return home</span></strong></p>`,
+        0: `<p style="text-align: center;"><strong><span style="font-family: Helvetica; font-size: 30px;">Help Bunny<br><br> eat carrot and<br><br> return home</span></strong></p>`,
         1: `Select Bunny from the tool menu`,
         2: `from the Tool Menu drag hop Block to the workspace`,
         3: `Change direction to the Right, this will code bunny to go to the right`,
@@ -245,7 +245,7 @@ function loadAgain() {
         },
         title: 'Task',
         arrow: true,
-        attachTo: { element: '#sprite-container', on: adapt_orientation('top', 'bottom') },
+        attachTo: { element: '#sprite-container', on: adapt_orientation('middle', 'bottom') },
         // text: image_scaler("Task.png"),
         text: tut[0] + add_next_button(),
         buttons: [{ action() { return this.back(); }, classes: 'shepherd-button-secondary', text: 'Back' }, {

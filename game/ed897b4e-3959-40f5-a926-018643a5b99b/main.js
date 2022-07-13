@@ -483,7 +483,7 @@ function runCode() {
 
 // }
 
-const helpCode = '<xml xmlns="https://developers.google.com/blockly/xml"><block type="show_variable_block" id="Up@Zlbh+fXzZj1b,MDI!" x="66" y="61"><field name="NAME">score</field><next><block type="action_block" id="ME:G~6^Z1j+V:2Wul0{e"><next><block type="forever_repeat_block" id="H_-`I-HWU/87I]zgH*aG"><statement name="NAME"><block type="controls_if" id="h|Pf3kro[WH$]_LV}!F8"><value name="IF0"><block type="spritetouch__block" id="%?J7q4-A|~R~p(e;O!}v"><field name="options1">hammer</field><field name="options2">animal</field></block></value><statement name="DO0"><block type="addition_block" id="xekTV?lR-KHIE_.:G_ad"><field name="NAME">score</field><field name="addscorevalue">1</field></block></statement><next><block type="controls_if" id="5+5$2KO=Q@.D{J%I{-_p"><value name="IF0"><block type="compare_block" id="#^WS|MXR/!udY(Pr:Nl2"><field name="NAME">=</field><field name="number">10</field></block></value><statement name="DO0"><block type="end_block" id="S#pHxDE{$8S]S![}-;Jp"></block></statement></block></next></block></statement></block></next></block></next></block></xml>';
+// const helpCode = '<xml xmlns="https://developers.google.com/blockly/xml"><block type="show_variable_block" id="Up@Zlbh+fXzZj1b,MDI!" x="66" y="61"><field name="NAME">score</field><next><block type="action_block" id="ME:G~6^Z1j+V:2Wul0{e"><next><block type="forever_repeat_block" id="H_-`I-HWU/87I]zgH*aG"><statement name="NAME"><block type="controls_if" id="h|Pf3kro[WH$]_LV}!F8"><value name="IF0"><block type="spritetouch__block" id="%?J7q4-A|~R~p(e;O!}v"><field name="options1">hammer</field><field name="options2">animal</field></block></value><statement name="DO0"><block type="addition_block" id="xekTV?lR-KHIE_.:G_ad"><field name="NAME">score</field><field name="addscorevalue">1</field></block></statement><next><block type="controls_if" id="5+5$2KO=Q@.D{J%I{-_p"><value name="IF0"><block type="compare_block" id="#^WS|MXR/!udY(Pr:Nl2"><field name="NAME">=</field><field name="number">10</field></block></value><statement name="DO0"><block type="end_block" id="S#pHxDE{$8S]S![}-;Jp"></block></statement></block></next></block></statement></block></next></block></next></block></xml>';
 
 // function myUpdateFunction(a) {
 //     var code = Blockly.Python.workspaceToCode(demoWorkspace);
@@ -505,10 +505,58 @@ function getNoOfBlocks() {
 
 const updateImports = ["from whack_a_mole import *"]
 
+const instruction = {
+    "heading": "Whak the Mole with the hammer when he pops out by touching the mole before the mole goes back inside",
+    "steps": [
+        {
+            "checkbox": true,
+            "rescue": true,
+            "text": "Display Score on screen",
+            "title": "Display Score",
+            "workspace": "<xml xmlns=\"https://developers.google.com/blockly/xml\"><block type=\"show_variable_block\" id=\"Up@Zlbh+fXzZj1b,MDI!\" x=\"66\" y=\"61\"><field name=\"NAME\">score</field></block></xml>"
+        },
+        {
+            "checkbox": true,
+            "rescue": true,
+            "text": "Let Mole appear",
+            "title": "Mole appears",
+            "workspace": "<xml xmlns=\"https://developers.google.com/blockly/xml\"><block type=\"show_variable_block\" id=\"Up@Zlbh+fXzZj1b,MDI!\" x=\"66\" y=\"61\"><field name=\"NAME\">score</field><next><block type=\"action_block\" id=\"ME:G~6^Z1j+V:2Wul0{e\"></block></next></block></xml>"
+        },
+        {
+            "checkbox": true,
+            "rescue": true,
+            "text": "The following statements should function within the loop",
+            "title": "Repeat forever",
+            "workspace": "<xml xmlns=\"https://developers.google.com/blockly/xml\"><block type=\"show_variable_block\" id=\"Up@Zlbh+fXzZj1b,MDI!\" x=\"66\" y=\"61\"><field name=\"NAME\">score</field><next><block type=\"action_block\" id=\"ME:G~6^Z1j+V:2Wul0{e\"><next><block type=\"forever_repeat_block\" id=\"H_-`I-HWU/87I]zgH*aG\"></block></next></block></next></block></xml>"
+        },
+        {
+            "checkbox": true,
+            "rescue": true,
+            "text": "If Hammer touches the animal, Add Score by 1",
+            "title": "Hit Hammer on Mole",
+            "workspace": "<xml xmlns=\"https://developers.google.com/blockly/xml\"><block type=\"show_variable_block\" id=\"Up@Zlbh+fXzZj1b,MDI!\" x=\"66\" y=\"61\"><field name=\"NAME\">score</field><next><block type=\"action_block\" id=\"ME:G~6^Z1j+V:2Wul0{e\"><next><block type=\"forever_repeat_block\" id=\"H_-`I-HWU/87I]zgH*aG\"><statement name=\"NAME\"><block type=\"controls_if\" id=\"h|Pf3kro[WH$]_LV}!F8\"><value name=\"IF0\"><block type=\"spritetouch__block\" id=\"%?J7q4-A|~R~p(e;O!}v\"><field name=\"options1\">hammer</field><field name=\"options2\">animal</field></block></value><statement name=\"DO0\"><block type=\"addition_block\" id=\"xekTV?lR-KHIE_.:G_ad\"><field name=\"NAME\">score</field><field name=\"addscorevalue\">1</field></block></statement></block></statement></block></next></block></next></block></xml>"
+        },
+        {
+            "checkbox": true,
+            "rescue": true,
+            "text": "If Score is 10, Player Wins the game, then End All",
+            "title": "End All",
+            "workspace": "<xml xmlns=\"https://developers.google.com/blockly/xml\"><block type=\"show_variable_block\" id=\"Up@Zlbh+fXzZj1b,MDI!\" x=\"66\" y=\"61\"><field name=\"NAME\">score</field><next><block type=\"action_block\" id=\"ME:G~6^Z1j+V:2Wul0{e\"><next><block type=\"forever_repeat_block\" id=\"H_-`I-HWU/87I]zgH*aG\"><statement name=\"NAME\"><block type=\"controls_if\" id=\"h|Pf3kro[WH$]_LV}!F8\"><value name=\"IF0\"><block type=\"spritetouch__block\" id=\"%?J7q4-A|~R~p(e;O!}v\"><field name=\"options1\">hammer</field><field name=\"options2\">animal</field></block></value><statement name=\"DO0\"><block type=\"addition_block\" id=\"xekTV?lR-KHIE_.:G_ad\"><field name=\"NAME\">score</field><field name=\"addscorevalue\">1</field></block></statement><next><block type=\"controls_if\" id=\"5+5$2KO=Q@.D{J%I{-_p\"><value name=\"IF0\"><block type=\"compare_block\" id=\"#^WS|MXR/!udY(Pr:Nl2\"><field name=\"NAME\">=</field><field name=\"number\">10</field></block></value><statement name=\"DO0\"><block type=\"end_block\" id=\"S#pHxDE{$8S]S![}-;Jp\"></block></statement></block></next></block></statement></block></next></block></next></block></xml>"
+        },
+        {
+            "checkbox": false,
+            "rescue": false,
+            "text": "Touch the mole for the hammer to strike it and gain a point. Gain 3 points to win the game!",
+            "title": "Instructions to play the game",
+            "workspace": "<xml xmlns=\"https://developers.google.com/blockly/xml\"></xml>"
+        }
+    ]
+}
+
 export {
     completedFlag,
     // myUpdateFunction,
-    helpCode,
+    // helpCode,
     runCode,
     reset_output,
     reInitValues,
@@ -530,4 +578,5 @@ export {
     create,
     gameHeight,
     gameWidth,
+    instruction
 }

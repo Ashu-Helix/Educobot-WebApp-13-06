@@ -365,8 +365,74 @@ function runCode() {
     }, 1000)
 }
 
-const helpCode = '<xml xmlns="https://developers.google.com/blockly/xml"><block type="variable_holder" id="sgrUEAjuam,0v5X|LDAP" x="130" y="36"><field name="plantType">tree</field><value name="NAME"><block type="xy" id=";mhBd#C#dR+^pVzStaF["><field name="x_coordinate">331</field><field name="y_coordinate">452</field></block></value><next><block type="water_block" id="%[:*4P2H-$KxhAEOc@.O"><field name="options1">tree</field><next><block type="wait_block" id="(RsqV$S#^}9{,(SkYB0."><field name="NAME">Wait for</field><value name="NAME"><block type="math_number" id="Ze(rmMIG?g6PHi;.(E%/"><field name="NUM">10</field></block></value><next><block type="variable_holder" id="=I,{Yaz@|]KXaX-38I={"><field name="plantType">shrub</field><value name="NAME"><block type="xy" id="20j6^N!BKs:?AOelp|}u"><field name="x_coordinate">876</field><field name="y_coordinate">815</field></block></value><next><block type="water_block" id="5k~|rrDic?U(Op7PO]Zx"><field name="options1">shrub</field><next><block type="wait_block" id="Zd%yVhbY+RaocjT-bE.a"><field name="NAME">Wait for</field><value name="NAME"><block type="math_number" id="f@x]SK;7IM/]yFR#3)+f"><field name="NUM">8</field></block></value><next><block type="variable_holder" id="KuFh]BPH5JrYFw5qsv@A"><field name="plantType">grass</field><value name="NAME"><block type="xy" id="=:}(r,yo3P?y/EoC[9c`"><field name="x_coordinate">1572</field><field name="y_coordinate">772</field></block></value><next><block type="water_block" id="54k`zy5v.)H/D-7UJ+QX"><field name="options1">grass</field><next><block type="wait_block" id="1/C{B{g.|RAsu!]TW+p]"><field name="NAME">Wait for</field><value name="NAME"><block type="math_number" id="II8BR;ok=2|ts-{a.i64"><field name="NUM">15</field></block></value></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></xml>';
+// const helpCode = '<xml xmlns="https://developers.google.com/blockly/xml"><block type="variable_holder" id="sgrUEAjuam,0v5X|LDAP" x="130" y="36"><field name="plantType">tree</field><value name="NAME"><block type="xy" id=";mhBd#C#dR+^pVzStaF["><field name="x_coordinate">331</field><field name="y_coordinate">452</field></block></value><next><block type="water_block" id="%[:*4P2H-$KxhAEOc@.O"><field name="options1">tree</field><next><block type="wait_block" id="(RsqV$S#^}9{,(SkYB0."><field name="NAME">Wait for</field><value name="NAME"><block type="math_number" id="Ze(rmMIG?g6PHi;.(E%/"><field name="NUM">10</field></block></value><next><block type="variable_holder" id="=I,{Yaz@|]KXaX-38I={"><field name="plantType">shrub</field><value name="NAME"><block type="xy" id="20j6^N!BKs:?AOelp|}u"><field name="x_coordinate">876</field><field name="y_coordinate">815</field></block></value><next><block type="water_block" id="5k~|rrDic?U(Op7PO]Zx"><field name="options1">shrub</field><next><block type="wait_block" id="Zd%yVhbY+RaocjT-bE.a"><field name="NAME">Wait for</field><value name="NAME"><block type="math_number" id="f@x]SK;7IM/]yFR#3)+f"><field name="NUM">8</field></block></value><next><block type="variable_holder" id="KuFh]BPH5JrYFw5qsv@A"><field name="plantType">grass</field><value name="NAME"><block type="xy" id="=:}(r,yo3P?y/EoC[9c`"><field name="x_coordinate">1572</field><field name="y_coordinate">772</field></block></value><next><block type="water_block" id="54k`zy5v.)H/D-7UJ+QX"><field name="options1">grass</field><next><block type="wait_block" id="1/C{B{g.|RAsu!]TW+p]"><field name="NAME">Wait for</field><value name="NAME"><block type="math_number" id="II8BR;ok=2|ts-{a.i64"><field name="NUM">15</field></block></value></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></xml>';
 
+const instruction = {
+    "steps": [
+        {
+            "title": "Get coordinate of plant:",
+            "text": "Touch/ place cursor on a plant. Observe its x and y coordinates displayed on the right corner of the screen. Note them down and enter in the x and y coordinates block"
+        },
+        {
+            "title": "Water the tree for 10 secs",
+            "text": "set tree coordinates",
+            "rescue": true,
+            "checkbox": true,
+            "workspace": "<xml xmlns=\"https://developers.google.com/blockly/xml\"><block type=\"variable_holder\" id=\"sgrUEAjuam,0v5X|LDAP\" x=\"130\" y=\"36\"><field name=\"plantType\">tree</field><value name=\"NAME\"><block type=\"xy\" id=\";mhBd#C#dR+^pVzStaF[\"><field name=\"x_coordinate\">331</field><field name=\"y_coordinate\">452</field></block></value></block></xml>"
+        },
+        {
+            "text": "water the tree",
+            "rescue": true,
+            "checkbox": true,
+            "workspace": "<xml xmlns=\"https://developers.google.com/blockly/xml\"><block type=\"variable_holder\" id=\"sgrUEAjuam,0v5X|LDAP\" x=\"130\" y=\"36\"><field name=\"plantType\">tree</field><value name=\"NAME\"><block type=\"xy\" id=\";mhBd#C#dR+^pVzStaF[\"><field name=\"x_coordinate\">331</field><field name=\"y_coordinate\">452</field></block></value><next><block type=\"water_block\" id=\"%[:*4P2H-$KxhAEOc@.O\"><field name=\"options1\">tree</field></block></next></block></xml>"
+        },
+        {
+            "text": "wait for 10 secs",
+            "rescue": true,
+            "checkbox": true,
+            "workspace": "<xml xmlns=\"https://developers.google.com/blockly/xml\"><block type=\"variable_holder\" id=\"sgrUEAjuam,0v5X|LDAP\" x=\"130\" y=\"36\"><field name=\"plantType\">tree</field><value name=\"NAME\"><block type=\"xy\" id=\";mhBd#C#dR+^pVzStaF[\"><field name=\"x_coordinate\">331</field><field name=\"y_coordinate\">452</field></block></value><next><block type=\"water_block\" id=\"%[:*4P2H-$KxhAEOc@.O\"><field name=\"options1\">tree</field><next><block type=\"wait_block\" id=\"(RsqV$S#^}9{,(SkYB0.\"><field name=\"NAME\">Wait for</field><value name=\"NAME\"><block type=\"math_number\" id=\"Ze(rmMIG?g6PHi;.(E%/\"><field name=\"NUM\">10</field></block></value></block></next></block></next></block></xml>"
+        },
+        {
+            "title": "Water the shrub for 8 secs",
+            "text": "set shrub coordinates",
+            "rescue": true,
+            "checkbox": true,
+            "workspace": "<xml xmlns=\"https://developers.google.com/blockly/xml\"><block type=\"variable_holder\" id=\"sgrUEAjuam,0v5X|LDAP\" x=\"130\" y=\"36\"><field name=\"plantType\">tree</field><value name=\"NAME\"><block type=\"xy\" id=\";mhBd#C#dR+^pVzStaF[\"><field name=\"x_coordinate\">331</field><field name=\"y_coordinate\">452</field></block></value><next><block type=\"water_block\" id=\"%[:*4P2H-$KxhAEOc@.O\"><field name=\"options1\">tree</field><next><block type=\"wait_block\" id=\"(RsqV$S#^}9{,(SkYB0.\"><field name=\"NAME\">Wait for</field><value name=\"NAME\"><block type=\"math_number\" id=\"Ze(rmMIG?g6PHi;.(E%/\"><field name=\"NUM\">10</field></block></value><next><block type=\"variable_holder\" id=\"=I,{Yaz@|]KXaX-38I={\"><field name=\"plantType\">shrub</field><value name=\"NAME\"><block type=\"xy\" id=\"20j6^N!BKs:?AOelp|}u\"><field name=\"x_coordinate\">876</field><field name=\"y_coordinate\">815</field></block></value></block></next></block></next></block></next></block></xml>"
+        },
+        {
+            "text": "water the shrub",
+            "rescue": true,
+            "checkbox": true,
+            "workspace": "<xml xmlns=\"https://developers.google.com/blockly/xml\"><block type=\"variable_holder\" id=\"sgrUEAjuam,0v5X|LDAP\" x=\"130\" y=\"36\"><field name=\"plantType\">tree</field><value name=\"NAME\"><block type=\"xy\" id=\";mhBd#C#dR+^pVzStaF[\"><field name=\"x_coordinate\">331</field><field name=\"y_coordinate\">452</field></block></value><next><block type=\"water_block\" id=\"%[:*4P2H-$KxhAEOc@.O\"><field name=\"options1\">tree</field><next><block type=\"wait_block\" id=\"(RsqV$S#^}9{,(SkYB0.\"><field name=\"NAME\">Wait for</field><value name=\"NAME\"><block type=\"math_number\" id=\"Ze(rmMIG?g6PHi;.(E%/\"><field name=\"NUM\">10</field></block></value><next><block type=\"variable_holder\" id=\"=I,{Yaz@|]KXaX-38I={\"><field name=\"plantType\">shrub</field><value name=\"NAME\"><block type=\"xy\" id=\"20j6^N!BKs:?AOelp|}u\"><field name=\"x_coordinate\">876</field><field name=\"y_coordinate\">815</field></block></value><next><block type=\"water_block\" id=\"5k~|rrDic?U(Op7PO]Zx\"><field name=\"options1\">shrub</field></block></next></block></next></block></next></block></next></block></xml>"
+        },
+        {
+            "text": "wait for 8 secs",
+            "rescue": true,
+            "checkbox": true,
+            "workspace": "<xml xmlns=\"https://developers.google.com/blockly/xml\"><block type=\"variable_holder\" id=\"sgrUEAjuam,0v5X|LDAP\" x=\"130\" y=\"36\"><field name=\"plantType\">tree</field><value name=\"NAME\"><block type=\"xy\" id=\";mhBd#C#dR+^pVzStaF[\"><field name=\"x_coordinate\">331</field><field name=\"y_coordinate\">452</field></block></value><next><block type=\"water_block\" id=\"%[:*4P2H-$KxhAEOc@.O\"><field name=\"options1\">tree</field><next><block type=\"wait_block\" id=\"(RsqV$S#^}9{,(SkYB0.\"><field name=\"NAME\">Wait for</field><value name=\"NAME\"><block type=\"math_number\" id=\"Ze(rmMIG?g6PHi;.(E%/\"><field name=\"NUM\">10</field></block></value><next><block type=\"variable_holder\" id=\"=I,{Yaz@|]KXaX-38I={\"><field name=\"plantType\">shrub</field><value name=\"NAME\"><block type=\"xy\" id=\"20j6^N!BKs:?AOelp|}u\"><field name=\"x_coordinate\">876</field><field name=\"y_coordinate\">815</field></block></value><next><block type=\"water_block\" id=\"5k~|rrDic?U(Op7PO]Zx\"><field name=\"options1\">shrub</field><next><block type=\"wait_block\" id=\"Zd%yVhbY+RaocjT-bE.a\"><field name=\"NAME\">Wait for</field><value name=\"NAME\"><block type=\"math_number\" id=\"f@x]SK;7IM/]yFR#3)+f\"><field name=\"NUM\">8</field></block></value></block></next></block></next></block></next></block></next></block></next></block></xml>"
+        },
+        {
+            "title": "Water the grass for 8 secs",
+            "text": "set grass coordinates",
+            "rescue": true,
+            "checkbox": true,
+            "workspace": "<xml xmlns=\"https://developers.google.com/blockly/xml\"><block type=\"variable_holder\" id=\"sgrUEAjuam,0v5X|LDAP\" x=\"130\" y=\"36\"><field name=\"plantType\">tree</field><value name=\"NAME\"><block type=\"xy\" id=\";mhBd#C#dR+^pVzStaF[\"><field name=\"x_coordinate\">331</field><field name=\"y_coordinate\">452</field></block></value><next><block type=\"water_block\" id=\"%[:*4P2H-$KxhAEOc@.O\"><field name=\"options1\">tree</field><next><block type=\"wait_block\" id=\"(RsqV$S#^}9{,(SkYB0.\"><field name=\"NAME\">Wait for</field><value name=\"NAME\"><block type=\"math_number\" id=\"Ze(rmMIG?g6PHi;.(E%/\"><field name=\"NUM\">10</field></block></value><next><block type=\"variable_holder\" id=\"=I,{Yaz@|]KXaX-38I={\"><field name=\"plantType\">shrub</field><value name=\"NAME\"><block type=\"xy\" id=\"20j6^N!BKs:?AOelp|}u\"><field name=\"x_coordinate\">876</field><field name=\"y_coordinate\">815</field></block></value><next><block type=\"water_block\" id=\"5k~|rrDic?U(Op7PO]Zx\"><field name=\"options1\">shrub</field><next><block type=\"wait_block\" id=\"Zd%yVhbY+RaocjT-bE.a\"><field name=\"NAME\">Wait for</field><value name=\"NAME\"><block type=\"math_number\" id=\"f@x]SK;7IM/]yFR#3)+f\"><field name=\"NUM\">8</field></block></value><next><block type=\"variable_holder\" id=\"KuFh]BPH5JrYFw5qsv@A\"><field name=\"plantType\">grass</field><value name=\"NAME\"><block type=\"xy\" id=\"=:}(r,yo3P?y/EoC[9c`\"><field name=\"x_coordinate\">1572</field><field name=\"y_coordinate\">772</field></block></value></block></next></block></next></block></next></block></next></block></next></block></next></block></xml>"
+        },
+        {
+            "text": "water the grass",
+            "rescue": true,
+            "checkbox": true,
+            "workspace": "<xml xmlns=\"https://developers.google.com/blockly/xml\"><block type=\"variable_holder\" id=\"sgrUEAjuam,0v5X|LDAP\" x=\"130\" y=\"36\"><field name=\"plantType\">tree</field><value name=\"NAME\"><block type=\"xy\" id=\";mhBd#C#dR+^pVzStaF[\"><field name=\"x_coordinate\">331</field><field name=\"y_coordinate\">452</field></block></value><next><block type=\"water_block\" id=\"%[:*4P2H-$KxhAEOc@.O\"><field name=\"options1\">tree</field><next><block type=\"wait_block\" id=\"(RsqV$S#^}9{,(SkYB0.\"><field name=\"NAME\">Wait for</field><value name=\"NAME\"><block type=\"math_number\" id=\"Ze(rmMIG?g6PHi;.(E%/\"><field name=\"NUM\">10</field></block></value><next><block type=\"variable_holder\" id=\"=I,{Yaz@|]KXaX-38I={\"><field name=\"plantType\">shrub</field><value name=\"NAME\"><block type=\"xy\" id=\"20j6^N!BKs:?AOelp|}u\"><field name=\"x_coordinate\">876</field><field name=\"y_coordinate\">815</field></block></value><next><block type=\"water_block\" id=\"5k~|rrDic?U(Op7PO]Zx\"><field name=\"options1\">shrub</field><next><block type=\"wait_block\" id=\"Zd%yVhbY+RaocjT-bE.a\"><field name=\"NAME\">Wait for</field><value name=\"NAME\"><block type=\"math_number\" id=\"f@x]SK;7IM/]yFR#3)+f\"><field name=\"NUM\">8</field></block></value><next><block type=\"variable_holder\" id=\"KuFh]BPH5JrYFw5qsv@A\"><field name=\"plantType\">grass</field><value name=\"NAME\"><block type=\"xy\" id=\"=:}(r,yo3P?y/EoC[9c`\"><field name=\"x_coordinate\">1572</field><field name=\"y_coordinate\">772</field></block></value><next><block type=\"water_block\" id=\"54k`zy5v.)H/D-7UJ+QX\"><field name=\"options1\">grass</field></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></xml>"
+        },
+        {
+            "text": "wait for 15 secs",
+            "rescue": true,
+            "checkbox": true,
+            "workspace": "<xml xmlns=\"https://developers.google.com/blockly/xml\"><block type=\"variable_holder\" id=\"sgrUEAjuam,0v5X|LDAP\" x=\"130\" y=\"36\"><field name=\"plantType\">tree</field><value name=\"NAME\"><block type=\"xy\" id=\";mhBd#C#dR+^pVzStaF[\"><field name=\"x_coordinate\">331</field><field name=\"y_coordinate\">452</field></block></value><next><block type=\"water_block\" id=\"%[:*4P2H-$KxhAEOc@.O\"><field name=\"options1\">tree</field><next><block type=\"wait_block\" id=\"(RsqV$S#^}9{,(SkYB0.\"><field name=\"NAME\">Wait for</field><value name=\"NAME\"><block type=\"math_number\" id=\"Ze(rmMIG?g6PHi;.(E%/\"><field name=\"NUM\">10</field></block></value><next><block type=\"variable_holder\" id=\"=I,{Yaz@|]KXaX-38I={\"><field name=\"plantType\">shrub</field><value name=\"NAME\"><block type=\"xy\" id=\"20j6^N!BKs:?AOelp|}u\"><field name=\"x_coordinate\">876</field><field name=\"y_coordinate\">815</field></block></value><next><block type=\"water_block\" id=\"5k~|rrDic?U(Op7PO]Zx\"><field name=\"options1\">shrub</field><next><block type=\"wait_block\" id=\"Zd%yVhbY+RaocjT-bE.a\"><field name=\"NAME\">Wait for</field><value name=\"NAME\"><block type=\"math_number\" id=\"f@x]SK;7IM/]yFR#3)+f\"><field name=\"NUM\">8</field></block></value><next><block type=\"variable_holder\" id=\"KuFh]BPH5JrYFw5qsv@A\"><field name=\"plantType\">grass</field><value name=\"NAME\"><block type=\"xy\" id=\"=:}(r,yo3P?y/EoC[9c`\"><field name=\"x_coordinate\">1572</field><field name=\"y_coordinate\">772</field></block></value><next><block type=\"water_block\" id=\"54k`zy5v.)H/D-7UJ+QX\"><field name=\"options1\">grass</field><next><block type=\"wait_block\" id=\"1/C{B{g.|RAsu!]TW+p]\"><field name=\"NAME\">Wait for</field><value name=\"NAME\"><block type=\"math_number\" id=\"II8BR;ok=2|ts-{a.i64\"><field name=\"NUM\">15</field></block></value></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></xml>"
+        }
+    ],
+    "heading": "Watering the plants in our garden. In this lesson find the coordinates of the plants and water them appropriately with relavant wait time"
+}
 
 function getNoOfBlocks() {
     demoWorkspace = Blockly.getMainWorkspace();
@@ -378,6 +444,7 @@ export {
     completedFlag,
     reset_output,
     runCode,
-    helpCode,
+    // helpCode,
+    instruction,
     getNoOfBlocks
 }

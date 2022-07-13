@@ -376,7 +376,48 @@ function runCode() {
 //     Blockly.Xml.domToWorkspace(xml, demoWorkspace);
 // }
 
-const helpCode = '<xml xmlns="https://developers.google.com/blockly/xml"><block type="forever_repeat_block" id="sJqcU9xT8$WLGjjE[wI:" x="37" y="43"><statement name="NAME"><block type="controls_if" id="~)M/SMWWN9njnuZ|v96l"><value name="IF0"><block type="pointertouch__block" id="QBUO}SdI!6CN(1AVjw65"><field name="options2">meteorite</field></block></value><statement name="DO0"><block type="hide_block" id="WY16/.B[k{9gW]K$4-l,"><field name="NAME">meteorite</field></block></statement><next><block type="controls_if" id="uZLPE|u%DUq%N`4=[CJV"><value name="IF0"><block type="spritetouch__block" id="*;}~SEfavxXk=r?4R^D6"><field name="options1">rocket</field><field name="options2">meteorite</field></block></value><statement name="DO0"><block type="action_block" id="90py`[I[EV9DdDK;MQfd"></block></statement><next><block type="controls_if" id="Co0:Uk,whPB7**/K*B$9"><value name="IF0"><block type="spritetouch__block" id="F2z$nb:UjV40dGG0(]^}"><field name="options1">rocket</field><field name="options2">planet</field></block></value><statement name="DO0"><block type="end_block" id="=%:SuhDej[r%[rEJI?3@"></block></statement></block></next></block></next></block></statement></block></xml>';
+// const helpCode = '<xml xmlns="https://developers.google.com/blockly/xml"><block type="forever_repeat_block" id="sJqcU9xT8$WLGjjE[wI:" x="37" y="43"><statement name="NAME"><block type="controls_if" id="~)M/SMWWN9njnuZ|v96l"><value name="IF0"><block type="pointertouch__block" id="QBUO}SdI!6CN(1AVjw65"><field name="options2">meteorite</field></block></value><statement name="DO0"><block type="hide_block" id="WY16/.B[k{9gW]K$4-l,"><field name="NAME">meteorite</field></block></statement><next><block type="controls_if" id="uZLPE|u%DUq%N`4=[CJV"><value name="IF0"><block type="spritetouch__block" id="*;}~SEfavxXk=r?4R^D6"><field name="options1">rocket</field><field name="options2">meteorite</field></block></value><statement name="DO0"><block type="action_block" id="90py`[I[EV9DdDK;MQfd"></block></statement><next><block type="controls_if" id="Co0:Uk,whPB7**/K*B$9"><value name="IF0"><block type="spritetouch__block" id="F2z$nb:UjV40dGG0(]^}"><field name="options1">rocket</field><field name="options2">planet</field></block></value><statement name="DO0"><block type="end_block" id="=%:SuhDej[r%[rEJI?3@"></block></statement></block></next></block></next></block></statement></block></xml>';
+
+const instruction = {
+    "heading": "Help Reach the rocket to the planet and destroy the meteorite by touching them before they hit the rocket",
+    "steps": [
+        {
+            "checkbox": true,
+            "rescue": true,
+            "text": "The following statements should function within the loop",
+            "title": "Repeat forever",
+            "workspace": "<xml xmlns=\"https://developers.google.com/blockly/xml\"><block type=\"forever_repeat_block\" id=\"sJqcU9xT8$WLGjjE[wI:\" x=\"37\" y=\"43\"></block></xml>"
+        },
+        {
+            "checkbox": true,
+            "rescue": true,
+            "text": "If I touch Meteorite, Hide Metiorite",
+            "title": "Destroy Meteorite",
+            "workspace": "<xml xmlns=\"https://developers.google.com/blockly/xml\"><block type=\"forever_repeat_block\" id=\"sJqcU9xT8$WLGjjE[wI:\" x=\"37\" y=\"43\"><statement name=\"NAME\"><block type=\"controls_if\" id=\"~)M/SMWWN9njnuZ|v96l\"><value name=\"IF0\"><block type=\"pointertouch__block\" id=\"QBUO}SdI!6CN(1AVjw65\"><field name=\"options2\">meteorite</field></block></value><statement name=\"DO0\"><block type=\"hide_block\" id=\"WY16/.B[k{9gW]K$4-l,\"><field name=\"NAME\">meteorite</field></block></statement></block></statement></block></xml>"
+        },
+        {
+            "checkbox": true,
+            "rescue": true,
+            "text": "If Rocket touches meteorite, Rocket Blasts",
+            "title": "Destroy Rocket",
+            "workspace": "<xml xmlns=\"https://developers.google.com/blockly/xml\"><block type=\"forever_repeat_block\" id=\"sJqcU9xT8$WLGjjE[wI:\" x=\"37\" y=\"43\"><statement name=\"NAME\"><block type=\"controls_if\" id=\"~)M/SMWWN9njnuZ|v96l\"><value name=\"IF0\"><block type=\"pointertouch__block\" id=\"QBUO}SdI!6CN(1AVjw65\"><field name=\"options2\">meteorite</field></block></value><statement name=\"DO0\"><block type=\"hide_block\" id=\"WY16/.B[k{9gW]K$4-l,\"><field name=\"NAME\">meteorite</field></block></statement><next><block type=\"controls_if\" id=\"uZLPE|u%DUq%N`4=[CJV\"><value name=\"IF0\"><block type=\"spritetouch__block\" id=\"*;}~SEfavxXk=r?4R^D6\"><field name=\"options1\">rocket</field><field name=\"options2\">meteorite</field></block></value><statement name=\"DO0\"><block type=\"action_block\" id=\"90py`[I[EV9DdDK;MQfd\"></block></statement></block></next></block></statement></block></xml>"
+        },
+        {
+            "checkbox": true,
+            "rescue": true,
+            "text": "If Rocket touches the Planet, win Game",
+            "title": "Win Game",
+            "workspace": "<xml xmlns=\"https://developers.google.com/blockly/xml\"><block type=\"forever_repeat_block\" id=\"sJqcU9xT8$WLGjjE[wI:\" x=\"37\" y=\"43\"><statement name=\"NAME\"><block type=\"controls_if\" id=\"~)M/SMWWN9njnuZ|v96l\"><value name=\"IF0\"><block type=\"pointertouch__block\" id=\"QBUO}SdI!6CN(1AVjw65\"><field name=\"options2\">meteorite</field></block></value><statement name=\"DO0\"><block type=\"hide_block\" id=\"WY16/.B[k{9gW]K$4-l,\"><field name=\"NAME\">meteorite</field></block></statement><next><block type=\"controls_if\" id=\"uZLPE|u%DUq%N`4=[CJV\"><value name=\"IF0\"><block type=\"spritetouch__block\" id=\"*;}~SEfavxXk=r?4R^D6\"><field name=\"options1\">rocket</field><field name=\"options2\">meteorite</field></block></value><statement name=\"DO0\"><block type=\"action_block\" id=\"90py`[I[EV9DdDK;MQfd\"></block></statement><next><block type=\"controls_if\" id=\"Co0:Uk,whPB7**/K*B$9\"><value name=\"IF0\"><block type=\"spritetouch__block\" id=\"F2z$nb:UjV40dGG0(]^}\"><field name=\"options1\">rocket</field><field name=\"options2\">planet</field></block></value><statement name=\"DO0\"><block type=\"end_block\" id=\"=%:SuhDej[r%[rEJI?3@\"></block></statement></block></next></block></next></block></statement></block></xml>"
+        },
+        {
+            "checkbox": false,
+            "rescue": false,
+            "text": "Touch the flying meteors to destroy them and protect the rocket until it safely reaches the planet.",
+            "title": "Instructions to play the game",
+            "workspace": "<xml xmlns=\"https://developers.google.com/blockly/xml\"></xml>"
+        }
+    ]
+};
 
 function myUpdateFunction(a) {
     var code = Blockly.Python.workspaceToCode(demoWorkspace);
@@ -398,7 +439,8 @@ const updateImports = ["from space_story import *"]
 export {
     completedFlag,
     // myUpdateFunction,
-    helpCode,
+    // helpCode,
+    instruction,
     runCode,
     reset_output,
     reInitValues,
