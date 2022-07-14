@@ -1,41 +1,38 @@
-// import M from 'materialize-css';
-// import {
-//     AUTO,
-//     Game,
-// } from 'phaser';
+import M from 'materialize-css';
+import {
+    AUTO,
+    Game,
+} from 'phaser';
 
-// import MSPhaserLib from '../msPhaserLib.min';
+import MSPhaserLib from '../msPhaserLib.min';
 
-import { CANVAS, Game, AUTO } from "phaser";
 
 import Blockly from "blockly";
 import "blockly/python";
 import "blockly/javascript";
-// import MSPhaserLib from "../msPhaserLib.min";
-// import { CANVAS, Math, Game, AUTO } from "phaser";
-
-let demoWorkspace = Blockly.getMainWorkspace();
-let noOfBlocks;
 
 let _gameThis = null;
-const baseURL = "../img";
+const baseURL = "../img/images";
 const gameWidth = 1920;
 const gameHeight = 1080;
 const gameScale = 1;
 let dummy_increment = 0;
 
+let demoWorkspace = Blockly.getMainWorkspace();
+let noOfBlocks;
+
 const GAME_CONSTANT = {
     images: {
-        BG: "images/Background honey-sweeper.png",
-        Tile1: "images/1.png",
-        Tile2: "images/2.png",
-        Tile3: "images/3.png",
+        BG: "Background honey-sweeper.png",
+        Tile1: "1.png",
+        Tile2: "2.png",
+        Tile3: "3.png",
 
-        Empty: "images/empty_jar.png",
-        Golden: "images/golden_jar.png",
-        Im: "images/topimage.png",
-        bee: "images/bee-sting.png",
-        fulljar: "images/fulljar.png",
+        Empty: "empty_jar.png",
+        Golden: "golden_jar.png",
+        Im: "topimage.png",
+        bee: "bee-sting.png",
+        fulljar: "fulljar.png",
 
     },
     spritesImages: {}
@@ -293,7 +290,7 @@ function create() {
 
 function ClickTile(Tile) {
     if (GameIsOver) { return; }
-    //console.log(Tile.name);
+    console.log(Tile.name);
     JustCliked = true;
     CLickedTile = Tile;
 
@@ -529,13 +526,13 @@ function runCode() {
 
 // function helpCode() {
 //     var xml_wkspace =
-//         '<xml xmlns="https://developers.google.com/blockly/xml"><block type="set_variable_holder" id=":,;BIU--`u!mlF%2vwt%" x="0" y="-38"><field name="Variable name">score</field><value name="NAME"><block type="math_number" id="VPDa0#`J;J*[|~Q}c@k;"><field name="NUM">0</field></block></value><next><block type="forever_repeat_block" id="Kn2n^+~[b+rv7p)oWL?y"><statement name="NAME"><block type="controls_if" id="w^u=vu!0uYH2yQ9~hD2K"><value name="IF0"><block type="i_touch_block" id="s:h_9_GQceDX]z(.Sp=/"></block></value><statement name="DO0"><block type="hide_block" id="OAuz!2C/?,}rtPL[0(K3"><field name="NAME">Comb cell</field><next><block type="controls_if" id="E,M-eb4xCtw^CV`Vt[2L"><value name="IF0"><block type="variables" id="o3^I+_9.}~QwMd(5=+$V"><field name="Options">small_jar</field></block></value><statement name="DO0"><block type="arithmetic_block" id="E?Neg#[E;HRstXUx+F1I"><field name="NAME">OPTIONNAME</field><field name="options">option1</field><field name="NAME2">1</field></block></statement><next><block type="controls_if" id="n|ULb+N0+~Uf,P^@P4.e"><value name="IF0"><block type="variables" id="Cw2lq:Pd~i=)SKd]hW`H"><field name="Options">big_jar</field></block></value><statement name="DO0"><block type="arithmetic_block" id="Hczr}RLzCQ^rhB]URn:h"><field name="NAME">OPTIONNAME</field><field name="options">option1</field><field name="NAME2">3</field></block></statement><next><block type="controls_if" id="tJ/3HX070:Fq~W`V6?c2"><value name="IF0"><block type="variables" id="Tu?emkMT7vf_m*QE:8(D"><field name="Options">bees</field></block></value><statement name="DO0"><block type="say_block" id="x1#CRo|WpfCD*B@nzFsz"><field name="say">You lose!</field><next><block type="end_block" id="EBIWWHU%{wPsi0%F))h~"></block></next></block></statement></block></next></block></next></block></next></block></statement><next><block type="controls_if" id="}1B(.[6Awi]m~|EtAdW_"><value name="IF0"><block type="logic_compare" id="9Hss$t2wj*kn4Hr7XM{U"><field name="OP">GTE</field><value name="A"><block type="variables" id="1SLKP)O5H-vN@{qgHOhm"><field name="Options">score</field></block></value><value name="B"><block type="math_number" id="`GXRmb608ikgu.VDv*{3"><field name="NUM">10</field></block></value></block></value><statement name="DO0"><block type="say_block" id="1!^`/$8As-}N{demb|3?"><field name="say">You win !!</field><next><block type="say_block" id="dNtRXLpMat,W:`A6~t;E"><field name="say">You have captured all the honey</field><next><block type="end_block" id="KZ$j:v}oh+/j:.EfDoMm"></block></next></block></next></block></statement></block></next></block></statement></block></next></block></xml>';
+//         '<xml xmlns="https://developers.google.com/blockly/xml"><block type="set_variable_holder" id=":,;BIU--`u!mlF%2vwt%" x="0" y="-38"><field name="Variable name">score</field><value name="NAME"><block type="math_number" id="VPDa0#`J;J*[|~Q}c@k;"><field name="NUM">0</field></block></value><next><block type="forever_repeat_block" id="Kn2n^+~[b+rv7p)oWL?y"><statement name="NAME"><block type="controls_if" id="w^u=vu!0uYH2yQ9~hD2K"><value name="IF0"><block type="i_touch_block" id="s:h_9_GQceDX]z(.Sp=/"></block></value><statement name="DO0"><block type="hide_block" id="OAuz!2C/?,}rtPL[0(K3"><field name="NAME">a</field><next><block type="controls_if" id="E,M-eb4xCtw^CV`Vt[2L"><value name="IF0"><block type="jar_events" id="1R~vTe)b$D3-0H.CQE#w"><field name="Options">small_jar</field></block></value><statement name="DO0"><block type="change_variable_holder" id="bO)n_t0-(()^}~ZYEGa_"><field name="Variable name">score</field><value name="NAME"><block type="math_number" id="RZ;2HM@cEj29zgLW*vb*"><field name="NUM">1</field></block></value></block></statement><next><block type="controls_if" id="n|ULb+N0+~Uf,P^@P4.e"><value name="IF0"><block type="jar_events" id="w^?S@~XhMW_E6faR-aek"><field name="Options">big_jar</field></block></value><statement name="DO0"><block type="change_variable_holder" id="LPJG;k85xf[|?-j1xrZO"><field name="Variable name">score</field><value name="NAME"><block type="math_number" id="t*jzy!^][rnt@G;-w@oW"><field name="NUM">3</field></block></value></block></statement><next><block type="controls_if" id="tJ/3HX070:Fq~W`V6?c2"><value name="IF0"><block type="jar_events" id="{o-jRq,+{-QyhOqF,ahl"><field name="Options">bees</field></block></value><statement name="DO0"><block type="say_block" id="x1#CRo|WpfCD*B@nzFsz"><field name="say">You lose!</field><next><block type="end_block" id="EBIWWHU%{wPsi0%F))h~"></block></next></block></statement></block></next></block></next></block></next></block></statement><next><block type="controls_if" id="}1B(.[6Awi]m~|EtAdW_"><value name="IF0"><block type="logic_compare" id="9Hss$t2wj*kn4Hr7XM{U"><field name="OP">GTE</field><value name="A"><block type="variables" id="1SLKP)O5H-vN@{qgHOhm"><field name="Options">score</field></block></value><value name="B"><block type="math_number" id="`GXRmb608ikgu.VDv*{3"><field name="NUM">10</field></block></value></block></value><statement name="DO0"><block type="say_block" id="1!^`/$8As-}N{demb|3?"><field name="say">You win !!</field><next><block type="say_block" id="dNtRXLpMat,W:`A6~t;E"><field name="say">You have captured all the honey</field><next><block type="end_block" id="KZ$j:v}oh+/j:.EfDoMm"></block></next></block></next></block></statement></block></next></block></statement></block></next></block></xml>';
 //     var xml = Blockly.Xml.textToDom(xml_wkspace);
 //     demoWorkspace.clear();
 //     Blockly.Xml.domToWorkspace(xml, demoWorkspace);
 // }
 
-const helpCode = '<xml xmlns="https://developers.google.com/blockly/xml"><block type="set_variable_holder" id=":,;BIU--`u!mlF%2vwt%" x="0" y="-38"><field name="Variable name">score</field><value name="NAME"><block type="math_number" id="VPDa0#`J;J*[|~Q}c@k;"><field name="NUM">0</field></block></value><next><block type="forever_repeat_block" id="Kn2n^+~[b+rv7p)oWL?y"><statement name="NAME"><block type="controls_if" id="w^u=vu!0uYH2yQ9~hD2K"><value name="IF0"><block type="i_touch_block" id="s:h_9_GQceDX]z(.Sp=/"></block></value><statement name="DO0"><block type="hide_block" id="OAuz!2C/?,}rtPL[0(K3"><field name="NAME">Comb cell</field><next><block type="controls_if" id="E,M-eb4xCtw^CV`Vt[2L"><value name="IF0"><block type="variables" id="o3^I+_9.}~QwMd(5=+$V"><field name="Options">small_jar</field></block></value><statement name="DO0"><block type="arithmetic_block" id="E?Neg#[E;HRstXUx+F1I"><field name="NAME">OPTIONNAME</field><field name="options">option1</field><field name="NAME2">1</field></block></statement><next><block type="controls_if" id="n|ULb+N0+~Uf,P^@P4.e"><value name="IF0"><block type="variables" id="Cw2lq:Pd~i=)SKd]hW`H"><field name="Options">big_jar</field></block></value><statement name="DO0"><block type="arithmetic_block" id="Hczr}RLzCQ^rhB]URn:h"><field name="NAME">OPTIONNAME</field><field name="options">option1</field><field name="NAME2">3</field></block></statement><next><block type="controls_if" id="tJ/3HX070:Fq~W`V6?c2"><value name="IF0"><block type="variables" id="Tu?emkMT7vf_m*QE:8(D"><field name="Options">bees</field></block></value><statement name="DO0"><block type="say_block" id="x1#CRo|WpfCD*B@nzFsz"><field name="say">You lose!</field><next><block type="end_block" id="EBIWWHU%{wPsi0%F))h~"></block></next></block></statement></block></next></block></next></block></next></block></statement><next><block type="controls_if" id="}1B(.[6Awi]m~|EtAdW_"><value name="IF0"><block type="logic_compare" id="9Hss$t2wj*kn4Hr7XM{U"><field name="OP">GTE</field><value name="A"><block type="variables" id="1SLKP)O5H-vN@{qgHOhm"><field name="Options">score</field></block></value><value name="B"><block type="math_number" id="`GXRmb608ikgu.VDv*{3"><field name="NUM">10</field></block></value></block></value><statement name="DO0"><block type="say_block" id="1!^`/$8As-}N{demb|3?"><field name="say">You win !!</field><next><block type="say_block" id="dNtRXLpMat,W:`A6~t;E"><field name="say">You have captured all the honey</field><next><block type="end_block" id="KZ$j:v}oh+/j:.EfDoMm"></block></next></block></next></block></statement></block></next></block></statement></block></next></block></xml>';
+const helpCode = '<xml xmlns="https://developers.google.com/blockly/xml"><block type="set_variable_holder" id=":,;BIU--`u!mlF%2vwt%" x="0" y="-38"><field name="Variable name">score</field><value name="NAME"><block type="math_number" id="VPDa0#`J;J*[|~Q}c@k;"><field name="NUM">0</field></block></value><next><block type="forever_repeat_block" id="Kn2n^+~[b+rv7p)oWL?y"><statement name="NAME"><block type="controls_if" id="w^u=vu!0uYH2yQ9~hD2K"><value name="IF0"><block type="i_touch_block" id="s:h_9_GQceDX]z(.Sp=/"></block></value><statement name="DO0"><block type="hide_block" id="OAuz!2C/?,}rtPL[0(K3"><field name="NAME">a</field><next><block type="controls_if" id="E,M-eb4xCtw^CV`Vt[2L"><value name="IF0"><block type="jar_events" id="1R~vTe)b$D3-0H.CQE#w"><field name="Options">small_jar</field></block></value><statement name="DO0"><block type="change_variable_holder" id="bO)n_t0-(()^}~ZYEGa_"><field name="Variable name">score</field><value name="NAME"><block type="math_number" id="RZ;2HM@cEj29zgLW*vb*"><field name="NUM">1</field></block></value></block></statement><next><block type="controls_if" id="n|ULb+N0+~Uf,P^@P4.e"><value name="IF0"><block type="jar_events" id="w^?S@~XhMW_E6faR-aek"><field name="Options">big_jar</field></block></value><statement name="DO0"><block type="change_variable_holder" id="LPJG;k85xf[|?-j1xrZO"><field name="Variable name">score</field><value name="NAME"><block type="math_number" id="t*jzy!^][rnt@G;-w@oW"><field name="NUM">3</field></block></value></block></statement><next><block type="controls_if" id="tJ/3HX070:Fq~W`V6?c2"><value name="IF0"><block type="jar_events" id="{o-jRq,+{-QyhOqF,ahl"><field name="Options">bees</field></block></value><statement name="DO0"><block type="say_block" id="x1#CRo|WpfCD*B@nzFsz"><field name="say">You lose!</field><next><block type="end_block" id="EBIWWHU%{wPsi0%F))h~"></block></next></block></statement></block></next></block></next></block></next></block></statement><next><block type="controls_if" id="}1B(.[6Awi]m~|EtAdW_"><value name="IF0"><block type="logic_compare" id="9Hss$t2wj*kn4Hr7XM{U"><field name="OP">GTE</field><value name="A"><block type="variables" id="1SLKP)O5H-vN@{qgHOhm"><field name="Options">score</field></block></value><value name="B"><block type="math_number" id="`GXRmb608ikgu.VDv*{3"><field name="NUM">10</field></block></value></block></value><statement name="DO0"><block type="say_block" id="1!^`/$8As-}N{demb|3?"><field name="say">You win !!</field><next><block type="say_block" id="dNtRXLpMat,W:`A6~t;E"><field name="say">You have captured all the honey</field><next><block type="end_block" id="KZ$j:v}oh+/j:.EfDoMm"></block></next></block></next></block></statement></block></next></block></statement></block></next></block></xml>';
 
 function myUpdateFunction(a) {
     var code = Blockly.Python.workspaceToCode(demoWorkspace);
@@ -584,6 +581,7 @@ function getNoOfBlocks() {
 
 const updateImports = ["import honey"]
 
+
 export {
     completedFlag,
     myUpdateFunction,
@@ -608,7 +606,7 @@ export {
     game,
     preload,
     create,
-    gameHeight,
     gameWidth,
+    gameHeight,
     reset_inside_update_tasks
 }

@@ -29,18 +29,18 @@ export const getStaticPaths = async () => {
     // const data = await res.json();
     // const paths = data.data.map((t) => ({ params: { slug: t.lsID } }));
 
-    // const res = await fetch(`${process.env.URL}/all`);
-    // const data = await res.json();
-    // const paths = data;
+    const res = await fetch(`${process.env.URL}/all`);
+    const data = await res.json();
+    const paths = data;
 
 
     return {
-        paths: [
-            { params: { slug: "956dfe60-ed8a-45a4-8fac-dd3d72137944" } },
-            { params: { slug: "4bda4814-a2b1-4c4f-b102-eda5181bd0f8" } },
-            { params: { slug: "e0c38e50-cbb3-455f-ae16-d737fc624b24" } }
-        ],
-        // paths,
+        // paths: [
+        //     { params: { slug: "956dfe60-ed8a-45a4-8fac-dd3d72137944" } },
+        //     { params: { slug: "4bda4814-a2b1-4c4f-b102-eda5181bd0f8" } },
+        //     { params: { slug: "e0c38e50-cbb3-455f-ae16-d737fc624b24" } }
+        // ],
+        paths,
         fallback: false,
     };
 };
@@ -205,8 +205,10 @@ export default function PhaserGame(props) {
     const [open, setOpen] = useState(false);
     const [lang, setLang] = useState(1);
     const [PythonCode, setPythonCode] = useState("");
-    const [userDetails, setUserDetails] = useState([]);
 
+    
+    // user details
+    const [userDetails, setUserDetails] = useState([]);
     const getUserDetails = async(otp: string | string[]) =>{
         try {
             let formD = new FormData();

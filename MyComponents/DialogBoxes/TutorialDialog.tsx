@@ -217,25 +217,27 @@ export default function TestDialog({ getCoins, noOfClicks, testDialogInfo, lesso
     }, [open])
     
 
-
     //SAVE COINS
     const saveCoins = async(body:any, coins: number) => {
-        body["edcoins"] = coins;
-        console.log(coins)
+        if (coins) {
+            body["edcoins"] = coins;
+            console.log(coins)
 
-        // displaying coins logic
-        let arr = ['0', '0', '0'];
-        let i: number;
-        let int = coins.toString()?.split('.')[0];
-        let deci = coins.toString()?.split('.')[1];
+            // displaying coins logic
+            let arr = ['0', '0', '0'];
+            let i: number;
+            let int = coins.toString()?.split('.')[0];
+            let deci = coins.toString()?.split('.')[1];
 
-        for(i=0; i < Number(int); i++)
-            arr[i] = '1'
+            for (i = 0; i < Number(int); i++)
+                arr[i] = '1'
 
-        if(Number(deci)!==0)
-            arr[i] = `.${deci}`
+            if (Number(deci) !== 0 && Number(deci))
+                arr[i] = `.${deci}`
 
-        setCoins(arr)
+            setCoins(arr)
+        }
+        else setCoins(['0', '0', '0'])
 
         try {
             const res = await axios({
@@ -256,6 +258,7 @@ export default function TestDialog({ getCoins, noOfClicks, testDialogInfo, lesso
 
     //POST EVAL DATA
     const postEvalData = () => {
+        console.log("runn")
         let coins : number = 0;
         const totalMcq:number = questionArray.length || 0;
         let lsType = lessonDetails?.lsCourse === "Python Basic" ? 
@@ -274,7 +277,7 @@ export default function TestDialog({ getCoins, noOfClicks, testDialogInfo, lesso
                 "schoolID" : userDetails?.sdSchoolID,
                 "edcoins":coins
         }
-
+        console.log(lsType, "lsType")
         if(lsType === "test")
         {
             saveCoins(body, 3.0)
@@ -306,10 +309,10 @@ export default function TestDialog({ getCoins, noOfClicks, testDialogInfo, lesso
         }
         else if(lsType === "Practice" || lsType === "Test")
         {
-            let total_rescue_btns_clicked = window['rescue_btn_click_count_wb']?.length;
-            let total_rescue_btns = window['total_rescue_btns_wb'] - 1;
+            let total_rescue_btns_clicked = window['rescue_btn_click_count_wb'];
+            let total_rescue_btns = window['total_rescue_btns_wb'];
 
-            console.log(total_rescue_btns_clicked, total_rescue_btns)
+            console.log(total_rescue_btns_clicked, total_rescue_btns, "bnt")
             
             // calculating score of penalty on rescue button click
             let rescue_score = (2 / total_rescue_btns) * (total_rescue_btns - total_rescue_btns_clicked)
@@ -647,6 +650,7 @@ export default function TestDialog({ getCoins, noOfClicks, testDialogInfo, lesso
                         </Typography>
 
                         <Stack justifyContent={"center"} direction={"row"} gap={1}>
+                            {console.log(coins)}
                             {
                                 coins.length>0 &&
                                 coins.map(coin => {

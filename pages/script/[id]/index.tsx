@@ -66,6 +66,36 @@ export default function Scripts(props) {
     const { getPlayAudio } = tutorial;
     const [playAudio, setPlayAudio] = useState(true);
 
+    // user details
+    const [userDetails, setUserDetails] = useState([]);
+    const getUserDetails = async(otp: string | string[]) =>{
+        try {
+            let formD = new FormData();
+            formD.append("sdUID", router.query.user_id)
+
+            const userDetails = await axios({
+                method: "post",
+                url: "https://appssl.educobot.com:8443/EduCobotWS/studentsWS/getStudents",
+                data: formD,
+                headers: { "Content-Type": "multipart/form-data" },
+            });
+            {
+                let newData = {...userDetails.data.DATA[0], otp}
+                setUserDetails(newData)
+                console.log("got user details in python")
+            }
+        }
+        catch (error) {
+            console.log(error.message)
+            setUserDetails([])
+        }
+    }
+
+    useEffect(() => {
+        router.query.otp && getUserDetails(router.query.otp)
+    },[router.query.otp])
+
+
     const onLoad = () => {
         let tutorial = require("../../../tutorial/tutorial.js");
         const { tutorial_guide_updater, make_pred_guide } = tutorial;
@@ -378,6 +408,7 @@ export default function Scripts(props) {
                     <div id="output" className={styles.output_for_script} />
                     <ScriptDialog
                         lessonDetails={lessonDetails}
+                        userDetails={userDetails}
                         testDialogInfo={{
                             dialogStatus: "test",
                         }}
