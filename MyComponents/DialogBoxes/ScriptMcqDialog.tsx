@@ -270,6 +270,7 @@ export default function TestDialog(
     const saveCoins = async (body: any, coins: number) => {
         if (coins) {
             body["edcoins"] = coins;
+            body["coins"] = coins;
         }
 
         try {
