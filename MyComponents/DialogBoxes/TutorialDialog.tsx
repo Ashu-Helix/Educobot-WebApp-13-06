@@ -258,7 +258,6 @@ export default function TestDialog({ getCoins, noOfClicks, testDialogInfo, lesso
 
     //POST EVAL DATA
     const postEvalData = () => {
-        console.log("runn")
         let coins : number = 0;
         const totalMcq:number = questionArray.length || 0;
         let lsType = lessonDetails?.lsCourse === "Python Basic" ? 
@@ -275,7 +274,7 @@ export default function TestDialog({ getCoins, noOfClicks, testDialogInfo, lesso
                 "rollNo": userDetails?.sdRollNo,
                 "pin" : userDetails?.otp,
                 "schoolID" : userDetails?.sdSchoolID,
-                "edcoins":coins
+                "coins":coins
         }
         console.log(lsType, "lsType")
         if(lsType === "test")
@@ -660,7 +659,7 @@ export default function TestDialog({ getCoins, noOfClicks, testDialogInfo, lesso
                                     else if(coin==".75"){
                                         return <MemoCoin75/>
                                     }
-                                    else if(coin==".50"){
+                                    else if(coin==".5"){
                                         return <MemoCoin50/>
                                     }
                                     else if(coin==".25"){

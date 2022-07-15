@@ -102,7 +102,7 @@ export default function PythonEditor(props) {
             "rollNo": userDetails?.sdRollNo,
             "pin": userDetails?.otp,
             "schoolID": userDetails?.sdSchoolID,
-            "edcoins": 1
+            "coins": 1.0
         }
         try {
             const res = await axios({
