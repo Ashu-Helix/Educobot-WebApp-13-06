@@ -920,10 +920,12 @@ function t6_1() {
 function t6_2() {
     play_audio_tutorial("tut[10].mp3")
     let id = (demoWorkspace.getToolbox().contents_[1].id_)
-    handPointAt($("#hand"), $(("#blockly-1")), 'visible')
+    // handPointAt($("#hand"), $(("#blockly-1")), 'visible')
+    handPointAt($("#hand"), $("#" + id), 'visible');
     clearInterval(myInterval);
     myInterval = setInterval(function () {
-        handPointAt($("#hand"), $(("#blockly-1")), 'visible')
+        // handPointAt($("#hand"), $(("#blockly-1")), 'visible')
+        handPointAt($("#hand"), $("#" + id), 'visible');
     }, 1500);
 }
 
