@@ -66,7 +66,7 @@ Blockly.JavaScript["forever_repeat_block"] = function (block) {
                 update: update,
             },
         };
-        game = new Phaser.Game(config);
+        let game1 = new Phaser.Game(config);
     }
     return code;
 };
@@ -80,7 +80,7 @@ Blockly.Blocks["i_touch_block"] = {
     init: function () {
         this.appendDummyInput().appendField("I touch any comb cell");
         this.setOutput(true, null);
-        this.setColour(165);
+        this.setColour(865);
         this.setTooltip("");
         this.setHelpUrl("");
     },
@@ -151,7 +151,7 @@ Blockly.Blocks["change_variable_holder"] = {
             .appendField(
                 new Blockly.FieldDropdown([
                     ["Variable name", "dummy_increment"],
-                    ["score", "score_increment"],
+                    ["score", "score"],
                 ]),
                 "Variable name"
             )
@@ -172,7 +172,7 @@ Blockly.JavaScript["change_variable_holder"] = function (block) {
         "NAME",
         Blockly.JavaScript.ORDER_ATOMIC
     );
-    var code = dropdown_variable_name + "=" + value_name + ";";
+    var code = dropdown_variable_name + "+=" + value_name + ";";
     return code;
 };
 
@@ -183,7 +183,7 @@ Blockly.Python["change_variable_holder"] = function (block) {
         "NAME",
         Blockly.Python.ORDER_ATOMIC
     );
-    var code = dropdown_variable_name + " = " + value_name + "\n";
+    var code = dropdown_variable_name + " += " + value_name + "\n";
     return code;
 };
 
@@ -193,11 +193,7 @@ Blockly.Blocks["variables"] = {
         this.appendDummyInput().appendField(
             new Blockly.FieldDropdown([
                 ["Variables", "default"],
-                ["Small jar", "small_jar"],
-                ["Big jar", "big_jar"],
-                ["Bees", "bees"],
                 ["Score", "score"],
-                ["Comb cell", "comb_cell"],
             ]),
             "Options"
         );
@@ -231,6 +227,47 @@ Blockly.Python["variables"] = function (block) {
     return [code, Blockly.Python.ORDER_ATOMIC];
 };
 
+
+
+// Custom Events for jar  Block
+Blockly.Blocks["jar_events"] = {
+    init: function () {
+        this.appendDummyInput().appendField(
+            new Blockly.FieldDropdown([
+                ["Small jar is found", "small_jar"],
+                ["Big jar is found", "big_jar"],
+                ["Bee is found", "bees"],
+            ]),
+            "Options"
+        );
+        this.setInputsInline(false);
+        this.setOutput(true, null);
+        this.setColour(590);
+        this.setTooltip("");
+        this.setHelpUrl("");
+    },
+};
+
+Blockly.JavaScript["jar_events"] = function (block) {
+    var dropdown_options = block.getFieldValue("Options");
+    var code = "";
+    if (dropdown_options == "small_jar") code = "is_small_jar()";
+    else if (dropdown_options == "big_jar") code = "is_big_jar()";
+    else if (dropdown_options == "bees") code = "is_bee()";
+    return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+Blockly.Python["jar_events"] = function (block) {
+    var dropdown_options = block.getFieldValue("Options");
+    // TODO: Assemble JavaScript into code variable.
+    var code = "";
+    if (dropdown_options == "small_jar") code = "is_small_jar()";
+    else if (dropdown_options == "big_jar") code = "is_big_jar()";
+    else if (dropdown_options == "bees") code = "is_bee()";
+    return [code, Blockly.Python.ORDER_ATOMIC];
+};
+
+
 // Hide block
 Blockly.Blocks["hide_block"] = {
     init: function () {
@@ -243,6 +280,19 @@ Blockly.Blocks["hide_block"] = {
         this.setTooltip("");
         this.setHelpUrl("");
     },
+};
+
+Blockly.Blocks["hide_block"] = {
+    init: function () {
+        this.appendDummyInput().appendField("Hide").appendField(new Blockly.FieldDropdown([
+            ["touched honey comb", "a"],
+        ]), "NAME");
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setColour(20);
+        this.setTooltip("");
+        this.setHelpUrl("");
+    }
 };
 
 Blockly.JavaScript["hide_block"] = function (block) {
@@ -262,7 +312,7 @@ Blockly.Blocks["end_block"] = {
     init: function () {
         this.appendDummyInput().appendField("End all");
         this.setPreviousStatement(true, null);
-        this.setColour(230);
+        this.setColour(0);
         this.setTooltip("");
         this.setHelpUrl("");
     },
@@ -288,7 +338,7 @@ Blockly.Blocks["say_block"] = {
             .appendField(new Blockly.FieldTextInput(""), "say");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(230);
+        this.setColour(300);
         this.setTooltip("");
         this.setHelpUrl("");
     },
@@ -366,10 +416,61 @@ Blockly.Python["arithmetic_block"] = function (block) {
 };
 
 export const blocks = {
-    kind: "categoryToolbox", "contents": [{ "kind": "CATEGORY", "contents": [{ "kind": "BLOCK", "blockxml": "", "type": "set_variable_holder" }, { "kind": "BLOCK", "blockxml": "", "type": "change_variable_holder" }, { "kind": "BLOCK", "blockxml": "", "type": "variables" }, { "kind": "BLOCK", "blockxml": "", "type": "math_number" }], "name": "Game Variables", "categorystyle": "variable_category" }, {
-        "kind": "CATEGORY", "contents": [{ "kind": "BLOCK", "blockxml": "", "type": "forever_repeat_block" },
-            // { "kind": "BLOCK", "blockxml": "", "type": "key_sensing" },
-            // { "kind": "BLOCK", "blockxml": "", "type": "spritetouch__block" }
-        ], "name": "Events", "colour": "#FFFF00"
-    }, { "kind": "CATEGORY", "contents": [{ "kind": "BLOCK", "blockxml": "", "type": "hide_block" }, { "kind": "BLOCK", "blockxml": "", "type": "i_touch_block" }, { "kind": "BLOCK", "blockxml": "", "type": "end_block" }, { "kind": "BLOCK", "blockxml": "", "type": "say_block" }, { "kind": "BLOCK", "blockxml": "", "type": "arithmetic_block" }], "name": "Actions", "colour": "#B430FF" }, { "kind": "CATEGORY", "contents": [{ "kind": "BLOCK", "blockxml": "", "type": "controls_if" }], "name": "Conditions" }, { "kind": "CATEGORY", "contents": [{ "kind": "BLOCK", "blockxml": "", "type": "logic_compare" }, { "kind": "BLOCK", "blockxml": "", "type": "logic_operation" }, { "kind": "BLOCK", "blockxml": "", "type": "logic_negate" }, { "kind": "BLOCK", "blockxml": "", "type": "logic_boolean" }, { "kind": "BLOCK", "blockxml": "", "type": "logic_null" }, { "kind": "BLOCK", "blockxml": "", "type": "logic_ternary" }], "name": "Boolean", "colour": "%{BKY_LOGIC_HUE}" }], "id": "toolbox", "style": "display: none", "colour": "#D4AF37"
-}
+    kind: "categoryToolbox",
+    contents: [
+        {
+            kind: "CATEGORY",
+            contents: [
+                { kind: "BLOCK", blockxml: "", type: "set_variable_holder" },
+                { kind: "BLOCK", blockxml: "", type: "change_variable_holder" },
+                { kind: "BLOCK", blockxml: "", type: "variables" },
+                { kind: "BLOCK", blockxml: "", type: "math_number" },
+            ],
+            name: "Game Variables",
+            categorystyle: "variable_category",
+        },
+        {
+            kind: "CATEGORY",
+            contents: [
+                { kind: "BLOCK", blockxml: "", type: "forever_repeat_block" },
+                // { kind: "BLOCK", blockxml: "", type: "key_sensing" },
+                // { kind: "BLOCK", blockxml: "", type: "spritetouch__block" },
+            ],
+            name: "Events",
+            colour: "#FFFF00",
+        },
+        {
+            kind: "CATEGORY",
+            contents: [
+                { kind: "BLOCK", blockxml: "", type: "hide_block" },
+                { kind: "BLOCK", blockxml: "", type: "i_touch_block" },
+                { kind: "BLOCK", blockxml: "", type: "end_block" },
+                { kind: "BLOCK", blockxml: "", type: "say_block" },
+                { kind: "BLOCK", blockxml: "", type: "arithmetic_block" },
+            ],
+            name: "Actions",
+            colour: "#B430FF",
+        },
+        {
+            kind: "CATEGORY",
+            contents: [{ kind: "BLOCK", blockxml: "", type: "controls_if" }],
+            name: "Conditions",
+        },
+        {
+            kind: "CATEGORY",
+            contents: [
+                { kind: "BLOCK", blockxml: "", type: "logic_compare" },
+                { kind: "BLOCK", blockxml: "", type: "logic_operation" },
+                { kind: "BLOCK", blockxml: "", type: "logic_negate" },
+                { kind: "BLOCK", blockxml: "", type: "logic_boolean" },
+                { kind: "BLOCK", blockxml: "", type: "logic_null" },
+                { kind: "BLOCK", blockxml: "", type: "logic_ternary" },
+            ],
+            name: "Boolean",
+            colour: "%{BKY_LOGIC_HUE}",
+        },
+    ],
+    id: "toolbox",
+    style: "display: none",
+    colour: "#D4AF37",
+};

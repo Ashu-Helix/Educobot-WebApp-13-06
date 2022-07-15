@@ -23,8 +23,8 @@ let adapt_orientation = (portait, landscape) => {
 let tour_step = 0;
 window.addEventListener('resize', () => { for (let i = 0; i < tour.steps.length; i++) { try { tour.steps[i].options.attachTo.on = isPortrait() ? adapt_orientation_array[i][0] : adapt_orientation_array[i][1]; } catch (error) { true; } } });
 
-function image_scaler(file) {
-    let path = `../assets/` + language.guide_folder + `/` + slug + `/` + language.language_packs_folder + `/` + language.language + `/` + language.image_folder + `/`;
+function image_scaler(file, lang) {
+    let path = `../assets/` + language.guide_folder + `/` + slug + `/` + language.language_packs_folder + `/` + lang + `/` + language.image_folder + `/`;
     return `<img src="` + path + file + `"class="tutorial_image">`
 }
 
@@ -68,7 +68,7 @@ function handPointAt(hand, element, visibility) {
 }
 $("#hand").css("visibility", 'hidden');
 
-function play_audio_tutorial(file) {
+function play_audio_tutorial(file, lang) {
     let path = `../assets/` + language.guide_folder + `/` + slug + '/' + language.language_packs_folder + `/` + lang + `/` + language.audio_folder + `/`;
     kill_audio();
     if (playAudio) {
@@ -101,7 +101,7 @@ function add_back_button() {
 
 function add_rescue_button() {
     window['total_rescue_btns'] += 1;
-    
+
     return "<div class='row' style='text-align:right;margin-top:10px' ><button id='rescue_button_id' class='shepherd-custom-rescue-button-white' onclick='rescue_button_click();'>Rescue</button></div>"
 }
 
@@ -179,37 +179,127 @@ let tour = new Shepherd.Tour({
     }
 });
 
-const tut = {
-    0: `<h5>Let's learn to program a traffic signal</h5>`,
-    // 99: `The traffic signal has 3 lights - red, amber and green. <br>Red is for stop. <br>Amber is to get ready. <br>Green is to go`,
-    99: image_scaler("Task.png"),
-    1: `Select traffic signal from toolbox`,
-    2: `Drag the “Light” block from the menu and drop it in the workspace`,
-    3: `Select Traffic Signal again from the toolbox`,
-    4: `Drag the “Wait” block from the menu and drop it in the workspace just below the light block, until you hear a click`,
-    5: `Select Traffic Signal once again from the toolbox`,
-    6: `Drag the “Light” block from the menu and drop it in the workspace just below the wait block, until you hear a click `,
-    7: `Now switch it OFF`,
-    8: `So, we've programmed red light to turn on for 1 second and Switch off.  Let's now hit the green Flag and observe the Traffic Signal.`,
-    9: `Did you see the red light being on for 1 second? If not run it again and see. Now lets continue to code amber to turn on for one second after red light.<br>Select Traffic Signal from the toolbox`,
-    10: `Drag the “Light” block from the menu and drop it just below the previous block`,
-    11: `change the RED light to AMBER`,
-    12: `Now follow the same steps, as red light, to complete code for amber light`,
-    13: `So, we've programmed red and amber light to turn on for 1 second and Switch off.  Let's now hit the green Flag and observe the Traffic Signal`,
-    14: `Repeat the same steps to program green light to turn on for one second after RED and AMBER`,
-    15: `Now, we've programmed RED, AMBER and GREEN lights to turn on and off for 1 second. Press the green flag to run it and observe the output`,
-    16: `Great, now let's try making the signal repeat the same 5 times. <br>Select Loops from the toolbox`,
-    17: `Drag the repeat block from the menu to the workspace and attach all the existing code blocks into the loop block`,
-    18: `In the repeat block, change the number of times to 5`,
-    19: `That's it! Now run the code and enjoy!`,
+// let tut = {
+//     0: `<h5>Let's learn to program a traffic signal</h5>`,
+//     // 99: `The traffic signal has 3 lights - red, amber and green. <br>Red is for stop. <br>Amber is to get ready. <br>Green is to go`,
+//     99: image_scaler("Task.png"),
+//     1: `Select traffic signal from toolbox`,
+//     2: `Drag the “Light” block from the menu and drop it in the workspace`,
+//     3: `Select Traffic Signal again from the toolbox`,
+//     4: `Drag the “Wait” block from the menu and drop it in the workspace just below the light block, until you hear a click`,
+//     5: `Select Traffic Signal once again from the toolbox`,
+//     6: `Drag the “Light” block from the menu and drop it in the workspace just below the wait block, until you hear a click `,
+//     7: `Now switch it OFF`,
+//     8: `So, we've programmed red light to turn on for 1 second and Switch off.  Let's now hit the green Flag and observe the Traffic Signal.`,
+//     9: `Did you see the red light being on for 1 second? If not run it again and see. Now lets continue to code amber to turn on for one second after red light.<br>Select Traffic Signal from the toolbox`,
+//     10: `Drag the “Light” block from the menu and drop it just below the previous block`,
+//     11: `change the RED light to AMBER`,
+//     12: `Now follow the same steps, as red light, to complete code for amber light`,
+//     13: `So, we've programmed red and amber light to turn on for 1 second and Switch off.  Let's now hit the green Flag and observe the Traffic Signal`,
+//     14: `Repeat the same steps to program green light to turn on for one second after RED and AMBER`,
+//     15: `Now, we've programmed RED, AMBER and GREEN lights to turn on and off for 1 second. Press the green flag to run it and observe the output`,
+//     16: `Great, now let's try making the signal repeat the same 5 times. <br>Select Loops from the toolbox`,
+//     17: `Drag the repeat block from the menu to the workspace and attach all the existing code blocks into the loop block`,
+//     18: `In the repeat block, change the number of times to 5`,
+//     19: `That's it! Now run the code and enjoy!`,
+// }
+
+
+const tut1 = {
+    "english": {
+        0: `<h5>Let's learn to program a traffic signal</h5>`,
+        // 99: `The traffic signal has 3 lights - red, amber and green. <br>Red is for stop. <br>Amber is to get ready. <br>Green is to go`,
+        99: image_scaler("Task.png", "english"),
+        1: `Select traffic signal from toolbox`,
+        2: `Drag the “Light” block from the menu and drop it in the workspace`,
+        3: `Select Traffic Signal again from the toolbox`,
+        4: `Drag the “Wait” block from the menu and drop it in the workspace just below the light block, until you hear a click`,
+        5: `Select Traffic Signal once again from the toolbox`,
+        6: `Drag the “Light” block from the menu and drop it in the workspace just below the wait block, until you hear a click `,
+        7: `Now switch it OFF`,
+        8: `So, we've programmed red light to turn on for 1 second and Switch off.  Let's now hit the green Flag and observe the Traffic Signal.`,
+        9: `Did you see the red light being on for 1 second? If not run it again and see. Now lets continue to code amber to turn on for one second after red light.<br>Select Traffic Signal from the toolbox`,
+        10: `Drag the “Light” block from the menu and drop it just below the previous block`,
+        11: `change the RED light to AMBER`,
+        12: `Now follow the same steps, as red light, to complete code for amber light`,
+        13: `So, we've programmed red and amber light to turn on for 1 second and Switch off.  Let's now hit the green Flag and observe the Traffic Signal`,
+        14: `Repeat the same steps to program green light to turn on for one second after RED and AMBER`,
+        15: `Now, we've programmed RED, AMBER and GREEN lights to turn on and off for 1 second. Press the green flag to run it and observe the output`,
+        16: `Great, now let's try making the signal repeat the same 5 times. <br>Select Loops from the toolbox`,
+        17: `Drag the repeat block from the menu to the workspace and attach all the existing code blocks into the loop block`,
+        18: `In the repeat block, change the number of times to 5`,
+        19: `That's it! Now run the code and enjoy!`,
+    },
+    "hindi": {
+        0: `<h5>आइए ट्रैफिक सिग्नल प्रोग्राम करना सीखें</h5>`,
+        99: image_scaler("Task.png", "hindi"),
+        1: `टूलबॉक्स से ट्रैफिक सिग्नल चुनें`,
+        2: `मेनू से "लाइट" ब्लॉक खींचें और इसे वर्कस्पेस में छोड़ दें`,
+        3: `टूलबॉक्स से फिर से ट्रैफिक सिग्नल का चयन करें`,
+        4: `मेनू से "वेट" ब्लॉक को खींचें और इसे लाइट ब्लॉक के ठीक नीचे वर्कस्पेस में छोड़ दें, जब तक कि आपको एक क्लिक सुनाई न दे`,
+        5: `टूलबॉक्स से एक बार फिर ट्रैफिक सिग्नल का चयन करें`,
+        6: `मेनू से "लाइट" ब्लॉक खींचें और इसे वेट के ठीक नीचे वर्कस्पेस में छोड़ दें, जब तक कि आप एक क्लिक नहीं सुनते`,
+        7: `अब लाइट बंद करें`,
+        8: `हमने लाल बत्ती को 1 सेकंड के लिए चालू करने और स्विच ऑफ करने के लिए प्रोग्राम किया है। आइए अब हरे झंडे को दबाएं और ट्रैफिक सिग्नल का निरीक्षण करें।`,
+        9: `क्या आपने लाल बत्ती को 1 सेकंड के लिए चालू देखा? इसे फिर से चलाएँ यदि नहीं। अब लाल बत्ती के बाद एक सेकंड के लिए चालू करने के लिए एम्बर को कोड करना जारी रखें। टूलबॉक्स से ट्रैफ़िक सिग्नल का चयन करें`,
+        10: `मेनू से "लाइट" ब्लॉक खींचें और इसे पिछले ब्लॉक के ठीक नीचे छोड़ दें`,
+        11: `लाल बत्ती को एम्बर में बदलें`,
+        12: `एम्बर लाइट के लिए कोड को पूरा करने के लिए अब लाल बत्ती के समान स्तेप्स का पालन करें`,
+        13: `हमने 1 सेकंड के लिए चालू करने और बंद करने के लिए लाल और एम्बर लाइट को प्रोग्राम किया है। आइए अब हरी झंडी दबाएं और ट्रैफिक सिग्नल का पालन करें`,
+        14: `लाल और एम्बर के बाद एक सेकंड के लिए हरी बत्ती को चालू करने के लिए प्रोग्राम करने के लिए समान स्तेप्स को दोहराएं`,
+        15: `अब, हमने 1 सेकंड के लिए चालू और बंद करने के लिए रेड, ऐम्बर और ग्रीन लाइट्स को प्रोग्राम किया है। इसे चलाने के लिए हरी झंडी दबाएं और आउटपुट देखें`,
+        16: `बहुत अच्छा, अब सिग्नल को 5 बार दोहराते हैं, टूलबॉक्स से लूप्स चुनें`,
+        17: `रिपीट ब्लॉक को मेनू से वर्कस्पेस पर खींचें और लूप ब्लॉक के अंदर सभी मौजूदा कोड ब्लॉक संलग्न करें`,
+        18: `रिपीट ब्लॉक में, संख्या को 5 में बदलें`,
+        19: `इतना ही! अब कोड चलाएँ और आनंद लें!`,
+    },
+    "marathi": {
+        0: `<h5>ट्रॅफिक सिग्नल प्रोग्राम करायला शिकूया</h5>`,
+        99: image_scaler("Task.png", "marathi"),
+        1: `टूलबॉक्समधून ट्रैफिक सिग्नल निवडा`,
+        2: `मेनूमधून "लाइट" ब्लॉक ड्रॅग करा आणि कार्यक्षेत्रात ठेवा`,
+        3: `टूलबॉक्समधून पुन्हा ट्रैफिक सिग्नल निवडा`,
+        4: `मेनूमधून "वेट" ब्लॉक ड्रॅग करा आणि तुम्हाला क्लिक ऐकू येईपर्यंत तो लाईट ब्लॉकच्या खाली असलेल्या वर्कस्पेसमध्ये ठेवा`,
+        5: `टूलबॉक्समधून पुन्हा एकदा ट्रैफिक सिग्नल निवडा`,
+        6: `मेनूमधून "लाइट" ब्लॉक ड्रॅग करा आणि तुम्हाला क्लिक ऐकू येईपर्यंत तो वेट ब्लॉकच्या खाली वर्कस्पेसमध्ये ठेवा`,
+        7: `आता बत्ती बंद करा`,
+        8: `आम्ही लाल बत्तीला 1 सेकंदासाठी चालू आणि बंद करण्यासाठी प्रोग्राम केले आहे. आता हिरवा झेंडा दाबून ट्रैफिक सिग्नल पाळूया`,
+        9: `तुम्ही लाल बत्ती 1 सेकंदासाठी चालू पाहिली का? नसल्यास ती पुन्हा वाजवा. आता लाल बत्तीनंतर एक सेकंद चालू करण्यासाठी एम्बर कोड करणे सुरू ठेवा. टूलबॉक्समधून ट्रैफिक सिग्नल निवडा`,
+        10: `मेनूमधून "लाइट" ब्लॉक ड्रॅग करा आणि मागील ब्लॉकच्या अगदी खाली ठेवा`,
+        11: `लाल बत्तीचे अंबरमध्ये रूपांतर करा`,
+        12: `आता एम्बर लाईटसाठी कोड पूर्ण करण्यासाठी लाल बत्ती प्रमाणेच स्तेप्सचे अनुसरण करा`,
+        13: `आम्ही लाल आणि अंबर बत्ती 1 सेकंदासाठी चालू आणि बंद करण्यासाठी प्रोग्राम केले आहे. चला आता हिरवा झेंडा दाबून ट्रैफिक सिग्नलचे पालन करूया`,
+        14: `लाल आणि एम्बर नंतर एका सेकंदासाठी हिरवी बत्ती चालू करण्यासाठी प्रोग्राम करण्यासाठी समान स्तेप्सची पुनरावृत्ती करा`,
+        15: `आता, आम्ही लाल, अंबर आणि हिरवे बत्ती 1 सेकंदासाठी चालू आणि बंद करण्यासाठी प्रोग्राम केले आहेत. ते चालवण्यासाठी ध्वज दाबा आणि आउटपुट पहा`,
+        16: `ठीक आहे, आता सिग्नल 5 वेळा रिपीट करू, टूलबॉक्समधून लूप्स निवडा`,
+        17: `मेनूमधून रिपीट ब्लॉक वर्कस्पेसवर ड्रॅग करा आणि लूप ब्लॉकमध्ये सर्व विद्यमान कोड ब्लॉक्स बंद करा`,
+        18: `पुनरावृत्ती ब्लॉकमध्ये, संख्या 5 मध्ये बदला`,
+        19: `आणि ते सर्व आहे! आता कोड चालवा आणि आनंद घ्या!`,
+    }
 }
 
+
 function loadAgain() {
-    console.log("In Traffic Shephered")
+
+
     let nextStep = 0;
     if (tour.isActive()) {
         nextStep = Shepherd?.activeTour?.steps?.indexOf(Shepherd?.activeTour?.currentStep);
     }
+
+    lang = window["language"]
+    let tut = tut1[lang];
+
+    if (tour)
+        tour.complete();
+
+    tour = new Shepherd.Tour({
+        defaultStepOptions: {
+            cancelIcon: { enabled: true },
+            classes: 'educobot-shepherd',
+            scrollTo: { behavior: 'smooth', block: 'center' }
+        }
+    });
 
     tour.addStep({
         eval() { return false },
@@ -222,7 +312,7 @@ function loadAgain() {
             text: "Back"
         }, {
             action: function () {
-                play_audio_tutorial("line0.mp3");
+                play_audio_tutorial("line0.mp3", lang);
                 return this.next()
             },
             text: "Next"
@@ -747,7 +837,7 @@ function loadAgain() {
 
 function t0() {
     clearInterval(myInterval);
-    play_audio_tutorial("line1.mp3");
+    play_audio_tutorial("line1.mp3", lang);
     // handPointAt($("#hand"), $("#blockly-0"), 'visible');
     let id = (demoWorkspace.getToolbox().contents_[0].id_)
     handPointAt($("#hand"), $("#" + id), 'visible');
@@ -757,7 +847,7 @@ function t0() {
 
 function t1() {
     clearInterval(myInterval);
-    play_audio_tutorial("line2.mp3");
+    play_audio_tutorial("line2.mp3", lang);
     handPointAt($("#hand"), $($(".blocklyDraggable")[0]), 'visible');
     let krr = false;
     myInterval = setInterval(function () {
@@ -776,7 +866,7 @@ function t1() {
 
 function t2() {
     clearInterval(myInterval);
-    play_audio_tutorial("line3.mp3");
+    play_audio_tutorial("line3.mp3", lang);
     // handPointAt($("#hand"), $("#blockly-0"), 'visible');
     let id = (demoWorkspace.getToolbox().contents_[0].id_)
     handPointAt($("#hand"), $("#" + id), 'visible');
@@ -786,7 +876,7 @@ function t2() {
 
 function t3() {
     clearInterval(myInterval);
-    play_audio_tutorial("line4.mp3");
+    play_audio_tutorial("line4.mp3", lang);
     handPointAt($("#hand"), $($(".blocklyDraggable")[2]), 'visible');
     let krr = false;
     myInterval = setInterval(function () {
@@ -803,7 +893,7 @@ function t3() {
 
 function t4() {
     clearInterval(myInterval);
-    play_audio_tutorial("line5.mp3");
+    play_audio_tutorial("line5.mp3", lang);
     // handPointAt($("#hand"), $("#blockly-0"), 'visible');
     let id = (demoWorkspace.getToolbox().contents_[0].id_)
     handPointAt($("#hand"), $("#" + id), 'visible');
@@ -812,7 +902,7 @@ function t4() {
 
 function t5() {
     clearInterval(myInterval);
-    play_audio_tutorial("line6.mp3");
+    play_audio_tutorial("line6.mp3", lang);
     handPointAt($("#hand"), $($(".blocklyDraggable")[3]), 'visible');
     let krr = false;
     myInterval = setInterval(function () {
@@ -830,7 +920,7 @@ function t5() {
 
 function t6() {
     clearInterval(myInterval);
-    play_audio_tutorial("line7.mp3");
+    play_audio_tutorial("line7.mp3", lang);
     handPointAt($("#hand"), $($(".blocklyDraggable")[3]), 'visible');
     let krr = false;
     myInterval = setInterval(function () {
@@ -841,7 +931,7 @@ function t6() {
 
 function t7() {
     clearInterval(myInterval);
-    play_audio_tutorial("line8.mp3");
+    play_audio_tutorial("line8.mp3", lang);
     myInterval = setInterval(function () {
         handPointAt($("#hand"), $("#runbtn"), 'visible');
     }, 1500);
@@ -851,7 +941,7 @@ function t7() {
 
 function t8() {
     clearInterval(myInterval);
-    play_audio_tutorial("line9.mp3");
+    play_audio_tutorial("line9.mp3", lang);
     // handPointAt($("#hand"), $("#blockly-0"), 'visible');
     let id = (demoWorkspace.getToolbox().contents_[0].id_)
     handPointAt($("#hand"), $("#" + id), 'visible');
@@ -862,7 +952,7 @@ function t8() {
 
 function t9() {
     clearInterval(myInterval);
-    play_audio_tutorial("line10.mp3");
+    play_audio_tutorial("line10.mp3", lang);
     handPointAt($("#hand"), $($(".blocklyDraggable")[4]), 'visible');
     let krr = false;
     myInterval = setInterval(function () {
@@ -880,7 +970,7 @@ function t9() {
 
 function t10() {
     clearInterval(myInterval);
-    play_audio_tutorial("line11.mp3");
+    play_audio_tutorial("line11.mp3", lang);
     myInterval = setInterval(function () {
         handPointAt($("#hand"), $($(".blocklyEditableText")[5]), 'visible');
     }, 1500);
@@ -889,7 +979,7 @@ function t10() {
 
 function t11() {
     clearInterval(myInterval);
-    play_audio_tutorial("line12.mp3");
+    play_audio_tutorial("line12.mp3", lang);
     myInterval = setInterval(function () {
         handPointAt($("#hand"), $($(".blocklyEditableText")[5]), 'hidden');
     }, 1500);
@@ -900,7 +990,7 @@ function t11() {
 
 function t12() {
     clearInterval(myInterval);
-    play_audio_tutorial("line13.mp3");
+    play_audio_tutorial("line13.mp3", lang);
     myInterval = setInterval(function () {
         handPointAt($("#hand"), $("#runbtn"), 'visible');
     }, 1500);
@@ -910,7 +1000,7 @@ function t12() {
 
 function t13() {
     clearInterval(myInterval);
-    play_audio_tutorial("line14.mp3");
+    play_audio_tutorial("line14.mp3", lang);
     myInterval = setInterval(function () {
         handPointAt($("#hand"), $("#blocklyDiv"), 'hidden');
 
@@ -922,7 +1012,7 @@ function t13() {
 
 function t14() {
     clearInterval(myInterval);
-    play_audio_tutorial("line15.mp3");
+    play_audio_tutorial("line15.mp3", lang);
     myInterval = setInterval(function () {
         handPointAt($("#hand"), $("#runbtn"), 'visible');
 
@@ -932,7 +1022,7 @@ function t14() {
 
 function t15() {
     clearInterval(myInterval);
-    play_audio_tutorial("line16.mp3");
+    play_audio_tutorial("line16.mp3", lang);
     myInterval = setInterval(function () {
         // handPointAt($("#hand"), $("#blockly-1"), 'visible');
         let id = (demoWorkspace.getToolbox().contents_[1].id_)
@@ -944,7 +1034,7 @@ function t15() {
 
 function t16() {
     clearInterval(myInterval);
-    play_audio_tutorial("line17.mp3");
+    play_audio_tutorial("line17.mp3", lang);
     handPointAt($("#hand"), $($(".blocklyDraggable")[12]), 'visible');
     let krr = false;
     myInterval = setInterval(function () {
@@ -962,7 +1052,7 @@ function t16() {
 
 function t17() {
     clearInterval(myInterval);
-    play_audio_tutorial("line18.mp3");
+    play_audio_tutorial("line18.mp3", lang);
     myInterval = setInterval(function () {
         handPointAt($("#hand"), $($(".blocklyDraggable")[1]), 'visible');
     }, 1500);
@@ -972,7 +1062,7 @@ function t17() {
 
 function t18() {
     clearInterval(myInterval);
-    play_audio_tutorial("line19.mp3");
+    play_audio_tutorial("line19.mp3", lang);
     myInterval = setInterval(function () {
         handPointAt($("#hand"), $("#runbtn"), 'visible');
     }, 1500);

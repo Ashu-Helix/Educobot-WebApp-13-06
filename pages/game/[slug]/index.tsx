@@ -55,7 +55,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     let index = -1;
 
     const staticSlug = [
-        "956dfe60-ed8a-45a4-8fac-dd3d72137944",
+        "1d749e84-1155-4269-93ab-550ee7aabd4a",
         "4bda4814-a2b1-4c4f-b102-eda5181bd0f8",
         "e0c38e50-cbb3-455f-ae16-d737fc624b24"
     ]
@@ -78,7 +78,13 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
     const languageObj = {};
     let i = 1;
-    dataParse[0] && dataParse[0].forEach((language: any) => { if (language != dataParse[0][0]) { languageObj[language] = i; i++; } });
+    dataParse[0] &&
+        dataParse[0].forEach((language: any) => {
+            if (language != dataParse[0][0]) {
+                languageObj[language] = i;
+                i++;
+            }
+        });
 
     var bodyFormData = new FormData();
     bodyFormData.append('lessonID', context.params.slug);
@@ -221,7 +227,7 @@ export default function PhaserGame(props) {
             {
                 let newData = { ...userDetails.data.DATA[0], otp }
                 setUserDetails(newData)
-                console.log("got user details")
+                // console.log("got user details")
             }
         }
         catch (error) {
@@ -250,7 +256,7 @@ export default function PhaserGame(props) {
         if (mount) {
             const element: HTMLCollectionOf<Element> = document.getElementsByClassName("rescue_button_id");
             if (element.length) {
-                console.log(element);
+                // console.log(element);
                 for (let i = 0; i < element.length; i++) {
                     element[i].addEventListener('click', () => increamentClick(i));
                 }
@@ -387,22 +393,22 @@ export default function PhaserGame(props) {
                     </div>
                     <p className={styles.description}>{lessonDetails.lsDesc}</p>
                 </div>
-                {
-                    slug !== '1d749e84-1155-4269-93ab-550ee7aabd4a' && <div className={styles.select_languageDiv}>
-                        {Object.keys(language).length > 0 && (
-                            <select
-                                className={`${styles.select_language}`}
-                                value={lang}
-                                onChange={onChange}
-                            >
-                                {Object.keys(language).map(key => (
-                                    <option key={key} value={`${language[key]}`}>
-                                        {key}
-                                    </option>
-                                ))}
-                            </select>
-                        )}
-                    </div>}
+                <div className={styles.select_languageDiv}>
+                    {Object.keys(language).length > 0 && (
+                        <select
+                            className={`${styles.select_language}`}
+                            value={lang}
+                            onChange={onChange}
+                        >
+                            {/* language.charAt(0).toUpperCase() + language.slice(1) */}
+                            {Object.keys(language).map(key => (
+                                <option key={key} value={`${language[key]}`}>
+                                    {key}
+                                </option>
+                            ))}
+                        </select>
+                    )}
+                </div>
             </div>
             <div
                 style={{

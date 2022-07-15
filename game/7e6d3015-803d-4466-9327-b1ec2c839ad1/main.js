@@ -593,6 +593,10 @@ function getNoOfBlocks() {
 
 const updateImports = ["import mouse"]
 
+function returnDemoworkspace() {
+    return Blockly.Xml.workspaceToDom(Blockly.getMainWorkspace());
+}
+
 export {
     fnCanEatCheese,
     fnMoveUpOrDown,
@@ -618,5 +622,6 @@ export {
     isUpActive,
     is_mouse_touching_cheese,
     getNoOfBlocks,
-    updateImports
+    updateImports,
+    returnDemoworkspace
 };
