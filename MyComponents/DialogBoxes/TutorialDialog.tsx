@@ -218,7 +218,7 @@ export default function TestDialog({ getCoins, noOfClicks, testDialogInfo, lesso
 
 
     //SAVE COINS
-    const saveCoins = async(body:any, coins: number) => {
+    const saveCoins = async (body: any, coins: number) => {
         if (coins) {
             body["edcoins"] = coins;
             console.log(coins)
@@ -259,10 +259,10 @@ export default function TestDialog({ getCoins, noOfClicks, testDialogInfo, lesso
     //POST EVAL DATA
     const postEvalData = () => {
         console.log("runn")
-        let coins : number = 0;
-        const totalMcq:number = questionArray.length || 0;
-        let lsType = lessonDetails?.lsCourse === "Python Basic" ? 
-        lessonDetails?.lsLevel : lessonDetails?.lsSkillTag1
+        let coins: number = 0;
+        const totalMcq: number = questionArray.length || 0;
+        let lsType = lessonDetails?.lsCourse === "Python Basic" ?
+            lessonDetails?.lsLevel : lessonDetails?.lsSkillTag1
 
 
         let body = {
@@ -278,8 +278,7 @@ export default function TestDialog({ getCoins, noOfClicks, testDialogInfo, lesso
             "edcoins": coins
         }
         console.log(lsType, "lsType")
-        if(lsType === "test")
-        {
+        if (lsType === "test") {
             saveCoins(body, 3.0)
         }
         else if (lsType === "Guided") {
@@ -305,13 +304,12 @@ export default function TestDialog({ getCoins, noOfClicks, testDialogInfo, lesso
 
             saveCoins(body, coins)
         }
-        else if(lsType === "Practice" || lsType === "Test")
-        {
+        else if (lsType === "Practice" || lsType === "Test") {
             let total_rescue_btns_clicked = window['rescue_btn_click_count_wb'];
             let total_rescue_btns = window['total_rescue_btns_wb'];
 
             console.log(total_rescue_btns_clicked, total_rescue_btns, "bnt")
-            
+
             // calculating score of penalty on rescue button click
             let rescue_score = (2 / total_rescue_btns) * (total_rescue_btns - total_rescue_btns_clicked)
             coins += Number((Math.round((rescue_score) * 4) / 4).toFixed(2))
@@ -659,7 +657,7 @@ export default function TestDialog({ getCoins, noOfClicks, testDialogInfo, lesso
                                     else if (coin == ".75") {
                                         return <MemoCoin75 />
                                     }
-                                    else if (coin == ".50") {
+                                    else if (coin == ".5") {
                                         return <MemoCoin50 />
                                     }
                                     else if (coin == ".25") {
