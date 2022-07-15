@@ -302,7 +302,7 @@ export default function TestDialog(
                 "rollNo": userDetails?.sdRollNo,
                 "pin" : userDetails?.otp,
                 "schoolID" : userDetails?.sdSchoolID,
-                "edcoins":1.0
+                "coins":1.0
         }
         saveCoins(body, 1.0)
     }

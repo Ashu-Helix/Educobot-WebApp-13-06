@@ -1,17 +1,17 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import styles from "../../../styles/Problems.module.css";
-import openEditor from "../../../styles/pythonCode.module.css";
+import styles from "../../../../styles/Problems.module.css";
+import openEditor from "../../../../styles/pythonCode.module.css";
 import Image from "next/image";
 import dynamic from "next/dynamic";
-import KeyBoardContainer from "../../../components/KeyBoardContainer";
-import ScriptDialog from "../../../MyComponents/DialogBoxes/ScriptMcqDialog";
+import KeyBoardContainer from "../../../../components/KeyBoardContainer";
+import ScriptDialog from "../../../../MyComponents/DialogBoxes/ScriptMcqDialog";
 import { Button } from "@mui/material";
 import { Icon } from '@iconify/react'
 import axios from "axios";
 import FormData from 'form-data';
 
-const EditorContainer = dynamic(import("../../../components/EditorContainer"), {
+const EditorContainer = dynamic(import("../../../../components/EditorContainer"), {
     ssr: false,
 });
 import { GetServerSideProps } from "next/types";
@@ -19,27 +19,27 @@ import { useRouter } from "next/router";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
 
-    const response1 = await fetch(`https://app.educobot.com/liveLessons/python/${context.params.id}/code.json`);
-    // const response1 = await fetch(`http://localhost:7001/scripts/${context.params.id}/code.json`);
+    const response1 = await fetch(`https://app.educobot.com/liveLessons/turtle/${context.params.id}/code.json`);
+
     if (response1.status === 404) {
         return {
             notFound: true,
         }
     }
     let res = await response1.json() ?? "";
-    let { code, type } = res
+
+    let { code } = res
 
     var bodyFormData = new FormData();
-    bodyFormData.append('lessonID', context.params.id);
+    bodyFormData.append('lessonID', "7adbaaff-0e03-41b4-a2e1-81b40fd56dfc");
 
     const lessonDetails = await axios({
         method: "post",
         url: "https://appssl.educobot.com:8443/EduCobotWS/lessonsWS/getLessonsByID",
         data: bodyFormData,
-        headers: { "Content-Type": "multipart/form-data" }
+        headers: { "Content-Type": "multipart/form-data" },
     });
 
-    // let code = 'name = input("What is your name?")\nprint("hello "+name)\na=3\nb=5\nprint(a+b)';
     return {
         props: { id: context.params.id, code, lessonDetails: lessonDetails.data.DATA[0] },
     };
@@ -58,10 +58,24 @@ export default function PythonEditor(props) {
     const [lang, setLang] = useState(1);
     const router = useRouter();
 
+    useEffect(() => {
+        if (typeof window !== "undefined") {
+            require("../../../../skulpt/worker").runIt("")
+        }
+    }, [])
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            if (!editor) return;
+            if (!editor.hasFocus())
+                editor.focus();
+        }, 500);
+        return () => clearInterval(timer);
+    }, [editor])
 
     // user details
     const [userDetails, setUserDetails] = useState<any>([]);
-    const getUserDetails = async(otp: string | string[]) =>{
+    const getUserDetails = async (otp: string | string[]) => {
         try {
             let formD = new FormData();
             formD.append("sdUID", router.query.user_id)
@@ -73,7 +87,7 @@ export default function PythonEditor(props) {
                 headers: { "Content-Type": "multipart/form-data" },
             });
             {
-                let newData = {...userDetails.data.DATA[0], otp}
+                let newData = { ...userDetails.data.DATA[0], otp }
                 setUserDetails(newData)
                 console.log("got user details in python editor")
             }
@@ -86,12 +100,10 @@ export default function PythonEditor(props) {
 
     useEffect(() => {
         router.query.otp && getUserDetails(router.query.otp)
-    },[router.query.otp])
-
-
+    }, [router.query.otp])
 
     // post eval data
-    const postEvalData = async() => {
+    const postEvalData = async () => {
         let body = {
             "userID": userDetails?.sdUID,
             "edType": "B",
@@ -102,16 +114,16 @@ export default function PythonEditor(props) {
             "rollNo": userDetails?.sdRollNo,
             "pin": userDetails?.otp,
             "schoolID": userDetails?.sdSchoolID,
-            "coins": 1.0
+            "edcoins": 1
         }
         try {
             const res = await axios({
-                method:"post",
-                url:"https://api.educobot.com/users/postEvalData",
-                data:body,
+                method: "post",
+                url: "https://api.educobot.com/users/postEvalData",
+                data: body,
                 headers: { "Content-Type": "application/json" },
             });
-            if(res.status==200 && res.data.msg){
+            if (res.status == 200 && res.data.msg) {
                 console.log(res.data.msg)
             }
         }
@@ -121,31 +133,13 @@ export default function PythonEditor(props) {
     }
 
 
-
-    useEffect(() => {
-        if (typeof window !== "undefined") {
-            require("../../../skulpt/worker").runIt("")
-        }
-
-    }, [])
-
-    useEffect(() => {
-        const timer = setInterval(() => {
-            if (!editor) return;
-            if (!editor.hasFocus())
-                editor.focus();
-        }, 500);
-        return () => clearInterval(timer);
-    }, [editor])
-
     const runScript = () => {
         if (typeof window !== "undefined") {
-            const script1 = require("../../../skulpt/worker");
+            const script1 = require("../../../../skulpt/worker");
             const { runIt } = script1;
             const py = script;
             runIt(py)
             setkeyboardState(false)
-            
             postEvalData();
         }
     };
@@ -200,7 +194,7 @@ export default function PythonEditor(props) {
             lineArr[line] = newline;  //replace line in array
             if (lineArr[line] === '') { // if nothing in line delete it from arry
                 delete lineArr[line]
-                lineArr = lineArr.filter(item => item !== "empty") //filter empty obj
+                lineArr = lineArr.filter(item => item !== "empty") //filter out empty obj
 
                 setScript(lineArr.join("\n"));
                 doc.setCursor({ line: line - 1 }) //move cursor to next top line
@@ -309,8 +303,7 @@ export default function PythonEditor(props) {
                             </button>
                         </div>
                     </div>
-                    {/* <div id="circle" className="center" style={{ aspectRatio: "2/1" }} /> */}
-
+                    <div id="circle" className="center" style={{ aspectRatio: "2/1" }} />
                     <div id="output" className={styles.output_for_script} />
                     <ScriptDialog
                         lessonDetails={lessonDetails}
@@ -332,19 +325,6 @@ export default function PythonEditor(props) {
                             <p style={{ margin: "1rem", fontSize: "14px", textTransform: "uppercase" }} onClick={closeModal}>Understood</p>
                         </div>
                     </dialog>
-                    {/* <dialog id="modal">
-                        <div className="sound_close_container">
-                            <img src="/assets/sound_icon.png"
-                                width="25.5" height="25.5"
-                            />
-                            <svg width="35" viewBox="0 0 21 19" stroke="black" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M8.4042 6.00409L12.7042 1.71409C13.0963 1.32197 13.0963 0.686214 12.7042 0.294092C12.3121 -0.0980305 11.6763 -0.0980305 11.2842 0.294092L6.9942 4.59409L2.7042 0.294092C2.31208 -0.0980305 1.67632 -0.0980305 1.2842 0.294092C0.892079 0.686214 0.89208 1.32197 1.2842 1.71409L5.5842 6.00409L1.2842 10.2941C1.09489 10.4819 0.988403 10.7375 0.988403 11.0041C0.988403 11.2707 1.09489 11.5263 1.2842 11.7141C1.47197 11.9034 1.72756 12.0099 1.9942 12.0099C2.26084 12.0099 2.51644 11.9034 2.7042 11.7141L6.9942 7.41409L11.2842 11.7141C11.472 11.9034 11.7276 12.0099 11.9942 12.0099C12.2608 12.0099 12.5164 11.9034 12.7042 11.7141C12.8935 11.5263 13 11.2707 13 11.0041C13 10.7375 12.8935 10.4819 12.7042 10.2941L8.4042 6.00409Z"
-                                    fill="black" />
-                            </svg>
-                        </div>
-                        <div> </div>
-                    </dialog> */}
-
                 </div>
                 {keyboardState && (
                     <KeyBoardContainer onlyKeyboard={onlyKeyboard} script={script} setScript={(value) => updateUserCodeFromKeyboard(value)} />
