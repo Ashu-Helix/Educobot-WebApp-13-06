@@ -68,7 +68,7 @@ export default function Scripts(props) {
 
     // user details
     const [userDetails, setUserDetails] = useState([]);
-    const getUserDetails = async(otp: string | string[]) =>{
+    const getUserDetails = async (otp: string | string[]) => {
         try {
             let formD = new FormData();
             formD.append("sdUID", router.query.user_id)
@@ -80,7 +80,7 @@ export default function Scripts(props) {
                 headers: { "Content-Type": "multipart/form-data" },
             });
             {
-                let newData = {...userDetails.data.DATA[0], otp}
+                let newData = { ...userDetails.data.DATA[0], otp }
                 setUserDetails(newData)
                 console.log("got user details in python")
             }
@@ -93,7 +93,7 @@ export default function Scripts(props) {
 
     useEffect(() => {
         router.query.otp && getUserDetails(router.query.otp)
-    },[router.query.otp])
+    }, [router.query.otp])
 
 
     const onLoad = () => {

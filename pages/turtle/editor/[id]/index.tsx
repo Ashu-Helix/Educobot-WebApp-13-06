@@ -19,7 +19,8 @@ import { useRouter } from "next/router";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
 
-    const response1 = await fetch(`https://app.educobot.com/liveLessons/turtle/${context.params.id}/code.json`);
+    // const response1 = await fetch(`https://app.educobot.com/liveLessons/turtle/${context.params.id}/code.json`);
+    const response1 = await fetch(`http://localhost:7001/pythonOpenEditor/${context.params.id}/code.json`);
 
     if (response1.status === 404) {
         return {

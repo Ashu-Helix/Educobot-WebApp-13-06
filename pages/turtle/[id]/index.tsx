@@ -16,8 +16,8 @@ import { GetServerSideProps, GetStaticProps } from "next/types";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
 
-    const response1 = await fetch(`http://app.educobot.com/liveLessons/turtle/${context.params.id}/code.json`);
-    // const response1 = await fetch(`http://localhost:7001/turtle/${context.params.id}/code.json`);
+    // const response1 = await fetch(`http://app.educobot.com/liveLessons/turtle/${context.params.id}/code.json`);
+    const response1 = await fetch(`http://localhost:7001/turtlePredictive/${context.params.id}/code.json`);
 
     if (response1.status === 404) {
         return {
@@ -34,6 +34,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 }
 export default function Scripts(props) {
     const { id, code, guide, type } = props;
+    console.log(guide)
     //const [script, setScript] = useState(``);
     // let script = ''
     const [script, setScript] = useState("")
@@ -43,7 +44,7 @@ export default function Scripts(props) {
     const [keyboardState, setkeyboardState] = useState(false);
     const [dialogOpen, setDialogOpen] = useState(false);
     // const [isCompleted, setisCompleted] = useState(false)
-    const language = { English: 1 };
+    const language = { English: 1, Hindi: 2 };
     const [lang, setLang] = useState(1);
     const router = useRouter();
 
@@ -52,7 +53,12 @@ export default function Scripts(props) {
         const { tutorial_guide_updater, make_pred_guide } = tutorial;
         tutorial_guide_updater(id, user_code);
         let type = 4;
-        guide.forEach(g => make_pred_guide(g.id, g.img, g.code, g.audio, id, type))
+        if (Array.isArray(guide)) {
+            guide.forEach(g => make_pred_guide(g.id, g.img, g.code, g.audio, id, type))
+        } else {
+            guide["English"].forEach(g => make_pred_guide(g.id, g.img, g.code, g.audio, id, type))
+        }
+        // guide.forEach(g => make_pred_guide(g.id, g.img, g.code, g.audio, id, type))
         htmlmaker(code, user_code);
         if (typeof window !== "undefined") {
             const script = require("../../../skulpt/worker");
