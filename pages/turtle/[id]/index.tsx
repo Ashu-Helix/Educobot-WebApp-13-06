@@ -34,7 +34,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 }
 export default function Scripts(props) {
     const { id, code, guide, type } = props;
-    console.log(guide)
+    console.log(guide["Hindi"])
+    let language = {};
+    Object.keys(guide).forEach((currentLang) => {
+        language[currentLang] = currentLang
+    })
+    console.log(language)
     //const [script, setScript] = useState(``);
     // let script = ''
     const [script, setScript] = useState("")
@@ -44,7 +49,7 @@ export default function Scripts(props) {
     const [keyboardState, setkeyboardState] = useState(false);
     const [dialogOpen, setDialogOpen] = useState(false);
     // const [isCompleted, setisCompleted] = useState(false)
-    const language = { English: 1, Hindi: 2 };
+
     const [lang, setLang] = useState(1);
     const router = useRouter();
 
