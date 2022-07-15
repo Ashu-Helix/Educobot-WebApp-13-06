@@ -221,6 +221,7 @@ export default function TestDialog({ getCoins, noOfClicks, testDialogInfo, lesso
     const saveCoins = async(body:any, coins: number) => {
         if (coins) {
             body["edcoins"] = coins;
+            body["coins"] = coins;
             console.log(coins)
 
             // displaying coins logic
