@@ -36,7 +36,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         method: "post",
         url: "https://appssl.educobot.com:8443/EduCobotWS/lessonsWS/getLessonsByID",
         data: bodyFormData,
-        headers: { "Content-Type": "multipart/form-data" },
+        headers: { "Content-Type": "multipart/form-data" }
     });
 
     // let code = 'name = input("What is your name?")\nprint("hello "+name)\na=3\nb=5\nprint(a+b)';
@@ -58,6 +58,70 @@ export default function PythonEditor(props) {
     const [lang, setLang] = useState(1);
     const router = useRouter();
 
+
+    // user details
+    const [userDetails, setUserDetails] = useState<any>([]);
+    const getUserDetails = async(otp: string | string[]) =>{
+        try {
+            let formD = new FormData();
+            formD.append("sdUID", router.query.user_id)
+
+            const userDetails = await axios({
+                method: "post",
+                url: "https://appssl.educobot.com:8443/EduCobotWS/studentsWS/getStudents",
+                data: formD,
+                headers: { "Content-Type": "multipart/form-data" },
+            });
+            {
+                let newData = {...userDetails.data.DATA[0], otp}
+                setUserDetails(newData)
+                console.log("got user details in python editor")
+            }
+        }
+        catch (error) {
+            console.log(error.message)
+            setUserDetails([])
+        }
+    }
+
+    useEffect(() => {
+        router.query.otp && getUserDetails(router.query.otp)
+    },[router.query.otp])
+
+
+
+    // post eval data
+    const postEvalData = async() => {
+        let body = {
+            "userID": userDetails?.sdUID,
+            "edType": "B",
+            "std": userDetails?.sdClass,
+            "div": userDetails?.sdDiv,
+            "status": "C",
+            "lessonID": lessonDetails?.lsID,
+            "rollNo": userDetails?.sdRollNo,
+            "pin": userDetails?.otp,
+            "schoolID": userDetails?.sdSchoolID,
+            "edcoins": 1
+        }
+        try {
+            const res = await axios({
+                method:"post",
+                url:"https://api.educobot.com/users/postEvalData",
+                data:body,
+                headers: { "Content-Type": "application/json" },
+            });
+            if(res.status==200 && res.data.msg){
+                console.log(res.data.msg)
+            }
+        }
+        catch (error) {
+            console.log(error.message)
+        }
+    }
+
+
+
     useEffect(() => {
         if (typeof window !== "undefined") {
             require("../../../skulpt/worker").runIt("")
@@ -73,6 +137,7 @@ export default function PythonEditor(props) {
         }, 500);
         return () => clearInterval(timer);
     }, [editor])
+
     const runScript = () => {
         if (typeof window !== "undefined") {
             const script1 = require("../../../skulpt/worker");
@@ -80,19 +145,8 @@ export default function PythonEditor(props) {
             const py = script;
             runIt(py)
             setkeyboardState(false)
-            // if (!testTaken) {
-            //     let interval = setInterval(() => {
-            //         if (!dialogOpen) {
-            //             if (script.completedFlag()) {
-            //                 document.getElementById("openTest").click();
-            //                 setDialogOpen(true);
-            //                 clearInterval(interval);
-            //             }
-            //         } else {
-            //             clearInterval(interval);
-            //         }
-            //     }, 1000);
-            // }
+            
+            postEvalData();
         }
     };
 

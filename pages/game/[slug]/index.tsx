@@ -211,9 +211,11 @@ export default function PhaserGame(props) {
     const [open, setOpen] = useState(false);
     const [lang, setLang] = useState(1);
     const [PythonCode, setPythonCode] = useState("");
-    const [userDetails, setUserDetails] = useState([]);
 
-    const getUserDetails = async (otp: string | string[]) => {
+    
+    // user details
+    const [userDetails, setUserDetails] = useState([]);
+    const getUserDetails = async(otp: string | string[]) =>{
         try {
             let formD = new FormData();
             formD.append("sdUID", router.query.user_id)
