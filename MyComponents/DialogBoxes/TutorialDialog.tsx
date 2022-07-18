@@ -16,7 +16,8 @@ import {
     FormControlLabel,
     Snackbar,
     Alert,
-    IconButton
+    IconButton,
+    Stack
 } from "@mui/material";
 
 import CloseIcon from '@mui/icons-material/Close';
@@ -30,6 +31,14 @@ import Confetti from "react-confetti";
 import { unstable_useForkRef } from "@mui/utils";
 // import { turn } from "../../components/helpers/dog";
 import { useRouter } from "next/router";
+import axios from "axios";
+
+// coins
+import MemoCoin1 from "../assets/1";
+import MemoCoin75 from "../assets/75";
+import MemoCoin50 from "../assets/50";
+import MemoCoin25 from "../assets/25";
+import MemoCoin0 from "../assets/0";
 
 // ----------------------------------------------------------------------
 
@@ -81,12 +90,17 @@ type Props = {
     getCoins: (value) => void
     slug: any;
     lessonDetails: any;
+    userDetails: any;
+    noOfClicks?: any;
     testDialogInfo: {
         dialogStatus: String;
 
     };
 };
-export default function TestDialog({ getCoins, testDialogInfo, lessonDetails, slug }: Props) {
+export default function TestDialog({ getCoins, noOfClicks, testDialogInfo, lessonDetails, userDetails, slug }: Props) {
+
+    // console.log(lessonDetails, noOfClicks)
+
     const [widthState, setWidthState] = useState(0);
     const [heightState, setHeightState] = useState(0);
     const [showConfetti, setShowConfetti] = useState(false);
@@ -102,7 +116,10 @@ export default function TestDialog({ getCoins, testDialogInfo, lessonDetails, sl
     const [disabledBtn, setDisabledBtn] = useState(true);
     // let questionArray = require(`../../public/mcq/${slug}Mcq.js`).mcqArr;
     const [display, setDisplay] = useState("none");
-    // console.log(questionArray)
+    const [coins, setCoins] = useState([]);
+
+
+
     const previousQuestion = () => {
         if (questionIndex !== 0) {
             setDisabledBtn(false);
@@ -127,17 +144,14 @@ export default function TestDialog({ getCoins, testDialogInfo, lessonDetails, sl
         }
     }, [questionIndex]);
 
+
     const evaluateTutorial = () => {
         let obtainedMarks = 0;
         userQuestionPaper.forEach((obj, index) => {
-            // console.log(
-            //   "From TestDialog",
-            //   obj.answer + " " + questionArray[index].correct_answer
-            // );
             if (String(obj.answer) === String(questionArray[index].correct_answer)) {
-                // console.log("Correct Answer");
                 obtainedMarks = obtainedMarks + 1;
             }
+
         });
         if (getCoins)
             getCoins(obtainedMarks)
@@ -155,17 +169,8 @@ export default function TestDialog({ getCoins, testDialogInfo, lessonDetails, sl
         try {
             setQuestionArray([...require(`../../game/${slug}/Mcq`).mcqArr])
         } catch (err) {
-            console.log(err)
+            console.log(err.message)
         }
-        // questionArray = require(`../../public/mcq/${slug}Mcq.js`).mcqArr;
-        // try {
-        //   questionArray = require(`../../public/mcq/${slug}Mcq.js`).mcqArr
-        // } catch (err) {
-        //   // setTimeout(() => {
-        //   //   questionArray = require(`../../public/mcq/${slug}Mcq.js`).mcqArr
-        //   // }, 3000);
-        //   router.reload();
-        // }
 
         return () => {
             window.removeEventListener("resize", setActualWidthHeight);
@@ -173,15 +178,11 @@ export default function TestDialog({ getCoins, testDialogInfo, lessonDetails, sl
     }, []);
 
     const selectAnswer = (event: any) => {
-        //   var result = userQuestionPaper.find((obj) => {
-        //     return obj.id === questionIndex + 1;
-        //   });
         setDisabledBtn(false);
         const itemIndex = userQuestionPaper.findIndex(
             (obj) => obj.id === questionIndex + 1
         );
 
-        //   console.log("Item Index", itemIndex);
 
         if (itemIndex > -1) {
             const newLists = userQuestionPaper.map((obj, index) => {
@@ -210,16 +211,118 @@ export default function TestDialog({ getCoins, testDialogInfo, lessonDetails, sl
         setRecycleConfetti(false);
     };
 
-    // const closeError = (
-    //   event?: React.SyntheticEvent | Event,
-    //   reason?: string
-    // ) => {
-    //   if (reason === "clickaway") {
-    //     return;
-    //   }
 
-    //   setShowError(false);
-    // };
+    useEffect(() => {
+        open === "second" && postEvalData();
+    }, [open])
+
+
+    //SAVE COINS
+    const saveCoins = async (body: any, coins: number) => {
+        if (coins) {
+            body["edcoins"] = coins;
+            console.log(coins)
+
+            // displaying coins logic
+            let arr = ['0', '0', '0'];
+            let i: number;
+            let int = coins.toString()?.split('.')[0];
+            let deci = coins.toString()?.split('.')[1];
+
+            for (i = 0; i < Number(int); i++)
+                arr[i] = '1'
+
+            if (Number(deci) !== 0 && Number(deci))
+                arr[i] = `.${deci}`
+
+            setCoins(arr)
+        }
+        else setCoins(['0', '0', '0'])
+
+        try {
+            const res = await axios({
+                method: "post",
+                url: "https://api.educobot.com/users/postEvalData",
+                data: body,
+                headers: { "Content-Type": "application/json" },
+            });
+            if (res.status == 200 && res.data.msg) {
+                console.log(res.data.msg)
+            }
+        }
+        catch (error) {
+            console.log(error.message)
+        }
+    }
+
+
+    //POST EVAL DATA
+    const postEvalData = () => {
+        let coins : number = 0;
+        const totalMcq:number = questionArray.length || 0;
+        let lsType = lessonDetails?.lsCourse === "Python Basic" ? 
+        lessonDetails?.lsLevel : lessonDetails?.lsSkillTag1
+
+
+        let body = {
+                "userID": userDetails?.sdUID,
+                "edType":"B",
+                "std": userDetails?.sdClass,
+                "div": userDetails?.sdDiv,
+                "status":"C",
+                "lessonID": lessonDetails?.lsID,
+                "rollNo": userDetails?.sdRollNo,
+                "pin" : userDetails?.otp,
+                "schoolID" : userDetails?.sdSchoolID,
+                "coins":coins
+        }
+        console.log(lsType, "lsType")
+        if (lsType === "test") {
+            saveCoins(body, 3.0)
+        }
+        else if (lsType === "Guided") {
+            coins += 1;
+
+            // calculating mcq score
+            let score = (2 / totalMcq) * (totalMcq - (totalMcq - marks))
+            coins += Number((Math.round((score) * 4) / 4).toFixed(2))
+            saveCoins(body, coins)
+        }
+        else if (lsType === "Partly Guided") {
+            coins += 1;
+            let total_rescue_btns_clicked = window['rescue_btn_click_count'];
+            let total_rescue_btns = window['total_rescue_btns'];
+
+            // calculating score of penalty on rescue button click
+            let rescue_score = (1 / total_rescue_btns) * (total_rescue_btns - total_rescue_btns_clicked)
+            coins += Number((Math.round((rescue_score) * 4) / 4).toFixed(2))
+
+            // calculating mcq score
+            let score = (1 / totalMcq) * (totalMcq - (totalMcq - marks))
+            coins += Number((Math.round((score) * 4) / 4).toFixed(2))
+
+            saveCoins(body, coins)
+        }
+        else if (lsType === "Practice" || lsType === "Test") {
+            let total_rescue_btns_clicked = window['rescue_btn_click_count_wb'];
+            let total_rescue_btns = window['total_rescue_btns_wb'];
+
+            console.log(total_rescue_btns_clicked, total_rescue_btns, "bnt")
+
+            // calculating score of penalty on rescue button click
+            let rescue_score = (2 / total_rescue_btns) * (total_rescue_btns - total_rescue_btns_clicked)
+            coins += Number((Math.round((rescue_score) * 4) / 4).toFixed(2))
+
+            // calculating mcq score
+            let score = (1 / totalMcq) * (totalMcq - (totalMcq - marks))
+            coins += Number((Math.round((score) * 4) / 4).toFixed(2))
+
+            saveCoins(body, coins)
+        }
+    }
+
+
+
     return (
         <div style={{ display }}>
             <Button
@@ -227,7 +330,12 @@ export default function TestDialog({ getCoins, testDialogInfo, lessonDetails, sl
                 variant="outlined"
                 id="openTest"
                 onClick={() => {
-                    setOpen("test");
+                    if (questionArray.length === 0) {
+                        setOpen("second");
+                    } else {
+                        setOpen("test");
+                    }
+
                     setDisplay("block")
                 }}
                 sx={{ display: "none" }}
@@ -235,6 +343,10 @@ export default function TestDialog({ getCoins, testDialogInfo, lessonDetails, sl
                 Take Test
             </Button>
 
+
+
+
+            {/* modal popup    */}
             <Dialog
                 open={open === "test"}
                 BackdropProps={{ invisible: true }}
@@ -313,6 +425,11 @@ export default function TestDialog({ getCoins, testDialogInfo, lessonDetails, sl
                 </DialogActions>
             </Dialog>
 
+
+
+
+
+            {/* Test Dialog */}
             <Dialog
                 open={open === "first"}
                 // onClose={handleClose}
@@ -402,6 +519,7 @@ export default function TestDialog({ getCoins, testDialogInfo, lessonDetails, sl
                                     color: "#fff",
                                     fontFamily: "Public Sans"
                                 }}
+                                disabled={questionIndex !== 0 ? false : true}
                             >
                                 Back
                             </Button>
@@ -448,7 +566,7 @@ export default function TestDialog({ getCoins, testDialogInfo, lessonDetails, sl
                                 }}
                                 onClick={() => {
                                     evaluateTutorial();
-                                    setOpen("second");
+                                    setOpen("second")
                                     setShowConfetti(true);
                                     setRecycleConfetti(true);
                                 }}
@@ -463,6 +581,10 @@ export default function TestDialog({ getCoins, testDialogInfo, lessonDetails, sl
                 </DialogActions>
             </Dialog>
 
+
+
+
+            {/* Last Dialog*/}
             <Dialog
                 open={open === "second"}
                 BackdropProps={{ invisible: true }}
@@ -488,19 +610,8 @@ export default function TestDialog({ getCoins, testDialogInfo, lessonDetails, sl
                     onClose={handleClose}>
                     {"Code written successfully"}
                 </BootstrapDialogTitle>
-                {/* <DialogTitle
-            sx={{
-              textAlign: "center",
-              fontSize: { md: "20px", xs: "18px" },
-              color: "#fff",
-              padding: "2rem",
-              fontWeight: 600,
-            }}
-            fontFamily={"Public Sans"}
-          >
-            {"Code written successfully"}
-          </DialogTitle> */}
                 <DialogContent
+                    id="completeDialogBox"
                     sx={{
                         padding: "0",
                     }}
@@ -534,20 +645,30 @@ export default function TestDialog({ getCoins, testDialogInfo, lessonDetails, sl
                             {`Coins earned`}
                         </Typography>
 
-                        <StyledRating
-                            name="read-only"
-                            value={marks}
-                            precision={0.5}
-                            style={{
-                                width: "140px",
-                                display: "flex",
-                                justifyContent: "space-between",
-                                margin: "auto",
-                            }}
-                            icon={<Icon_StarFullNew width={24} height={24} />}
-                            emptyIcon={<Icon_StarEmptyNew width={24} height={24} />}
-                            readOnly
-                        />
+                        <Stack justifyContent={"center"} direction={"row"} gap={1}>
+                            {console.log(coins)}
+                            {
+                                coins.length > 0 &&
+                                coins.map(coin => {
+                                    if (coin == "1") {
+                                        return <MemoCoin1 />
+                                    }
+                                    else if (coin == ".75") {
+                                        return <MemoCoin75 />
+                                    }
+                                    else if(coin==".5"){
+                                        return <MemoCoin50/>
+                                    }
+                                    else if (coin == ".25") {
+                                        return <MemoCoin25 />
+                                    }
+                                    else {
+                                        return <MemoCoin0 />
+                                    }
+                                })
+                            }
+                        </Stack>
+
                     </Box>
 
                     <Typography
@@ -574,8 +695,7 @@ export default function TestDialog({ getCoins, testDialogInfo, lessonDetails, sl
                     sx={{
                         justifyContent: "center",
                         padding: "2rem",
-                    }}
-                >
+                    }}>
                     <Button
                         variant="contained"
                         sx={{
@@ -586,11 +706,8 @@ export default function TestDialog({ getCoins, testDialogInfo, lessonDetails, sl
                             textTransform: "none",
                             fontFamily: "Public Sans"
                         }}
-                        onClick={() => {
-                            router.push(`${process.env.Dashboard_URL}`);
-                        }}
-                        autoFocus
-                    >
+                        onClick={() => router.push(`${process.env.Dashboard_URL}`)}
+                        autoFocus>
                         Go to dashboard
                     </Button>
                 </DialogActions>

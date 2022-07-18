@@ -9,7 +9,25 @@
 
 * {
     box-sizing: border-box;
+    scroll-behavior: smooth;
 }
+
+/* SCROLLBAR STYLES */
+::-webkit-scrollbar{
+    width: 5px;
+    height: 5px;
+}
+::-webkit-scrollbar-track{
+    background-color: transparent;
+}
+::-webkit-scrollbar-thumb{
+    background-color: #777786;
+    border-radius: 30px;
+}
+#completeDialogBox::-webkit-scrollbar{
+    display: none;
+}
+
 
 body {
     /* background-image: url("../public/assets/python_anim_bg.jpg");
@@ -57,6 +75,10 @@ body {
     margin: 5px;
 }
 
+.modal-content {
+    color: black;
+}
+
 .CodeMirror-gutters,
 .CodeMirror-linenumbers {
     background-color: transparent !important;
@@ -67,10 +89,7 @@ code {
         monospace;
 }
 
-.CodeMirror-gutters,
-.CodeMirror-linenumbers {
-    background-color: transparent !important;
-}
+
 
 
 #sprite {

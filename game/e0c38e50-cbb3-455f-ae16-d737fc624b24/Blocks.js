@@ -85,9 +85,11 @@ Blockly.Python["send__block"] = function (block) {
 
 Blockly.Blocks['wait_block'] = {
     init: function () {
+        this.appendValueInput("NAME")
+            .setCheck("Number")
+            .appendField(new Blockly.FieldLabelSerializable("Wait for"), "NAME");
         this.appendDummyInput()
-            .appendField("Wait for")
-            .appendField(new Blockly.FieldNumber(0), "milli")
+            .setAlign(Blockly.ALIGN_RIGHT)
             .appendField("sec");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
@@ -96,17 +98,16 @@ Blockly.Blocks['wait_block'] = {
         this.setHelpUrl("");
     }
 };
+
+
 Blockly.JavaScript['wait_block'] = function (block) {
-    var value_name = Blockly.JavaScript.valueToCode(block, 'NAME', Blockly.JavaScript.ORDER_ATOMIC);
-    var number_milli = block.getFieldValue('milli');
-    var code = 'await sleep(' + number_milli * 1000 + ');';
+    let value_name = Blockly.JavaScript.valueToCode(block, 'NAME', Blockly.JavaScript.ORDER_ATOMIC);
+    let code = 'await sleep(' + (value_name * 1000) + ');';
     return code;
 };
-
 Blockly.Python['wait_block'] = function (block) {
-    var value_name = Blockly.Python.valueToCode(block, 'NAME', Blockly.Python.ORDER_ATOMIC);
-    var number_milli = block.getFieldValue('milli');
-    var code = 'time.sleep(' + number_milli + ')\n';
+    let value_name = Blockly.JavaScript.valueToCode(block, 'NAME', Blockly.JavaScript.ORDER_ATOMIC);
+    let code = 'time.sleep(' + value_name + ')\n';
     return code;
 };
 
@@ -121,7 +122,7 @@ export const blocks = {
         },
         {
             "kind": "BLOCK",
-            "blockxml": "",
+            "blockxml": '<block type="wait_block"><value name = "NAME"><block type = "math_number"><field name="NUM">1</field></block></value></block>',
             "type": "wait_block"
         }
         ],

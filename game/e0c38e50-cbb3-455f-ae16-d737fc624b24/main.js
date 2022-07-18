@@ -234,6 +234,10 @@ function completedFlag() {
     return isStageCompleted;
 }
 
+function returnDemoWorkSpace() {
+    return Blockly.Xml.workspaceToDom(Blockly.getMainWorkspace());
+}
+
 function getNoOfBlocks() {
     demoWorkspace = Blockly.getMainWorkspace();
     noOfBlocks = demoWorkspace.getAllBlocks();
@@ -250,5 +254,6 @@ export {
     completedFlag,
     runCode,
     updateImports,
-    getNoOfBlocks
+    getNoOfBlocks,
+    returnDemoWorkSpace
 };

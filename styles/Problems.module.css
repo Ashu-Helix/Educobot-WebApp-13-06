@@ -36,8 +36,6 @@
 }
 
 .neumorphic_button_container {
-    /* width: fit-content;
-    margin: auto; */
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -173,6 +171,13 @@
     outline: none;
 }
 
+.sound_close_container {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin: 1rem 1rem 0rem 1rem;
+}
+
 @media screen and (max-width: 601px) {
     .neumorphic_button {
         height: 31px;
@@ -207,16 +212,16 @@
 
 .editor {
     border-radius: 16px;
-    /* background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url("../public/assets/Reflection_transparent.png"); */
     background-color: #212B36;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: 100% 100%;
-    /* background-color: rgba(0, 0, 0, .5); */
-    backdrop-filter: blur(0.25px);
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     height: 100%;
+    font-size: 1.5rem;
+    margin-left: 1rem;
 }
+
+/* .editor [class*=CodeMirror-lines] {
+    overflow-x: scroll;
+} */
+
 
 .lessonDetailsDiv {
     height: 7%;
@@ -230,11 +235,6 @@
     gap: 0.5rem;
     align-items: center;
 }
-
-/* .blocklycontainer {
-  height: "93%";
-  display: "flex";
-} */
 
 .backbtn {
     color: #000;
@@ -297,7 +297,7 @@
     }
 
     /*.lessonDetailsDiv {
-       height: auto;
+         height: auto;
         flex-direction: column; 
 }*/
 
@@ -343,7 +343,8 @@
     }
 
     .editor {
-        pointer-events: none;
+        /* pointer-events: none; */
+        margin: 0 1rem;
     }
 
     .neumorphic_button_container {
@@ -351,5 +352,9 @@
         display: flex;
         justify-content: space-between;
         overflow: hidden;
+    }
+
+    .editor [class*=CodeMirror-lines] {
+        overflow-x: scroll;
     }
 }

@@ -1,52 +1,40 @@
 import { formControlClasses } from '@mui/material';
-import { useEffect } from 'react';
+import { useEffect, useLayoutEffect } from 'react';
 import { UnControlled, Controlled } from 'react-codemirror2'
 interface EditorProps {
-    language?: 'python';
-    theme?: 'material';
+    language?: string;
+    theme?: string;
     handleKeyDown?: any;
     onLoad?: any;
     className?: string;
+    setkeyboardState?: (value) => void
 }
 
-function PythonCode({ language, theme, handleKeyDown, className, onLoad }: EditorProps) {
+function PythonCode({ language, theme, handleKeyDown, className, onLoad, setkeyboardState }: EditorProps) {
+    useLayoutEffect(() => {
+        document.getElementsByClassName("CodeMirror-code")[0].setAttribute("virtualkeyboardpolicy", "manual")
+    }, [])
 
     useEffect(() => {
         onLoad()
     }, [])
     return (
-        // <Editor language={language} theme={theme} onChange={handleChange}></Editor>
         <UnControlled
             options={{
                 mode: language,
                 theme: theme,
                 lineNumbers: true,
-                matchBrackets: true,
-                inputStyle: "contenteditable",
-                //readOnly: 'nocursor'
-                // mode: { name: "xml", htmlMode: true, language },
+                readOnly: true,
             }}
+
             onKeyDown={handleKeyDown}
-            // onFocus={(editor) => { var ele = editor.display.input.textarea; ele.setAttribute("readonly", "readonly"); }}
-            // onFocus={(editor) => { try { editor.display.input.textarea.setAttribute("readonly", "readonly"); } catch (err) { console.log(err); } }}
-            // onFocus={(editor) => { }}
+            onFocus={(ed, event) => {
+                if (window.screen.availWidth > 600) return;
+                setkeyboardState(true)
+            }}
             className={className}
         />
     )
-
-    function hideKeyboard(element) {
-        console.log("I AM", element);
-
-        element.attr('readonly', 'readonly'); // Force keyboard to hide on input field.
-        element.attr('disabled', 'true'); // Force keyboard to hide on textarea field.
-        setTimeout(function () {
-            element.blur();  //actually close the keyboard
-            // Remove readonly attribute after keyboard is hidden.
-            element.removeAttr('readonly');
-            element.removeAttr('disabled');
-        }, 100);
-    }
-
 }
 
 export default PythonCode

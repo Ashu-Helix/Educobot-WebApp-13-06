@@ -16,7 +16,8 @@ import {
     FormControlLabel,
     Snackbar,
     Alert,
-    IconButton
+    IconButton,
+    Stack
 } from "@mui/material";
 
 import CloseIcon from '@mui/icons-material/Close';
@@ -30,6 +31,14 @@ import Confetti from "react-confetti";
 import { unstable_useForkRef } from "@mui/utils";
 // import { turn } from "../../components/helpers/dog";
 import { useRouter } from "next/router";
+import axios from "axios";
+
+// coins
+import MemoCoin1 from "../assets/1";
+import MemoCoin75 from "../assets/75";
+import MemoCoin50 from "../assets/50";
+import MemoCoin25 from "../assets/25";
+import MemoCoin0 from "../assets/0";
 
 // ----------------------------------------------------------------------
 
@@ -81,6 +90,7 @@ type Props = {
     // getCoins: (value) => void
     // slug: any;
     lessonDetails?: any;
+    userDetails?:any;
     testDialogInfo: {
         dialogStatus: String;
 
@@ -90,6 +100,7 @@ export default function TestDialog(
     {
         // getCoins,  slug,
         lessonDetails,
+        userDetails,
         testDialogInfo }: Props
 ) {
     const [widthState, setWidthState] = useState(0);
@@ -204,22 +215,6 @@ export default function TestDialog(
         setActualWidthHeight();
         window.addEventListener("resize", setActualWidthHeight);
 
-        // try {
-        //     setQuestionArray([...require(`../../game/${slug}/Mcq`).mcqArr])
-        // } catch (err) {
-        //     console.log(err)
-        // }
-
-        // questionArray = require(`../../public/mcq/${slug}Mcq.js`).mcqArr;
-        // try {
-        //   questionArray = require(`../../public/mcq/${slug}Mcq.js`).mcqArr
-        // } catch (err) {
-        //   // setTimeout(() => {
-        //   //   questionArray = require(`../../public/mcq/${slug}Mcq.js`).mcqArr
-        //   // }, 3000);
-        //   router.reload();
-        // }
-
         return () => {
             window.removeEventListener("resize", setActualWidthHeight);
         };
@@ -263,16 +258,56 @@ export default function TestDialog(
         setRecycleConfetti(false);
     };
 
-    // const closeError = (
-    //   event?: React.SyntheticEvent | Event,
-    //   reason?: string
-    // ) => {
-    //   if (reason === "clickaway") {
-    //     return;
-    //   }
 
-    //   setShowError(false);
-    // };
+    // POST EVAL DATA
+    const [coins, setCoins] = useState([]);
+    useEffect(() => {
+        open==="second" && postEvalData();
+    }, [open])
+    
+
+    //SAVE COINS
+    const saveCoins = async(body:any, coins: number) => {
+        if (coins) {
+            body["edcoins"] = coins;
+        }
+
+        try {
+            const res = await axios({
+                method:"post",
+                url:"https://api.educobot.com/users/postEvalData",
+                data:body,
+                headers: { "Content-Type": "application/json" },
+            });
+            if(res.status==200 && res.data.msg){
+                console.log(res.data.msg)
+            }
+        }
+        catch (error) {
+            console.log(error.message)
+        }
+    }
+
+
+    //POST EVAL DATA
+    const postEvalData = () => {
+        
+        let body = {
+                "userID": userDetails?.sdUID,
+                "edType":"B",
+                "std": userDetails?.sdClass,
+                "div": userDetails?.sdDiv,
+                "status":"C",
+                "lessonID": lessonDetails?.lsID,
+                "rollNo": userDetails?.sdRollNo,
+                "pin" : userDetails?.otp,
+                "schoolID" : userDetails?.sdSchoolID,
+                "coins":1.0
+        }
+        saveCoins(body, 1.0)
+    }
+
+
     return (
         <>
             <div>
@@ -281,13 +316,14 @@ export default function TestDialog(
                     variant="outlined"
                     id="openTest"
                     onClick={() => {
-                        setOpen("test");
+                        setOpen("second");
                     }}
                     sx={{ display: "none" }}
                 >
                     Take Test
                 </Button>
 
+                {/* confirmation dialog */}
                 <Dialog
                     open={open === "test"}
                     BackdropProps={{ invisible: true }}
@@ -366,6 +402,8 @@ export default function TestDialog(
                     </DialogActions>
                 </Dialog>
 
+
+                {/* test dialog */}
                 <Dialog
                     open={open === "first"}
                     // onClose={handleClose}
@@ -516,6 +554,7 @@ export default function TestDialog(
                     </DialogActions>
                 </Dialog>
 
+                {/* last dialog */}
                 <Dialog
                     open={open === "second"}
                     BackdropProps={{ invisible: true }}
@@ -587,20 +626,31 @@ export default function TestDialog(
                                 {`Coins earned`}
                             </Typography>
 
-                            <StyledRating
-                                name="read-only"
-                                value={marks}
-                                precision={0.5}
-                                style={{
-                                    width: "140px",
-                                    display: "flex",
-                                    justifyContent: "space-between",
-                                    margin: "auto",
-                                }}
-                                icon={<Icon_StarFullNew width={24} height={24} />}
-                                emptyIcon={<Icon_StarEmptyNew width={24} height={24} />}
-                                readOnly
-                            />
+
+                                {/* Ratings */}
+                            {/* <Stack justifyContent={"center"} direction={"row"} gap={1}>
+                            {
+                                coins.length>0 &&
+                                coins.map(coin => {
+                                    if(coin=="1"){
+                                        return <MemoCoin1/>
+                                    }
+                                    else if(coin==".75"){
+                                        return <MemoCoin75/>
+                                    }
+                                    else if(coin==".50"){
+                                        return <MemoCoin50/>
+                                    }
+                                    else if(coin==".25"){
+                                        return <MemoCoin25/>
+                                    }
+                                    else{
+                                        return <MemoCoin0/>
+                                    }
+                                })
+                            }
+                        </Stack> */}
+                        
                         </Box>
 
                         <Typography

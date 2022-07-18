@@ -1,30 +1,31 @@
-import { useEffect } from 'react';
-import { Controlled } from 'react-codemirror2'
+import { useLayoutEffect } from 'react';
+import { Controlled } from 'react-codemirror2';
+import "codemirror/theme/yonce.css"
+import "codemirror/mode/python/python"
 interface EditorProps {
-    language?: 'python';
-    theme?: 'material';
+    language?: string;
+    theme?: string;
     handleChange?: any;
     value: string;
     className?: string;
+    setkeyboardState?: (value: any) => void,
+    setEditorState?: (value: any) => void
+    setOnlyKeyboard?: (value) => void
 }
 
-function EditorContainer({ language, theme, handleChange, value, className }: EditorProps) {
-
+function EditorContainer({ language, theme, handleChange, value, className, setkeyboardState, setEditorState, setOnlyKeyboard }: EditorProps) {
+    useLayoutEffect(() => {
+        document.getElementsByClassName("CodeMirror-code")[0].setAttribute("virtualkeyboardpolicy", "manual")
+    }, [])
 
     return (
-
         <Controlled
             value={value}
             options={{
                 mode: language,
                 theme: theme,
                 lineNumbers: true,
-                extraKeys: {
-                    "Ctrl-Space": "autocomplete"
-                },
-                matchBrackets: true,
-                //inputStyle: "contenteditable",
-                // mode: { name: "xml", htmlMode: true, language },
+                autofocus: true,
             }}
             onBeforeChange={(editor, data, value) => {
                 handleChange(value)
@@ -32,8 +33,22 @@ function EditorContainer({ language, theme, handleChange, value, className }: Ed
             onChange={(editor, data, value) => {
                 handleChange(value)
             }}
+            onFocus={(editor, event) => {
+                if (window.screen.availWidth > 600) return;
+                if (setEditorState)
+                    setEditorState(editor)
+                setkeyboardState(true)
+                setOnlyKeyboard(true)
+            }}
+            onCursorActivity={(editor) => {
+                if (setEditorState)
+                    setEditorState(editor)
+            }}
+            onBlur={(editor, event) => {
+                if (window.screen.availWidth > 600) return;
+                editor.focus()
+            }}
             className={className}
-
         />
     )
 }
