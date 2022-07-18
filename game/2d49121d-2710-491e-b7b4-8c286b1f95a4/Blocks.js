@@ -1,6 +1,15 @@
 import Blockly from "blockly";
 import "blockly/python";
 import "blockly/javascript";
+import {
+    update,
+    preload,
+    create,
+    gameHeight,
+    gameWidth,
+    repeat_forever_flag
+} from "./main"
+import { CANVAS, Game, AUTO } from "phaser";
 
 Blockly.HSV_SATURATION = 1;
 Blockly.HSV_VALUE = 1;
@@ -88,11 +97,11 @@ Blockly.JavaScript['forever_repeat_block'] = function (block) {
    }}`
     if (repeat_forever_flag) {
         eval(code);
-        game.destroy();
+        window['game'].destroy();
         document.getElementById('sprite-container').innerHTML = "";
         setTimeout(() => {
             let config = {
-                type: Phaser.AUTO,
+                type: AUTO,
                 width: gameWidth,
                 height: gameHeight,
                 backgroundColor: "#eeeeee",
@@ -113,7 +122,7 @@ Blockly.JavaScript['forever_repeat_block'] = function (block) {
                     update: update,
                 },
             };
-            let game1 = new Phaser.Game(config);
+            window['game'] = new Phaser.Game(config);
         }, 100);
 
     }

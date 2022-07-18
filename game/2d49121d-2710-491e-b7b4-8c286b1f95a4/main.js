@@ -73,7 +73,7 @@ let config = {
 };
 
 // Initialize Phaser with config
-let game = new Phaser.Game(config);
+window['game'] = new Phaser.Game(config);
 
 // Phaser preload function
 function preload() {
@@ -310,16 +310,12 @@ export {
     reset_output,
     reInitValues,
     waitDuration,
-    // drink_Water,
     hasDroppedpabel,
-    // water,
-    // potLid,
     dropPabel,
     isDropping,
     updateImports,
     getNoOfBlocks,
     update,
-    game,
     preload,
     create,
     gameHeight,
