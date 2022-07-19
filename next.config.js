@@ -135,7 +135,7 @@ const nextConfig = {
     fs: "empty", // This is required
 
     webpack: (config, options) => {
-        getFiles()
+        // getFiles()
         return config
     },
 };
