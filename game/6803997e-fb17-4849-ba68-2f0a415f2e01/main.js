@@ -1,81 +1,95 @@
-// import M from 'materialize-css';
-// import {
-//     AUTO,
-//     Game,
-// } from 'phaser';
+import M from 'materialize-css';
+import {
+    AUTO,
+    Game,
+} from 'phaser';
 
-// import MSPhaserLib from '../msPhaserLib.min';
+import MSPhaserLib from '../msPhaserLib.min';
 
-import M from "materialize-css";
+// import { CANVAS, Game, AUTO } from "phaser";
+
 import Blockly from "blockly";
 import "blockly/python";
 import "blockly/javascript";
-import MSPhaserLib from "../msPhaserLib.min";
-import { CANVAS, Game, AUTO } from "phaser";
 
 let demoWorkspace = Blockly.getMainWorkspace();
 let noOfBlocks;
 
+
 let _gameThis = null;
-const baseURL = "../img/images/";
-const gameWidth = 4001;
-const gameHeight = 2251;
+const baseURL = "../img/images/ed897b4e-3959-40f5-a926-018643a5b99b";
+const gameWidth = 1920;
+const gameHeight = 1080;
 const gameScale = 1;
 
+let game_is_over = false;
+
 const spritesElement = {
-    firstBoyFever: { x: 2003, y: 1123, stayAt: 4, frameWidth: 2073, frameHeight: 2251, frameFrom: 0, frameTo: 4, frameRate: 1 },
-    firstBoyFeverOk: { x: 2003, y: 1123, stayAt: 3, frameWidth: 2073, frameHeight: 2251, frameFrom: 0, frameTo: 3, frameRate: 1 },
-    firstGirlFever: { x: 2003, y: 1123, stayAt: 4, frameWidth: 2073, frameHeight: 2251, frameFrom: 0, frameTo: 4, frameRate: 1 },
-    firstGirlFeverOk: { x: 2003, y: 1123, stayAt: 3, frameWidth: 2073, frameHeight: 2251, frameFrom: 0, frameTo: 3, frameRate: 1 },
-    secondGirlFever: { x: 2003, y: 1123, stayAt: 4, frameWidth: 2073, frameHeight: 2251, frameFrom: 0, frameTo: 4, frameRate: 1 },
-    secondGirlFeverOk: { x: 2003, y: 1123, stayAt: 3, frameWidth: 2073, frameHeight: 2251, frameFrom: 0, frameTo: 3, frameRate: 1 },
-    patientTemp: { x: 300, y: 1400, stayAt: 62, frameWidth: 120, frameHeight: 750, frameFrom: 0, frameTo: 62, frameRate: 38 },
-    patientTempHigh: { x: 300, y: 1400, stayAt: 99, frameWidth: 120, frameHeight: 750, frameFrom: 0, frameTo: 99, frameRate: 38 },
-    tempIndicator: { x: 300, y: 290, stayAt: 6, frameWidth: 270, frameHeight: 235, frameFrom: 0, frameTo: 3, frameFromHigh: 4, frameToHigh: 6, frameRate: 1 },
+    beaver: { x: 420, y: 650, stay: 0, frameWidth: 354, frameHeight: 389, frameFrom: 0, frameTo: 9, frameRate: 8, repeat: -1 },
+    hammer: { x: 1300, y: 500, stay: 0, frameWidth: 650, frameHeight: 617, frameFrom: 0, frameTo: 7, frameRate: 16, repeat: 0 }
 }
 
-const temperatureRange = { min: 37, max: 37.5 };
-const randomTemperatureRange = [36.1, 36.2, 36.3, 37.0, 39.1, 39.2, 39.3];
-let _oMSPhaserLib;
-let speechBubble;
-let speechText;
-let patientList = ['firstGirlFever', 'firstBoyFever', 'secondGirlFever'];
-let patientIndex = 0;
-let patientTemperature = -1;
-let patientName = '';
-let patient_temperature;
-let default_;
-let run_ = false;
-let is_game_completed = false;
-let patient_seen_count = 0;
+const beaverPos = [
+    { x: 420, y: 650 },
+    { x: 725, y: 514 },
+    { x: 1030, y: 600 },
+    { x: 1350, y: 530 },
+    { x: 1623, y: 630 },
+    { x: 1314, y: 800 },
+    { x: 756, y: 800 }
+]
+
+const hammerPos = [
+    { x: 250, y: 350, r: 0 },
+    { x: 550, y: 220, r: 0 },
+    { x: 850, y: 290, r: 0 },
+    { x: 1180, y: 250, r: 0 },
+    { x: 1450, y: 320, r: 0 },
+    { x: 1150, y: 490, r: 0 },
+    { x: 580, y: 490, r: 0 }
+]
+
 
 const GAME_CONSTANT = {
     images: {
-        medicinBG: "medicinBG",
-        speechBubble: "speechBubble"
+        whackBG: "whackBG",
+        bang: "bang"
     },
     spritesImages: {
-        firstBoyFever: "firstBoyFever",
-        firstBoyFeverOk: "firstBoyFeverOk",
-        firstGirlFever: "firstGirlFever",
-        firstGirlFeverOk: "firstGirlFeverOk",
-        secondGirlFever: "secondGirlFever",
-        secondGirlFeverOk: "secondGirlFeverOk",
-        patientTemp: "patientTemp",
-        patientTempHigh: "patientTempHigh",
-        tempIndicator: "tempIndicator"
+        beaver: "beaver",
+        hammer: "hammer"
     }
 };
-const INCORRECT_MESSAGE = 'Wrong temperature entry.';
+const ERROR_MESSAGE = 'Error Message: <Write error message here>';
 const CORRECT_MESSAGE = 'Correct Message: <Write correct message here>';
 
+
+let _oMSPhaserLib;
+let randomNo = 0;
+let isBeaverClick = false;
+// let window['isBeaverHitHammer'] = false;
+window['isBeaverHitHammer'] = false;
+// let scorePoints = 0;
+window['scorePoints'] = 0;
+// let addScoreValue = 0;
+window['addScoreValue'] = 0;
+let molePosNo = 0;
+let canRandom = false;
+let canAnimalShow = false;
+let canHammerShow = false;
+let maxScore = 20;
+let isEndAllBlock = false;
+let canHideAnimal = false;
+let waitTime = 100;
+
 // Phaser config
-const config = {
+let config = {
     type: Phaser.AUTO,
     width: gameWidth,
     height: gameHeight,
     backgroundColor: "#eeeeee",
     parent: "sprite-container",
+    //canvas: canvas1,
     canvasStyle: `width: 100%;
     object-fit: revert;
     aspect-ratio: 738 / 436;`,
@@ -83,6 +97,7 @@ const config = {
         default: "arcade",
         arcade: {
             gravity: { y: 0 },
+            debug: false
         },
     },
     scene: {
@@ -93,7 +108,7 @@ const config = {
 };
 
 // Initialize Phaser with config
-const game = new Phaser.Game(config);
+let game = new Phaser.Game(config);
 
 // Phaser preload function
 function preload() {
@@ -101,7 +116,7 @@ function preload() {
     _gameThis.load.setBaseURL(baseURL);
 
     // Initialize MS phaser library - param -> phaser object, development-mode, depth-manager-start-index
-    _oMSPhaserLib = new MSPhaserLib(this, true, 100);
+    _oMSPhaserLib = new MSPhaserLib(this, false, 100);
     loadImages();
 }
 
@@ -110,30 +125,33 @@ function create() {
     let images = GAME_CONSTANT.images;
     let spritesImages = GAME_CONSTANT.spritesImages;
 
-    //used for  static image
     for (const key in images) {
         if (Object.hasOwnProperty.call(images, key)) {
             const element = images[key];
             _gameThis[element] = _gameThis.add.image(gameWidth / 2, gameHeight / 2, element);
         }
     }
-    initSpeechBubble();
-    // used for dynamic sprite image
+    _gameThis[GAME_CONSTANT.images.bang].visible = false;
+    _gameThis[GAME_CONSTANT.images.bang].setDepth(101);
+
     for (const key in spritesImages) {
         if (Object.hasOwnProperty.call(spritesImages, key)) {
             const element = spritesImages[key];
             const elementValue = spritesElement[element];
 
-            _gameThis[element] = _gameThis.add.sprite(elementValue.x, elementValue.y, element);
-            _gameThis[element].visible = false;
+            _gameThis[element] = _gameThis.physics.add.sprite(elementValue.x, elementValue.y, element);
+            // _gameThis[element].visible = false;
         }
     }
+    _gameThis[GAME_CONSTANT.spritesImages.beaver].setDepth(102);
 
     init();
 }
 
 // Phaser update function
-function update() { }
+function update() {
+
+}
 
 // Load images
 function loadImages() {
@@ -158,265 +176,325 @@ function loadImages() {
 }
 
 // Initialize animation functions
-async function init() {
-    // getPatientTemperature();
-    shuffleArray(patientList);
-    //_gameThis['highTemp39_1'].visible = true;
-    _gameThis['patientTemp'].scale = 2.3;
-    _gameThis['patientTempHigh'].scale = 2.3;
-    // _gameThis['tempIndicator'].visible = true;
-    _gameThis['tempIndicator'].scale = 2.2;
-    //checkTemp(36, 'firstGirlFever');
-    //createDialogue('Hello');
-}
-
-function getRandomNumberBetween(min, max) {
-    return Math.floor(min + Math.random() * (max - min));
-}
-
-// Get patient's temperature
-async function getPatientTemperature() {
-    if (run_) {
-        if (JSON.stringify(patientList) !== JSON.stringify([])) {
-            patient_seen_count++;
-            const index = getRandomNumberBetween(0, randomTemperatureRange.length);
-            patientTemperature = randomTemperatureRange[index];
-
-            patientIndex = patientIndex % patientList.length;
-            patientName = patientList[patientIndex++];
-
-            // console.log(patientTemperature, patientIndex, patientName);
-            hideAll();
-            let elementValue = spritesElement[patientName];
-            let oTarget = _gameThis[patientName];
-
-            oTarget.visible = true;
-            if (run_) _oMSPhaserLib.spriteAnimation(oTarget, patientName, 0, 1, elementValue.frameRate, 0);
-
-            let temperatureMeter = isTemperatureHigh(patientTemperature) ? 'patientTempHigh' : 'patientTemp';
-            let elementValue2 = spritesElement[temperatureMeter];
-            let oTarget2 = _gameThis[temperatureMeter];
-            oTarget2.visible = true;
-            if (run_) _oMSPhaserLib.spriteAnimation(oTarget2, temperatureMeter, elementValue2.frameFrom, elementValue2.frameTo, elementValue2.frameRate, 0);
-
-            let oTarget3 = _gameThis['tempIndicator'];
-            oTarget3.visible = true;
-            const frameNumber = randomTemperatureRange.indexOf(patientTemperature);
-            if (run_) _oMSPhaserLib.stopSpriteAt(oTarget3, 'tempIndicator', frameNumber);
-
-            if (run_) await sleep(5000);
-            // callNextPatient();
-            return patientTemperature;
-        } else {
-            M.toast({ html: "All patients consulted for today. No more left" });
-            return;
-        }
-    }
-}
-
-function isTemperatureHigh(temperature) {
-    return temperature > temperatureRange.max;
-}
-
-// Randomize array
-function shuffleArray(array) {
-    for (var i = array.length - 1; i > 0; i--) {
-        var j = Math.floor(Math.random() * (i + 1));
-        var temp = array[i];
-        array[i] = array[j];
-        array[j] = temp;
-    }
-}
-
-// Hide all element
-function hideAll() {
+function init() {
     let spritesImages = GAME_CONSTANT.spritesImages;
-    for (const key in spritesImages) {
-        if (Object.hasOwnProperty.call(spritesImages, key)) {
-            const element = spritesImages[key];
-            _gameThis[element].visible = false;
-        }
-    }
+    let beaver = spritesImages.beaver;
+    let oBeaver = _gameThis[beaver];
+    let beaverValue = spritesElement.beaver;
 
-}
+    let hammer = spritesImages.hammer;
+    let oHammer = _gameThis[hammer];
+    let hammerValue = spritesElement.hammer;
 
-function checkTemp(temperature, patientName) {
-    if (temperature) {
-        if (temperature > temperatureRange.max)
-            showResult(patientName, 'patientTempHigh', 'High');
-        else if (temperature >= temperatureRange.min && temperature <= temperatureRange.max)
-            showResult(patientName + 'Ok', 'patientTemp', '');
-        else
-            M.toast({ html: INCORRECT_MESSAGE });
-    } else
-        M.toast({ html: INCORRECT_MESSAGE });
-}
+    //_oMSPhaserLib.spriteAnimation(oBeaver, beaver, beaverValue.frameFrom, beaverValue.frameTo, beaverValue.frameRate, beaverValue.repeat);
 
-async function showResult(patientName, temperature, tempIndicatorType) {
-    if (run_) {
-        hideAll();
-        let elementValue = spritesElement[patientName];
-        let oTarget = _gameThis[patientName];
-
-        oTarget.visible = true;
-        _oMSPhaserLib.spriteAnimation(oTarget, patientName, elementValue.frameFrom, elementValue.frameTo, elementValue.frameRate, 0);
-
-        let temperatureMeter = isTemperatureHigh(patientTemperature) ? 'patientTempHigh' : 'patientTemp';
-        let elementValue2 = spritesElement[temperatureMeter];
-        let oTarget2 = _gameThis[temperatureMeter];
-        oTarget2.visible = true;
-        _oMSPhaserLib.spriteAnimation(oTarget2, temperatureMeter, elementValue2.frameFrom, elementValue2.frameTo, elementValue2.frameRate, 0);
-
-        let oTarget3 = _gameThis['tempIndicator'];
-        oTarget3.visible = true;
-        const frameNumber = randomTemperatureRange.indexOf(patientTemperature);
-        _oMSPhaserLib.stopSpriteAt(oTarget3, 'tempIndicator', frameNumber);
-
-        if (run_) await sleep(5000);
-    }
-}
-
-async function checkTempUsingBlockly(_obj) {
-    patientIndex = patientIndex % patientList.length;
-    checkTemp(_obj.temperature, patientList[patientIndex++]);
-    if (run_) await sleep(1000);
-    createDialogue(_obj.sayMsg[0]);
-}
-
-async function giveMedicine() {
-    if (run_) await showResult(patientName, 'patientTempHigh', 'High');
-}
-
-async function normalTemperature() {
-    if (run_) await showResult(patientName + 'Ok', 'patientTemp', '');
-}
-
-// Initialize speech bubble
-function initSpeechBubble() {
-    speechBubble = _gameThis[GAME_CONSTANT.images.speechBubble];
-    speechBubble.scale = 0.7;
-    speechBubble.x = gameWidth - speechBubble.width * speechBubble.scale - 100;
-    speechBubble.y = 100;
-    speechBubble.setOrigin(0);
-
-    let speechTextWidth = speechBubble.width * speechBubble.scale - 40;
-    speechText = _gameThis.add.text(0, 0, 'Hello World', {
-        font: '64pt arial',
-        color: '#000000',
-        wordWrap: { width: speechTextWidth, useAdvancedWrap: true }
-    });
-    speechText.x = speechBubble.x + 40;
-    speechText.y = speechBubble.y + (speechBubble.height * speechBubble.scale * 0.66 - speechText.height) / 2;
-    speechBubble.alpha = speechText.alpha = 0;
-}
-
-// Create dialogue
-function createDialogue(dialogue) {
-    return new Promise(function (myResolve, myReject) {
-        if (run_) {
-            speechText.text = dialogue;
-            speechBubble.alpha = 1;
-            _oMSPhaserLib.fadeIn(speechBubble);
-            _oMSPhaserLib.fadeIn(speechText);
-            setTimeout(() => {
-                _oMSPhaserLib.fadeOut(speechBubble);
-                _oMSPhaserLib.fadeOut(speechText);
-                setTimeout(() => {
-                    myResolve();
-                }, 1000);
-            }, 3000);
-
-        } else {
-            myResolve();
+    //_oMSPhaserLib.bringOnTop(oBeaver);
+    //oBeaver.visible = false;
+    oBeaver.setInteractive();
+    oBeaver.on('pointerdown', function (pointer, x, y, event) {
+        // console.log(isBeaverClick, oBeaver.anims.isPlaying)
+        if (canAnimalShow) {
+            if (!isBeaverClick && oBeaver.anims.isPlaying) {
+                isBeaverClick = true;
+                window['isBeaverHitHammer'] = true;
+                fnAddClickOnBeaver(pointer, x, y);
+            }
         }
     });
+
+    // below code for hammer sprite animation to play animation on animal click
+    _gameThis.anims.create({
+        key: 'hammer',
+        frames: _gameThis.anims.generateFrameNumbers(GAME_CONSTANT.spritesImages.hammer, { start: spritesElement.hammer.frameFrom, end: spritesElement.hammer.frameTo }),
+        frameRate: spritesElement.hammer.frameRate,
+        repeat: spritesElement.hammer.repeat
+    });
+
+    oHammer.visible = false; // set the hammer visibility on game stage
+    oHammer.scale = 0.8;
+
+    // below line for add the text on game stage
+    _gameThis['scorePoint'] = _gameThis.add.text(800, 20, 'Point: 0', {
+        fontFamily: 'Arial',
+        fontSize: '50px',
+        color: '#000',
+        shadow: { offsetX: 0, offsetY: 0, color: '#000', fill: true, blur: 5 }
+    });
+
+    _gameThis['scorePoint'].visible = false;
+
+    fnStart();
 }
 
-async function callNextPatient(_nextPatient) {
-    patientList.shift();
+// function use to start the animal animation and its event
+function fnStart() {
+    // add event on animal
+    _gameThis[GAME_CONSTANT.spritesImages.beaver].on('animationrepeat', () => {
+        isBeaverClick = false;
+        randomNo = fnRandomNo();
+        changePosBeaver(randomNo);
+    });
+
+    // add event on hammer
+    _gameThis[GAME_CONSTANT.spritesImages.hammer].on('animationcomplete', async () => {
+        isBeaverClick = false;
+        randomNo = fnRandomNo();
+        _gameThis[GAME_CONSTANT.spritesImages.hammer].visible = false;
+        _gameThis[GAME_CONSTANT.images.bang].visible = false;
+        // _gameThis['scorePoint'].setText('Point: ' + (scorePoints += addScoreValue));
+
+        if ((window['scorePoints'] >= maxScore) && isEndAllBlock) {
+            fnGameOverText();
+        }
+        await sleep(waitTime);
+
+        if (canHideAnimal) {
+            _gameThis[GAME_CONSTANT.spritesImages.beaver].visible = false;
+            changePosBeaver(randomNo);
+            _gameThis[GAME_CONSTANT.spritesImages.beaver].anims.restart();
+            _gameThis[GAME_CONSTANT.spritesImages.beaver].visible = true;
+        }
+    });
+
+    fnShowAnimalOrHammer("hammer");
+}
+
+function fnShowAnimal() {
+    let spritesImages = GAME_CONSTANT.spritesImages;
+    let beaver = spritesImages.beaver;
+    let oBeaver = _gameThis[beaver];
+    let beaverValue = spritesElement.beaver;
+
+    _oMSPhaserLib.spriteAnimation(oBeaver, beaver, beaverValue.frameFrom, beaverValue.frameTo, beaverValue.frameRate, beaverValue.repeat);
+}
+
+// function to use for change the animal position
+async function changePosBeaver(Pos) {
+    _gameThis[GAME_CONSTANT.spritesImages.beaver].x = beaverPos[Pos].x;
+    _gameThis[GAME_CONSTANT.spritesImages.beaver].y = beaverPos[Pos].y;
+}
+
+// function to use for change the hammer position
+function changePosHammer(Pos) {
+    _gameThis[GAME_CONSTANT.spritesImages.hammer].x = hammerPos[Pos].x;
+    _gameThis[GAME_CONSTANT.spritesImages.hammer].y = hammerPos[Pos].y;
+    _gameThis[GAME_CONSTANT.spritesImages.hammer].rotation = ((Math.PI / 2) * hammerPos[Pos].r);
+}
+
+function bothPosChange(pos) {
+    changePosBeaver(pos);
+    changePosHammer(pos);
+}
+
+// function to use the randow number for set the animal position as randomaly
+function fnRandomNo() {
+    let _no = 0;
+    if (canRandom) {
+        _no = Math.floor(Math.random() * 7);
+    } else {
+        if (molePosNo == 6)
+            molePosNo = -1;
+        _no = molePosNo += 1;
+    }
+
+    canRandom = false;
+    return _no;
+}
+
+// function to handle the behaviour of animal and hammer animation when user click on animal
+function fnAddClickOnBeaver(_pointer, _x, _y) {
+    if (canHammerShow) {
+        // let beaver = _gameThis[GAME_CONSTANT.spritesImages.beaver];
+        let hammer = _gameThis[GAME_CONSTANT.spritesImages.hammer];
+        // beaver.anims.pause(beaver.anims.currentAnim.frames[4]);
+        hammer.visible = true;
+        hammer.x = hammerPos[randomNo].x;
+        hammer.y = hammerPos[randomNo].y;
+        hammer.anims.play(GAME_CONSTANT.spritesImages.hammer);
+
+        let bang = _gameThis[GAME_CONSTANT.images.bang];
+        bang.visible = true;
+        bang.x = hammerPos[randomNo].x + 100;
+        bang.y = hammerPos[randomNo].y + 220;
+    }
+}
+
+// function to show or hide the animal and hammer 
+function fnShowOrHide(_objName, _isShow) {
+    let spritesImages = GAME_CONSTANT.spritesImages;
+    _gameThis[_objName].visible = _isShow;
+    if (_objName == spritesImages.beaver) {
+        let beaver = spritesImages.beaver;
+        let oBeaver = _gameThis[beaver];
+        let beaverValue = spritesElement.beaver;
+
+        _oMSPhaserLib.spriteAnimation(oBeaver, beaver, beaverValue.frameFrom, beaverValue.frameTo, beaverValue.frameRate, beaverValue.repeat);
+    }
+}
+
+function reset_for_update() {
+    window['isBeaverHitHammer'] = false;
+}
+
+// function to add game over text
+function fnGameOverText() {
+    setTimeout(() => {
+        let spritesImages = GAME_CONSTANT.spritesImages;
+        let beaver = spritesImages.beaver;
+        let oBeaver = _gameThis[beaver];
+        let hammer = spritesImages.hammer;
+        let oHammer = _gameThis[hammer];
+        oBeaver.visible = false;
+        oHammer.visible = false;
+
+        _gameThis.scene.pause();
+        let text = _gameThis.add.text(gameWidth / 2, gameHeight / 2, 'You Won!', {
+            fontFamily: 'Arial',
+            fontSize: '20em',
+            color: '#f00',
+            shadow: { offsetX: 0, offsetY: 0, color: '#fff', fill: true, blur: 40 }
+        });
+        text.setOrigin(0.5, 0.5);
+        _oMSPhaserLib.bringOnTop(text);
+        game_is_over = true;
+    }, 500);
+}
+
+// for use to check the mole is show randomly or not
+function fnShowRandomMole() {
+    canRandom = true;
+    fnShowAnimalOrHammer("animal");
+}
+
+// for use to show or hide, animal or hammer
+function fnShowAnimalOrHammer(_str) {
+    if (_str == 'animal') {
+        canAnimalShow = true;
+        fnShowAnimal();
+    }
+    if (_str == 'hammer') {
+        canHammerShow = true;
+    }
+}
+
+// for use to show or hide the point text
+function fnShowPoints(_str) {
+    if (_str == 'score') {
+        _gameThis['scorePoint'].visible = true;
+    } else {
+        _gameThis['scorePoint'].visible = false;
+    }
+}
+// for use to set the score value
+function fnAddScoreValue(_value) {
+    if (_value != undefined && !isNaN(_value)) {
+        window['addScoreValue'] = parseFloat(_value);
+    } else {
+        window['addScoreValue'] = 0;
+    }
+
+    _gameThis['scorePoint'].setText('Point: ' + Math.round((window['scorePoints'] += window['addScoreValue']) * 100) / 100);
 }
 
 // This function will sleep/pause code execution for given miliseconds.
 async function sleep(ms) {
-    if (run_) await _oMSPhaserLib.sleep(ms);
+    await _oMSPhaserLib.sleep(ms);
+}
+
+// function fnSetMaxScore(sign, _maxScore) {
+function fnSetMaxScore(_maxScore) {
+    // if (_maxScore) {
+    maxScore = _maxScore;
+    // }
+}
+
+function fnSetWaitTime(_time) {
+    waitTime = _time;
+}
+
+// function fnCheckEndBlock(_isEndAll) {
+function fnCheckEndBlock() {
+    // if (_isEndAll)
+    isEndAllBlock = true;
+}
+
+function setInitScore(_score) {
+    window['scorePoints'] = _score || 0;
+}
+
+function addHideAnimal() {
+    canHideAnimal = true;
 }
 
 function reInitValues() {
-    is_game_completed = false;
-    run_ = false;
-    patientIndex = 0;
-    patientTemperature = -1;
-    patient_seen_count = 0;
-    patientList = ['firstGirlFever', 'firstBoyFever', 'secondGirlFever'];
+    game_is_over = false;
+    randomNo = 0;
+    isBeaverClick = false;
+    window['isBeaverHitHammer'] = false;
+    window['scorePoints'] = 0;
+    window['addScoreValue'] = 0;
+    molePosNo = 0;
+    canRandom = false;
+    canAnimalShow = false;
+    canHammerShow = false;
+    maxScore = 20;
+    isEndAllBlock = false;
+    waitTime = 100;
+    canHideAnimal = false;
 }
 
 // Reset the game
 function reset_output() {
-    reInitValues()
+    reInitValues();
     _gameThis.scene.restart();
 }
 
+var repeat_forever_flag = true;
 
 function runCode() {
     // tour_over && tour.complete();
-    reset_output();
-    setTimeout(() => {
-        run_ = true;
-        window.LoopTrap = 1E3;
-        Blockly.JavaScript.INFINITE_LOOP_TRAP = 'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
-        var a = "async function c(){" + Blockly.JavaScript.workspaceToCode(demoWorkspace) + "final_check();} c();";
-        Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
-        try {
+    reInitValues();
+    window.LoopTrap = 1E3;
+    Blockly.JavaScript.INFINITE_LOOP_TRAP = 'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
+    var a = "async function c(){" + Blockly.JavaScript.workspaceToCode(demoWorkspace) + "} c();";
+    try {
+        eval(a);
+        repeat_forever_flag = false;
+        setTimeout(() => {
             eval(a);
-        } catch (b) { alert(b) }
-        // try {
-        //     //Shepherd goes into next 
-        //     if (tour.getCurrentStep().options.title.includes("Run")) {
-        //         let btns = document.querySelectorAll('.shepherd-button');
-        //         btns[btns.length - 1].click();
-        //     }
-        // } catch {}
-    }, 1000)
+        }, 1500);
+        setTimeout(() => {
+            repeat_forever_flag = true;
+        }, 3000);
+    } catch (b) { alert(b) }
+    // try {
+    //     if (tour.getCurrentStep().options.title.includes("Run")) {
+    //         let btns = document.querySelectorAll('.shepherd-button');
+    //         btns[btns.length - 1].click();
+    //     }
+    // } catch { }
 }
 
 // function helpCode() {
-//     var xml_code = '<xml xmlns="https://developers.google.com/blockly/xml"><block type="controls_repeat_ext" id="_]1MU]1Iq5~K_d7TdjhG" x="8" y="44"><value name="TIMES"><block type="math_number" id="U:kSY/sd}@EQH,8=qQOC"><field name="NUM">3</field></block></value><statement name="DO"><block type="set_variable_holder" id="OyZ2!B8V2T22-xqtk(*!"><field name="Variable name">patient_temperature</field><value name="NAME"><block type="get_block_type" id="TI1qN3j5-9vER(E19!ZV"></block></value><next><block type="controls_if" id="RT;-!31$vY-o!^-Nx}]T"><mutation else="1"></mutation><value name="IF0"><block type="logic_compare" id=";-gBLo^@oWxDLfDGoZR+"><field name="OP">GTE</field><value name="A"><block type="variables" id=";3)TL)~Scq{HxIcYUYL,"><field name="Options">patient_temperature</field></block></value><value name="B"><block type="math_number" id="ES80%B2F_z6q-)RUZSNr"><field name="NUM">39</field></block></value></block></value><statement name="DO0"><block type="say_block" id="V]@kd?i`?e|71d3jp`]["><field name="NAME">Please eat these medicines</field><next><block type="action_block" id="^YJOQ=^6e4:eJarSkkBq"></block></next></block></statement><statement name="ELSE"><block type="say_block" id="TVY]f%R-1e-5o:rRSHyc"><field name="NAME">You don\'t have fever!</field><next><block type="normal_temperature" id="|sH24j*/`K+Tt,];bRr["></block></next></block></statement><next><block type="wait_block" id="zS[:ZC*|},`$e95FMX=:"><field name="NAME">Wait for</field><value name="NAME"><block type="math_number" id="V;4SJ|[CwDR`ub0nGP~;"><field name="NUM">3</field></block></value><next><block type="say_block" id="D{z41q3#Pp5R]/2XKJ`F"><field name="NAME">Next Patient please</field></block></next></block></next></block></next></block></statement><next><block type="say_block" id="27K3sl9N{9u;Ek/9liw@"><field name="NAME">All Patients have been consulted today</field></block></next></block></xml>';
-//     var xml = Blockly.Xml.textToDom(xml_code);
+//     var xml_wkspace = '<xml xmlns="https://developers.google.com/blockly/xml"><block type="show_variable_block" id="Up@Zlbh+fXzZj1b,MDI!" x="66" y="61"><field name="NAME">score</field><next><block type="action_block" id="ME:G~6^Z1j+V:2Wul0{e"><next><block type="forever_repeat_block" id="H_-`I-HWU/87I]zgH*aG"><statement name="NAME"><block type="controls_if" id="h|Pf3kro[WH$]_LV}!F8"><value name="IF0"><block type="spritetouch__block" id="%?J7q4-A|~R~p(e;O!}v"><field name="options1">hammer</field><field name="options2">animal</field></block></value><statement name="DO0"><block type="addition_block" id="xekTV?lR-KHIE_.:G_ad"><field name="NAME">score</field><field name="addscorevalue">1</field></block></statement><next><block type="controls_if" id="5+5$2KO=Q@.D{J%I{-_p"><value name="IF0"><block type="compare_block" id="#^WS|MXR/!udY(Pr:Nl2"><field name="NAME">=</field><field name="number">10</field></block></value><statement name="DO0"><block type="end_block" id="S#pHxDE{$8S]S![}-;Jp"></block></statement></block></next></block></statement></block></next></block></next></block></xml>';
+//     var xml = Blockly.Xml.textToDom(xml_wkspace);
 //     demoWorkspace.clear();
 //     Blockly.Xml.domToWorkspace(xml, demoWorkspace);
+
 // }
 
-const helpCode = '<xml xmlns="https://developers.google.com/blockly/xml"><block type="controls_repeat_ext" id="_]1MU]1Iq5~K_d7TdjhG" x="8" y="44"><value name="TIMES"><block type="math_number" id="U:kSY/sd}@EQH,8=qQOC"><field name="NUM">3</field></block></value><statement name="DO"><block type="set_variable_holder" id="OyZ2!B8V2T22-xqtk(*!"><field name="Variable name">patient_temperature</field><value name="NAME"><block type="get_block_type" id="TI1qN3j5-9vER(E19!ZV"></block></value><next><block type="controls_if" id="RT;-!31$vY-o!^-Nx}]T"><mutation else="1"></mutation><value name="IF0"><block type="logic_compare" id=";-gBLo^@oWxDLfDGoZR+"><field name="OP">GTE</field><value name="A"><block type="variables" id=";3)TL)~Scq{HxIcYUYL,"><field name="Options">patient_temperature</field></block></value><value name="B"><block type="math_number" id="ES80%B2F_z6q-)RUZSNr"><field name="NUM">39</field></block></value></block></value><statement name="DO0"><block type="say_block" id="V]@kd?i`?e|71d3jp`]["><field name="NAME">Please eat these medicines</field><next><block type="action_block" id="^YJOQ=^6e4:eJarSkkBq"></block></next></block></statement><statement name="ELSE"><block type="say_block" id="TVY]f%R-1e-5o:rRSHyc"><field name="NAME">You don\'t have fever!</field><next><block type="normal_temperature" id="|sH24j*/`K+Tt,];bRr["></block></next></block></statement><next><block type="wait_block" id="zS[:ZC*|},`$e95FMX=:"><field name="NAME">Wait for</field><value name="NAME"><block type="math_number" id="V;4SJ|[CwDR`ub0nGP~;"><field name="NUM">3</field></block></value><next><block type="say_block" id="D{z41q3#Pp5R]/2XKJ`F"><field name="NAME">Next Patient please</field></block></next></block></next></block></next></block></statement><next><block type="say_block" id="27K3sl9N{9u;Ek/9liw@"><field name="NAME">All Patients have been consulted today</field></block></next></block></xml>';
+const helpCode = '<xml xmlns="https://developers.google.com/blockly/xml"><block type="show_variable_block" id="Up@Zlbh+fXzZj1b,MDI!" x="66" y="61"><field name="NAME">score</field><next><block type="action_block" id="ME:G~6^Z1j+V:2Wul0{e"><next><block type="forever_repeat_block" id="H_-`I-HWU/87I]zgH*aG"><statement name="NAME"><block type="controls_if" id="h|Pf3kro[WH$]_LV}!F8"><value name="IF0"><block type="spritetouch__block" id="%?J7q4-A|~R~p(e;O!}v"><field name="options1">hammer</field><field name="options2">animal</field></block></value><statement name="DO0"><block type="addition_block" id="xekTV?lR-KHIE_.:G_ad"><field name="NAME">score</field><field name="addscorevalue">1</field></block></statement><next><block type="controls_if" id="5+5$2KO=Q@.D{J%I{-_p"><value name="IF0"><block type="compare_block" id="#^WS|MXR/!udY(Pr:Nl2"><field name="NAME">=</field><field name="number">10</field></block></value><statement name="DO0"><block type="end_block" id="S#pHxDE{$8S]S![}-;Jp"></block></statement></block></next></block></statement></block></next></block></next></block></xml>';
 
-function myUpdateFunction(a) {
-    var code = Blockly.Python.workspaceToCode(demoWorkspace);
-    var import_statement = "import doctor\nimport time\n";
-    document.getElementById('pycode').innerHTML = import_statement + code;
-    document.getElementById('modal1').innerHTML = import_statement + code;
-}
+// function myUpdateFunction(a) {
+//     var code = Blockly.Python.workspaceToCode(demoWorkspace);
+//     var import_statement = "from whack_a_mole import *\n";
+//     document.getElementById('pycode').innerHTML = import_statement + code;
+//     document.getElementById('modal1').innerHTML = import_statement + code;
+// }
 // demoWorkspace.addChangeListener(myUpdateFunction);
 
-
-
-function get_number_of_blocks() {
-    return demoWorkspace.getAllBlocks(false).length;
-}
-
-function final_check() {
-    setTimeout(() => {
-        // if (JSON.stringify(patientList) == JSON.stringify([])) {
-        if (patient_seen_count >= 3) {
-            M.toast({ html: "Great! All patients consulted today" });
-            setTimeout(() => { is_game_completed = true; }, 2500)
-        } else {
-            M.toast({ html: "Oops! there are more patients left to consult" });
-        }
-
-    }, 2500)
-}
-
 function completedFlag() {
-    return is_game_completed;
+    return game_is_over;
 }
 
 function getNoOfBlocks() {
@@ -425,26 +503,31 @@ function getNoOfBlocks() {
     return noOfBlocks.length
 }
 
-const updateImports = ["import doctor", "import time"];
+const updateImports = ["from whack_a_mole import *"]
 
 export {
     completedFlag,
-    myUpdateFunction,
-    get_number_of_blocks,
+    // myUpdateFunction,
     helpCode,
     runCode,
     reset_output,
     reInitValues,
-    final_check,
-    patient_temperature,
-    sleep,
-    normalTemperature,
-    giveMedicine,
-    createDialogue,
-    getPatientTemperature,
+    fnGameOverText,
+    fnShowPoints,
+    fnShowRandomMole,
+    // window['isBeaverHitHammer'],
+    // animal,
+    // hammer,
+    fnAddScoreValue,
+    update,
+    reset_for_update,
+    // scorePoints,
     getNoOfBlocks,
-    updateImports
+    updateImports,
+    repeat_forever_flag,
+    game,
+    preload,
+    create,
+    gameHeight,
+    gameWidth,
 }
-
-// var xml = Blockly.Xml.workspaceToDom(demoWorkspace);
-// Blockly.Xml.domToText(xml);

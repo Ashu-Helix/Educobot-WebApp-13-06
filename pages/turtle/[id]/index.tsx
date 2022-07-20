@@ -34,12 +34,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 }
 export default function Scripts(props) {
     const { id, code, guide, type } = props;
-    console.log(guide["Hindi"])
     let language = {};
     Object.keys(guide).forEach((currentLang) => {
         language[currentLang] = currentLang
     })
-    console.log(language)
+    // console.log(language)
     //const [script, setScript] = useState(``);
     // let script = ''
     const [script, setScript] = useState("")
@@ -50,18 +49,18 @@ export default function Scripts(props) {
     const [dialogOpen, setDialogOpen] = useState(false);
     // const [isCompleted, setisCompleted] = useState(false)
 
-    const [lang, setLang] = useState(1);
+    const [lang, setLang] = useState("English");
     const router = useRouter();
 
     const onLoad = () => {
         let tutorial = require("../../../tutorial/tutorial.js");
         const { tutorial_guide_updater, make_pred_guide } = tutorial;
-        tutorial_guide_updater(id, user_code);
-        let type = 4;
+        tutorial_guide_updater(id, user_code, lang, type);
+        // let type = 4;
         if (Array.isArray(guide)) {
             guide.forEach(g => make_pred_guide(g.id, g.img, g.code, g.audio, id, type))
         } else {
-            guide["English"].forEach(g => make_pred_guide(g.id, g.img, g.code, g.audio, id, type))
+            guide[lang].forEach(g => make_pred_guide(g.id, g.img, g.code, g.audio, id, type))
         }
         // guide.forEach(g => make_pred_guide(g.id, g.img, g.code, g.audio, id, type))
         htmlmaker(code, user_code);
@@ -83,6 +82,18 @@ export default function Scripts(props) {
     //     }
     //     htmlmaker(code, user_code)
     // }
+
+    useEffect(() => {
+        let tutorial = require("../../../tutorial/tutorial.js");
+        const { tutorial_guide_updater, make_pred_guide } = tutorial;
+        tutorial_guide_updater(id, user_code, lang, type);
+        if (Array.isArray(guide)) {
+            guide.forEach(g => make_pred_guide(g.id, g.img, g.code, g.audio, id, type))
+        } else {
+            guide[lang].forEach(g => make_pred_guide(g.id, g.img, g.code, g.audio, id, type))
+        }
+    }, [lang]);
+
     useEffect(() => {
         if (window !== undefined && document.getElementsByClassName(" CodeMirror-line ")[0] !== undefined) {
             htmlmaker(code, user_code)
@@ -139,7 +150,7 @@ export default function Scripts(props) {
         }
         document.getElementsByClassName(" CodeMirror-line ")[0].innerHTML =
             editor_display.join("");
-        tutorial_guide_updater(id, user_code);
+        tutorial_guide_updater(id, user_code, lang, type);
     }
 
     const handleClick = () => {
@@ -241,7 +252,8 @@ export default function Scripts(props) {
     }
 
     function onChange(e) {
-        setLang(parseInt(e.target.value))
+        // setLang(parseInt(e.target.value))
+        setLang(e.target.value);
     }
 
     function reset_output() {

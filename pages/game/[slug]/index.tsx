@@ -92,11 +92,10 @@ export const getStaticProps: GetStaticProps = async (context) => {
     // lesson details
     const lessonDetails = await axios({
         method: "post",
-        url: "https://appssl.educobot.com:8443/EduCobotWS/lessonsWS/getLessonsByID",
+        url: `${process.env.devUrls.EduCobotBaseUrl}${process.env.devUrls.getLessonByID}`,
         data: bodyFormData,
-        headers: { "Content-Type": "multipart/form-data" },
+        // headers: { "Content-Type": "multipart/form-data" },
     });
-
 
     const instruction = context.params.slug === "e0c38e50-cbb3-455f-ae16-d737fc624b24" ? [{
         col1: (`The task is to place the monument at the appropriate country through blocks`),
@@ -212,17 +211,17 @@ export default function PhaserGame(props) {
     const [lang, setLang] = useState(1);
     const [PythonCode, setPythonCode] = useState("");
 
-    
+
     // user details
     const [userDetails, setUserDetails] = useState([]);
-    const getUserDetails = async(otp: string | string[]) =>{
+    const getUserDetails = async (otp: string | string[]) => {
         try {
             let formD = new FormData();
             formD.append("sdUID", router.query.user_id)
 
             const userDetails = await axios({
                 method: "post",
-                url: "https://appssl.educobot.com:8443/EduCobotWS/studentsWS/getStudents",
+                url: `${process.env.devUrls.EduCobotBaseUrl}${process.env.devUrls.getStudents}`,
                 data: formD,
                 headers: { "Content-Type": "multipart/form-data" },
             });

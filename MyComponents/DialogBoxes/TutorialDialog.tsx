@@ -259,23 +259,23 @@ export default function TestDialog({ getCoins, noOfClicks, testDialogInfo, lesso
 
     //POST EVAL DATA
     const postEvalData = () => {
-        let coins : number = 0;
-        const totalMcq:number = questionArray.length || 0;
-        let lsType = lessonDetails?.lsCourse === "Python Basic" ? 
-        lessonDetails?.lsLevel : lessonDetails?.lsSkillTag1
+        let coins: number = 0;
+        const totalMcq: number = questionArray.length || 0;
+        let lsType = lessonDetails?.lsCourse === "Python Basic" ?
+            lessonDetails?.lsLevel : lessonDetails?.lsSkillTag1
 
 
         let body = {
-                "userID": userDetails?.sdUID,
-                "edType":"B",
-                "std": userDetails?.sdClass,
-                "div": userDetails?.sdDiv,
-                "status":"C",
-                "lessonID": lessonDetails?.lsID,
-                "rollNo": userDetails?.sdRollNo,
-                "pin" : userDetails?.otp,
-                "schoolID" : userDetails?.sdSchoolID,
-                "coins":coins
+            "userID": userDetails?.sdUID,
+            "edType": "B",
+            "std": userDetails?.sdClass,
+            "div": userDetails?.sdDiv,
+            "status": "C",
+            "lessonID": lessonDetails?.lsID,
+            "rollNo": userDetails?.sdRollNo,
+            "pin": userDetails?.otp,
+            "schoolID": userDetails?.sdSchoolID,
+            "coins": coins
         }
         console.log(lsType, "lsType")
         if (lsType === "test") {
@@ -647,7 +647,7 @@ export default function TestDialog({ getCoins, noOfClicks, testDialogInfo, lesso
                         </Typography>
 
                         <Stack justifyContent={"center"} direction={"row"} gap={1}>
-                            {console.log(coins)}
+                            {/* {console.log(coins)} */}
                             {
                                 coins.length > 0 &&
                                 coins.map(coin => {
@@ -657,8 +657,8 @@ export default function TestDialog({ getCoins, noOfClicks, testDialogInfo, lesso
                                     else if (coin == ".75") {
                                         return <MemoCoin75 />
                                     }
-                                    else if(coin==".5"){
-                                        return <MemoCoin50/>
+                                    else if (coin == ".5") {
+                                        return <MemoCoin50 />
                                     }
                                     else if (coin == ".25") {
                                         return <MemoCoin25 />

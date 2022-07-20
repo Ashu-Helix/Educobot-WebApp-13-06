@@ -290,7 +290,7 @@ function create() {
 
 function ClickTile(Tile) {
     if (GameIsOver) { return; }
-    console.log(Tile.name);
+    //console.log(Tile.name);
     JustCliked = true;
     CLickedTile = Tile;
 

@@ -179,9 +179,9 @@ window['rescue_button_click'] = () => {
 
 function rescue_button_set_colour() {
     if (rescue_colour_is_yellow) {
-        document.querySelectorAll("#rescue_button_id").forEach((i) => { i.className = "shepherd-custom-rescue-sutton-yellow"; })
+        document.querySelectorAll("#rescue_button_id").forEach((i) => { i.className = "shepherd-custom-rescue-button-yellow"; })
     } else {
-        document.querySelectorAll("#rescue_button_id").forEach((i) => { i.className = "shepherd-custom-rescue-sutton-white"; })
+        document.querySelectorAll("#rescue_button_id").forEach((i) => { i.className = "shepherd-custom-rescue-button-white"; })
     }
 }
 
@@ -208,13 +208,13 @@ function shepherd_mute_unmute() {
 }
 
 
-// function change_rescue_button_colour(event) {
-//     if (event.type == Blockly.Events.BLOCK_CHANGE || event.type == Blockly.Events.BLOCK_CREATE || event.type == Blockly.Events.BLOCK_DELETE || event.type == Blockly.Events.BLOCK_MOVE) {
-//         rescue_colour_is_yellow = true;
-//         rescue_button_set_colour();
-//     }
-// }
-// demoWorkspace.addChangeListener(change_rescue_button_colour);
+function change_rescue_button_colour(event) {
+    if (event.type == Blockly.Events.BLOCK_CHANGE || event.type == Blockly.Events.BLOCK_CREATE || event.type == Blockly.Events.BLOCK_DELETE || event.type == Blockly.Events.BLOCK_MOVE) {
+        rescue_colour_is_yellow = true;
+        rescue_button_set_colour();
+    }
+}
+demoWorkspace.addChangeListener(change_rescue_button_colour);
 
 function hideHand() {
     clearInterval(myInterval);
@@ -800,7 +800,6 @@ function loadAgain() {
     tour.show(nextStep);
 
     document.getElementById('soundBtn').addEventListener('click', setAudioPreference)
-    console.log("In shephered", document.getElementById('soundBtn'))
 }
 
 
@@ -1022,20 +1021,26 @@ function check_toolbox_selection(id) {
 }
 
 // document.getElementById('soundBtn').addEventListener('click', shepherd_mute_unmute)
-console.log(document.getElementById('soundBtn'))
-// function setAudioPreference() {
+let interval = setInterval(() => {
+    if (document.getElementById('soundBtn') !== null) {
+        document.getElementById('soundBtn').addEventListener('click', setAudioPreference)
+        clearInterval(interval);
+    }
+}, 1000);
 
-//     if (playAudio) {
-//         kill_audio();
-//     }
-//     if (!(playAudio)) {
-//         playAudio = true;
-//         document.getElementById('soundImg').src = "../assets/sound_icon.png";
-//     } else {
-//         playAudio = false;
-//         document.getElementById('soundImg').src = "../assets/sound_unmute.png";
-//     }
-// }
+function setAudioPreference() {
+
+    if (playAudio) {
+        kill_audio();
+    }
+    if (!(playAudio)) {
+        playAudio = true;
+        document.getElementById('soundImg').src = "../assets/sound_icon.png";
+    } else {
+        playAudio = false;
+        document.getElementById('soundImg').src = "../assets/sound_unmute.png";
+    }
+}
 
 setInterval(function () {
 

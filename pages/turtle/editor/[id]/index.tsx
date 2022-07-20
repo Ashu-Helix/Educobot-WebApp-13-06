@@ -36,7 +36,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
     const lessonDetails = await axios({
         method: "post",
-        url: "https://appssl.educobot.com:8443/EduCobotWS/lessonsWS/getLessonsByID",
+        url: `${process.env.devUrls.EduCobotBaseUrl}${process.env.devUrls.getLessonByID}`,
         data: bodyFormData,
         headers: { "Content-Type": "multipart/form-data" },
     });
@@ -83,7 +83,7 @@ export default function PythonEditor(props) {
 
             const userDetails = await axios({
                 method: "post",
-                url: "https://appssl.educobot.com:8443/EduCobotWS/studentsWS/getStudents",
+                url: `${process.env.devUrls.EduCobotBaseUrl}${process.env.devUrls.getLessonByID}`,
                 data: formD,
                 headers: { "Content-Type": "multipart/form-data" },
             });

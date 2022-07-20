@@ -448,66 +448,6 @@ function runCode() {
 const helpCode =
     '<xml xmlns="https://developers.google.com/blockly/xml"><block type="fruits" id="`JDe^S}vAuoVOq%xFM.}" x="81" y="150"><field name="fruit">banana</field><field name="counts">5</field><next><block type="fruits" id="se^mIM3YGx0hspYA.Y3S"><field name="fruit">blackBerry</field><field name="counts">3</field><next><block type="mix_salad" id="XSKQ/0W#?W!/9t=K4v,X"><next><block type="fruits" id="peX5:w?=d=Imq!4!JBn_"><field name="fruit">blueBerry</field><field name="counts">3</field><next><block type="fruits" id="UfLz#+pL1rxGQGvTc]VD"><field name="fruit">grape</field><field name="counts">6</field><next><block type="fruits" id="Fi94RiRk+2WU`[r2-FSh"><field name="fruit">strawberry</field><field name="counts">6</field><next><block type="mix_salad" id=":`kf34bA7?,-/.Qc`}Yu"></block></next></block></next></block></next></block></next></block></next></block></next></block></xml>';
 
-
-const instruction = {
-    "heading": "Your task is to create a perfect salad, by following the recipe below",
-    "steps": [
-        {
-            "checkbox": true,
-            "rescue": true,
-            "text": "Fruit Banana counts 5",
-            "title": "Add 5 bananas & 3 black berries",
-            "workspace": "<xml xmlns=\"https://developers.google.com/blockly/xml\"></xml>"
-        },
-        {
-            "checkbox": true,
-            "rescue": true,
-            "text": "Fruit Blackberry counts 3",
-            "workspace": "<xml xmlns=\"https://developers.google.com/blockly/xml\"></xml>"
-        },
-        {
-            "checkbox": true,
-            "rescue": true,
-            "text": "Mix salad",
-            "title": "Mix well",
-            "workspace": "<xml xmlns=\"https://developers.google.com/blockly/xml\"></xml>"
-        },
-        {
-            "checkbox": true,
-            "rescue": true,
-            "text": "Fruit BlueBerry counts 3",
-            "title": "Add 3 blueberries, 6 grapes & strawberries",
-            "workspace": "<xml xmlns=\"https://developers.google.com/blockly/xml\"></xml>"
-        },
-        {
-            "checkbox": true,
-            "rescue": true,
-            "text": "Fruit grape counts 6",
-            "workspace": "<xml xmlns=\"https://developers.google.com/blockly/xml\"></xml>"
-        },
-        {
-            "checkbox": true,
-            "rescue": true,
-            "text": "Fruit strawberry counts 6",
-            "workspace": "<xml xmlns=\"https://developers.google.com/blockly/xml\"></xml>"
-        },
-        {
-            "checkbox": true,
-            "rescue": true,
-            "text": "Mix salad",
-            "title": "Mix well for the final time",
-            "workspace": "<xml xmlns=\"https://developers.google.com/blockly/xml\"></xml>"
-        },
-        {
-            "checkbox": false,
-            "rescue": false,
-            "text": "Once you are done, press green flag to run code. If you have followed the recipe correctly, the test will submit and you will be taken to next lesson.",
-            "title": "Submit Instructions:",
-            "workspace": "<xml xmlns=\"https://developers.google.com/blockly/xml\"></xml>"
-        }
-    ]
-};
-
 `
 5 bananas
 3 black berry
@@ -534,7 +474,6 @@ export {
     reset_output,
     completedFlag,
     helpCode,
-    // instruction,
     moveFruitSliceToPot,
     mixSalad,
     runCode,

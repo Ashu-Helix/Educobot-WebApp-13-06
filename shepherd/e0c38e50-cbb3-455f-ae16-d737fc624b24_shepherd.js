@@ -199,6 +199,7 @@ let tour = new Shepherd.Tour({
         scrollTo: { behavior: 'smooth', block: 'center' }
     }
 });
+
 function loadAgain() {
     let nextStep = 0;
     if (tour.isActive()) {

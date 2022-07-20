@@ -6,8 +6,8 @@ const path = require("path");
 const blockly_lessons = ["4bda4814-a2b1-4c4f-b102-eda5181bd0f8", "1d749e84-1155-4269-93ab-550ee7aabd4a"];
 
 async function getFiles() {
-    // const fetUrl = "http://localhost:7001/liveLessons";
-    const fetUrl = "https://app.educobot.com/liveLessons/blockly";
+    const fetUrl = "http://localhost:7001/liveLessons";
+    // const fetUrl = "https://app.educobot.com/liveLessons/blockly";
 
     const res2 = await fetch(
         `https://api.educobot.com/lessonsRoute/getAllLessonID`, { method: 'POST' }
@@ -119,6 +119,14 @@ async function getFiles() {
 
 }
 
+const EduCobotBaseUrl = "https://api.educobot.com/";
+
+const devUrls = {
+    EduCobotBaseUrl: EduCobotBaseUrl,
+    getStudents: "users/getStudents",
+    getLessonByID: "lessonsRoute/getLessonByID"
+}
+
 const nextConfig = {
     reactStrictMode: true,
     env: {
@@ -129,6 +137,8 @@ const nextConfig = {
         SERVER_URL1: "http://localhost:7001",
         Dashboard_URL: "http://localhost:3000/dashboard/app/",
         InternalServer: "http://localhost:3003",
+        devUrls: devUrls,
+        // GetStudents: "https://api.educobot.com/users/getStudents",
     },
     // URL: 'http://192.168.1.33:3000/api',
 

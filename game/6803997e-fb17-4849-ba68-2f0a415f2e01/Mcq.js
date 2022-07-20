@@ -1,7 +1,7 @@
 const mcqArr = [{
         id: 1,
         correct_answer: true,
-        question: `_________ are special words understood by python`,
+        question: `_________ farm questio 1`,
         right_answer_message: `Keywords are the reserved words in Python. We cannot use a keyword as a variable name, function name or any other identifier.`,
         wrong_answer_message: `Keywords are the reserved words in Python. We cannot use a keyword as a variable name, function name or any other identifier.`,
         button_1_text: `Keywords`,
@@ -10,7 +10,7 @@ const mcqArr = [{
     {
         id: 2,
         correct_answer: false,
-        question: `__________ is used to display the output content`,
+        question: `_________ farm question 2`,
         right_answer_message: `print() is used to display the output content`,
         wrong_answer_message: `print() is used to display the output content`,
         button_1_text: `display_output()`,
@@ -19,7 +19,7 @@ const mcqArr = [{
     {
         id: 3,
         correct_answer: true,
-        question: `To assign values to a variable in Python, we will use the ________ assignment operator`,
+        question: `_________ farm question 3`,
         right_answer_message: `To assign values to a variable in Python, we will use the assignment (=) operator.`,
         wrong_answer_message: `To assign values to a variable in Python, we will use the assignment (=) operator.`,
         button_1_text: `= , I.e a = 80`,
@@ -28,7 +28,7 @@ const mcqArr = [{
     {
         id: 4,
         correct_answer: true,
-        question: `_________ in python is like a container which can store values`,
+        question: `_________ farm question 4`,
         right_answer_message: `You can consider a variable to be a temporary storage space where you can keep changing values.`,
         wrong_answer_message: `You can consider a variable to be a temporary storage space where you can keep changing values.`,
         button_1_text: `Variables`,
@@ -37,7 +37,7 @@ const mcqArr = [{
     {
         id: 5,
         correct_answer: false,
-        question: `Which one of the following is the correct way of declaring and initializing a variable, x with the value 7?`,
+        question: `_________ farm question 5`,
         right_answer_message: `The correct way of declaring and initializing a variable, x with the value 7 is x=7.`,
         wrong_answer_message: `The correct way of declaring and initializing a variable, x with the value 7 is x=7.`,
         button_1_text: `declare x=7`,
