@@ -119,6 +119,7 @@
     font-weight: 400;
     font-size: 16px;
     line-height: 24px;
+    max-width: calc(100vw - 50vw);
 }
 
 .output_for_script {

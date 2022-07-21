@@ -14,7 +14,7 @@ import TestDialog from "../../../MyComponents/DialogBoxes/TutorialDialog";
 import Help from "../../../components/Help";
 import Game from "./game";
 import styles from "../../../styles/Problems.module.css";
-
+const url: any = process.env.devUrls;
 
 import Blockly from "blockly";
 import "blockly/python";
@@ -26,10 +26,10 @@ const url:any = process.env.devUrls;
 export const getStaticPaths = async () => {
 
     // const res = await fetch(
-    //   `https://api.educobot.com/lessonsRoute/getAllLessonID`, { method: 'POST' }
+    //   `https://api.educobot.com/lessonsRoute/getAllLessonID`, {method: 'POST' }
     // );
     // const data = await res.json();
-    // const paths = data.data.map((t) => ({ params: { slug: t.lsID } }));
+    // const paths = data.data.map((t) => ({params: {slug: t.lsID } }));
 
     const res = await fetch(`${process.env.URL}/all`);
     const data = await res.json();
@@ -96,7 +96,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
         method: "post",
         url: `${url.EduCobotBaseUrl}${url.getLessonByID}`,
         data: bodyFormData,
-        // headers: { "Content-Type": "multipart/form-data" },
+        // headers: {"Content-Type": "multipart/form-data" },
     });
 
     const instruction = context.params.slug === "e0c38e50-cbb3-455f-ae16-d737fc624b24" ? [{
@@ -132,7 +132,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
         col2: ``,
         rescue: true,
         checkbox: true,
-        workspace: '<xml xmlns="https://developers.google.com/blockly/xml"><block type = "send__block" id = "Z_.;V0s!(K6f,T:[Y2Xv" x = "27" y = "113"><field name="options1">horse</field><field name="options2">stable</field><next><block type="wait_block" id="1HgQ/DGvN,F`6;o)yDYN"><field name="milli">6</field><next><block type="send__block" id="^$oefJlcH}G7W6i3:b5U"><field name="options1">pig</field><field name="options2">sty</field><next><block type="wait_block" id="%;@JELa)A9Q~ICHP!.z}"><field name="milli">11</field><next><block type="send__block" id="):ViSC):@~M91cL^I)QX"><field name="options1">cow</field><field name="options2">shed</field></block></next></block></next></block></next></block></next></block></xml>',
+        workspace: '<xml xmlns="https://developers.google.com/blockly/xml"><block type="send__block" id="Z_.;V0s!(K6f,T:[Y2Xv" x="27" y="113"><field name="options1">horse</field><field name="options2">stable</field><next><block type="wait_block" id="1HgQ/DGvN,F`6;o)yDYN"><field name="milli">6</field><next><block type="send__block" id="^$oefJlcH}G7W6i3:b5U"><field name="options1">pig</field><field name="options2">sty</field><next><block type="wait_block" id="%;@JELa)A9Q~ICHP!.z}"><field name="milli">11</field><next><block type="send__block" id="):ViSC):@~M91cL^I)QX"><field name="options1">cow</field><field name="options2">shed</field></block></next></block></next></block></next></block></next></block></xml>',
     }]
         : [{
             col1: (`The task is to place the monument at the appropriate country through blocks`),
@@ -287,7 +287,7 @@ export default function PhaserGame(props) {
     }
     tut.shift();
     const childFunc = React.useRef(null)
-    // const language = { English: 1, Hindi: 2, Marathi: 3, Spanish: 4, Arabic: 5, Swaheli: 6 }
+    // const language = {English: 1, Hindi: 2, Marathi: 3, Spanish: 4, Arabic: 5, Swaheli: 6 }
     const language = languageObj;
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
