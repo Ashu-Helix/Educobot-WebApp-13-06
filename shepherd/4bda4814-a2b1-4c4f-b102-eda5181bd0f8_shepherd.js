@@ -23,55 +23,6 @@ let adapt_orientation = (portait, landscape) => {
 }
 function image_scaler(file) { let path = `../assets/` + language.guide_folder + `/` + language.language_packs_folder + `/` + language.language + `/` + language.image_folder + `/`; return `<img src="` + path + file + `"class="tutorial_image">` }
 
-// const tut = {
-//     0: "",
-//     1: `<p><span style="color: rgb(239, 239, 239); font-family: Verdana, Geneva, sans-serif; font-size: 20px;">Select Bunny from the Tool &nbsp;Menu</span></p>`,
-//     2: `<p><span style="color: rgb(239, 239, 239); font-family: Verdana, Geneva, sans-serif; font-size: 20px;">from the Tool Menu drag Move Block to workspace</span></p>`,
-//     3: `<p><span style="color: rgb(239, 239, 239); font-family: Verdana, Geneva, sans-serif; font-size: 20px;">Change direction to the Right</span></p>`,
-//     4: `<p><span style="color: rgb(239, 239, 239); font-family: Verdana, Geneva, sans-serif; font-size: 20px;">Change Steps to 40</span></p>`,
-//     5: `<p><span style="color: rgb(239, 239, 239); font-family: Verdana, Geneva, sans-serif; font-size: 20px;">Now select Bunny again from Tool Menu</span></p>`,
-//     6: `<p><span style="color: rgb(239, 239, 239); font-family: Verdana, Geneva, sans-serif; font-size: 20px;">Select Eat CARROT Block and place under Move Block in the WORKSPACE, till you hear a click sound</span></p>`,
-//     7: `<p><span style="color: rgb(239, 239, 239); font-family: Verdana, Geneva, sans-serif; font-size: 20px;">Select another Move Block from the Tool Menu under Bunny</span></p>`,
-//     8: `<p><span style="color: rgb(239, 239, 239); font-family: Verdana, Geneva, sans-serif; font-size: 20px;">Place Move Block under Eat CARROT Block</span></p>`,
-//     9: `<p><span style="color: rgb(239, 239, 239); font-family: Verdana, Geneva, sans-serif; font-size: 20px;">and change steps to 40</span></p>`,
-//     10: `<p><span style="color: rgb(239, 239, 239); font-family: Verdana, Geneva, sans-serif; font-size: 20px;">Press green flag to run code</span></p>`
-// }
-
-
-
-// var tut = window['tutorials'].map(
-//     (data) => `<p><span style="color: rgb(239, 239, 239); font-family: Verdana, Geneva, sans-serif; font-size: 20px;">
-//         ${data}
-//         </span></p>`
-// );
-
-// function handPointAt(hand, element, visibility) {
-//     let pos = element.offset(),
-//         ele_oh = element.outerHeight(true),
-//         ele_ow = element.outerWidth(true),
-//         h_oh = hand.outerHeight(true),
-//         h_ow = hand.outerWidth(true);
-
-//     if (ele_oh > h_oh) {
-//         pos.top += (ele_oh - h_oh) / 2;
-
-//     } else {
-//         true;
-//     }
-//     if (ele_ow > h_ow) {
-//         pos.left += (ele_ow - h_ow) / 2;
-//     }
-
-//     try { hand.css("visibility", visibility); } catch { }
-//     try { hand.css("top", pos.top); } catch { }
-//     try { hand.css("left", pos.left); } catch { }
-//     element.on("dragstop", function (event, ui) {
-//         hand.css("top", (pos.top));
-//         hand.css("left", pos.left);
-//     });
-
-// }
-
 let rescue_button_clicked_at_step = -2;
 
 function handPointAt(hand, element, visibility) {
@@ -112,8 +63,6 @@ function handPointAt(hand, element, visibility) {
     }
 }
 
-// $("#hand").css("visibility", 'hidden');
-
 function play_audio_tutorial(file, lang) {
     let path = `../assets/` + language.guide_folder + `/` + slug + '/' + language.language_packs_folder + `/` + lang + `/` + language.audio_folder + `/`;
     kill_audio();
@@ -126,7 +75,7 @@ function play_audio_tutorial(file, lang) {
 window['rescue_button_click'] = () => {
     try {
         if (typeof tour.getCurrentStep().tour.currentStep.options.workspace !== "undefined") {
-            window['rescue_btn_click_count'] +=  1
+            window['rescue_btn_click_count'] += 1
 
             var xml_wkspace = tour.getCurrentStep().tour.currentStep.options.workspace;
             var xml = Blockly.Xml.textToDom(xml_wkspace);

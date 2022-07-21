@@ -36,7 +36,7 @@ export const getStaticPaths = async () => {
 
     return {
         paths: [
-            { params: { slug: "956dfe60-ed8a-45a4-8fac-dd3d72137944" } },
+            { params: { slug: "4bda4814-a2b1-4c4f-b102-eda5181bd0f8" } },
             { params: { slug: "f48757f4-f612-41dc-b882-614fe3c6544a" } },
             { params: { slug: "e0c38e50-cbb3-455f-ae16-d737fc624b24" } }
         ],
