@@ -17,12 +17,12 @@ const EditorContainer = dynamic(import("../../../../components/EditorContainer")
 import { GetServerSideProps } from "next/types";
 import { useRouter } from "next/router";
 
-const url:any = process.env.devUrls;
+const url: any = process.env.devUrls;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
 
-    // const response1 = await fetch(`${url.pythonOpenEditor}${context.params.id}/code.json`);
-    const response1 = await fetch(`http://localhost:7001/pythonOpenEditor/${context.params.id}/code.json`);
+    const response1 = await fetch(`http://app.educobot.com/liveLessons/turtle/${context.params.id}/code.json`);
+    // const response1 = await fetch(`http://localhost:7001/pythonOpenEditor/${context.params.id}/code.json`);
 
     if (response1.status === 404) {
         return {

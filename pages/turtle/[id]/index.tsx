@@ -9,7 +9,7 @@ import ScriptDialog from "../../../MyComponents/DialogBoxes/ScriptMcqDialog";
 import { Button } from "@mui/material";
 import { Icon } from '@iconify/react'
 
-const urls:any = process.env.devUrls;
+const urls: any = process.env.devUrls;
 
 const PythonCode = dynamic(import("../../../components/pythonCode"), {
     ssr: false,
@@ -18,8 +18,8 @@ import { GetServerSideProps, GetStaticProps } from "next/types";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
 
-    // const response1 = await fetch(`${urls.turtleFilesUrl}${context.params.id}/code.json`);
-    const response1 = await fetch(`http://localhost:7001/turtlePredictive/${context.params.id}/code.json`);
+    const response1 = await fetch(`http://app.educobot.com/liveLessons/turtle/${context.params.id}/code.json`);
+    // const response1 = await fetch(`http://localhost:7001/turtlePredictive/${context.params.id}/code.json`);
 
     if (response1.status === 404) {
         return {

@@ -129,9 +129,9 @@ const devUrls = {
     postOTPLesson: "sessionRoute/postOTPLesson",
     postEvalData: "users/postEvalData",
 
-    pythonScriptFilesUrl:`${EduCobotBaseUrl}liveLessons/python/`,
-    turtleFilesUrl:`${EduCobotBaseUrl}liveLessons/turtle/`,
-    pythonOpenEditor:`${EduCobotBaseUrl}pythonOpenEditor/`,
+    pythonScriptFilesUrl: `${EduCobotBaseUrl}liveLessons/python/`,
+    turtleFilesUrl: `${EduCobotBaseUrl}liveLessons/turtle/`,
+    pythonOpenEditor: `${EduCobotBaseUrl}pythonOpenEditor/`,
 }
 
 const nextConfig = {
