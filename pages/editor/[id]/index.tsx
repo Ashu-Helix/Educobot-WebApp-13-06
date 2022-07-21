@@ -11,6 +11,8 @@ import { Icon } from '@iconify/react'
 import axios from "axios";
 import FormData from 'form-data';
 
+const url:any = process.env.devUrls;
+
 const EditorContainer = dynamic(import("../../../components/EditorContainer"), {
     ssr: false,
 });
@@ -19,7 +21,7 @@ import { useRouter } from "next/router";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
 
-    const response1 = await fetch(`https://app.educobot.com/liveLessons/python/${context.params.id}/code.json`);
+    const response1 = await fetch(`${url.pythonScriptFilesUrl}${context.params.id}/code.json`);
     // const response1 = await fetch(`http://localhost:7001/scripts/${context.params.id}/code.json`);
     if (response1.status === 404) {
         return {
@@ -34,7 +36,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
     const lessonDetails = await axios({
         method: "post",
-        url: "https://appssl.educobot.com:8443/EduCobotWS/lessonsWS/getLessonsByID",
+        url: `${url.EduCobotBaseUrl}${url.getLessonByID}`,
         data: bodyFormData,
         headers: { "Content-Type": "multipart/form-data" }
     });
@@ -61,19 +63,19 @@ export default function PythonEditor(props) {
 
     // user details
     const [userDetails, setUserDetails] = useState<any>([]);
-    const getUserDetails = async(otp: string | string[]) =>{
+    const getUserDetails = async (otp: string | string[]) => {
         try {
             let formD = new FormData();
             formD.append("sdUID", router.query.user_id)
 
             const userDetails = await axios({
                 method: "post",
-                url: "https://appssl.educobot.com:8443/EduCobotWS/studentsWS/getStudents",
+                url: `${url.EduCobotBaseUrl}${url.getStudents}`,
                 data: formD,
                 headers: { "Content-Type": "multipart/form-data" },
             });
             {
-                let newData = {...userDetails.data.DATA[0], otp}
+                let newData = { ...userDetails.data.DATA[0], otp }
                 setUserDetails(newData)
                 console.log("got user details in python editor")
             }
@@ -86,12 +88,12 @@ export default function PythonEditor(props) {
 
     useEffect(() => {
         router.query.otp && getUserDetails(router.query.otp)
-    },[router.query.otp])
+    }, [router.query.otp])
 
 
 
     // post eval data
-    const postEvalData = async() => {
+    const postEvalData = async () => {
         let body = {
             "userID": userDetails?.sdUID,
             "edType": "B",
@@ -106,12 +108,12 @@ export default function PythonEditor(props) {
         }
         try {
             const res = await axios({
-                method:"post",
-                url:"https://api.educobot.com/users/postEvalData",
-                data:body,
+                method: "post",
+                url: `${url.EduCobotBaseUrl}${url.postEvalData}`,
+                data: body,
                 headers: { "Content-Type": "application/json" },
             });
-            if(res.status==200 && res.data.msg){
+            if (res.status == 200 && res.data.msg) {
                 console.log(res.data.msg)
             }
         }
@@ -145,7 +147,7 @@ export default function PythonEditor(props) {
             const py = script;
             runIt(py)
             setkeyboardState(false)
-            
+
             postEvalData();
         }
     };

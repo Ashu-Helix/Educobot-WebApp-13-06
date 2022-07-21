@@ -5,6 +5,15 @@ import "blockly/javascript";
 Blockly.HSV_SATURATION = 1;
 Blockly.HSV_VALUE = 1;
 
+import {
+    update,
+    preload,
+    create,
+    gameHeight,
+    gameWidth,
+    repeat_forever_flag
+} from "./main"
+
 Blockly.Blocks['action_block'] = {
     init: function () {
         this.appendDummyInput()

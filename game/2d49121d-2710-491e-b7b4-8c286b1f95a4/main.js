@@ -184,6 +184,7 @@ async function waitDuration(time) {
 
         afterDrinkWater();
         M.toast({ html: CORRECT_MESSAGE });
+        setTimeout(() => { is_game_completed = true; }, 2500)
     }
 }
 
@@ -311,6 +312,7 @@ export {
     reInitValues,
     waitDuration,
     // drink_Water,
+    drinkWater,
     hasDroppedpabel,
     // water,
     // potLid,

@@ -119,6 +119,20 @@ async function getFiles() {
 
 }
 
+const EduCobotBaseUrl = "https://api.educobot.com/";
+
+const devUrls = {
+    EduCobotBaseUrl: EduCobotBaseUrl,
+    getStudents: "users/getStudents",
+    getLessonByID: "lessonsRoute/getLessonByID",
+
+    postOTPLesson: "sessionRoute/postOTPLesson",
+    postEvalData: "users/postEvalData",
+
+    pythonScriptFilesUrl:`${url.EduCobotBaseUrl}liveLessons/python/`,
+    turtleFilesUrl:`${url.EduCobotBaseUrl}liveLessons/turtle/`,
+}
+
 const nextConfig = {
     reactStrictMode: true,
     env: {
@@ -129,6 +143,8 @@ const nextConfig = {
         SERVER_URL1: "http://localhost:7001",
         Dashboard_URL: "http://localhost:3000/dashboard/app/",
         InternalServer: "http://localhost:3003",
+        devUrls: devUrls,
+        // GetStudents: "https://api.educobot.com/users/getStudents",
     },
     // URL: 'http://192.168.1.33:3000/api',
 

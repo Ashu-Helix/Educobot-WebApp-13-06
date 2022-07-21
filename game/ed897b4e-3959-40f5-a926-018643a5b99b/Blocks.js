@@ -1,229 +1,220 @@
 import Blockly from "blockly";
 import "blockly/python";
 import "blockly/javascript";
-
 Blockly.HSV_SATURATION = 1;
 Blockly.HSV_VALUE = 1;
 
-Blockly.Blocks['end_block'] = {
+Blockly.Blocks['get_block_type'] = {
     init: function () {
         this.appendDummyInput()
-            .setAlign(Blockly.ALIGN_CENTRE)
-            .appendField("End All");
-        this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
+            .appendField("Get next patient's temperature");
+        this.setOutput(true, null);
         this.setColour(15);
         this.setTooltip("");
         this.setHelpUrl("");
     }
 };
-
-Blockly.JavaScript['end_block'] = function (block) {
-    let code = 'fnGameOverText();';
-    return code;
-};
-Blockly.Python['end_block'] = function (block) {
-    let code = 'end_game()\n';
-    return code;
+Blockly.JavaScript["get_block_type"] = function (block) {
+    var code = "await getPatientTemperature()";
+    return [code, Blockly.JavaScript.ORDER_NONE];
 };
 
+Blockly.Python["get_block_type"] = function (block) {
+    var code = "doctor.get_next_Patient_Temperature()";
+    return [code, Blockly.Python.ORDER_ATOMIC];
+};
 
-
-Blockly.Blocks['show_variable_block'] = {
-    init: function () {
-        this.appendDummyInput()
-            .appendField("Display")
-            .appendField(new Blockly.FieldDropdown([
-                ["Variable name", "dummy"],
-                ["Score", "score"]
-            ]), "NAME")
-            .appendField(" on screen");
-        this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
-        this.setColour(200);
-        this.setTooltip("");
-        this.setHelpUrl("");
-    }
-};
-Blockly.JavaScript['show_variable_block'] = function (block) {
-    let code = 'fnShowPoints("' + block.getFieldValue('NAME') + '");';
-    return code;
-};
-Blockly.Python['show_variable_block'] = function (block) {
-    let code = 'display_score()\n';
-    return code;
-};
 
 Blockly.Blocks['action_block'] = {
     init: function () {
         this.appendDummyInput()
             .setAlign(Blockly.ALIGN_CENTRE)
-            .appendField("Let Mole appear");
+            .appendField("Treat patient - Give medicine");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(350);
+        this.setColour(50);
         this.setTooltip("");
         this.setHelpUrl("");
     }
 };
 
-Blockly.JavaScript['action_block'] = function (block) {
-    let code = 'fnShowRandomMole();';
-    return code;
-};
-Blockly.Python['action_block'] = function (block) {
-    let code = 'mole_pops_up_from_random_hole()\n';
-    return code;
-};
-
-Blockly.Blocks['spritetouch__block'] = {
+Blockly.Blocks['normal_temperature'] = {
     init: function () {
         this.appendDummyInput()
-            .appendField(new Blockly.FieldDropdown([
-                ["hammer", "hammer"],
-            ]), "options1")
-            .appendField("touches")
-            .appendField(new Blockly.FieldDropdown([
-                ["animal", "animal"]
-            ]), "options2");
-        this.setOutput(true, null);
+            .setAlign(Blockly.ALIGN_CENTRE)
+            .appendField("Patient needs no treatment");
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
         this.setColour(250);
         this.setTooltip("");
         this.setHelpUrl("");
     }
 };
-Blockly.JavaScript['spritetouch__block'] = function (block) {
-    const options1 = block.getFieldValue('options1');
-    const options2 = block.getFieldValue('options2');
-    let code = ((options1 == 'hammer' && options2 == 'animal') || (options2 == 'hammer' && options1 == 'animal')) + ' && isBeaverHitHammer';
-    return [code, Blockly.JavaScript.ORDER_NONE];
-};
-Blockly.Python['spritetouch__block'] = function (block) {
-    let code = "is_hammer_touching_mole()";
-    return [code, Blockly.JavaScript.ORDER_NONE];
-};
 
-Blockly.Blocks['addition_block'] = {
+Blockly.Blocks['wait_block'] = {
     init: function () {
+        this.appendValueInput("NAME")
+            .setCheck("Number")
+            .appendField(new Blockly.FieldLabelSerializable("Wait for"), "NAME");
         this.appendDummyInput()
             .setAlign(Blockly.ALIGN_RIGHT)
-            .appendField("Add")
-            .appendField(new Blockly.FieldDropdown([
-                ["Score", "score"]
-            ]), "NAME")
-            .appendField(" + ")
-            .appendField(new Blockly.FieldNumber(1, 0), "addscorevalue");
-        this.setInputsInline(false);
+            .appendField("seconds");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(270);
+        this.setColour(259, 97, 90);
         this.setTooltip("");
         this.setHelpUrl("");
     }
 };
-Blockly.JavaScript['addition_block'] = function (block) {
-    let name = block.getFieldValue('NAME');
-    let code = name == 'score' ? 'fnAddScoreValue("' + block.getFieldValue('addscorevalue') + '");' : '';
+
+Blockly.JavaScript['wait_block'] = function (block) {
+    let value_name = Blockly.JavaScript.valueToCode(block, 'NAME', Blockly.JavaScript.ORDER_ATOMIC);
+    let code = 'await sleep(' + (value_name * 1000) + ');';
     return code;
 };
-Blockly.Python['addition_block'] = function (block) {
-    let name = block.getFieldValue('NAME');
-    let code = "score += " + block.getFieldValue('addscorevalue') + "\n";
+Blockly.Python['wait_block'] = function (block) {
+    let value_name = Blockly.JavaScript.valueToCode(block, 'NAME', Blockly.JavaScript.ORDER_ATOMIC);
+    let code = 'time.sleep(' + value_name + ')\n';
     return code;
 };
 
-Blockly.Blocks['forever_repeat_block'] = {
+Blockly.Blocks['say_block'] = {
     init: function () {
         this.appendDummyInput()
-            .appendField("Repeat forever");
-        this.appendStatementInput("NAME")
+            .appendField("Say")
+            .appendField(new Blockly.FieldTextInput("Hi"), "NAME");
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setColour(300);
+        this.setTooltip("");
+        this.setHelpUrl("");
+    }
+};
+Blockly.JavaScript['say_block'] = function (block) {
+    let code = 'await createDialogue("' + block.getFieldValue('NAME') + '");';
+    return code;
+};
+Blockly.Python['say_block'] = function (block) {
+    let code = 'doctor.say("' + block.getFieldValue('NAME') + '")\n';
+    return code;
+};
+
+
+Blockly.JavaScript['action_block'] = function (block) {
+    let code = "await giveMedicine();";
+    return code;
+};
+Blockly.Python['action_block'] = function (block) {
+    let code = "doctor.give_Medicine()\n";
+    return code;
+};
+
+Blockly.JavaScript['normal_temperature'] = function (block) {
+    let code = "await normalTemperature();";
+    return code;
+};
+Blockly.Python['normal_temperature'] = function (block) {
+    let code = "doctor.no_treatment_thumbs_up()\n";
+    return code;
+};
+
+
+// Custom Set Variable Block
+Blockly.Blocks["set_variable_holder"] = {
+    init: function () {
+        this.appendValueInput("NAME")
             .setCheck(null)
-            .setAlign(Blockly.ALIGN_CENTRE);
+            .appendField("set")
+            .appendField(
+                new Blockly.FieldDropdown([
+                    ["Variable", "default_"],
+                    ["patient_temperature", "patient_temperature"],
+                ]), "Variable name")
+            .appendField("=");
         this.setInputsInline(false);
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(135);
+        this.setColour(330);
         this.setTooltip("");
         this.setHelpUrl("");
-    }
+    },
 };
 
-Blockly.JavaScript['forever_repeat_block'] = function (block) {
-    var branch = Blockly.JavaScript.statementToCode(block, 'NAME');
-    var code = `update = ()=>{
-        ` + branch + `
-        reset_for_update();
-   }`
-    if (repeat_forever_flag) {
-        eval(code);
-        game.destroy();
-        document.getElementById('sprite-container').innerHTML = "";
-        setTimeout(() => {
-            let config = {
-                type: Phaser.AUTO,
-                width: gameWidth,
-                height: gameHeight,
-                backgroundColor: "#eeeeee",
-                parent: "sprite-container",
-                canvasStyle: `width: 100%;
-                object-fit: revert;
-                aspect-ratio: 738 / 436;`,
-                physics: {
-                    default: "arcade",
-                    arcade: {
-                        gravity: { y: 0 },
-                        debug: false
-                    },
-                },
-                scene: {
-                    preload: preload,
-                    create: create,
-                    update: update,
-                },
-            };
-            let game1 = new Phaser.Game(config);
-        }, 100);
-
-    }
+Blockly.JavaScript["set_variable_holder"] = function (block) {
+    var dropdown_variable_name = block.getFieldValue("Variable name");
+    var value_name = Blockly.JavaScript.valueToCode(block, "NAME", Blockly.JavaScript.ORDER_ATOMIC);
+    var code = dropdown_variable_name + "=" + value_name + ";\n";
     return code;
 };
-Blockly.Python['forever_repeat_block'] = function (block) {
-    var branch = Blockly.Python.statementToCode(block, 'NAME');
-    var code = "while True:\n" + branch;
+Blockly.Python["set_variable_holder"] = function (block) {
+    var dropdown_variable_name = block.getFieldValue("Variable name");
+    var value_name = Blockly.Python.valueToCode(block, "NAME", Blockly.Python.ORDER_ATOMIC);
+    var code = dropdown_variable_name + " = " + value_name + "\n";
     return code;
 };
 
-Blockly.Blocks['compare_block'] = {
+// Custom Variables Block
+Blockly.Blocks["variables"] = {
     init: function () {
-        this.appendDummyInput()
-            .appendField("Score ")
-            .appendField(new Blockly.FieldDropdown([
-                ["=", "="],
-            ]), "NAME")
-            .appendField(new Blockly.FieldNumber(0), "number");
+        this.appendDummyInput().appendField(
+            new Blockly.FieldDropdown([
+                ["Variables", "default_"],
+                ["patient_temperature", "patient_temperature"],
+            ]), "Options");
+        this.setInputsInline(false);
         this.setOutput(true, null);
-        this.setColour(195);
+        this.setColour(210);
         this.setTooltip("");
         this.setHelpUrl("");
-    }
+    },
 };
 
-
-
-Blockly.JavaScript['compare_block'] = function (block) {
-    const _name = block.getFieldValue('NAME');
-    const _number = block.getFieldValue('number');
-    let code = _name == "=" ? 'scorePoints >= ' + _number : false;
+Blockly.JavaScript["variables"] = function (block) {
+    var code = block.getFieldValue("Options");
     return [code, Blockly.JavaScript.ORDER_NONE];
 };
 
-Blockly.Python['compare_block'] = function (block) {
-    const _name = block.getFieldValue('NAME');
-    const _number = block.getFieldValue('number');
-    // let code = _name == "=" ? 'scorePoints >= ' + _number : false;
-    let code = "score == " + _number;
-    return [code, Blockly.JavaScript.ORDER_NONE];
+Blockly.Python["variables"] = function (block) {
+    var code = block.getFieldValue("Options");
+    return [code, Blockly.Python.ORDER_ATOMIC];
 };
+
+
+// export const blocks = {
+//     kind: "category",
+//     name: "Medicine Master",
+//     colour: "#FF1493",
+//     contents: [{
+//             kind: "block",
+//             type: "get_block_type",
+//         },
+//         {
+//             kind: "block",
+//             type: "action_block",
+//         },
+
+//         {
+//             kind: "block",
+//             type: "normal_temperature",
+//         },
+//         {
+//             kind: "block",
+//             type: "wait_block",
+//         },
+//         {
+//             kind: "block",
+//             type: "say_block",
+//         }, ,
+//         {
+//             kind: "block",
+//             type: "set_variable_holder",
+//         }, ,
+//         {
+//             kind: "block",
+//             type: "variables",
+//         },
+//     ],
+// };
 
 export const blocks = {
     kind: "categoryToolbox",
@@ -231,22 +222,60 @@ export const blocks = {
         {
             kind: "CATEGORY",
             contents: [
-                { kind: "BLOCK", blockxml: "", type: "forever_repeat_block" },
-                { kind: "BLOCK", blockxml: "", type: "compare_block" },
-                { kind: "BLOCK", blockxml: "", type: "spritetouch__block" },
-                { kind: "BLOCK", blockxml: "", type: "show_variable_block" },
-                { kind: "BLOCK", blockxml: "", type: "addition_block" },
-                { kind: "BLOCK", blockxml: "", type: "action_block" },
-                { kind: "BLOCK", blockxml: "", type: "end_block" },
+                {
+                    kind: "BLOCK",
+                    blockxml: '<block type="set_variable_holder"><value name = "NAME"></value></block>',
+                    type: "set_variable_holder"
+                },
+                { kind: "BLOCK", blockxml: "", type: "variables" },
+                {
+                    kind: "BLOCK",
+                    blockxml: '<block type="math_number"><field name = "NUM">1</field></block>',
+                    type: "math_number"
+                },
             ],
-            name: "Whack-a-Mole",
+            name: "Game Variables",
+            categorystyle: "variable_category",
+        },
+        {
+            kind: "CATEGORY",
+            contents: [
+                { kind: "BLOCK", blockxml: "", type: "get_block_type" },
+                { kind: "BLOCK", blockxml: "", type: "action_block" },
+                { kind: "BLOCK", blockxml: "", type: "normal_temperature" },
+                { kind: "BLOCK", blockxml: "", type: "say_block" },
+                {
+                    kind: "BLOCK",
+                    blockxml: '<block type="wait_block"><value name = "NAME"><block type = "math_number"><field name="NUM">3</field></block></value></block>',
+                    type: "wait_block"
+                },
+            ],
+            name: "Doctor actions",
             colour: "#B430FF",
             cssConfig: { container: "cat1" },
         },
         {
             kind: "CATEGORY",
-            contents: [{ kind: "BLOCK", blockxml: "", type: "controls_if" }],
-            name: "If",
+            contents: [
+                {
+                    kind: "BLOCK",
+                    blockxml: '<block type="controls_if"><mutation else= "1" ></mutation></block>',
+                    type: "controls_if"
+                },
+                { kind: "BLOCK", blockxml: "", type: "logic_compare" },
+            ],
+            name: "Conditions",
+            colour: "%{BKY_LOGIC_HUE}",
+        },
+        {
+            kind: "CATEGORY",
+            contents: [{
+                kind: "BLOCK",
+                blockxml: '<block type="controls_repeat_ext"><value name = "TIMES"><block type = "math_number"><field name="NUM">3</field></block></value></block>',
+                type: "controls_repeat_ext"
+            }],
+            name: "Loops",
+            colour: "%{BKY_LOOPS_HUE}",
         },
     ],
     id: "toolbox",

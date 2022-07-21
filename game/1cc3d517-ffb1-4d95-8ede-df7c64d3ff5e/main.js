@@ -1,37 +1,36 @@
-// import M from 'materialize-css';
-// import {
-//     AUTO,
-//     Game,
-// } from 'phaser';
 
-// import MSPhaserLib from '../msPhaserLib.min';
-
-import M from "materialize-css";
 import Blockly from "blockly";
 import "blockly/python";
 import "blockly/javascript";
-import MSPhaserLib from "../msPhaserLib.min";
-import { CANVAS, Game, AUTO } from "phaser";
+
+import M from 'materialize-css';
+import {
+    AUTO,
+    Game,
+} from 'phaser';
+
+import MSPhaserLib from '../msPhaserLib.min';
 
 let demoWorkspace = Blockly.getMainWorkspace();
 let noOfBlocks;
 
 let _gameThis = null;
-const baseURL = "../img";
+const baseURL = "../img/images";
 const gameWidth = 1920;
 const gameHeight = 1080;
 const gameScale = 1;
 let input_count = 0;
 let display_count = 0;
+let game_is_over = false;
 
 const GAME_CONSTANT = {
     images: {
-        "background": "images/Robot_Il_Background.png",
-        "above": "images/Black_Above_Background.png",
-        "movedrobot": "images/Robot_RtoL.png",
-        "hand": "images/hand.png",
-        "fixedrobot": "images/robot simple-bot.png",
-        "speech": "images/Robot_Il_speech.png"
+        "background": "Robot_Il_Background.png",
+        "above": "Black_Above_Background.png",
+        "movedrobot": "Robot_RtoL.png",
+        "hand": "hand.png",
+        "fixedrobot": "robot simple-bot.png",
+        "speech": "Robot_Il_speech.png"
 
     },
     spritesImages: {
@@ -41,7 +40,10 @@ const GAME_CONSTANT = {
 const ERROR_MESSAGE = '';
 const CORRECT_MESSAGE = '';
 
-let name_, age, grade, favourite;
+let name_ = '',
+    age = '',
+    grade = '',
+    favourite = '';
 
 let name_blockly = 'Jhon doe';
 let age_blockly = '40 years old';
@@ -191,6 +193,9 @@ async function display_details() {
         // display_detail(age);
         // display_detail(grade);
         // display_detail(favourite);
+        if (name_ !== null && age !== null && grade !== null && favourite !== null) {
+            setTimeout(() => { game_is_over = true; }, 5000);
+        }
         resolve()
     });
 }
@@ -294,8 +299,8 @@ function loadImages() {
             console.log(key, element)
             _gameThis.load.atlas(
                 key,
-                "images/" + element + ".png",
-                "images/" + element + ".json"
+                "" + element + ".png",
+                "" + element + ".json"
             );
         }
     }
@@ -319,6 +324,7 @@ function Start_Game() {
 // Re-initialize the game variables
 function reInitValues() {
     var CanClick = true;
+    game_is_over = false;
     robottext.setVisible(false);
     robotspeech.setVisible(false);
     Middletext.setVisible(false);
@@ -365,12 +371,12 @@ function runCode() {
 }
 
 // function helpCode() {
-//     var xml_wkspace = '<xml xmlns="https://developers.google.com/blockly/xml"><block type="say_block" id="Up,=srazWR)bUB^loTGd" x="-18" y="-623"><field name="dialogue">Hello I am the new bot.</field><next><block type="wait" id="sqb5!2rs!gbx%:c)Kb#@"><field name="WAIT">Wait for</field><value name="WAIT"><block type="math_number" id="5rF=V@:#+V#0QV2Ql}$o"><field name="NUM">2</field></block></value><next><block type="say_block" id="v0KVDZ:!n2Y5~rD]f{X?"><field name="dialogue">I would like to know about you</field><next><block type="wait" id=":JU~2;vV(IhEG(Wi8VF+"><field name="WAIT">Wait for</field><value name="WAIT"><block type="math_number" id="{qRyR~YI*:(.XC_.fb/k"><field name="NUM">2</field></block></value><next><block type="say_block" id="!3:||70p-vi|2Ex;U%Cr"><field name="dialogue">What is your name?</field><next><block type="wait" id="Tlge21]cSKMdhhT*}zi-"><field name="WAIT">Wait for</field><value name="WAIT"><block type="math_number" id="m{cU^LU=al^:rLR8L:dr"><field name="NUM">2</field></block></value><next><block type="set_variable_holder" id="_:d;zqb~p3t.hs3)rRE9"><field name="Variable">name</field><value name="NAME"><block type="input_block" id="k=Rl{Pb(qSaHDlu=?W*k"></block></value><next><block type="say_block" id="5u,;ar0IU%6#@A.$bPv."><field name="dialogue">That is a good name!</field><next><block type="wait" id="+v|qxk6XyMw(eYN+3V(~"><field name="WAIT">Wait for</field><value name="WAIT"><block type="math_number" id="h;3dwskh~)g=eBy]osyt"><field name="NUM">2</field></block></value><next><block type="say_block" id="$E(t]VQ/q~xW#^:Ah}.7"><field name="dialogue">What is your age?</field><next><block type="wait" id="*CzB)YNI$rg,8W6[N2-t"><field name="WAIT">Wait for</field><value name="WAIT"><block type="math_number" id="S,9!h*lvS7O:svpSPxne"><field name="NUM">2</field></block></value><next><block type="set_variable_holder" id="lK;WoG)mS%2mS=;qAJiu"><field name="Variable">age</field><value name="NAME"><block type="input_block" id="I~(9.ul^*Dov%oy0|P^~"></block></value><next><block type="wait" id="Z860:cJgEwYx}Nv=P5RW"><field name="WAIT">Wait for</field><value name="WAIT"><block type="math_number" id="V#8vl`|d|i??|1`#(`YH"><field name="NUM">2</field></block></value><next><block type="say_block" id="T5yv.{uRh_W0f$L%t2Z$"><field name="dialogue">Which grade you are in?</field><next><block type="wait" id="~,8.2CCegB#n4dFr-5rd"><field name="WAIT">Wait for</field><value name="WAIT"><block type="math_number" id="vFtv$]C#r2Lv!?N^5Qy("><field name="NUM">2</field></block></value><next><block type="set_variable_holder" id="ixUaS9)Eq;y)ZIFx9G8I"><field name="Variable">grade</field><value name="NAME"><block type="input_block" id="{7{o|KaS8:u-1XGZI=I!"></block></value><next><block type="say_block" id="dH3!m8Y7@5}lpX[x2o%~"><field name="dialogue">Here goes the last question.</field><next><block type="wait" id="4fOlPmz4vnT1ym;~!%%z"><field name="WAIT">Wait for</field><value name="WAIT"><block type="math_number" id="_c}_C3sdD(U4sYZ+V^Eu"><field name="NUM">2</field></block></value><next><block type="say_block" id="9zjjh(ci0U}/Nf:t.d6d"><field name="dialogue">What is your favourite thing?</field><next><block type="wait" id="dEHAY~`@f1~uoHveaC2y"><field name="WAIT">Wait for</field><value name="WAIT"><block type="math_number" id="e`Ce8pA0De;kfZ|f[cFe"><field name="NUM">2</field></block></value><next><block type="set_variable_holder" id="(q|M[F[T#/]^BOHBsy7|"><field name="Variable">favourite</field><value name="NAME"><block type="input_block" id="JE#7RkC$hj.VyOGSC=MJ"></block></value><next><block type="display_details" id="zIBqplxe,3Ue-DxPh83+"><next><block type="wait" id="*Tu*kOq}.^2#g08?*GN%"><field name="WAIT">Wait for</field><value name="WAIT"><block type="math_number" id="^y0A](Ly`nT}g%bb={-t"><field name="NUM">3</field></block></value><next><block type="say_block" id="*eQfuwRK3,kzf]S;L07j"><field name="dialogue">Thank you, it was great to know you.</field><next><block type="wait" id="X!e?#Iz`p=ZryjF8JXCm"><field name="WAIT">Wait for</field><value name="WAIT"><block type="math_number" id=".HMTYCsip=t_vvKIto**"><field name="NUM">2</field></block></value></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></xml>';
+//     var xml_wkspace = '<xml xmlns="https://developers.google.com/blockly/xml"><block type="say_block" id="Up,=srazWR)bUB^loTGd" x="-18" y="-623"><field name="dialogue">Hello I am the new bot.</field><next><block type="wait" id="sqb5!2rs!gbx%:c)Kb#@"><field name="WAIT">Wait for</field><value name="WAIT"><block type="math_number" id="5rF=V@:#+V#0QV2Ql}$o"><field name="NUM">2</field></block></value><next><block type="say_block" id="v0KVDZ:!n2Y5~rD]f{X?"><field name="dialogue">I would like to know about you</field><next><block type="wait" id=":JU~2;vV(IhEG(Wi8VF+"><field name="WAIT">Wait for</field><value name="WAIT"><block type="math_number" id="{qRyR~YI*:(.XC_.fb/k"><field name="NUM">2</field></block></value><next><block type="say_block" id="!3:||70p-vi|2Ex;U%Cr"><field name="dialogue">What is your name?</field><next><block type="wait" id="Tlge21]cSKMdhhT*}zi-"><field name="WAIT">Wait for</field><value name="WAIT"><block type="math_number" id="m{cU^LU=al^:rLR8L:dr"><field name="NUM">2</field></block></value><next><block type="set_variable_holder" id="_:d;zqb~p3t.hs3)rRE9"><field name="Variable">name_</field><value name="NAME"><block type="input_block" id="k=Rl{Pb(qSaHDlu=?W*k"></block></value><next><block type="wait" id="{-qU]|:E~~$:2)IOAU;D"><field name="WAIT">Wait for</field><value name="WAIT"><block type="math_number" id="(EWcWDkTA:2KwXEX0(a."><field name="NUM">2</field></block></value><next><block type="say_block" id="5u,;ar0IU%6#@A.$bPv."><field name="dialogue">That is a good name!</field><next><block type="wait" id="+v|qxk6XyMw(eYN+3V(~"><field name="WAIT">Wait for</field><value name="WAIT"><block type="math_number" id="h;3dwskh~)g=eBy]osyt"><field name="NUM">2</field></block></value><next><block type="say_block" id="$E(t]VQ/q~xW#^:Ah}.7"><field name="dialogue">What is your age?</field><next><block type="wait" id="*CzB)YNI$rg,8W6[N2-t"><field name="WAIT">Wait for</field><value name="WAIT"><block type="math_number" id="S,9!h*lvS7O:svpSPxne"><field name="NUM">2</field></block></value><next><block type="set_variable_holder" id="lK;WoG)mS%2mS=;qAJiu"><field name="Variable">age</field><value name="NAME"><block type="input_block" id="I~(9.ul^*Dov%oy0|P^~"></block></value><next><block type="wait" id="Z860:cJgEwYx}Nv=P5RW"><field name="WAIT">Wait for</field><value name="WAIT"><block type="math_number" id="V#8vl`|d|i??|1`#(`YH"><field name="NUM">2</field></block></value><next><block type="say_block" id="T5yv.{uRh_W0f$L%t2Z$"><field name="dialogue">Which grade you are in?</field><next><block type="wait" id="~,8.2CCegB#n4dFr-5rd"><field name="WAIT">Wait for</field><value name="WAIT"><block type="math_number" id="vFtv$]C#r2Lv!?N^5Qy("><field name="NUM">2</field></block></value><next><block type="set_variable_holder" id="ixUaS9)Eq;y)ZIFx9G8I"><field name="Variable">grade</field><value name="NAME"><block type="input_block" id="{7{o|KaS8:u-1XGZI=I!"></block></value><next><block type="wait" id="Oj,{4),E1#l}%VvDYc*|"><field name="WAIT">Wait for</field><value name="WAIT"><block type="math_number" id="N/R0//p2PHs6YLih2YI8"><field name="NUM">2</field></block></value><next><block type="say_block" id="dH3!m8Y7@5}lpX[x2o%~"><field name="dialogue">Here goes the last question.</field><next><block type="wait" id="4fOlPmz4vnT1ym;~!%%z"><field name="WAIT">Wait for</field><value name="WAIT"><block type="math_number" id="_c}_C3sdD(U4sYZ+V^Eu"><field name="NUM">2</field></block></value><next><block type="say_block" id="9zjjh(ci0U}/Nf:t.d6d"><field name="dialogue">What is your favourite thing?</field><next><block type="wait" id="dEHAY~`@f1~uoHveaC2y"><field name="WAIT">Wait for</field><value name="WAIT"><block type="math_number" id="e`Ce8pA0De;kfZ|f[cFe"><field name="NUM">2</field></block></value><next><block type="set_variable_holder" id="(q|M[F[T#/]^BOHBsy7|"><field name="Variable">favourite</field><value name="NAME"><block type="input_block" id="JE#7RkC$hj.VyOGSC=MJ"></block></value><next><block type="wait" id="-sV;ATvV%pb;poGS2Q~j"><field name="WAIT">Wait for</field><value name="WAIT"><block type="math_number" id="eT?y+A%}2cUK*klD(i-?"><field name="NUM">2</field></block></value><next><block type="display_details" id="zIBqplxe,3Ue-DxPh83+"><next><block type="wait" id="B]7b3kL`~Z#/[~$vfo$p"><field name="WAIT">Wait for</field><value name="WAIT"><block type="math_number" id="jLYOj:9NGTa@HRzv3jOR"><field name="NUM">2</field></block></value><next><block type="say_block" id="*eQfuwRK3,kzf]S;L07j"><field name="dialogue">Thank you, it was great to know you.</field><next><block type="wait" id="X!e?#Iz`p=ZryjF8JXCm"><field name="WAIT">Wait for</field><value name="WAIT"><block type="math_number" id=".HMTYCsip=t_vvKIto**"><field name="NUM">2</field></block></value></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></xml>';
 //     var xml = Blockly.Xml.textToDom(xml_wkspace);
 //     Blockly.Xml.clearWorkspaceAndLoadFromXml(xml, demoWorkspace);
 // }
 
-const helpCode = '<xml xmlns="https://developers.google.com/blockly/xml"><block type="say_block" id="Up,=srazWR)bUB^loTGd" x="-18" y="-623"><field name="dialogue">Hello I am the new bot.</field><next><block type="wait" id="sqb5!2rs!gbx%:c)Kb#@"><field name="WAIT">Wait for</field><value name="WAIT"><block type="math_number" id="5rF=V@:#+V#0QV2Ql}$o"><field name="NUM">2</field></block></value><next><block type="say_block" id="v0KVDZ:!n2Y5~rD]f{X?"><field name="dialogue">I would like to know about you</field><next><block type="wait" id=":JU~2;vV(IhEG(Wi8VF+"><field name="WAIT">Wait for</field><value name="WAIT"><block type="math_number" id="{qRyR~YI*:(.XC_.fb/k"><field name="NUM">2</field></block></value><next><block type="say_block" id="!3:||70p-vi|2Ex;U%Cr"><field name="dialogue">What is your name?</field><next><block type="wait" id="Tlge21]cSKMdhhT*}zi-"><field name="WAIT">Wait for</field><value name="WAIT"><block type="math_number" id="m{cU^LU=al^:rLR8L:dr"><field name="NUM">2</field></block></value><next><block type="set_variable_holder" id="_:d;zqb~p3t.hs3)rRE9"><field name="Variable">name</field><value name="NAME"><block type="input_block" id="k=Rl{Pb(qSaHDlu=?W*k"></block></value><next><block type="say_block" id="5u,;ar0IU%6#@A.$bPv."><field name="dialogue">That is a good name!</field><next><block type="wait" id="+v|qxk6XyMw(eYN+3V(~"><field name="WAIT">Wait for</field><value name="WAIT"><block type="math_number" id="h;3dwskh~)g=eBy]osyt"><field name="NUM">2</field></block></value><next><block type="say_block" id="$E(t]VQ/q~xW#^:Ah}.7"><field name="dialogue">What is your age?</field><next><block type="wait" id="*CzB)YNI$rg,8W6[N2-t"><field name="WAIT">Wait for</field><value name="WAIT"><block type="math_number" id="S,9!h*lvS7O:svpSPxne"><field name="NUM">2</field></block></value><next><block type="set_variable_holder" id="lK;WoG)mS%2mS=;qAJiu"><field name="Variable">age</field><value name="NAME"><block type="input_block" id="I~(9.ul^*Dov%oy0|P^~"></block></value><next><block type="wait" id="Z860:cJgEwYx}Nv=P5RW"><field name="WAIT">Wait for</field><value name="WAIT"><block type="math_number" id="V#8vl`|d|i??|1`#(`YH"><field name="NUM">2</field></block></value><next><block type="say_block" id="T5yv.{uRh_W0f$L%t2Z$"><field name="dialogue">Which grade you are in?</field><next><block type="wait" id="~,8.2CCegB#n4dFr-5rd"><field name="WAIT">Wait for</field><value name="WAIT"><block type="math_number" id="vFtv$]C#r2Lv!?N^5Qy("><field name="NUM">2</field></block></value><next><block type="set_variable_holder" id="ixUaS9)Eq;y)ZIFx9G8I"><field name="Variable">grade</field><value name="NAME"><block type="input_block" id="{7{o|KaS8:u-1XGZI=I!"></block></value><next><block type="say_block" id="dH3!m8Y7@5}lpX[x2o%~"><field name="dialogue">Here goes the last question.</field><next><block type="wait" id="4fOlPmz4vnT1ym;~!%%z"><field name="WAIT">Wait for</field><value name="WAIT"><block type="math_number" id="_c}_C3sdD(U4sYZ+V^Eu"><field name="NUM">2</field></block></value><next><block type="say_block" id="9zjjh(ci0U}/Nf:t.d6d"><field name="dialogue">What is your favourite thing?</field><next><block type="wait" id="dEHAY~`@f1~uoHveaC2y"><field name="WAIT">Wait for</field><value name="WAIT"><block type="math_number" id="e`Ce8pA0De;kfZ|f[cFe"><field name="NUM">2</field></block></value><next><block type="set_variable_holder" id="(q|M[F[T#/]^BOHBsy7|"><field name="Variable">favourite</field><value name="NAME"><block type="input_block" id="JE#7RkC$hj.VyOGSC=MJ"></block></value><next><block type="display_details" id="zIBqplxe,3Ue-DxPh83+"><next><block type="wait" id="*Tu*kOq}.^2#g08?*GN%"><field name="WAIT">Wait for</field><value name="WAIT"><block type="math_number" id="^y0A](Ly`nT}g%bb={-t"><field name="NUM">3</field></block></value><next><block type="say_block" id="*eQfuwRK3,kzf]S;L07j"><field name="dialogue">Thank you, it was great to know you.</field><next><block type="wait" id="X!e?#Iz`p=ZryjF8JXCm"><field name="WAIT">Wait for</field><value name="WAIT"><block type="math_number" id=".HMTYCsip=t_vvKIto**"><field name="NUM">2</field></block></value></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></xml>';
+const helpCode = '<xml xmlns="https://developers.google.com/blockly/xml"><block type="say_block" id="Up,=srazWR)bUB^loTGd" x="-18" y="-623"><field name="dialogue">Hello I am the new bot.</field><next><block type="wait" id="sqb5!2rs!gbx%:c)Kb#@"><field name="WAIT">Wait for</field><value name="WAIT"><block type="math_number" id="5rF=V@:#+V#0QV2Ql}$o"><field name="NUM">2</field></block></value><next><block type="say_block" id="v0KVDZ:!n2Y5~rD]f{X?"><field name="dialogue">I would like to know about you</field><next><block type="wait" id=":JU~2;vV(IhEG(Wi8VF+"><field name="WAIT">Wait for</field><value name="WAIT"><block type="math_number" id="{qRyR~YI*:(.XC_.fb/k"><field name="NUM">2</field></block></value><next><block type="say_block" id="!3:||70p-vi|2Ex;U%Cr"><field name="dialogue">What is your name?</field><next><block type="wait" id="Tlge21]cSKMdhhT*}zi-"><field name="WAIT">Wait for</field><value name="WAIT"><block type="math_number" id="m{cU^LU=al^:rLR8L:dr"><field name="NUM">2</field></block></value><next><block type="set_variable_holder" id="_:d;zqb~p3t.hs3)rRE9"><field name="Variable">name_</field><value name="NAME"><block type="input_block" id="k=Rl{Pb(qSaHDlu=?W*k"></block></value><next><block type="wait" id="{-qU]|:E~~$:2)IOAU;D"><field name="WAIT">Wait for</field><value name="WAIT"><block type="math_number" id="(EWcWDkTA:2KwXEX0(a."><field name="NUM">2</field></block></value><next><block type="say_block" id="5u,;ar0IU%6#@A.$bPv."><field name="dialogue">That is a good name!</field><next><block type="wait" id="+v|qxk6XyMw(eYN+3V(~"><field name="WAIT">Wait for</field><value name="WAIT"><block type="math_number" id="h;3dwskh~)g=eBy]osyt"><field name="NUM">2</field></block></value><next><block type="say_block" id="$E(t]VQ/q~xW#^:Ah}.7"><field name="dialogue">What is your age?</field><next><block type="wait" id="*CzB)YNI$rg,8W6[N2-t"><field name="WAIT">Wait for</field><value name="WAIT"><block type="math_number" id="S,9!h*lvS7O:svpSPxne"><field name="NUM">2</field></block></value><next><block type="set_variable_holder" id="lK;WoG)mS%2mS=;qAJiu"><field name="Variable">age</field><value name="NAME"><block type="input_block" id="I~(9.ul^*Dov%oy0|P^~"></block></value><next><block type="wait" id="Z860:cJgEwYx}Nv=P5RW"><field name="WAIT">Wait for</field><value name="WAIT"><block type="math_number" id="V#8vl`|d|i??|1`#(`YH"><field name="NUM">2</field></block></value><next><block type="say_block" id="T5yv.{uRh_W0f$L%t2Z$"><field name="dialogue">Which grade you are in?</field><next><block type="wait" id="~,8.2CCegB#n4dFr-5rd"><field name="WAIT">Wait for</field><value name="WAIT"><block type="math_number" id="vFtv$]C#r2Lv!?N^5Qy("><field name="NUM">2</field></block></value><next><block type="set_variable_holder" id="ixUaS9)Eq;y)ZIFx9G8I"><field name="Variable">grade</field><value name="NAME"><block type="input_block" id="{7{o|KaS8:u-1XGZI=I!"></block></value><next><block type="wait" id="Oj,{4),E1#l}%VvDYc*|"><field name="WAIT">Wait for</field><value name="WAIT"><block type="math_number" id="N/R0//p2PHs6YLih2YI8"><field name="NUM">2</field></block></value><next><block type="say_block" id="dH3!m8Y7@5}lpX[x2o%~"><field name="dialogue">Here goes the last question.</field><next><block type="wait" id="4fOlPmz4vnT1ym;~!%%z"><field name="WAIT">Wait for</field><value name="WAIT"><block type="math_number" id="_c}_C3sdD(U4sYZ+V^Eu"><field name="NUM">2</field></block></value><next><block type="say_block" id="9zjjh(ci0U}/Nf:t.d6d"><field name="dialogue">What is your favourite thing?</field><next><block type="wait" id="dEHAY~`@f1~uoHveaC2y"><field name="WAIT">Wait for</field><value name="WAIT"><block type="math_number" id="e`Ce8pA0De;kfZ|f[cFe"><field name="NUM">2</field></block></value><next><block type="set_variable_holder" id="(q|M[F[T#/]^BOHBsy7|"><field name="Variable">favourite</field><value name="NAME"><block type="input_block" id="JE#7RkC$hj.VyOGSC=MJ"></block></value><next><block type="wait" id="-sV;ATvV%pb;poGS2Q~j"><field name="WAIT">Wait for</field><value name="WAIT"><block type="math_number" id="eT?y+A%}2cUK*klD(i-?"><field name="NUM">2</field></block></value><next><block type="display_details" id="zIBqplxe,3Ue-DxPh83+"><next><block type="wait" id="B]7b3kL`~Z#/[~$vfo$p"><field name="WAIT">Wait for</field><value name="WAIT"><block type="math_number" id="jLYOj:9NGTa@HRzv3jOR"><field name="NUM">2</field></block></value><next><block type="say_block" id="*eQfuwRK3,kzf]S;L07j"><field name="dialogue">Thank you, it was great to know you.</field><next><block type="wait" id="X!e?#Iz`p=ZryjF8JXCm"><field name="WAIT">Wait for</field><value name="WAIT"><block type="math_number" id=".HMTYCsip=t_vvKIto**"><field name="NUM">2</field></block></value></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></xml>';
 
 function myUpdateFunction(a) {
     var code = Blockly.Python.workspaceToCode(demoWorkspace);
@@ -380,17 +386,17 @@ function myUpdateFunction(a) {
 }
 // demoWorkspace.addChangeListener(myUpdateFunction);
 
+function completedFlag() {
+    return game_is_over;
+}
+
 function getNoOfBlocks() {
     demoWorkspace = Blockly.getMainWorkspace();
     noOfBlocks = demoWorkspace.getAllBlocks();
     return noOfBlocks.length
 }
 
-const updateImports = ["from bot import *", "from time import sleep"]
-
-function completedFlag() {
-    return GameIsOver;
-}
+const updateImports = ["from bot import", "from time import"]
 
 export {
     completedFlag,

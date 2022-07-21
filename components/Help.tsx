@@ -225,7 +225,7 @@ export default function Help({ instruction, open }) {
                 if (ele.workspace != "") workspace = ele.workspace;
         } catch { }
 
-        let rescue_btn = document.createElement('div'); 
+        let rescue_btn = document.createElement('div');
         rescue_btn.classList.add(...["col", "s3", "m3", "l3", "xl3", "right-align", `rescue_btn`])
 
         

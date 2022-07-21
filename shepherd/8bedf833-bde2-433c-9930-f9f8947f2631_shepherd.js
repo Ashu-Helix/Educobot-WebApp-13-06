@@ -159,7 +159,7 @@ window['rescue_button_click'] = () => {
     try {
         if (typeof tour.getCurrentStep().tour.currentStep.options.workspace !== "undefined") {
             window['rescue_btn_click_count'] += 1
-            
+
             var xml_wkspace = tour.getCurrentStep().tour.currentStep.options.workspace;
             var xml = Blockly.Xml.textToDom(xml_wkspace);
             demoWorkspace.clear();
@@ -947,23 +947,18 @@ function check_toolbox_selection(id) {
     }
 }
 
-//NGS Sound Enhancement
+document.getElementById('soundBtn').addEventListener('click', setAudioPreference)
 function setAudioPreference() {
-    var elementId;
+
     if (playAudio) {
         kill_audio();
     }
-    if (!playAudio) {
+    if (!(playAudio)) {
         playAudio = true;
-        elementId = document.getElementById("soundButton");
-        elementId = document.getElementById("soundButton2");
-        document.getElementById("soundButton").src = "assets/unmute.png";
-        document.getElementById("soundButton2").src = "assets/unmute.png";
+        document.getElementById('soundImg').src = "../assets/sound_icon.png";
     } else {
         playAudio = false;
-        elementId = document.getElementById("soundButton");
-        document.getElementById("soundButton").src = "assets/mute.png";
-        document.getElementById("soundButton2").src = "assets/mute.png";
+        document.getElementById('soundImg').src = "../assets/sound_unmute.png";
     }
 }
 

@@ -20,6 +20,8 @@ import Blockly from "blockly";
 import "blockly/python";
 import "blockly/javascript";
 
+const url:any = process.env.devUrls;
+
 
 export const getStaticPaths = async () => {
 
@@ -55,7 +57,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     let index = -1;
 
     const staticSlug = [
-        "956dfe60-ed8a-45a4-8fac-dd3d72137944",
+        "1d749e84-1155-4269-93ab-550ee7aabd4a",
         "4bda4814-a2b1-4c4f-b102-eda5181bd0f8",
         "e0c38e50-cbb3-455f-ae16-d737fc624b24"
     ]
@@ -78,7 +80,13 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
     const languageObj = {};
     let i = 1;
-    dataParse[0] && dataParse[0].forEach((language: any) => { if (language != dataParse[0][0]) { languageObj[language] = i; i++; } });
+    dataParse[0] &&
+        dataParse[0].forEach((language: any) => {
+            if (language != dataParse[0][0]) {
+                languageObj[language] = i;
+                i++;
+            }
+        });
 
     var bodyFormData = new FormData();
     bodyFormData.append('lessonID', context.params.slug);
@@ -86,12 +94,11 @@ export const getStaticProps: GetStaticProps = async (context) => {
     // lesson details
     const lessonDetails = await axios({
         method: "post",
-        url: "https://appssl.educobot.com:8443/EduCobotWS/lessonsWS/getLessonsByID",
+        url: `${url.EduCobotBaseUrl}${url.getLessonByID}`,
         data: bodyFormData,
-        headers: { "Content-Type": "multipart/form-data" },
+        // headers: { "Content-Type": "multipart/form-data" },
     });
-    
-    
+
     const instruction = context.params.slug === "e0c38e50-cbb3-455f-ae16-d737fc624b24" ? [{
         col1: (`The task is to place the monument at the appropriate country through blocks`),
         col2: ``,
@@ -206,24 +213,24 @@ export default function PhaserGame(props) {
     const [lang, setLang] = useState(1);
     const [PythonCode, setPythonCode] = useState("");
 
-    
+
     // user details
     const [userDetails, setUserDetails] = useState([]);
-    const getUserDetails = async(otp: string | string[]) =>{
+    const getUserDetails = async (otp: string | string[]) => {
         try {
             let formD = new FormData();
             formD.append("sdUID", router.query.user_id)
 
             const userDetails = await axios({
                 method: "post",
-                url: "https://appssl.educobot.com:8443/EduCobotWS/studentsWS/getStudents",
+                url: `${url.EduCobotBaseUrl}${url.getStudents}`,
                 data: formD,
                 headers: { "Content-Type": "multipart/form-data" },
             });
             {
-                let newData = {...userDetails.data.DATA[0], otp}
+                let newData = { ...userDetails.data.DATA[0], otp }
                 setUserDetails(newData)
-                console.log("got user details")
+                // console.log("got user details")
             }
         }
         catch (error) {
@@ -234,8 +241,8 @@ export default function PhaserGame(props) {
 
     useEffect(() => {
         router.query.otp && getUserDetails(router.query.otp)
-    },[router.query.otp])
-    
+    }, [router.query.otp])
+
 
     // whitebox rescue count logic
     let clickArray = [];
@@ -252,7 +259,7 @@ export default function PhaserGame(props) {
         if (mount) {
             const element: HTMLCollectionOf<Element> = document.getElementsByClassName("rescue_button_id");
             if (element.length) {
-                console.log(element);
+                // console.log(element);
                 for (let i = 0; i < element.length; i++) {
                     element[i].addEventListener('click', () => increamentClick(i));
                 }
@@ -265,9 +272,9 @@ export default function PhaserGame(props) {
         }
         else setMount(true);
     }, [mount]);
-    
 
-    
+
+
     const tut: any[] = dataParse.map(data => (data[lang]))
     if (tut.length > 0) {
         if (typeof window !== "undefined") {
@@ -396,6 +403,7 @@ export default function PhaserGame(props) {
                             value={lang}
                             onChange={onChange}
                         >
+                            {/* language.charAt(0).toUpperCase() + language.slice(1) */}
                             {Object.keys(language).map(key => (
                                 <option key={key} value={`${language[key]}`}>
                                     {key}
@@ -511,8 +519,8 @@ export default function PhaserGame(props) {
                 getCoins={FinalTask}
                 slug={slug}
                 noOfClicks={clickcnt}
-                lessonDetails = {lessonDetails}
-                userDetails = {userDetails}
+                lessonDetails={lessonDetails}
+                userDetails={userDetails}
                 testDialogInfo={{
                     dialogStatus: "test",
                 }}

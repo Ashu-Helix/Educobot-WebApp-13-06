@@ -126,7 +126,7 @@ function create() {
 
         if (key == 2 && Math.random() * 10 < 5) { Tile.setFlipX(true); }
 
-        Tile.on('pointerdown', () => { ClickTile(Tile) });
+        Tile.on('pointerdown', function () { ClickTile(this) });
 
         if (i < 13) {
             w = arr[i] - 58 + ((count0 += 1) * BG.width) / 13.4;
@@ -290,7 +290,7 @@ function create() {
 
 function ClickTile(Tile) {
     if (GameIsOver) { return; }
-    console.log(Tile.name);
+    //console.log(Tile.name);
     JustCliked = true;
     CLickedTile = Tile;
 

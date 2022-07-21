@@ -40,6 +40,7 @@ import MemoCoin50 from "../assets/50";
 import MemoCoin25 from "../assets/25";
 import MemoCoin0 from "../assets/0";
 
+const url:any = process.env.devUrls;
 // ----------------------------------------------------------------------
 
 const StyledRating = styled(Rating)({
@@ -91,7 +92,7 @@ type Props = {
     slug: any;
     lessonDetails: any;
     userDetails: any;
-    noOfClicks?:any;
+    noOfClicks?: any;
     testDialogInfo: {
         dialogStatus: String;
     };
@@ -117,7 +118,7 @@ export default function TestDialog({ getCoins, noOfClicks, testDialogInfo, lesso
     const [display, setDisplay] = useState("none");
     const [coins, setCoins] = useState([]);
 
-    
+
 
     const previousQuestion = () => {
         if (questionIndex !== 0) {
@@ -150,7 +151,7 @@ export default function TestDialog({ getCoins, noOfClicks, testDialogInfo, lesso
             if (String(obj.answer) === String(questionArray[index].correct_answer)) {
                 obtainedMarks = obtainedMarks + 1;
             }
-            
+
         });
         if (getCoins)
             getCoins(obtainedMarks)
@@ -212,9 +213,9 @@ export default function TestDialog({ getCoins, noOfClicks, testDialogInfo, lesso
 
 
     useEffect(() => {
-        open==="second" && postEvalData();
+        open === "second" && postEvalData();
     }, [open])
-    
+
 
     //SAVE COINS
     const saveCoins = async(body:any, coins: number) => {
@@ -241,12 +242,12 @@ export default function TestDialog({ getCoins, noOfClicks, testDialogInfo, lesso
 
         try {
             const res = await axios({
-                method:"post",
-                url:"https://api.educobot.com/users/postEvalData",
-                data:body,
+                method: "post",
+                url: `${url.EduCobotBaseUrl}${url.postEvalData}`,
+                data: body,
                 headers: { "Content-Type": "application/json" },
             });
-            if(res.status==200 && res.data.msg){
+            if (res.status == 200 && res.data.msg) {
                 console.log(res.data.msg)
             }
         }
@@ -258,52 +259,49 @@ export default function TestDialog({ getCoins, noOfClicks, testDialogInfo, lesso
 
     //POST EVAL DATA
     const postEvalData = () => {
-        let coins : number = 0;
-        const totalMcq:number = questionArray.length || 0;
-        let lsType = lessonDetails?.lsCourse === "Python Basic" ? 
-        lessonDetails?.lsLevel : lessonDetails?.lsSkillTag1
+        let coins: number = 0;
+        const totalMcq: number = questionArray.length || 0;
+        let lsType = lessonDetails?.lsCourse === "Python Basic" ?
+            lessonDetails?.lsLevel : lessonDetails?.lsSkillTag1
 
 
         let body = {
-                "userID": userDetails?.sdUID,
-                "edType":"B",
-                "std": userDetails?.sdClass,
-                "div": userDetails?.sdDiv,
-                "status":"C",
-                "lessonID": lessonDetails?.lsID,
-                "rollNo": userDetails?.sdRollNo,
-                "pin" : userDetails?.otp,
-                "schoolID" : userDetails?.sdSchoolID,
-                "coins":coins
+            "userID": userDetails?.sdUID,
+            "edType": "B",
+            "std": userDetails?.sdClass,
+            "div": userDetails?.sdDiv,
+            "status": "C",
+            "lessonID": lessonDetails?.lsID,
+            "rollNo": userDetails?.sdRollNo,
+            "pin": userDetails?.otp,
+            "schoolID": userDetails?.sdSchoolID,
+            "coins": coins
         }
         console.log(lsType, "lsType")
-        if(lsType === "test")
-        {
+        if (lsType === "test") {
             saveCoins(body, 3.0)
         }
-        else if(lsType === "Guided")
-        {
+        else if (lsType === "Guided") {
             coins += 1;
 
             // calculating mcq score
             let score = (2 / totalMcq) * (totalMcq - (totalMcq - marks))
-            coins += Number((Math.round((score)*4) / 4).toFixed(2))
+            coins += Number((Math.round((score) * 4) / 4).toFixed(2))
             saveCoins(body, coins)
         }
-        else if(lsType === "Partly Guided")
-        {
+        else if (lsType === "Partly Guided") {
             coins += 1;
             let total_rescue_btns_clicked = window['rescue_btn_click_count'];
             let total_rescue_btns = window['total_rescue_btns'];
-            
+
             // calculating score of penalty on rescue button click
             let rescue_score = (1 / total_rescue_btns) * (total_rescue_btns - total_rescue_btns_clicked)
-            coins += Number((Math.round((rescue_score)*4) / 4).toFixed(2))
-            
+            coins += Number((Math.round((rescue_score) * 4) / 4).toFixed(2))
+
             // calculating mcq score
             let score = (1 / totalMcq) * (totalMcq - (totalMcq - marks))
-            coins += Number((Math.round((score)*4) / 4).toFixed(2))
-            
+            coins += Number((Math.round((score) * 4) / 4).toFixed(2))
+
             saveCoins(body, coins)
         }
         else if(lsType === "Practice" || lsType === "Test")
@@ -315,8 +313,8 @@ export default function TestDialog({ getCoins, noOfClicks, testDialogInfo, lesso
             
             // calculating score of penalty on rescue button click
             let rescue_score = (2 / total_rescue_btns) * (total_rescue_btns - total_rescue_btns_clicked)
-            coins += Number((Math.round((rescue_score)*4) / 4).toFixed(2))
-            
+            coins += Number((Math.round((rescue_score) * 4) / 4).toFixed(2))
+
             // calculating mcq score
             let score = (1 / totalMcq) * (totalMcq - (totalMcq - marks))
             coins += Number((Math.round((score)*4) / 4).toFixed(2))
@@ -327,7 +325,7 @@ export default function TestDialog({ getCoins, noOfClicks, testDialogInfo, lesso
     }
 
 
-    
+
     return (
         <div style={{ display }}>
             <Button
@@ -335,12 +333,12 @@ export default function TestDialog({ getCoins, noOfClicks, testDialogInfo, lesso
                 variant="outlined"
                 id="openTest"
                 onClick={() => {
-                    if(questionArray.length === 0){
+                    if (questionArray.length === 0) {
                         setOpen("second");
-                    }else{
+                    } else {
                         setOpen("test");
                     }
-                    
+
                     setDisplay("block")
                 }}
                 sx={{ display: "none" }}
@@ -433,7 +431,7 @@ export default function TestDialog({ getCoins, noOfClicks, testDialogInfo, lesso
 
 
 
-            
+
             {/* Test Dialog */}
             <Dialog
                 open={open === "first"}
@@ -524,6 +522,7 @@ export default function TestDialog({ getCoins, noOfClicks, testDialogInfo, lesso
                                     color: "#fff",
                                     fontFamily: "Public Sans"
                                 }}
+                                disabled={questionIndex !== 0 ? false : true}
                             >
                                 Back
                             </Button>
@@ -615,7 +614,7 @@ export default function TestDialog({ getCoins, noOfClicks, testDialogInfo, lesso
                     {"Code written successfully"}
                 </BootstrapDialogTitle>
                 <DialogContent
-                id="completeDialogBox"
+                    id="completeDialogBox"
                     sx={{
                         padding: "0",
                     }}
@@ -651,22 +650,22 @@ export default function TestDialog({ getCoins, noOfClicks, testDialogInfo, lesso
 
                         <Stack justifyContent={"center"} direction={"row"} gap={1}>
                             {
-                                coins.length>0 &&
+                                coins.length > 0 &&
                                 coins.map(coin => {
-                                    if(coin=="1"){
-                                        return <MemoCoin1/>
+                                    if (coin == "1") {
+                                        return <MemoCoin1 />
                                     }
-                                    else if(coin==".75"){
-                                        return <MemoCoin75/>
+                                    else if (coin == ".75") {
+                                        return <MemoCoin75 />
                                     }
-                                    else if(coin==".5"){
-                                        return <MemoCoin50/>
+                                    else if (coin == ".5") {
+                                        return <MemoCoin50 />
                                     }
-                                    else if(coin==".25"){
-                                        return <MemoCoin25/>
+                                    else if (coin == ".25") {
+                                        return <MemoCoin25 />
                                     }
-                                    else{
-                                        return <MemoCoin0/>
+                                    else {
+                                        return <MemoCoin0 />
                                     }
                                 })
                             }
