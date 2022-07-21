@@ -33,12 +33,7 @@ import { unstable_useForkRef } from "@mui/utils";
 import { useRouter } from "next/router";
 import axios from "axios";
 
-// coins
-import MemoCoin1 from "../assets/1";
-import MemoCoin75 from "../assets/75";
-import MemoCoin50 from "../assets/50";
-import MemoCoin25 from "../assets/25";
-import MemoCoin0 from "../assets/0";
+const urls:any = process.env.devUrls;
 
 // ----------------------------------------------------------------------
 
@@ -276,7 +271,7 @@ export default function TestDialog(
         try {
             const res = await axios({
                 method: "post",
-                url: "https://api.educobot.com/users/postEvalData",
+                url: `${urls.EduCobotBaseUrl}${urls.postEvalData}`,
                 data: body,
                 headers: { "Content-Type": "application/json" },
             });
