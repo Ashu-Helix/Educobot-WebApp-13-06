@@ -94,7 +94,6 @@ type Props = {
     noOfClicks?:any;
     testDialogInfo: {
         dialogStatus: String;
-
     };
 };
 export default function TestDialog({ getCoins, noOfClicks, testDialogInfo, lessonDetails, userDetails, slug }: Props) {
@@ -219,10 +218,10 @@ export default function TestDialog({ getCoins, noOfClicks, testDialogInfo, lesso
 
     //SAVE COINS
     const saveCoins = async(body:any, coins: number) => {
+        console.log(coins)
         if (coins) {
             body["edcoins"] = coins;
             body["coins"] = coins;
-            console.log(coins)
 
             // displaying coins logic
             let arr = ['0', '0', '0'];
@@ -309,10 +308,10 @@ export default function TestDialog({ getCoins, noOfClicks, testDialogInfo, lesso
         }
         else if(lsType === "Practice" || lsType === "Test")
         {
-            let total_rescue_btns_clicked = window['rescue_btn_click_count_wb'];
+            let total_rescue_btns_clicked = Math.max(...window['rescue_btn_click_count_wb']);
             let total_rescue_btns = window['total_rescue_btns_wb'];
 
-            console.log(total_rescue_btns_clicked, total_rescue_btns, "bnt")
+            console.log(total_rescue_btns_clicked, total_rescue_btns)
             
             // calculating score of penalty on rescue button click
             let rescue_score = (2 / total_rescue_btns) * (total_rescue_btns - total_rescue_btns_clicked)
@@ -321,6 +320,7 @@ export default function TestDialog({ getCoins, noOfClicks, testDialogInfo, lesso
             // calculating mcq score
             let score = (1 / totalMcq) * (totalMcq - (totalMcq - marks))
             coins += Number((Math.round((score)*4) / 4).toFixed(2))
+            
 
             saveCoins(body, coins)
         }
@@ -650,7 +650,6 @@ export default function TestDialog({ getCoins, noOfClicks, testDialogInfo, lesso
                         </Typography>
 
                         <Stack justifyContent={"center"} direction={"row"} gap={1}>
-                            {console.log(coins)}
                             {
                                 coins.length>0 &&
                                 coins.map(coin => {

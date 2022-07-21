@@ -3,6 +3,8 @@ import Blockly from "blockly";
 let demoWorkspace = Blockly.getMainWorkspace();
 import $ from 'jquery';
 
+let rescue_btn_cnt = 1;
+
 if(typeof window !== "undefined"){
     window['total_rescue_btns_wb'] = 0;
     window['rescue_btn_click_count_wb'] = [];
@@ -169,15 +171,19 @@ export default function Help({ instruction, open }) {
         if (open)
             require("./helpers/openModel.js").helpCode()
     }, [open])
-    function update_rescue_workspace(i: number, ele:any) {
+
+
+    function update_rescue_workspace(e:any, i: number, ele:any) {
         var xml = Blockly.Xml.textToDom(workspaces[i]);
         Blockly.getMainWorkspace().clear();
         Blockly.Xml.domToWorkspace(xml, Blockly.getMainWorkspace());
         $('#undo_btn').css('display', 'inline-block');
         setRescued(true);
 
-        if(!window['rescue_btn_click_count_wb'].includes(i) && ele.rescue)
-            window['rescue_btn_click_count_wb'].push(i)
+        let id = parseInt(e.target.id)
+        if(!window['rescue_btn_click_count_wb'].includes(id) && ele.rescue){
+            window['rescue_btn_click_count_wb'].push(id)
+        }
     }
 
 
@@ -222,14 +228,19 @@ export default function Help({ instruction, open }) {
         let rescue_btn = document.createElement('div'); 
         rescue_btn.classList.add(...["col", "s3", "m3", "l3", "xl3", "right-align", `rescue_btn`])
 
-        if(ele.rescue) window['total_rescue_btns_wb'] += 1;
-
+        
         let btn = document.createElement('button'); btn.classList.add(...["shepherd-custom-rescue-sutton-white", "valign-wrapper", "right-align"]);
         btn.style.cssText = "height: 24px;line-height: 24px;padding: 0 0.5rem;margin-right: 0px;"
         btn.innerText = "Rescue"
-        btn.onclick = () => update_rescue_workspace(j, ele)
-
+        btn.setAttribute("id", `${rescue_btn_cnt}`)
+        btn.onclick = (e) => update_rescue_workspace(e,j, ele)
+        
         rescue_btn.appendChild(btn)
+        
+        if(ele.rescue) {
+            window['total_rescue_btns_wb'] += 1
+            rescue_btn_cnt++;
+        };
 
         let rescueDiv = document.createElement('div');
         rescueDiv.classList.add(...["row", "valign-wrapper", "right-align"]);
