@@ -21,6 +21,8 @@ let adapt_orientation = (portait, landscape) => {
     adapt_orientation_array.push([portait, landscape])
     return isPortrait() ? portait : landscape;
 }
+const tour1 = new Shepherd.Tour({ defaultStepOptions: { cancelIcon: { enabled: true }, classes: 'class-1 class-2', scrollTo: { behavior: 'smooth', block: 'center' } } });
+
 function image_scaler(file) { let path = `../assets/` + language.guide_folder + `/` + language.language_packs_folder + `/` + language.language + `/` + language.image_folder + `/`; return `<img src="` + path + file + `"class="tutorial_image">` }
 
 let rescue_button_clicked_at_step = -2;
@@ -71,6 +73,15 @@ function play_audio_tutorial(file, lang) {
         audio.play();
     }
 }
+function play_audio_rescue_warning() {
+    let file = "";
+    let path = `assets/sounds/rescue_warning.mp3`;
+    kill_audio();
+    // if (playAudio) {
+    audio = new Audio(path + file);
+    audio.play();
+    // }
+}
 
 window['rescue_button_click'] = () => {
     try {
@@ -118,6 +129,34 @@ function add_rescue_button() {
     return "<div class='row' style='text-align:right;margin-top:10px' ><button id='rescue_button_id' class='shepherd-custom-rescue-button-white' onclick='rescue_button_click();'>Rescue</button></div>"
 }
 
+function add_rescue_confirm_button() {
+    return "<div class='row'><button class='shepherd-custom-next-sutton' onclick='rescue_button_click();'>Rescue</button></div>"
+}
+
+function add_rescue_close_button() {
+    return "<div class='row'><button class='shepherd-custom-back-sutton' onclick='tour1.complete();'>close</button></div>"
+}
+function confirm_rescue() {
+    play_audio_rescue_warning();
+    tour1.addStep({
+        title: 'Alert!',
+        text: `<div id="rescue_div">Using the rescue feature costs you points</div>` + add_rescue_close_button() + add_rescue_confirm_button(),
+        arrow: false,
+        attachTo: { element: '#circle', on: 'left' },
+        buttons: [{
+            action() { return this.next(); },
+            text: 'Close'
+        }, {
+            action() {
+                rescue_button_click();
+                return this.next();
+            },
+            text: 'Rescue'
+        }],
+        id: 'creating'
+    });
+    tour1.start();
+}
 let rescue_colour_is_yellow = false;
 
 function rescue_button_set_colour() {
