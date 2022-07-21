@@ -14,13 +14,12 @@ import TestDialog from "../../../MyComponents/DialogBoxes/TutorialDialog";
 import Help from "../../../components/Help";
 import Game from "./game";
 import styles from "../../../styles/Problems.module.css";
-const url: any = process.env.devUrls;
 
 import Blockly from "blockly";
 import "blockly/python";
 import "blockly/javascript";
 
-const url:any = process.env.devUrls;
+const urls:any = process.env.devUrls;
 
 
 export const getStaticPaths = async () => {
@@ -94,7 +93,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     // lesson details
     const lessonDetails = await axios({
         method: "post",
-        url: `${url.EduCobotBaseUrl}${url.getLessonByID}`,
+        url: `${urls.EduCobotBaseUrl}${urls.getLessonByID}`,
         data: bodyFormData,
         // headers: {"Content-Type": "multipart/form-data" },
     });
@@ -223,7 +222,7 @@ export default function PhaserGame(props) {
 
             const userDetails = await axios({
                 method: "post",
-                url: `${url.EduCobotBaseUrl}${url.getStudents}`,
+                url: `${urls.EduCobotBaseUrl}${urls.getStudents}`,
                 data: formD,
                 headers: { "Content-Type": "multipart/form-data" },
             });

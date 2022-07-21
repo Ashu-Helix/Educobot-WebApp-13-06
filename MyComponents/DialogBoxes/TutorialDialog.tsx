@@ -43,7 +43,7 @@ import dotenv from "dotenv"
 
 dotenv.config();
 
-const url:any = process.env.devUrls;
+const urls:any = process.env.devUrls;
 // ----------------------------------------------------------------------
 
 const StyledRating = styled(Rating)({
@@ -246,7 +246,7 @@ export default function TestDialog({ getCoins, noOfClicks, testDialogInfo, lesso
         try {
             const res = await axios({
                 method: "post",
-                url: `${url.EduCobotBaseUrl}${url.postEvalData}`,
+                url: `${urls.EduCobotBaseUrl}${urls.postEvalData}`,
                 data: body,
                 headers: { "Content-Type": "application/json" },
             });

@@ -9,9 +9,8 @@ import { Button } from "@mui/material";
 import { Icon } from '@iconify/react'
 import axios from "axios";
 import FormData from 'form-data';
-const url: any = process.env.devUrls;
+const urls: any = process.env.devUrls;
 
-const url:any = process.env.devUrls;
 
 const PythonCode = dynamic(import("../../../components/pythonCode"), {
     ssr: false,
@@ -21,7 +20,7 @@ import { useRouter } from "next/router";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
 
-    const response1 = await fetch(`${url.pythonScriptFilesUrl}${context.params.id}/code.json`);
+    const response1 = await fetch(`${urls.pythonScriptFilesUrl}${context.params.id}/code.json`);
     // const response1 = await fetch(`http://localhost:7001/scripts/${context.params.id}/code.json`);
     if (response1.status === 404) {
         return {
@@ -36,7 +35,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
     const lessonDetails = await axios({
         method: "post",
-        url: `${url.EduCobotBaseUrl}${url.getLessonByID}`,
+        url: `${urls.EduCobotBaseUrl}${urls.getLessonByID}`,
         data: bodyFormData,
         headers: { "Content-Type": "multipart/form-data" },
     });
@@ -78,7 +77,7 @@ export default function Scripts(props) {
 
             const userDetails = await axios({
                 method: "post",
-                url: `${url.EduCobotBaseUrl}${url.getStudents}`,
+                url: `${urls.EduCobotBaseUrl}${urls.getStudents}`,
                 data: formD,
                 headers: { "Content-Type": "multipart/form-data" },
             });
