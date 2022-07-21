@@ -39,6 +39,9 @@ import MemoCoin75 from "../assets/75";
 import MemoCoin50 from "../assets/50";
 import MemoCoin25 from "../assets/25";
 import MemoCoin0 from "../assets/0";
+import dotenv from "dotenv"
+
+dotenv.config();
 
 const url:any = process.env.devUrls;
 // ----------------------------------------------------------------------

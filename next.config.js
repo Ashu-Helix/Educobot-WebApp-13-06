@@ -131,6 +131,7 @@ const devUrls = {
 
     pythonScriptFilesUrl:`${url.EduCobotBaseUrl}liveLessons/python/`,
     turtleFilesUrl:`${url.EduCobotBaseUrl}liveLessons/turtle/`,
+    pythonOpenEditor:`${url.EduCobotBaseUrl}pythonOpenEditor/`,
 }
 
 const nextConfig = {
