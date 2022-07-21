@@ -9,6 +9,7 @@ import { Button } from "@mui/material";
 import { Icon } from '@iconify/react'
 import axios from "axios";
 import FormData from 'form-data';
+const url: any = process.env.devUrls;
 
 const PythonCode = dynamic(import("../../../components/pythonCode"), {
     ssr: false,
@@ -33,7 +34,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
     const lessonDetails = await axios({
         method: "post",
-        url: `${process.env.devUrls.EduCobotBaseUrl}${process.env.devUrls.getLessonByID}`,
+        url: `${url.EduCobotBaseUrl}${url.getLessonByID}`,
         data: bodyFormData,
         headers: { "Content-Type": "multipart/form-data" },
     });
@@ -75,7 +76,7 @@ export default function Scripts(props) {
 
             const userDetails = await axios({
                 method: "post",
-                url: `${process.env.devUrls.EduCobotBaseUrl}${process.env.devUrls.getStudents}`,
+                url: `${url.EduCobotBaseUrl}${url.getStudents}`,
                 data: formD,
                 headers: { "Content-Type": "multipart/form-data" },
             });
