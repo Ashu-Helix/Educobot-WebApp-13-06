@@ -10,7 +10,6 @@ import { Button } from "@mui/material";
 import { Icon } from '@iconify/react'
 import axios from "axios";
 import FormData from 'form-data';
-const url: any = process.env.devUrls;
 
 const EditorContainer = dynamic(import("../../../../components/EditorContainer"), {
     ssr: false,
@@ -81,14 +80,15 @@ export default function PythonEditor(props) {
     const [userDetails, setUserDetails] = useState<any>([]);
     const getUserDetails = async (otp: string | string[]) => {
         try {
-            let formD = new FormData();
-            formD.append("sdUID", router.query.user_id)
+            const body = {
+                "sdUID": router.query.user_id
+            }
 
             const userDetails = await axios({
                 method: "post",
                 url: `${url.EduCobotBaseUrl}${url.getLessonByID}`,
-                data: formD,
-                headers: { "Content-Type": "multipart/form-data" },
+                data: body,
+                headers: { "Content-Type": "application/json" },
             });
             {
                 let newData = { ...userDetails.data.DATA[0], otp }

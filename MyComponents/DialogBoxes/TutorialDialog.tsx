@@ -24,9 +24,6 @@ import CloseIcon from '@mui/icons-material/Close';
 
 // import SuccessDialog from "./successDialog";
 import MotivationIllustration from "../assets/illustration_motivation";
-
-import Icon_StarFullNew from "../assets/Icon_starFullNew";
-import Icon_StarEmptyNew from "../assets/Icon_starEmptyNew";
 import Confetti from "react-confetti";
 import { unstable_useForkRef } from "@mui/utils";
 // import { turn } from "../../components/helpers/dog";
@@ -39,9 +36,6 @@ import MemoCoin75 from "../assets/75";
 import MemoCoin50 from "../assets/50";
 import MemoCoin25 from "../assets/25";
 import MemoCoin0 from "../assets/0";
-import dotenv from "dotenv"
-
-dotenv.config();
 
 const urls:any = process.env.devUrls;
 // ----------------------------------------------------------------------
@@ -100,7 +94,7 @@ type Props = {
         dialogStatus: String;
     };
 };
-export default function TestDialog({ getCoins, noOfClicks, testDialogInfo, lessonDetails, userDetails, slug }: Props) {
+export default function TestDialog({ getCoins, lessonDetails, userDetails, slug }: Props) {
 
     // console.log(lessonDetails, noOfClicks)
 
@@ -262,6 +256,7 @@ export default function TestDialog({ getCoins, noOfClicks, testDialogInfo, lesso
 
     //POST EVAL DATA
     const postEvalData = () => {
+        console.log("run")
         let coins: number = 0;
         const totalMcq: number = questionArray.length || 0;
         let lsType = lessonDetails?.lsCourse === "Python Basic" ?
@@ -294,12 +289,14 @@ export default function TestDialog({ getCoins, noOfClicks, testDialogInfo, lesso
         }
         else if (lsType === "Partly Guided") {
             coins += 1;
-            let total_rescue_btns_clicked = window['rescue_btn_click_count'];
-            let total_rescue_btns = window['total_rescue_btns'];
+            let total_rescue_btns_clicked = window['rescue_btn_click_count'] ? window['rescue_btn_click_count'] : 0;
+            let total_rescue_btns = window['total_rescue_btns'] ? window['total_rescue_btns'] : 0;
 
             // calculating score of penalty on rescue button click
-            let rescue_score = (1 / total_rescue_btns) * (total_rescue_btns - total_rescue_btns_clicked)
-            coins += Number((Math.round((rescue_score) * 4) / 4).toFixed(2))
+            if(total_rescue_btns>0){
+                let rescue_score = (1 / total_rescue_btns) * (total_rescue_btns - total_rescue_btns_clicked)
+                coins += Number((Math.round((rescue_score) * 4) / 4).toFixed(2))
+            }
 
             // calculating mcq score
             let score = (1 / totalMcq) * (totalMcq - (totalMcq - marks))
@@ -309,20 +306,21 @@ export default function TestDialog({ getCoins, noOfClicks, testDialogInfo, lesso
         }
         else if(lsType === "Practice" || lsType === "Test")
         {
-            let total_rescue_btns_clicked = Math.max(...window['rescue_btn_click_count_wb']);
-            let total_rescue_btns = window['total_rescue_btns_wb'];
+            let total_rescue_btns_clicked = window['rescue_btn_click_count_wb'].length >0 ?
+            Math.max(...window['rescue_btn_click_count_wb']) : 0
 
-            console.log(total_rescue_btns_clicked, total_rescue_btns)
+            let total_rescue_btns = window['total_rescue_btns_wb'];
             
             // calculating score of penalty on rescue button click
-            let rescue_score = (2 / total_rescue_btns) * (total_rescue_btns - total_rescue_btns_clicked)
-            coins += Number((Math.round((rescue_score) * 4) / 4).toFixed(2))
-
+            if (total_rescue_btns > 0) {
+                let rescue_score = (2 / total_rescue_btns) * (total_rescue_btns - total_rescue_btns_clicked)
+                coins += Number((Math.round((rescue_score) * 4) / 4).toFixed(2))
+            }
+            
             // calculating mcq score
             let score = (1 / totalMcq) * (totalMcq - (totalMcq - marks))
             coins += Number((Math.round((score)*4) / 4).toFixed(2))
             
-
             saveCoins(body, coins)
         }
     }

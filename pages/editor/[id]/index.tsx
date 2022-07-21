@@ -66,14 +66,15 @@ export default function PythonEditor(props) {
     const [userDetails, setUserDetails] = useState<any>([]);
     const getUserDetails = async (otp: string | string[]) => {
         try {
-            let formD = new FormData();
-            formD.append("sdUID", router.query.user_id)
+            const body = {
+                "sdUID": router.query.user_id
+            }
 
             const userDetails = await axios({
                 method: "post",
                 url: `${urls.EduCobotBaseUrl}${urls.getStudents}`,
-                data: formD,
-                headers: { "Content-Type": "multipart/form-data" },
+                data: body,
+                headers: { "Content-Type": "application/json" },
             });
             {
                 let newData = { ...userDetails.data.DATA[0], otp }
