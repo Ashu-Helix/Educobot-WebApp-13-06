@@ -19,7 +19,7 @@ import Blockly from "blockly";
 import "blockly/python";
 import "blockly/javascript";
 
-const urls:any = process.env.devUrls;
+const urls: any = process.env.devUrls;
 
 
 export const getStaticPaths = async () => {
@@ -38,7 +38,13 @@ export const getStaticPaths = async () => {
     return {
         paths: [
             { params: { slug: "4bda4814-a2b1-4c4f-b102-eda5181bd0f8" } },
-            { params: { slug: "f48757f4-f612-41dc-b882-614fe3c6544a" } },
+            { params: { slug: "2d49121d-2710-491e-b7b4-8c286b1f95a4" } },
+            { params: { slug: "1d749e84-1155-4269-93ab-550ee7aabd4a" } },
+            { params: { slug: "7e6d3015-803d-4466-9327-b1ec2c839ad1" } },
+            { params: { slug: "8bedf833-bde2-433c-9930-f9f8947f2631" } },
+            { params: { slug: "0995aa12-d9a3-4800-a791-27c07be8ca75" } },
+            { params: { slug: "d51b6016-7b0b-4da7-826e-a70cbcc8b941" } },
+            { params: { slug: "ed897b4e-3959-40f5-a926-018643a5b99b" } },
             { params: { slug: "e0c38e50-cbb3-455f-ae16-d737fc624b24" } }
         ],
         //paths,

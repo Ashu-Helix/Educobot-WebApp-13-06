@@ -98,13 +98,31 @@ function add_next_button() {
 function add_back_button() {
     return "<div class='row' style='text-align:right;margin-top:10px' ><button id='rescue_button_id' style='right:85px;' class='shepherd-custom-rescue-button-white' onclick='back_button_click();'>Back</button></div>"
 }
+let flasher = true;
+// let rescue_button_html = "<button type='button' id='rescue_button_id' class='shepherd-custom-rescue-sutton-white' onclick='rescue_button_click();' disabled>Rescue</button>"
+let inter_rescue = setInterval(() => {
+    try {
+        if (flasher) {
+            document.querySelectorAll("#rescue_div")[0].style.color = "white";
+        } else {
+            document.querySelectorAll("#rescue_div")[0].style.color = "black";
+        }
+        flasher = !flasher;
+    } catch { }
 
+}, 750)
 function add_rescue_button() {
     window['total_rescue_btns'] += 1;
 
-    return "<div class='row' style='text-align:right;margin-top:10px' ><button id='rescue_button_id' class='shepherd-custom-rescue-button-white' onclick='rescue_button_click();'>Rescue</button></div>"
+    return "<div class='row' style='text-align:right;margin-top:10px' ><button id='rescue_button_id' class='shepherd-custom-rescue-button-white' onclick='confirm_rescue();'>Rescue</button></div>"
+}
+function add_rescue_confirm_button() {
+    return "<div class='row'><button class='shepherd-custom-next-sutton' onclick='rescue_button_click();'>Rescue</button></div>"
 }
 
+function add_rescue_close_button() {
+    return "<div class='row'><button class='shepherd-custom-back-sutton' onclick='tour1.complete();'>close</button></div>"
+}
 window['rescue_button_click'] = () => {
     try {
         if (typeof tour.getCurrentStep().tour.currentStep.options.workspace !== "undefined") {
@@ -126,24 +144,40 @@ window['rescue_button_click'] = () => {
     } catch { }
 
 }
-
-function rescue_button_set_colour() {
-    if (rescue_colour_is_yellow) {
-        document.querySelectorAll("#rescue_button_id").forEach((i) => { i.className = "shepherd-custom-rescue-button-yellow"; })
-    } else {
-        document.querySelectorAll("#rescue_button_id").forEach((i) => { i.className = "shepherd-custom-rescue-button-white"; })
-    }
+function play_audio_rescue_warning() {
+    let file = "";
+    let path = `/assets/sounds/rescue_warning.mp3`;
+    kill_audio();
+    // if (playAudio) {
+    audio = new Audio(path + file);
+    audio.play();
+    // }
 }
+const tour1 = new Shepherd.Tour({ defaultStepOptions: { cancelIcon: { enabled: true }, classes: 'educobot-shepherd', scrollTo: { behavior: 'smooth', block: 'center' } } });
+window['confirm_rescue'] = () => {
+    play_audio_rescue_warning();
 
-function set_mute_icon() {
-    if ((playAudio)) {
-        document.querySelectorAll("#s_mute").forEach((i) => { i.src = i.src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAASCAYAAAC5DOVpAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAGlSURBVHgBnVSxUsJAEN1LgMYmhc442hxUKBSZUdAS/kC/QPgC+APwC9QviPwBfyB2THTGFKDpOAss1CKVDRPWvYs3MpiA4TV3e7v37t3u7ZmQEvzg6Mza3t8NPt/Eso9BSuRLVYxm6GE4Oxe+J7TPWLe5UK60+GGloW1EbNIgSIfNzNwT+ex/kRXK1Q4iu2aMOXpNPD/cYmjUSV6PTIt8d7xo85VkERF043zCHwoxdhsIGBGaWSeRbBVRoXTicNu2lJGdteniAV25xovHtYxco6ROaOB6AyIkgtQ02CwrY+vC8wJert4whI5hmBdaGYdUiJSo6Rz76hCGtbXVTOYzVRWpIJ4WtDlZDDYnw1Ap+n1n6GkyASlABeoL/3GgDMqVGsDwVDUnYze/GEwV6soKxRIBDuBrq6niuG0RSUvO52HYS+zNZUI68E9soVS5QmBteTMpKDFnYuR2kcFl7EGkiIgcRcQwkO0l101YgeB9OrB29l6BGffBx3So1FDjQ86kt8VOFdGcHu+L60vfxl+Qyl1oNmWfal8GUkJ9QQYKMfqp5gK+ASrop99e7Z/mAAAAAElFTkSuQmCC"; })
-    } else {
-        document.querySelectorAll("#s_mute").forEach((i) => { i.src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAASCAYAAAC5DOVpAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAADfSURBVHgBpZNdEcMgEIR3qiASkIAE6qAScNBKwEHrIHFSCa2D1AES6KU5JoS5AGl2Zh8Cm2+WP2CWJt/JCnVdyKYUGMiBPDYAQy2reFIKXck2+bZJ1mNeVTPQ8liqDstqPHY2tJA1cPa5Mf8DeGzvS8/NYsOYNTEQ20jOgXkTx2N9GgiNQJs10UmmCSYBb1nbsAeWA7sjsBHyHsZlvk488EFdZ84pzAegsobvrR+d0Awo30ODgpwAKwGrcgJskkbDg5dksb4G08P3KF/sZkXQdAgGy5J7/CGD9WYr8oOsv0tEhgjHBhLnAAAAAElFTkSuQmCC"; })
-    }
+    window['tour1'] = tour1;
+    window['tour1'].addStep({
+        title: 'Alert!',
+        text: `<div id="rescue_div">Using the rescue feature costs you points</div>` + add_rescue_close_button() + add_rescue_confirm_button(),
+        arrow: false,
+        attachTo: { element: '#sprite-container', on: 'left' },
+        buttons: [{
+            action() { return this.next(); },
+            text: 'Close'
+        }, {
+            action() {
+                rescue_button_click();
+                return this.next();
+            },
+            text: 'Rescue'
+        }],
+        id: 'creating'
+    });
+    tour1.start();
 }
-
-function shepherd_mute_unmute() {
+window['shepherd_mute_unmute'] = () => {
     if (playAudio) {
         kill_audio();
     }
@@ -155,7 +189,13 @@ function shepherd_mute_unmute() {
         document.querySelectorAll("#s_mute").forEach((i) => { i.src = i.src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAASCAYAAAC5DOVpAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAADfSURBVHgBpZNdEcMgEIR3qiASkIAE6qAScNBKwEHrIHFSCa2D1AES6KU5JoS5AGl2Zh8Cm2+WP2CWJt/JCnVdyKYUGMiBPDYAQy2reFIKXck2+bZJ1mNeVTPQ8liqDstqPHY2tJA1cPa5Mf8DeGzvS8/NYsOYNTEQ20jOgXkTx2N9GgiNQJs10UmmCSYBb1nbsAeWA7sjsBHyHsZlvk488EFdZ84pzAegsobvrR+d0Awo30ODgpwAKwGrcgJskkbDg5dksb4G08P3KF/sZkXQdAgGy5J7/CGD9WYr8oOsv0tEhgjHBhLnAAAAAElFTkSuQmCC"; })
     }
 }
-
+function rescue_button_set_colour() {
+    if (rescue_colour_is_yellow) {
+        document.querySelectorAll("#rescue_button_id").forEach((i) => { i.className = "shepherd-custom-rescue-button-yellow"; })
+    } else {
+        document.querySelectorAll("#rescue_button_id").forEach((i) => { i.className = "shepherd-custom-rescue-button-white"; })
+    }
+}
 
 function change_rescue_button_colour(event) {
     if (event.type == Blockly.Events.BLOCK_CHANGE || event.type == Blockly.Events.BLOCK_CREATE || event.type == Blockly.Events.BLOCK_DELETE || event.type == Blockly.Events.BLOCK_MOVE) {
@@ -178,32 +218,6 @@ let tour = new Shepherd.Tour({
         scrollTo: { behavior: 'smooth', block: 'center' }
     }
 });
-
-// let tut = {
-//     0: `<h5>Let's learn to program a traffic signal</h5>`,
-//     // 99: `The traffic signal has 3 lights - red, amber and green. <br>Red is for stop. <br>Amber is to get ready. <br>Green is to go`,
-//     99: image_scaler("Task.png"),
-//     1: `Select traffic signal from toolbox`,
-//     2: `Drag the “Light” block from the menu and drop it in the workspace`,
-//     3: `Select Traffic Signal again from the toolbox`,
-//     4: `Drag the “Wait” block from the menu and drop it in the workspace just below the light block, until you hear a click`,
-//     5: `Select Traffic Signal once again from the toolbox`,
-//     6: `Drag the “Light” block from the menu and drop it in the workspace just below the wait block, until you hear a click `,
-//     7: `Now switch it OFF`,
-//     8: `So, we've programmed red light to turn on for 1 second and Switch off.  Let's now hit the green Flag and observe the Traffic Signal.`,
-//     9: `Did you see the red light being on for 1 second? If not run it again and see. Now lets continue to code amber to turn on for one second after red light.<br>Select Traffic Signal from the toolbox`,
-//     10: `Drag the “Light” block from the menu and drop it just below the previous block`,
-//     11: `change the RED light to AMBER`,
-//     12: `Now follow the same steps, as red light, to complete code for amber light`,
-//     13: `So, we've programmed red and amber light to turn on for 1 second and Switch off.  Let's now hit the green Flag and observe the Traffic Signal`,
-//     14: `Repeat the same steps to program green light to turn on for one second after RED and AMBER`,
-//     15: `Now, we've programmed RED, AMBER and GREEN lights to turn on and off for 1 second. Press the green flag to run it and observe the output`,
-//     16: `Great, now let's try making the signal repeat the same 5 times. <br>Select Loops from the toolbox`,
-//     17: `Drag the repeat block from the menu to the workspace and attach all the existing code blocks into the loop block`,
-//     18: `In the repeat block, change the number of times to 5`,
-//     19: `That's it! Now run the code and enjoy!`,
-// }
-
 
 const tut1 = {
     "english": {
@@ -277,7 +291,6 @@ const tut1 = {
         19: `आणि ते सर्व आहे! आता कोड चालवा आणि आनंद घ्या!`,
     }
 }
-
 
 function loadAgain() {
 
@@ -830,11 +843,6 @@ function loadAgain() {
 
     document.getElementById('soundBtn').addEventListener('click', setAudioPreference)
 }
-
-
-
-
-
 function t0() {
     clearInterval(myInterval);
     play_audio_tutorial("line1.mp3", lang);
@@ -842,8 +850,6 @@ function t0() {
     let id = (demoWorkspace.getToolbox().contents_[0].id_)
     handPointAt($("#hand"), $("#" + id), 'visible');
 }
-
-
 
 function t1() {
     clearInterval(myInterval);
@@ -1156,15 +1162,14 @@ function setAudioPreference() {
     }
     if (!(playAudio)) {
         playAudio = true;
-        document.getElementById('soundImg').src = "../assets/sound_icon.png";
+        document.getElementById('soundImg').src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAASCAYAAAC5DOVpAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAGlSURBVHgBnVSxUsJAEN1LgMYmhc442hxUKBSZUdAS/kC/QPgC+APwC9QviPwBfyB2THTGFKDpOAss1CKVDRPWvYs3MpiA4TV3e7v37t3u7ZmQEvzg6Mza3t8NPt/Eso9BSuRLVYxm6GE4Oxe+J7TPWLe5UK60+GGloW1EbNIgSIfNzNwT+ex/kRXK1Q4iu2aMOXpNPD/cYmjUSV6PTIt8d7xo85VkERF043zCHwoxdhsIGBGaWSeRbBVRoXTicNu2lJGdteniAV25xovHtYxco6ROaOB6AyIkgtQ02CwrY+vC8wJert4whI5hmBdaGYdUiJSo6Rz76hCGtbXVTOYzVRWpIJ4WtDlZDDYnw1Ap+n1n6GkyASlABeoL/3GgDMqVGsDwVDUnYze/GEwV6soKxRIBDuBrq6niuG0RSUvO52HYS+zNZUI68E9soVS5QmBteTMpKDFnYuR2kcFl7EGkiIgcRcQwkO0l101YgeB9OrB29l6BGffBx3So1FDjQ86kt8VOFdGcHu+L60vfxl+Qyl1oNmWfal8GUkJ9QQYKMfqp5gK+ASrop99e7Z/mAAAAAElFTkSuQmCC";
     } else {
         playAudio = false;
-        document.getElementById('soundImg').src = "../assets/sound_unmute.png";
+        document.getElementById('soundImg').src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAASCAYAAAC5DOVpAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAADfSURBVHgBpZNdEcMgEIR3qiASkIAE6qAScNBKwEHrIHFSCa2D1AES6KU5JoS5AGl2Zh8Cm2+WP2CWJt/JCnVdyKYUGMiBPDYAQy2reFIKXck2+bZJ1mNeVTPQ8liqDstqPHY2tJA1cPa5Mf8DeGzvS8/NYsOYNTEQ20jOgXkTx2N9GgiNQJs10UmmCSYBb1nbsAeWA7sjsBHyHsZlvk488EFdZ84pzAegsobvrR+d0Awo30ODgpwAKwGrcgJskkbDg5dksb4G08P3KF/sZkXQdAgGy5J7/CGD9WYr8oOsv0tEhgjHBhLnAAAAAElFTkSuQmCC";
     }
 }
 
 setInterval(function () {
-
     try {
         $(".shepherd-content").draggable({
             containment: "body"

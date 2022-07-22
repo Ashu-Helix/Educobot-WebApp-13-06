@@ -167,29 +167,11 @@ function change_rescue_button_colour(event) {
 }
 demoWorkspace.addChangeListener(change_rescue_button_colour);
 
-// var tut = window['tutorials'].map(
-//     (data) => `<p><span style="color: rgb(239, 239, 239); font-family: Verdana, Geneva, sans-serif; font-size: 20px;">
-//         ${data}
-//         </span></p>`
-// );
-
 let tour = new Shepherd.Tour({
     defaultStepOptions: {
         cancelIcon: { enabled: true },
         classes: 'educobot-shepherd',
         scrollTo: { behavior: 'smooth', block: 'center' },
-        // when: {
-        //     show() {
-        //         const currentStepElement = tour.getCurrentStep().el;
-        //         const header = currentStepElement.querySelector('.shepherd-header');
-        //         const progress = document.createElement('div');
-        //         progress.innerHTML = `<img id="s_mute" onclick="shepherd_mute_unmute();" src="assets/unmute_icon.png" width="17" height="17">`;
-        //         header.insertBefore(progress, currentStepElement.querySelector('.shepherd-cancel-icon'));
-        //         rescue_colour_is_yellow = false;
-        //         set_mute_icon();
-        //         rescue_button_set_colour();
-        //     }
-        // }
     }
 });
 function loadAgain() {
@@ -205,12 +187,6 @@ function loadAgain() {
     lang = window["language"]
     clearInterval(myInterval)
     $("#hand").css("visibility", 'hidden');
-
-    // const tut = window['tutorials'].map(
-    //     (data) => `<p><span style="sans-serif;">
-    //         ${data}
-    //     </span></p>`
-    // );
 
     const tut = {
         0: `<p style="text-align: center;"><strong><span style="font-family: Helvetica; font-size: 30px;">Help Bunny<br><br> eat carrot and<br><br> return home</span></strong></p>`,
@@ -236,18 +212,6 @@ function loadAgain() {
             cancelIcon: { enabled: true },
             classes: 'educobot-shepherd',
             scrollTo: { behavior: 'smooth', block: 'center' },
-            // when: {
-            //     show() {
-            //         const currentStepElement = tour.getCurrentStep().el;
-            //         const header = currentStepElement.querySelector('.shepherd-header');
-            //         const progress = document.createElement('div');
-            //         progress.innerHTML = `<img id="s_mute" onclick="shepherd_mute_unmute();" src="/assets/sound_unmute.png" width="17" height="17">`;
-            //         header.insertBefore(progress, currentStepElement.querySelector('.shepherd-cancel-icon'));
-            //         rescue_colour_is_yellow = false;
-            //         set_mute_icon();
-            //         rescue_button_set_colour();
-            //     }
-            // }
         }
     });
 
@@ -556,13 +520,6 @@ window['confirm_rescue'] = () => {
     tour1.start();
 }
 
-function set_mute_icon() {
-    if ((playAudio)) {
-        document.querySelectorAll("#s_mute").forEach((i) => { i.src = i.src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAASCAYAAAC5DOVpAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAGlSURBVHgBnVSxUsJAEN1LgMYmhc442hxUKBSZUdAS/kC/QPgC+APwC9QviPwBfyB2THTGFKDpOAss1CKVDRPWvYs3MpiA4TV3e7v37t3u7ZmQEvzg6Mza3t8NPt/Eso9BSuRLVYxm6GE4Oxe+J7TPWLe5UK60+GGloW1EbNIgSIfNzNwT+ex/kRXK1Q4iu2aMOXpNPD/cYmjUSV6PTIt8d7xo85VkERF043zCHwoxdhsIGBGaWSeRbBVRoXTicNu2lJGdteniAV25xovHtYxco6ROaOB6AyIkgtQ02CwrY+vC8wJert4whI5hmBdaGYdUiJSo6Rz76hCGtbXVTOYzVRWpIJ4WtDlZDDYnw1Ap+n1n6GkyASlABeoL/3GgDMqVGsDwVDUnYze/GEwV6soKxRIBDuBrq6niuG0RSUvO52HYS+zNZUI68E9soVS5QmBteTMpKDFnYuR2kcFl7EGkiIgcRcQwkO0l101YgeB9OrB29l6BGffBx3So1FDjQ86kt8VOFdGcHu+L60vfxl+Qyl1oNmWfal8GUkJ9QQYKMfqp5gK+ASrop99e7Z/mAAAAAElFTkSuQmCC"; })
-    } else {
-        document.querySelectorAll("#s_mute").forEach((i) => { i.src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAASCAYAAAC5DOVpAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAADfSURBVHgBpZNdEcMgEIR3qiASkIAE6qAScNBKwEHrIHFSCa2D1AES6KU5JoS5AGl2Zh8Cm2+WP2CWJt/JCnVdyKYUGMiBPDYAQy2reFIKXck2+bZJ1mNeVTPQ8liqDstqPHY2tJA1cPa5Mf8DeGzvS8/NYsOYNTEQ20jOgXkTx2N9GgiNQJs10UmmCSYBb1nbsAeWA7sjsBHyHsZlvk488EFdZ84pzAegsobvrR+d0Awo30ODgpwAKwGrcgJskkbDg5dksb4G08P3KF/sZkXQdAgGy5J7/CGD9WYr8oOsv0tEhgjHBhLnAAAAAElFTkSuQmCC"; })
-    }
-}
 
 window['shepherd_mute_unmute'] = () => {
     if (playAudio) {
@@ -599,7 +556,6 @@ function t2() {
         handPointAt($("#hand"), $($(".blocklyFieldRect.blocklyDropdownRect")[0]), 'visible');
     }, 100);
 }
-
 function t3() {
     clearInterval(myInterval);
     play_audio_tutorial("line8.mp3", lang);
@@ -614,8 +570,6 @@ function t4() {
     handPointAt($("#hand"), $(`#${id}`), 'visible');
     // handPointAt($("#hand"), $("#blockly-q"), 'visible');
 }
-
-
 function t5() {
     clearInterval(myInterval);
     play_audio_tutorial("line12.mp3", lang);
@@ -639,7 +593,6 @@ function t6() {
         handPointAt($("#hand"), $(`#${id}`), 'visible');
     }, 100);
 }
-
 function t7() {
     clearInterval(myInterval);
     play_audio_tutorial("line16.mp3", lang);
@@ -662,8 +615,6 @@ function t8() {
         handPointAt($("#hand"), $($(".blocklyFieldRect.blocklyDropdownRect")[3]), 'visible');
     }, 100);
 }
-
-
 function step2_val() {
     Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
     var codep = Blockly.Python.workspaceToCode(demoWorkspace);
@@ -702,20 +653,19 @@ function check_toolbox_selection(id) {
 document.getElementById('soundBtn').addEventListener('click', setAudioPreference)
 //NGS Sound Enhancement
 function setAudioPreference() {
-    console.log(playAudio);
+
     if (playAudio) {
         kill_audio();
     }
     if (!(playAudio)) {
         playAudio = true;
-        document.getElementById('soundImg').src = "../assets/sound_icon.png";
+        document.getElementById('soundImg').src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAASCAYAAAC5DOVpAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAGlSURBVHgBnVSxUsJAEN1LgMYmhc442hxUKBSZUdAS/kC/QPgC+APwC9QviPwBfyB2THTGFKDpOAss1CKVDRPWvYs3MpiA4TV3e7v37t3u7ZmQEvzg6Mza3t8NPt/Eso9BSuRLVYxm6GE4Oxe+J7TPWLe5UK60+GGloW1EbNIgSIfNzNwT+ex/kRXK1Q4iu2aMOXpNPD/cYmjUSV6PTIt8d7xo85VkERF043zCHwoxdhsIGBGaWSeRbBVRoXTicNu2lJGdteniAV25xovHtYxco6ROaOB6AyIkgtQ02CwrY+vC8wJert4whI5hmBdaGYdUiJSo6Rz76hCGtbXVTOYzVRWpIJ4WtDlZDDYnw1Ap+n1n6GkyASlABeoL/3GgDMqVGsDwVDUnYze/GEwV6soKxRIBDuBrq6niuG0RSUvO52HYS+zNZUI68E9soVS5QmBteTMpKDFnYuR2kcFl7EGkiIgcRcQwkO0l101YgeB9OrB29l6BGffBx3So1FDjQ86kt8VOFdGcHu+L60vfxl+Qyl1oNmWfal8GUkJ9QQYKMfqp5gK+ASrop99e7Z/mAAAAAElFTkSuQmCC";
     } else {
         playAudio = false;
-        document.getElementById('soundImg').src = "../assets/sound_unmute.png";
+        document.getElementById('soundImg').src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAASCAYAAAC5DOVpAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAADfSURBVHgBpZNdEcMgEIR3qiASkIAE6qAScNBKwEHrIHFSCa2D1AES6KU5JoS5AGl2Zh8Cm2+WP2CWJt/JCnVdyKYUGMiBPDYAQy2reFIKXck2+bZJ1mNeVTPQ8liqDstqPHY2tJA1cPa5Mf8DeGzvS8/NYsOYNTEQ20jOgXkTx2N9GgiNQJs10UmmCSYBb1nbsAeWA7sjsBHyHsZlvk488EFdZ84pzAegsobvrR+d0Awo30ODgpwAKwGrcgJskkbDg5dksb4G08P3KF/sZkXQdAgGy5J7/CGD9WYr8oOsv0tEhgjHBhLnAAAAAElFTkSuQmCC";
     }
 }
-console.log(tour)
-console.log()
+
 
 const tt = setInterval(function () {
     //clearInterval(tt)
