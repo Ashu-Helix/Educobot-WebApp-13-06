@@ -56,9 +56,11 @@ function play_audio_tutorial(lesson_id, file, language, type) {
     // let path = `https://app.educobot.com/liveLessons/python/${lesson_id}/audios/${language}/`;
     let path = ``;
     if (type === 4) {
-        path = `http://localhost:7001/turtlePredictive/${lesson_id}/audios/${language}/`;
+        // path = `http://localhost:7001/turtlePredictive/${lesson_id}/audios/${language}/`;
+        path = `https://app.educobot.com/liveLessons/turtle/${lesson_id}/audios/${language}/`;
     } else {
-        path = `http://localhost:7001/scripts/${lesson_id}/audios/${language}/`;
+        // path = `http://localhost:7001/scripts/${lesson_id}/audios/${language}/`;
+        path = `https://app.educobot.com/liveLessons/python/${lesson_id}/audios/${language}/`;
     }
     // let path = `../` + language.audio_folder + `/`;
     // if (!audio.paused) audio.pause();
