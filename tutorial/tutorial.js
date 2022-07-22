@@ -147,12 +147,12 @@ pred_guide.forEach((i) => {
     document.querySelector('dialog')
 });
 
-function helpCode(lesson_id, user_code) {
+function helpCode(lesson_id, user_code, selectedLanguage, type) {
 
     pred_guide.forEach((i) => {
         i.shown = false;
     });
-    tutorial_guide_updater(lesson_id, user_code);
+    tutorial_guide_updater(lesson_id, user_code, selectedLanguage, type);
 };
 
 function tutorial_guide_updater(lesson_id, user_code, selectedLanguage, type) {

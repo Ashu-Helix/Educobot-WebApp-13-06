@@ -229,7 +229,7 @@ export default function Scripts(props) {
     const help = () => {
         const tutorial = require("../../../tutorial/tutorial.js");
         const { helpCode } = tutorial;
-        helpCode(id, user_code);
+        helpCode(id, user_code, lang, type);
     };
 
     const updateUserCodeFromKeyboard = (input) => {

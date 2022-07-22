@@ -6,23 +6,20 @@ import {
 
 import MSPhaserLib from '../msPhaserLib.min';
 
-// import { CANVAS, Game, AUTO } from "phaser";
-
 import Blockly from "blockly";
 import "blockly/python";
 import "blockly/javascript";
 
-let demoWorkspace = Blockly.getMainWorkspace();
-let noOfBlocks;
-
-
 let _gameThis = null;
-const baseURL = "../img/images/ed897b4e-3959-40f5-a926-018643a5b99b";
+const baseURL = "../img/images/6803997e-fb17-4849-ba68-2f0a415f2e01";
 const gameWidth = 1920;
 const gameHeight = 1080;
 const gameScale = 1;
 
 let game_is_over = false;
+
+let demoWorkspace = Blockly.getMainWorkspace();
+let noOfBlocks;
 
 const spritesElement = {
     beaver: { x: 420, y: 650, stay: 0, frameWidth: 354, frameHeight: 389, frameFrom: 0, frameTo: 9, frameRate: 8, repeat: -1 },
@@ -67,12 +64,9 @@ const CORRECT_MESSAGE = 'Correct Message: <Write correct message here>';
 let _oMSPhaserLib;
 let randomNo = 0;
 let isBeaverClick = false;
-// let window['isBeaverHitHammer'] = false;
-window['isBeaverHitHammer'] = false;
-// let scorePoints = 0;
-window['scorePoints'] = 0;
-// let addScoreValue = 0;
-window['addScoreValue'] = 0;
+let isBeaverHitHammer = false;
+let scorePoints = 0;
+let addScoreValue = 0;
 let molePosNo = 0;
 let canRandom = false;
 let canAnimalShow = false;
@@ -81,6 +75,10 @@ let maxScore = 20;
 let isEndAllBlock = false;
 let canHideAnimal = false;
 let waitTime = 100;
+let hammer;
+let oHammer;
+let hammerValue;
+
 
 // Phaser config
 let config = {
@@ -89,7 +87,6 @@ let config = {
     height: gameHeight,
     backgroundColor: "#eeeeee",
     parent: "sprite-container",
-    //canvas: canvas1,
     canvasStyle: `width: 100%;
     object-fit: revert;
     aspect-ratio: 738 / 436;`,
@@ -182,9 +179,9 @@ function init() {
     let oBeaver = _gameThis[beaver];
     let beaverValue = spritesElement.beaver;
 
-    let hammer = spritesImages.hammer;
-    let oHammer = _gameThis[hammer];
-    let hammerValue = spritesElement.hammer;
+    hammer = spritesImages.hammer;
+    oHammer = _gameThis[hammer];
+    hammerValue = spritesElement.hammer;
 
     //_oMSPhaserLib.spriteAnimation(oBeaver, beaver, beaverValue.frameFrom, beaverValue.frameTo, beaverValue.frameRate, beaverValue.repeat);
 
@@ -196,7 +193,8 @@ function init() {
         if (canAnimalShow) {
             if (!isBeaverClick && oBeaver.anims.isPlaying) {
                 isBeaverClick = true;
-                window['isBeaverHitHammer'] = true;
+                isBeaverHitHammer = true;
+                console.log(pointer, x, y)
                 fnAddClickOnBeaver(pointer, x, y);
             }
         }
@@ -238,12 +236,11 @@ function fnStart() {
     // add event on hammer
     _gameThis[GAME_CONSTANT.spritesImages.hammer].on('animationcomplete', async () => {
         isBeaverClick = false;
-        randomNo = fnRandomNo();
         _gameThis[GAME_CONSTANT.spritesImages.hammer].visible = false;
         _gameThis[GAME_CONSTANT.images.bang].visible = false;
         // _gameThis['scorePoint'].setText('Point: ' + (scorePoints += addScoreValue));
 
-        if ((window['scorePoints'] >= maxScore) && isEndAllBlock) {
+        if ((scorePoints >= maxScore) && isEndAllBlock) {
             fnGameOverText();
         }
         await sleep(waitTime);
@@ -303,6 +300,7 @@ function fnRandomNo() {
 
 // function to handle the behaviour of animal and hammer animation when user click on animal
 function fnAddClickOnBeaver(_pointer, _x, _y) {
+    console.log(_pointer, _x, _y)
     if (canHammerShow) {
         // let beaver = _gameThis[GAME_CONSTANT.spritesImages.beaver];
         let hammer = _gameThis[GAME_CONSTANT.spritesImages.hammer];
@@ -333,7 +331,7 @@ function fnShowOrHide(_objName, _isShow) {
 }
 
 function reset_for_update() {
-    window['isBeaverHitHammer'] = false;
+    isBeaverHitHammer = false;
 }
 
 // function to add game over text
@@ -388,12 +386,12 @@ function fnShowPoints(_str) {
 // for use to set the score value
 function fnAddScoreValue(_value) {
     if (_value != undefined && !isNaN(_value)) {
-        window['addScoreValue'] = parseFloat(_value);
+        addScoreValue = parseFloat(_value);
     } else {
-        window['addScoreValue'] = 0;
+        addScoreValue = 0;
     }
 
-    _gameThis['scorePoint'].setText('Point: ' + Math.round((window['scorePoints'] += window['addScoreValue']) * 100) / 100);
+    _gameThis['scorePoint'].setText('Point: ' + Math.round((scorePoints += addScoreValue) * 100) / 100);
 }
 
 // This function will sleep/pause code execution for given miliseconds.
@@ -419,7 +417,7 @@ function fnCheckEndBlock() {
 }
 
 function setInitScore(_score) {
-    window['scorePoints'] = _score || 0;
+    scorePoints = _score || 0;
 }
 
 function addHideAnimal() {
@@ -430,9 +428,9 @@ function reInitValues() {
     game_is_over = false;
     randomNo = 0;
     isBeaverClick = false;
-    window['isBeaverHitHammer'] = false;
-    window['scorePoints'] = 0;
-    window['addScoreValue'] = 0;
+    isBeaverHitHammer = false;
+    scorePoints = 0;
+    addScoreValue = 0;
     molePosNo = 0;
     canRandom = false;
     canAnimalShow = false;
@@ -483,14 +481,14 @@ function runCode() {
 
 // }
 
-const helpCode = '<xml xmlns="https://developers.google.com/blockly/xml"><block type="show_variable_block" id="Up@Zlbh+fXzZj1b,MDI!" x="66" y="61"><field name="NAME">score</field><next><block type="action_block" id="ME:G~6^Z1j+V:2Wul0{e"><next><block type="forever_repeat_block" id="H_-`I-HWU/87I]zgH*aG"><statement name="NAME"><block type="controls_if" id="h|Pf3kro[WH$]_LV}!F8"><value name="IF0"><block type="spritetouch__block" id="%?J7q4-A|~R~p(e;O!}v"><field name="options1">hammer</field><field name="options2">animal</field></block></value><statement name="DO0"><block type="addition_block" id="xekTV?lR-KHIE_.:G_ad"><field name="NAME">score</field><field name="addscorevalue">1</field></block></statement><next><block type="controls_if" id="5+5$2KO=Q@.D{J%I{-_p"><value name="IF0"><block type="compare_block" id="#^WS|MXR/!udY(Pr:Nl2"><field name="NAME">=</field><field name="number">10</field></block></value><statement name="DO0"><block type="end_block" id="S#pHxDE{$8S]S![}-;Jp"></block></statement></block></next></block></statement></block></next></block></next></block></xml>';
+// const helpCode = '<xml xmlns="https://developers.google.com/blockly/xml"><block type="show_variable_block" id="Up@Zlbh+fXzZj1b,MDI!" x="66" y="61"><field name="NAME">score</field><next><block type="action_block" id="ME:G~6^Z1j+V:2Wul0{e"><next><block type="forever_repeat_block" id="H_-`I-HWU/87I]zgH*aG"><statement name="NAME"><block type="controls_if" id="h|Pf3kro[WH$]_LV}!F8"><value name="IF0"><block type="spritetouch__block" id="%?J7q4-A|~R~p(e;O!}v"><field name="options1">hammer</field><field name="options2">animal</field></block></value><statement name="DO0"><block type="addition_block" id="xekTV?lR-KHIE_.:G_ad"><field name="NAME">score</field><field name="addscorevalue">1</field></block></statement><next><block type="controls_if" id="5+5$2KO=Q@.D{J%I{-_p"><value name="IF0"><block type="compare_block" id="#^WS|MXR/!udY(Pr:Nl2"><field name="NAME">=</field><field name="number">10</field></block></value><statement name="DO0"><block type="end_block" id="S#pHxDE{$8S]S![}-;Jp"></block></statement></block></next></block></statement></block></next></block></next></block></xml>';
 
-// function myUpdateFunction(a) {
-//     var code = Blockly.Python.workspaceToCode(demoWorkspace);
-//     var import_statement = "from whack_a_mole import *\n";
-//     document.getElementById('pycode').innerHTML = import_statement + code;
-//     document.getElementById('modal1').innerHTML = import_statement + code;
-// }
+function myUpdateFunction(a) {
+    var code = Blockly.Python.workspaceToCode(demoWorkspace);
+    var import_statement = "from whack_a_mole import *\n";
+    document.getElementById('pycode').innerHTML = import_statement + code;
+    document.getElementById('modal1').innerHTML = import_statement + code;
+}
 // demoWorkspace.addChangeListener(myUpdateFunction);
 
 function completedFlag() {
@@ -505,29 +503,79 @@ function getNoOfBlocks() {
 
 const updateImports = ["from whack_a_mole import *"]
 
+const instruction = {
+    "heading": "Whak the Mole with the hammer when he pops out by touching the mole before the mole goes back inside",
+    "steps": [
+        {
+            "checkbox": true,
+            "rescue": true,
+            "text": "Display Score on screen",
+            "title": "Display Score",
+            "workspace": "<xml xmlns=\"https://developers.google.com/blockly/xml\"><block type=\"show_variable_block\" id=\"Up@Zlbh+fXzZj1b,MDI!\" x=\"66\" y=\"61\"><field name=\"NAME\">score</field></block></xml>"
+        },
+        {
+            "checkbox": true,
+            "rescue": true,
+            "text": "Let Mole appear",
+            "title": "Mole appears",
+            "workspace": "<xml xmlns=\"https://developers.google.com/blockly/xml\"><block type=\"show_variable_block\" id=\"Up@Zlbh+fXzZj1b,MDI!\" x=\"66\" y=\"61\"><field name=\"NAME\">score</field><next><block type=\"action_block\" id=\"ME:G~6^Z1j+V:2Wul0{e\"></block></next></block></xml>"
+        },
+        {
+            "checkbox": true,
+            "rescue": true,
+            "text": "The following statements should function within the loop",
+            "title": "Repeat forever",
+            "workspace": "<xml xmlns=\"https://developers.google.com/blockly/xml\"><block type=\"show_variable_block\" id=\"Up@Zlbh+fXzZj1b,MDI!\" x=\"66\" y=\"61\"><field name=\"NAME\">score</field><next><block type=\"action_block\" id=\"ME:G~6^Z1j+V:2Wul0{e\"><next><block type=\"forever_repeat_block\" id=\"H_-`I-HWU/87I]zgH*aG\"></block></next></block></next></block></xml>"
+        },
+        {
+            "checkbox": true,
+            "rescue": true,
+            "text": "If Hammer touches the animal, Add Score by 1",
+            "title": "Hit Hammer on Mole",
+            "workspace": "<xml xmlns=\"https://developers.google.com/blockly/xml\"><block type=\"show_variable_block\" id=\"Up@Zlbh+fXzZj1b,MDI!\" x=\"66\" y=\"61\"><field name=\"NAME\">score</field><next><block type=\"action_block\" id=\"ME:G~6^Z1j+V:2Wul0{e\"><next><block type=\"forever_repeat_block\" id=\"H_-`I-HWU/87I]zgH*aG\"><statement name=\"NAME\"><block type=\"controls_if\" id=\"h|Pf3kro[WH$]_LV}!F8\"><value name=\"IF0\"><block type=\"spritetouch__block\" id=\"%?J7q4-A|~R~p(e;O!}v\"><field name=\"options1\">hammer</field><field name=\"options2\">animal</field></block></value><statement name=\"DO0\"><block type=\"addition_block\" id=\"xekTV?lR-KHIE_.:G_ad\"><field name=\"NAME\">score</field><field name=\"addscorevalue\">1</field></block></statement></block></statement></block></next></block></next></block></xml>"
+        },
+        {
+            "checkbox": true,
+            "rescue": true,
+            "text": "If Score is 10, Player Wins the game, then End All",
+            "title": "End All",
+            "workspace": "<xml xmlns=\"https://developers.google.com/blockly/xml\"><block type=\"show_variable_block\" id=\"Up@Zlbh+fXzZj1b,MDI!\" x=\"66\" y=\"61\"><field name=\"NAME\">score</field><next><block type=\"action_block\" id=\"ME:G~6^Z1j+V:2Wul0{e\"><next><block type=\"forever_repeat_block\" id=\"H_-`I-HWU/87I]zgH*aG\"><statement name=\"NAME\"><block type=\"controls_if\" id=\"h|Pf3kro[WH$]_LV}!F8\"><value name=\"IF0\"><block type=\"spritetouch__block\" id=\"%?J7q4-A|~R~p(e;O!}v\"><field name=\"options1\">hammer</field><field name=\"options2\">animal</field></block></value><statement name=\"DO0\"><block type=\"addition_block\" id=\"xekTV?lR-KHIE_.:G_ad\"><field name=\"NAME\">score</field><field name=\"addscorevalue\">1</field></block></statement><next><block type=\"controls_if\" id=\"5+5$2KO=Q@.D{J%I{-_p\"><value name=\"IF0\"><block type=\"compare_block\" id=\"#^WS|MXR/!udY(Pr:Nl2\"><field name=\"NAME\">=</field><field name=\"number\">10</field></block></value><statement name=\"DO0\"><block type=\"end_block\" id=\"S#pHxDE{$8S]S![}-;Jp\"></block></statement></block></next></block></statement></block></next></block></next></block></xml>"
+        },
+        {
+            "checkbox": false,
+            "rescue": false,
+            "text": "Touch the mole for the hammer to strike it and gain a point. Gain 3 points to win the game!",
+            "title": "Instructions to play the game",
+            "workspace": "<xml xmlns=\"https://developers.google.com/blockly/xml\"></xml>"
+        }
+    ]
+};
+
 export {
     completedFlag,
-    // myUpdateFunction,
-    helpCode,
+    myUpdateFunction,
+    // helpCode,
     runCode,
     reset_output,
     reInitValues,
     fnGameOverText,
     fnShowPoints,
     fnShowRandomMole,
-    // window['isBeaverHitHammer'],
+    isBeaverHitHammer,
     // animal,
-    // hammer,
+    hammer,
     fnAddScoreValue,
-    update,
+    // update,
     reset_for_update,
-    // scorePoints,
-    getNoOfBlocks,
+    scorePoints,
     updateImports,
-    repeat_forever_flag,
+    getNoOfBlocks,
+    update,
     game,
     preload,
     create,
     gameHeight,
     gameWidth,
+    repeat_forever_flag,
+    instruction
 }

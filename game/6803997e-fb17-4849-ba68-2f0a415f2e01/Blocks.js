@@ -5,6 +5,28 @@ import "blockly/javascript";
 Blockly.HSV_SATURATION = 1;
 Blockly.HSV_VALUE = 1;
 
+import {
+    fnGameOverText,
+    fnShowPoints,
+    fnShowRandomMole,
+    isBeaverHitHammer,
+    // animal,
+    hammer,
+    fnAddScoreValue,
+    // update,
+    reset_for_update,
+    scorePoints,
+    updateImports,
+    getNoOfBlocks,
+    update,
+    game,
+    preload,
+    create,
+    gameHeight,
+    gameWidth,
+    repeat_forever_flag
+} from "./main"
+
 Blockly.Blocks['end_block'] = {
     init: function () {
         this.appendDummyInput()
