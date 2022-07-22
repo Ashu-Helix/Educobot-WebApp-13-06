@@ -757,7 +757,7 @@ function loadAgain() {
     tour.addStep({
         eval() { return step17_val(); },
         title: "Step 17",
-        text: tut[17] + image_scaler("TS Drag Code to Repeat.png") + add_rescue_button(),
+        text: tut[17] + image_scaler("TS Drag Code to Repeat.png", lang) + add_rescue_button(),
         arrow: false,
         attachTo: { element: "#sprite-container", on: adapt_orientation('bottom', 'bottom') },
         buttons: [{

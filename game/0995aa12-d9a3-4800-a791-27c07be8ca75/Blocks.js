@@ -55,7 +55,7 @@ Blockly.Python["xy"] = function (block) {
 };
 
 Blockly.JavaScript["catch_block"] = function (block) {
-    let code = "";
+    let code = 'await getToyByCoordinates("")';
 
     if (
         block.childBlocks_ &&
@@ -74,8 +74,9 @@ Blockly.JavaScript["catch_block"] = function (block) {
 
     return code;
 };
+
 Blockly.Python["catch_block"] = function (block) {
-    let code = "";
+    let code = 'await getToyByCoordinates("")';
 
     if (
         block.childBlocks_ &&
@@ -85,13 +86,8 @@ Blockly.Python["catch_block"] = function (block) {
         let x_coordinate = block.childBlocks_[0].getFieldValue("x_coordinate");
         let y_coordinate = block.childBlocks_[0].getFieldValue("y_coordinate");
         code =
-            'await getToyByCoordinates("' +
-            x_coordinate +
-            '", "' +
-            y_coordinate +
-            '");\n';
+            'getToyByCoordinates("' + x_coordinate + '", "' + y_coordinate + '")\n';
     }
-
     return code;
 };
 
@@ -114,4 +110,26 @@ Blockly.Python["wait_block"] = function (block) {
     return code;
 };
 
-export const blocks = { kind: "categoryToolbox", "contents": [{ "kind": "CATEGORY", "contents": [{ "kind": "BLOCK", "blockxml": "", "type": "xy" }, { "kind": "BLOCK", "blockxml": "", "type": "catch_block" }, { "kind": "BLOCK", "blockxml": "", "type": "wait_block" }], "name": "Claw Machine", "colour": "#B430FF", "cssConfig": { "container": "cat1" } }], "id": "toolbox", "style": "display: none", "colour": "#D4AF37" }
+export const blocks = {
+    kind: "categoryToolbox",
+    contents: [
+        {
+            kind: "CATEGORY",
+            contents: [
+                { kind: "BLOCK", blockxml: "", type: "xy" },
+                { kind: "BLOCK", blockxml: "", type: "catch_block" },
+                {
+                    kind: "BLOCK",
+                    blockxml: '<block type="wait_block"><value name="NAME"><block type="math_number"><field name="NUM">1</field></block></value></block>',
+                    type: "wait_block"
+                },
+            ],
+            name: "Claw Machine",
+            colour: "#B430FF",
+            cssConfig: { container: "cat1" },
+        },
+    ],
+    id: "toolbox",
+    style: "display: none",
+    colour: "#D4AF37",
+};

@@ -10,7 +10,6 @@ import { Button } from "@mui/material";
 import { Icon } from '@iconify/react'
 import axios from "axios";
 import FormData from 'form-data';
-const url: any = process.env.devUrls;
 
 const EditorContainer = dynamic(import("../../../../components/EditorContainer"), {
     ssr: false,
@@ -18,10 +17,12 @@ const EditorContainer = dynamic(import("../../../../components/EditorContainer")
 import { GetServerSideProps } from "next/types";
 import { useRouter } from "next/router";
 
+const url: any = process.env.devUrls;
+
 export const getServerSideProps: GetServerSideProps = async (context) => {
 
-    // const response1 = await fetch(`https://app.educobot.com/liveLessons/turtle/${context.params.id}/code.json`);
-    const response1 = await fetch(`http://localhost:7001/pythonOpenEditor/${context.params.id}/code.json`);
+    const response1 = await fetch(`http://app.educobot.com/liveLessons/turtle/${context.params.id}/code.json`);
+    // const response1 = await fetch(`http://localhost:7001/pythonOpenEditor/${context.params.id}/code.json`);
 
     if (response1.status === 404) {
         return {
@@ -79,14 +80,15 @@ export default function PythonEditor(props) {
     const [userDetails, setUserDetails] = useState<any>([]);
     const getUserDetails = async (otp: string | string[]) => {
         try {
-            let formD = new FormData();
-            formD.append("sdUID", router.query.user_id)
+            const body = {
+                "sdUID": router.query.user_id
+            }
 
             const userDetails = await axios({
                 method: "post",
                 url: `${url.EduCobotBaseUrl}${url.getLessonByID}`,
-                data: formD,
-                headers: { "Content-Type": "multipart/form-data" },
+                data: body,
+                headers: { "Content-Type": "application/json" },
             });
             {
                 let newData = { ...userDetails.data.DATA[0], otp }
@@ -121,7 +123,7 @@ export default function PythonEditor(props) {
         try {
             const res = await axios({
                 method: "post",
-                url: "https://api.educobot.com/users/postEvalData",
+                url: `${url.EduCobotBaseUrl}${url.postEvalData}`,
                 data: body,
                 headers: { "Content-Type": "application/json" },
             });

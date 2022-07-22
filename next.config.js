@@ -124,7 +124,14 @@ const EduCobotBaseUrl = "https://api.educobot.com/";
 const devUrls = {
     EduCobotBaseUrl: EduCobotBaseUrl,
     getStudents: "users/getStudents",
-    getLessonByID: "lessonsRoute/getLessonByID"
+    getLessonByID: "lessonsRoute/getLessonByID",
+
+    postOTPLesson: "sessionRoute/postOTPLesson",
+    postEvalData: "users/postEvalData",
+
+    pythonScriptFilesUrl: `${EduCobotBaseUrl}liveLessons/python/`,
+    turtleFilesUrl: `${EduCobotBaseUrl}liveLessons/turtle/`,
+    pythonOpenEditor: `${EduCobotBaseUrl}pythonOpenEditor/`,
 }
 
 const nextConfig = {

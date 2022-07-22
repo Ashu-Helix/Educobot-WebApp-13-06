@@ -7,6 +7,7 @@ let lang = window["language"]
 window['rescue_btn_click_count'] = 0
 window['total_rescue_btns'] = 0
 const demoWorkspace = Blockly.getMainWorkspace();
+let isRunBtnClicked = false;
 
 var tour_over = false;
 var playAudio = true;
@@ -17,6 +18,7 @@ let tour_step = 0;
 let kill_audio = () => {
     if (!audio.paused) audio.pause();
 };
+let isPortrait = () => (screen.width <= 600 ? true : false);
 var adapt_orientation_array = [];
 let language = {
     guide_folder: "guide",
@@ -43,9 +45,10 @@ window.addEventListener("resize", () => {
 
 function hideHand() {
     clearInterval(myInterval);
-    handPointAt($("#hand"), $($("#blockly-0")), "hidden");
+    let id = (demoWorkspace.getToolbox().contents_[0].id_)
+    handPointAt($("#hand"), $($("#" + id)), "hidden");
     myInterval = setInterval(function () {
-        handPointAt($("#hand"), $($("#blockly-0")), "hidden");
+        handPointAt($("#hand"), $($("#" + id)), "hidden");
     }, 1000);
 }
 
@@ -58,16 +61,7 @@ function handOnRun() {
 }
 
 function play_audio_tutorial(file) {
-    let path =
-        `assets/` +
-        language.guide_folder +
-        `/` +
-        language.language_packs_folder +
-        `/` +
-        language.language +
-        `/` +
-        language.audio_folder +
-        `/`;
+    let path = `../assets/` + language.guide_folder + `/` + slug + '/' + language.language_packs_folder + `/` + lang + `/` + language.audio_folder + `/`;
     kill_audio();
     if (playAudio) {
         audio = new Audio(path + file);
@@ -112,7 +106,7 @@ function handPointAt(hand, element, visibility) {
         tour.steps.indexOf(tour.currentStep) - rescue_button_clicked_at_step >
         1
     ) {
-        let pos = element.position(),
+        let pos = element.offset(),
             ele_oh = element.outerHeight(true),
             ele_ow = element.outerWidth(true),
             h_oh = hand.outerHeight(true),
@@ -376,7 +370,7 @@ tour.addStep({
 tour.addStep({
     eval() {
         let id = (demoWorkspace.getToolbox().contents_[0].id_)
-        return check_toolbox_selection(id);
+        return check_toolbox_selection(id)
     },
     title: "Step 1",
     text: tut[3],
@@ -405,331 +399,332 @@ tour.addStep({
     id: "creating",
 });
 
-// // step 1.1
-// tour.addStep({
-//     eval() {
-//         return val1();
-//     },
-//     title: "Step 1.1",
-//     text: tut[31] + add_rescue_button(),
-//     arrow: true,
-//     attachTo: { element: "#sprite-container", on: adapt_orientation("bottom", "bottom") },
-//     buttons: [{
-//         action() {
-//             // clearInterval(myInterval);
-//             clearInterval(myInterval);
-//             let id = (demoWorkspace.getToolbox().contents_[0].id_)
-//             handPointAt($("#hand"), $("#" + id), "visible");
-//             return this.back();
-//         },
-//         classes: "shepherd-button-secondary",
-//         text: "Back",
-//     },
-//     {
-//         action() {
-//             if (val1()) {
-//                 play_audio_tutorial("tut[4].mp3");
-//                 clearInterval(myInterval);
-//                 handPointAt($("#hand"), $($(".blocklyDraggable")[1]), "hidden");
-//                 return this.next();
-//             } else M.toast({ html: "Wrong block or values selected!" });
-//         },
-//         text: "Next",
-//     },
-//     ],
-//     id: "creating",
-//     workspace: '<xml xmlns="https://developers.google.com/blockly/xml"><block type="catch_block" id="%(@bKAY`^0eH{LoH]!PG" x="199" y="132"></block></xml>',
-// });
+// step 1.1
+tour.addStep({
+    eval() {
+        return val1();
+    },
+    title: "Step 1.1",
+    text: tut[31] + add_rescue_button(),
+    arrow: true,
+    attachTo: { element: "#sprite-container", on: adapt_orientation("bottom", "bottom") },
+    buttons: [{
+        action() {
+            // clearInterval(myInterval);
+            clearInterval(myInterval);
+            let id = (demoWorkspace.getToolbox().contents_[0].id_)
+            handPointAt($("#hand"), $("#" + id), "visible");
+            return this.back();
+        },
+        classes: "shepherd-button-secondary",
+        text: "Back",
+    },
+    {
+        action() {
+            if (val1()) {
+                play_audio_tutorial("tut[4].mp3");
+                clearInterval(myInterval);
+                handPointAt($("#hand"), $($(".blocklyDraggable")[1]), "hidden");
+                return this.next();
+            } else M.toast({ html: "Wrong block or values selected!" });
+        },
+        text: "Next",
+    },
+    ],
+    id: "creating",
+    workspace: '<xml xmlns="https://developers.google.com/blockly/xml"><block type="catch_block" id="%(@bKAY`^0eH{LoH]!PG" x="199" y="132"></block></xml>',
+});
 
-// // step 2
-// tour.addStep({
-//     eval() {
-//         return false;
-//     },
-//     title: "Step 2",
-//     text: tut[4] + add_next_button(),
-//     arrow: true,
-//     attachTo: { element: "#sprite-container", on: adapt_orientation("bottom", "bottom") },
-//     // attachTo: { element: '.blocklyToolboxContents', on: adapt_orientation('bottom', 'right') },
-//     buttons: [{
-//         action() {
-//             i4();
-//             return this.next();
-//         },
-//         text: "Next",
-//     },],
-//     id: "creating",
-// });
+// step 2
+tour.addStep({
+    eval() {
+        return false;
+    },
+    title: "Step 2",
+    text: tut[4] + add_next_button(),
+    arrow: true,
+    attachTo: { element: "#sprite-container", on: adapt_orientation("bottom", "bottom") },
+    // attachTo: { element: '.blocklyToolboxContents', on: adapt_orientation('bottom', 'right') },
+    buttons: [{
+        action() {
+            i4();
+            return this.next();
+        },
+        text: "Next",
+    },],
+    id: "creating",
+});
 
-// // step 3
-// tour.addStep({
-//     eval() {
-//         return false;
-//     },
-//     title: "Step 3",
-//     text: tut[5] + add_back_button() + add_next_button(),
-//     arrow: true,
-//     attachTo: { element: "#sprite-container", on: adapt_orientation("bottom", "bottom") },
-//     // attachTo: { element: '.blocklyToolboxContents', on: adapt_orientation('bottom', 'right') },
-//     buttons: [{
-//         action() {
-//             i5();
-//             return this.back();
-//         },
-//         classes: "shepherd-button-secondary",
-//         text: "Back",
-//     },
-//     {
-//         action() {
-//             play_audio_tutorial("tut[6].mp3");
-//             clearInterval(myInterval);
-//             let id = (demoWorkspace.getToolbox().contents_[0].id_)
-//             handPointAt($("#hand"), $("#" + id), "visible");
-//             return this.next();
-//         },
-//         text: "Next",
-//     },
-//     ],
-//     id: "creating",
-// });
+// step 3
+tour.addStep({
+    eval() {
+        return false;
+    },
+    title: "Step 3",
+    text: tut[5] + add_back_button() + add_next_button(),
+    arrow: true,
+    attachTo: { element: "#sprite-container", on: adapt_orientation("bottom", "bottom") },
+    // attachTo: { element: '.blocklyToolboxContents', on: adapt_orientation('bottom', 'right') },
+    buttons: [{
+        action() {
+            i5();
+            return this.back();
+        },
+        classes: "shepherd-button-secondary",
+        text: "Back",
+    },
+    {
+        action() {
+            play_audio_tutorial("tut[6].mp3");
+            clearInterval(myInterval);
+            let id = (demoWorkspace.getToolbox().contents_[0].id_)
+            handPointAt($("#hand"), $("#" + id), "visible");
+            return this.next();
+        },
+        text: "Next",
+    },
+    ],
+    id: "creating",
+});
 
-// // step 4
-// tour.addStep({
-//     eval() {
-//         let id = (demoWorkspace.getToolbox().contents_[0].id_)
-//         return check_toolbox_selection(id);
-//     },
-//     title: "Step 4",
-//     text: tut[6],
-//     arrow: true,
-//     attachTo: { element: "#sprite-container", on: adapt_orientation("bottom", "bottom") },
-//     // attachTo: { element: '.blocklyToolboxContents', on: adapt_orientation('bottom', 'right') },
-//     buttons: [{
-//         action() {
-//             clearInterval(myInterval);
-//             return this.back();
-//         },
-//         classes: "shepherd-button-secondary",
-//         text: "Back",
-//     },
-//     {
-//         action() {
-//             let id = (demoWorkspace.getToolbox().contents_[0].id_)
-//             if (check_toolbox_selection(id)) {
-//                 t2();
-//                 return this.next();
-//             }
-//         },
-//         text: "Next",
-//     },
-//     ],
-//     id: "creating",
-// });
+// step 4
+tour.addStep({
+    eval() {
+        let id = (demoWorkspace.getToolbox().contents_[0].id_)
+        return check_toolbox_selection(id);
+    },
+    title: "Step 4",
+    text: tut[6],
+    arrow: true,
+    attachTo: { element: "#sprite-container", on: adapt_orientation("bottom", "bottom") },
+    // attachTo: { element: '.blocklyToolboxContents', on: adapt_orientation('bottom', 'right') },
+    buttons: [{
+        action() {
+            clearInterval(myInterval);
+            return this.back();
+        },
+        classes: "shepherd-button-secondary",
+        text: "Back",
+    },
+    {
+        action() {
+            let id = (demoWorkspace.getToolbox().contents_[0].id_)
+            if (check_toolbox_selection(id)) {
+                t2();
+                return this.next();
+            }
+        },
+        text: "Next",
+    },
+    ],
+    id: "creating",
+});
 
-// // step 4.1
-// tour.addStep({
-//     eval() {
-//         return val2();
-//     },
-//     title: "Step 4.1",
-//     text: tut[61] + add_rescue_button(),
-//     arrow: true,
-//     attachTo: { element: "#sprite-container", on: adapt_orientation("bottom", "bottom") },
-//     // attachTo: { element: '.blocklyToolboxContents', on: adapt_orientation('bottom', 'right') },
-//     buttons: [{
-//         action() {
-//             if (val2()) {
-//                 t3();
-//                 return this.next();
-//             } else M.toast({ html: "Wrong block or values selected!" });
-//         },
-//         text: "Next",
-//     },],
-//     id: "creating",
-//     workspace: '<xml xmlns="https://developers.google.com/blockly/xml"><block type="catch_block" id="RE_W2CeJJH$.Pt(kBJ$#" x="81" y="178"><value name="NAME"><block type="xy" id=")+D~I8hRbv7N4f(IoYL|"><field name="x_coordinate">50</field><field name="y_coordinate">50</field></block></value></block></xml>',
-// });
+// step 4.1
+tour.addStep({
+    eval() {
+        return val2();
+    },
+    title: "Step 4.1",
+    text: tut[61] + add_rescue_button(),
+    arrow: true,
+    attachTo: { element: "#sprite-container", on: adapt_orientation("bottom", "bottom") },
+    // attachTo: { element: '.blocklyToolboxContents', on: adapt_orientation('bottom', 'right') },
+    buttons: [{
+        action() {
+            if (val2()) {
+                t3();
+                return this.next();
+            } else M.toast({ html: "Wrong block or values selected!" });
+        },
+        text: "Next",
+    },],
+    id: "creating",
+    workspace: '<xml xmlns="https://developers.google.com/blockly/xml"><block type="catch_block" id="RE_W2CeJJH$.Pt(kBJ$#" x="81" y="178"><value name="NAME"><block type="xy" id=")+D~I8hRbv7N4f(IoYL|"><field name="x_coordinate">50</field><field name="y_coordinate">50</field></block></value></block></xml>',
+});
 
-// // step 5
-// tour.addStep({
-//     eval() {
-//         return val3();
-//     },
-//     title: "Step 5",
-//     text: tut[7] + add_rescue_button(),
-//     arrow: true,
-//     attachTo: { element: "#sprite-container", on: adapt_orientation("bottom", "bottom") },
-//     // attachTo: { element: '.blocklyToolboxContents', on: adapt_orientation('bottom', 'right') },
-//     buttons: [{
-//         action() {
-//             clearInterval(myInterval);
-//             return this.back();
-//         },
-//         classes: "shepherd-button-secondary",
-//         text: "Back",
-//     },
-//     {
-//         action() {
-//             if (val3()) {
-//                 clearInterval(myInterval);
-//                 play_audio_tutorial("tut[8].mp3");
-//                 hideHand();
-//                 return this.next();
-//             } else M.toast({ html: "Wrong block or values selected!" });
-//         },
-//         text: "Next",
-//     },
-//     ],
-//     id: "creating",
-//     workspace: '<xml xmlns="https://developers.google.com/blockly/xml"><block type="catch_block" id="*cg^:hA)H%-=oQ:*3^A`" x="108" y="99"><value name="NAME"><block type="xy" id="oowY4d,^Q|11N6|Yu9?d"><field name="x_coordinate">440</field><field name="y_coordinate">550</field></block></value></block></xml>',
-// });
+// step 5
+tour.addStep({
+    eval() {
+        return val3();
+    },
+    title: "Step 5",
+    text: tut[7] + add_rescue_button(),
+    arrow: true,
+    attachTo: { element: "#sprite-container", on: adapt_orientation("bottom", "bottom") },
+    // attachTo: { element: '.blocklyToolboxContents', on: adapt_orientation('bottom', 'right') },
+    buttons: [{
+        action() {
+            clearInterval(myInterval);
+            return this.back();
+        },
+        classes: "shepherd-button-secondary",
+        text: "Back",
+    },
+    {
+        action() {
+            if (val3()) {
+                clearInterval(myInterval);
+                play_audio_tutorial("tut[8].mp3");
+                hideHand();
+                return this.next();
+            } else M.toast({ html: "Wrong block or values selected!" });
+        },
+        text: "Next",
+    },
+    ],
+    id: "creating",
+    workspace: '<xml xmlns="https://developers.google.com/blockly/xml"><block type="catch_block" id="*cg^:hA)H%-=oQ:*3^A`" x="108" y="99"><value name="NAME"><block type="xy" id="oowY4d,^Q|11N6|Yu9?d"><field name="x_coordinate">440</field><field name="y_coordinate">550</field></block></value></block></xml>',
+});
 
-// // step 6
-// tour.addStep({
-//     eval() {
-//         return val4();
-//     },
-//     title: "Step 6",
-//     text: tut[8] + add_rescue_button(),
-//     arrow: true,
-//     attachTo: { element: "#sprite-container", on: adapt_orientation("bottom", "bottom") },
-//     // attachTo: { element: '.blocklyToolboxContents', on: adapt_orientation('bottom', 'right') },
-//     buttons: [{
-//         action() {
-//             clearInterval(myInterval);
-//             t3();
-//             return this.back();
-//         },
-//         classes: "shepherd-button-secondary",
-//         text: "Back",
-//     },
-//     {
-//         action() {
-//             if (val4()) {
-//                 i6();
-//                 return this.next();
-//             } else M.toast({ html: "Wrong block or values selected!" });
-//         },
-//         text: "Next",
-//     },
-//     ],
-//     id: "creating",
-//     workspace: '<xml xmlns="https://developers.google.com/blockly/xml"><block type="catch_block" id="*cg^:hA)H%-=oQ:*3^A`" x="108" y="99"><value name="NAME"><block type="xy" id="oowY4d,^Q|11N6|Yu9?d"><field name="x_coordinate">440</field><field name="y_coordinate">550</field></block></value><next><block type="catch_block" id="al54ZHJ~Re5x)?okbW[U"><value name="NAME"><block type="xy" id=".yX,tEsQf40(I0JguWI6"><field name="x_coordinate">530</field><field name="y_coordinate">620</field></block></value></block></next></block></xml>',
-// });
+// step 6
+tour.addStep({
+    eval() {
+        return val4();
+    },
+    title: "Step 6",
+    text: tut[8] + add_rescue_button(),
+    arrow: true,
+    attachTo: { element: "#sprite-container", on: adapt_orientation("bottom", "bottom") },
+    // attachTo: { element: '.blocklyToolboxContents', on: adapt_orientation('bottom', 'right') },
+    buttons: [{
+        action() {
+            clearInterval(myInterval);
+            t3();
+            return this.back();
+        },
+        classes: "shepherd-button-secondary",
+        text: "Back",
+    },
+    {
+        action() {
+            if (val4()) {
+                i6();
+                return this.next();
+            } else M.toast({ html: "Wrong block or values selected!" });
+        },
+        text: "Next",
+    },
+    ],
+    id: "creating",
+    workspace: '<xml xmlns="https://developers.google.com/blockly/xml"><block type="catch_block" id="*cg^:hA)H%-=oQ:*3^A`" x="108" y="99"><value name="NAME"><block type="xy" id="oowY4d,^Q|11N6|Yu9?d"><field name="x_coordinate">440</field><field name="y_coordinate">550</field></block></value><next><block type="catch_block" id="al54ZHJ~Re5x)?okbW[U"><value name="NAME"><block type="xy" id=".yX,tEsQf40(I0JguWI6"><field name="x_coordinate">530</field><field name="y_coordinate">620</field></block></value></block></next></block></xml>',
+});
 
-// // step 7
-// tour.addStep({
-//     eval() {
-//         return val5();
-//     },
-//     title: "Step 7",
-//     text: tut[9] + add_rescue_button(),
-//     arrow: true,
-//     attachTo: { element: "#sprite-container", on: adapt_orientation("bottom", "bottom") },
-//     // attachTo: { element: '.blocklyToolboxContents', on: adapt_orientation('bottom', 'right') },
-//     buttons: [{
-//         action() {
-//             if (val5()) {
-//                 i7();
-//                 return this.next();
-//             } else M.toast({ html: "Wrong block or values selected!" });
-//         },
-//         text: "Next",
-//     },],
-//     id: "creating",
-//     workspace: '<xml xmlns="https://developers.google.com/blockly/xml"><block type="catch_block" id="*cg^:hA)H%-=oQ:*3^A`" x="108" y="99"><value name="NAME"><block type="xy" id="oowY4d,^Q|11N6|Yu9?d"><field name="x_coordinate">440</field><field name="y_coordinate">550</field></block></value><next><block type="catch_block" id="al54ZHJ~Re5x)?okbW[U"><value name="NAME"><block type="xy" id=".yX,tEsQf40(I0JguWI6"><field name="x_coordinate">530</field><field name="y_coordinate">620</field></block></value><next><block type="catch_block" id="867J.p(lGonlQZl~wI)+"><value name="NAME"><block type="xy" id="VQElnlxZuttv]F:l[sc}"><field name="x_coordinate">620</field><field name="y_coordinate">610</field></block></value></block></next></block></next></block></xml>',
-// });
+// step 7
+tour.addStep({
+    eval() {
+        return val5();
+    },
+    title: "Step 7",
+    text: tut[9] + add_rescue_button(),
+    arrow: true,
+    attachTo: { element: "#sprite-container", on: adapt_orientation("bottom", "bottom") },
+    // attachTo: { element: '.blocklyToolboxContents', on: adapt_orientation('bottom', 'right') },
+    buttons: [{
+        action() {
+            if (val5()) {
+                i7();
+                return this.next();
+            } else M.toast({ html: "Wrong block or values selected!" });
+        },
+        text: "Next",
+    },],
+    id: "creating",
+    workspace: '<xml xmlns="https://developers.google.com/blockly/xml"><block type="catch_block" id="*cg^:hA)H%-=oQ:*3^A`" x="108" y="99"><value name="NAME"><block type="xy" id="oowY4d,^Q|11N6|Yu9?d"><field name="x_coordinate">440</field><field name="y_coordinate">550</field></block></value><next><block type="catch_block" id="al54ZHJ~Re5x)?okbW[U"><value name="NAME"><block type="xy" id=".yX,tEsQf40(I0JguWI6"><field name="x_coordinate">530</field><field name="y_coordinate">620</field></block></value><next><block type="catch_block" id="867J.p(lGonlQZl~wI)+"><value name="NAME"><block type="xy" id="VQElnlxZuttv]F:l[sc}"><field name="x_coordinate">620</field><field name="y_coordinate">610</field></block></value></block></next></block></next></block></xml>',
+});
 
-// // step 8
-// tour.addStep({
-//     eval() {
-//         return val6();
-//     },
-//     title: "Step 8",
-//     text: tut[10] + add_rescue_button(),
-//     arrow: true,
-//     attachTo: { element: "#sprite-container", on: adapt_orientation("bottom", "bottom") },
-//     // attachTo: { element: '.blocklyToolboxContents', on: adapt_orientation('bottom', 'right') },
-//     buttons: [{
-//         action() {
-//             clearInterval(myInterval);
-//             return this.back();
-//         },
-//         classes: "shepherd-button-secondary",
-//         text: "Back",
-//     },
-//     {
-//         action() {
-//             if (val6()) {
-//                 i8();
-//                 return this.next();
-//             } else M.toast({ html: "Wrong block or values selected!" });
-//         },
-//         text: "Next",
-//     },
-//     ],
-//     id: "creating",
-//     workspace: '<xml xmlns="https://developers.google.com/blockly/xml"><block type="catch_block" id="*cg^:hA)H%-=oQ:*3^A`" x="108" y="99"><value name="NAME"><block type="xy" id="oowY4d,^Q|11N6|Yu9?d"><field name="x_coordinate">440</field><field name="y_coordinate">550</field></block></value><next><block type="catch_block" id="al54ZHJ~Re5x)?okbW[U"><value name="NAME"><block type="xy" id=".yX,tEsQf40(I0JguWI6"><field name="x_coordinate">530</field><field name="y_coordinate">620</field></block></value><next><block type="catch_block" id="867J.p(lGonlQZl~wI)+"><value name="NAME"><block type="xy" id="VQElnlxZuttv]F:l[sc}"><field name="x_coordinate">620</field><field name="y_coordinate">610</field></block></value><next><block type="catch_block" id=")+Bl$vQw=(92-.A5i8Y~"><value name="NAME"><block type="xy" id="NpdXtuJ+qCWD1nUCirk-"><field name="x_coordinate">720</field><field name="y_coordinate">610</field></block></value></block></next></block></next></block></next></block></xml>',
-// });
+// step 8
+tour.addStep({
+    eval() {
+        return val6();
+    },
+    title: "Step 8",
+    text: tut[10] + add_rescue_button(),
+    arrow: true,
+    attachTo: { element: "#sprite-container", on: adapt_orientation("bottom", "bottom") },
+    // attachTo: { element: '.blocklyToolboxContents', on: adapt_orientation('bottom', 'right') },
+    buttons: [{
+        action() {
+            clearInterval(myInterval);
+            return this.back();
+        },
+        classes: "shepherd-button-secondary",
+        text: "Back",
+    },
+    {
+        action() {
+            if (val6()) {
+                i8();
+                return this.next();
+            } else M.toast({ html: "Wrong block or values selected!" });
+        },
+        text: "Next",
+    },
+    ],
+    id: "creating",
+    workspace: '<xml xmlns="https://developers.google.com/blockly/xml"><block type="catch_block" id="*cg^:hA)H%-=oQ:*3^A`" x="108" y="99"><value name="NAME"><block type="xy" id="oowY4d,^Q|11N6|Yu9?d"><field name="x_coordinate">440</field><field name="y_coordinate">550</field></block></value><next><block type="catch_block" id="al54ZHJ~Re5x)?okbW[U"><value name="NAME"><block type="xy" id=".yX,tEsQf40(I0JguWI6"><field name="x_coordinate">530</field><field name="y_coordinate">620</field></block></value><next><block type="catch_block" id="867J.p(lGonlQZl~wI)+"><value name="NAME"><block type="xy" id="VQElnlxZuttv]F:l[sc}"><field name="x_coordinate">620</field><field name="y_coordinate">610</field></block></value><next><block type="catch_block" id=")+Bl$vQw=(92-.A5i8Y~"><value name="NAME"><block type="xy" id="NpdXtuJ+qCWD1nUCirk-"><field name="x_coordinate">720</field><field name="y_coordinate">610</field></block></value></block></next></block></next></block></next></block></xml>',
+});
 
-// // step 9
-// tour.addStep({
-//     eval() {
-//         return val7();
-//     },
-//     title: "Step 9",
-//     text: tut[11] + add_rescue_button(),
-//     arrow: true,
-//     attachTo: { element: "#sprite-container", on: adapt_orientation("bottom", "bottom") },
-//     // attachTo: { element: '.blocklyToolboxContents', on: adapt_orientation('bottom', 'right') },
-//     buttons: [{
-//         action() {
-//             clearInterval(myInterval);
-//             return this.back();
-//         },
-//         classes: "shepherd-button-secondary",
-//         text: "Back",
-//     },
-//     {
-//         action() {
-//             if (val7()) {
-//                 i9();
-//                 return this.next();
-//             } else M.toast({ html: "Wrong block or values selected!" });
-//         },
-//         text: "Next",
-//     },
-//     ],
-//     id: "creating",
-//     workspace: '<xml xmlns="https://developers.google.com/blockly/xml"><block type="catch_block" id="*cg^:hA)H%-=oQ:*3^A`" x="108" y="99"><value name="NAME"><block type="xy" id="oowY4d,^Q|11N6|Yu9?d"><field name="x_coordinate">440</field><field name="y_coordinate">550</field></block></value><next><block type="catch_block" id="al54ZHJ~Re5x)?okbW[U"><value name="NAME"><block type="xy" id=".yX,tEsQf40(I0JguWI6"><field name="x_coordinate">530</field><field name="y_coordinate">620</field></block></value><next><block type="catch_block" id="867J.p(lGonlQZl~wI)+"><value name="NAME"><block type="xy" id="VQElnlxZuttv]F:l[sc}"><field name="x_coordinate">620</field><field name="y_coordinate">610</field></block></value><next><block type="catch_block" id=")+Bl$vQw=(92-.A5i8Y~"><value name="NAME"><block type="xy" id="NpdXtuJ+qCWD1nUCirk-"><field name="x_coordinate">720</field><field name="y_coordinate">610</field></block></value><next><block type="catch_block" id="rBNV=ebutY]zR`QBWDal"><value name="NAME"><block type="xy" id="eh}GF3UW8.!]*pGRJJs~"><field name="x_coordinate">830</field><field name="y_coordinate">630</field></block></value></block></next></block></next></block></next></block></next></block></xml>',
-// });
+// step 9
+tour.addStep({
+    eval() {
+        return val7();
+    },
+    title: "Step 9",
+    text: tut[11] + add_rescue_button(),
+    arrow: true,
+    attachTo: { element: "#sprite-container", on: adapt_orientation("bottom", "bottom") },
+    // attachTo: { element: '.blocklyToolboxContents', on: adapt_orientation('bottom', 'right') },
+    buttons: [{
+        action() {
+            clearInterval(myInterval);
+            return this.back();
+        },
+        classes: "shepherd-button-secondary",
+        text: "Back",
+    },
+    {
+        action() {
+            if (val7()) {
+                i9();
+                isRunBtnClicked = false;
+                return this.next();
+            } else M.toast({ html: "Wrong block or values selected!" });
+        },
+        text: "Next",
+    },
+    ],
+    id: "creating",
+    workspace: '<xml xmlns="https://developers.google.com/blockly/xml"><block type="catch_block" id="*cg^:hA)H%-=oQ:*3^A`" x="108" y="99"><value name="NAME"><block type="xy" id="oowY4d,^Q|11N6|Yu9?d"><field name="x_coordinate">440</field><field name="y_coordinate">550</field></block></value><next><block type="catch_block" id="al54ZHJ~Re5x)?okbW[U"><value name="NAME"><block type="xy" id=".yX,tEsQf40(I0JguWI6"><field name="x_coordinate">530</field><field name="y_coordinate">620</field></block></value><next><block type="catch_block" id="867J.p(lGonlQZl~wI)+"><value name="NAME"><block type="xy" id="VQElnlxZuttv]F:l[sc}"><field name="x_coordinate">620</field><field name="y_coordinate">610</field></block></value><next><block type="catch_block" id=")+Bl$vQw=(92-.A5i8Y~"><value name="NAME"><block type="xy" id="NpdXtuJ+qCWD1nUCirk-"><field name="x_coordinate">720</field><field name="y_coordinate">610</field></block></value><next><block type="catch_block" id="rBNV=ebutY]zR`QBWDal"><value name="NAME"><block type="xy" id="eh}GF3UW8.!]*pGRJJs~"><field name="x_coordinate">830</field><field name="y_coordinate">630</field></block></value></block></next></block></next></block></next></block></next></block></xml>',
+});
 
-// // step 10 .run
-// tour.addStep({
-//     eval() {
-//         return false;
-//     },
-//     title: "Step 10. Run and see what happens",
-//     text: tut[12],
-//     arrow: true,
-//     attachTo: { element: "#sprite-container", on: adapt_orientation("bottom", "bottom") },
-//     // attachTo: { element: '.blocklyToolboxContents', on: adapt_orientation('bottom', 'right') },
-//     buttons: [{
-//         action() {
-//             clearInterval(myInterval);
-//             return this.back();
-//         },
-//         classes: "shepherd-button-secondary",
-//         text: "Back",
-//     },
-//     {
-//         action() {
-//             return this.next();
-//         },
-//         text: "Next",
-//     },
-//     ],
-//     id: "creating",
-// });
+// step 10 .run
+tour.addStep({
+    eval() {
+        return isRunBtnClicked;
+    },
+    title: "Step 10. Run and see what happens",
+    text: tut[12],
+    arrow: true,
+    attachTo: { element: "#sprite-container", on: adapt_orientation("bottom", "bottom") },
+    // attachTo: { element: '.blocklyToolboxContents', on: adapt_orientation('bottom', 'right') },
+    buttons: [{
+        action() {
+            clearInterval(myInterval);
+            return this.back();
+        },
+        classes: "shepherd-button-secondary",
+        text: "Back",
+    },
+    {
+        action() {
+            return this.next();
+        },
+        text: "Next",
+    },
+    ],
+    id: "creating",
+});
 
 function i0() {
     clearInterval(myInterval);
@@ -759,7 +754,7 @@ function t1() {
     play_audio_tutorial("tut[31].mp3");
     // handPointAt($("#hand"), $("#blockly-0"), "visible");
     handPointAt($("#hand"), $($(".blocklyDraggable")[1]), "visible");
-    krr = false;
+    let krr = false;
     myInterval = setInterval(function () {
         if (krr) {
             handPointAt($("#hand"), $($(".blocklyDraggable")[1]), "visible");
@@ -788,7 +783,7 @@ function t2() {
     clearInterval(myInterval);
     play_audio_tutorial("tut[61].mp3");
     handPointAt($("#hand"), $($(".blocklyDraggable")[1]), "visible");
-    krr = false;
+    let krr = false;
     myInterval = setInterval(function () {
         if (krr) {
             handPointAt($("#hand"), $($(".blocklyDraggable")[1]), "visible");
@@ -918,28 +913,34 @@ function val2() {
 }
 
 function val3() {
+
     Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
-    var codep = Blockly.Python.workspaceToCode(demoWorkspace);
+    var codep = Blockly.Python.workspaceToCode(Blockly.getMainWorkspace());
     var matches = codep.match(/getToyByCoordinates\("(...)", "(...)"\)\n/);
-    x1 = matches[1];
-    y1 = matches[2];
+    // console.log(codep, matches, "197")
+    // console.log(matches + " " + matches[1] + " " + matches[2])
+    let x1 = matches[1];
+    let y1 = matches[2];
+    // console.log(matches[1] + " " + matches[2])
+    // console.log("From val3 " + x1 + " " + y1 + " " + matches)
     if (x1 > 430 && x1 < 470 && y1 > 540 && y1 < 720) {
         if (codep == `getToyByCoordinates("` + x1 + `", "` + y1 + `")\n`) {
             return true;
         } else return false;
     } else return false;
+
 }
 
 function val4() {
     Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
-    var codep = Blockly.Python.workspaceToCode(demoWorkspace);
+    var codep = Blockly.Python.workspaceToCode(Blockly.getMainWorkspace());
     var matches = codep.match(
         /getToyByCoordinates\("(...)", "(...)"\)\ngetToyByCoordinates\("(...)", "(...)"\)\n/
     );
-    x1 = matches[1];
-    y1 = matches[2];
-    x2 = matches[3];
-    y2 = matches[4];
+    let x1 = matches[1];
+    let y1 = matches[2];
+    let x2 = matches[3];
+    let y2 = matches[4];
     if (
         x1 > 430 &&
         x1 < 470 &&
@@ -969,16 +970,16 @@ function val4() {
 
 function val5() {
     Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
-    var codep = Blockly.Python.workspaceToCode(demoWorkspace);
+    var codep = Blockly.Python.workspaceToCode(Blockly.getMainWorkspace());
     var matches = codep.match(
         /getToyByCoordinates\("(...)", "(...)"\)\ngetToyByCoordinates\("(...)", "(...)"\)\ngetToyByCoordinates\("(...)", "(...)"\)\n/
     );
-    x1 = matches[1];
-    y1 = matches[2];
-    x2 = matches[3];
-    y2 = matches[4];
-    x3 = matches[5];
-    y3 = matches[6];
+    let x1 = matches[1];
+    let y1 = matches[2];
+    let x2 = matches[3];
+    let y2 = matches[4];
+    let x3 = matches[5];
+    let y3 = matches[6];
     if (
         x1 > 430 &&
         x1 < 470 &&
@@ -1016,18 +1017,18 @@ function val5() {
 
 function val6() {
     Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
-    var codep = Blockly.Python.workspaceToCode(demoWorkspace);
+    var codep = Blockly.Python.workspaceToCode(Blockly.getMainWorkspace());
     var matches = codep.match(
         /getToyByCoordinates\("(...)", "(...)"\)\ngetToyByCoordinates\("(...)", "(...)"\)\ngetToyByCoordinates\("(...)", "(...)"\)\ngetToyByCoordinates\("(...)", "(...)"\)\n/
     );
-    x1 = matches[1];
-    y1 = matches[2];
-    x2 = matches[3];
-    y2 = matches[4];
-    x3 = matches[5];
-    y3 = matches[6];
-    x4 = matches[7];
-    y4 = matches[8];
+    let x1 = matches[1];
+    let y1 = matches[2];
+    let x2 = matches[3];
+    let y2 = matches[4];
+    let x3 = matches[5];
+    let y3 = matches[6];
+    let x4 = matches[7];
+    let y4 = matches[8];
     if (
         x1 > 430 &&
         x1 < 470 &&
@@ -1073,20 +1074,20 @@ function val6() {
 
 function val7() {
     Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
-    var codep = Blockly.Python.workspaceToCode(demoWorkspace);
+    var codep = Blockly.Python.workspaceToCode(Blockly.getMainWorkspace());
     var matches = codep.match(
         /getToyByCoordinates\("(...)", "(...)"\)\ngetToyByCoordinates\("(...)", "(...)"\)\ngetToyByCoordinates\("(...)", "(...)"\)\ngetToyByCoordinates\("(...)", "(...)"\)\ngetToyByCoordinates\("(...)", "(...)"\)\n/
     );
-    x1 = matches[1];
-    y1 = matches[2];
-    x2 = matches[3];
-    y2 = matches[4];
-    x3 = matches[5];
-    y3 = matches[6];
-    x4 = matches[7];
-    y4 = matches[8];
-    x5 = matches[9];
-    y5 = matches[10];
+    let x1 = matches[1];
+    let y1 = matches[2];
+    let x2 = matches[3];
+    let y2 = matches[4];
+    let x3 = matches[5];
+    let y3 = matches[6];
+    let x4 = matches[7];
+    let y4 = matches[8];
+    let x5 = matches[9];
+    let y5 = matches[10];
     if (
         x1 > 430 &&
         x1 < 470 &&
@@ -1138,4 +1139,18 @@ function val7() {
     } else return false;
 }
 
-console.log("In Claw Shephered")
+setInterval(function () {
+
+    try {
+        $(".shepherd-content").draggable({
+            containment: "body"
+        })
+        $(".shepherd-text").resizable();
+        if (tour.getCurrentStep().options.eval()) {
+            let btns = document.querySelectorAll('.shepherd-button');
+            btns[btns.length - 1].click();
+        }
+    } catch { }
+}, 100);
+
+document.getElementById('runbtn').addEventListener("click", function () { isRunBtnClicked = true; });
