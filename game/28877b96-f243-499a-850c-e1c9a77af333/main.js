@@ -455,7 +455,7 @@ function runCode() {
     }, 1000)
 }
 
-// const helpCode = '<xml xmlns="https://developers.google.com/blockly/xml"><block type="move" id="XA]$l*l/^5~kqisG_eg%" x="43" y="172"><field name="vehicle">ambulance</field><value name="NAME"><block type="xy" id=".n{-F^laf4/~!tyS_XY5"><field name="x_coordinate">119</field><field name="y_coordinate">268</field></block></value><next><block type="move" id="ufF6?X$lg!#XM!5Wl#xA"><field name="vehicle">bus</field><value name="NAME"><block type="xy" id="49FS3SZX%y:FGLH~~Zv)"><field name="x_coordinate">472</field><field name="y_coordinate">242</field></block></value><next><block type="move" id="dJcN[.Yngsz:TC`LNE]t"><field name="vehicle">fireBrigade</field><value name="NAME"><block type="xy" id="my$$,GTE|RH085FL7N|l"><field name="x_coordinate">824</field><field name="y_coordinate">226</field></block></value><next><block type="move" id="](B0K~(PhTlRUh~{hl;U"><field name="vehicle">policeCar</field><value name="NAME"><block type="xy" id=";@$MRI(vs?|1W*E#K!pN"><field name="x_coordinate">466</field><field name="y_coordinate">175</field></block></value></block></next></block></next></block></next></block></xml>';
+const helpCode = '<xml xmlns="https://developers.google.com/blockly/xml"><block type="move" id="XA]$l*l/^5~kqisG_eg%" x="43" y="172"><field name="vehicle">ambulance</field><value name="NAME"><block type="xy" id=".n{-F^laf4/~!tyS_XY5"><field name="x_coordinate">119</field><field name="y_coordinate">268</field></block></value><next><block type="move" id="ufF6?X$lg!#XM!5Wl#xA"><field name="vehicle">bus</field><value name="NAME"><block type="xy" id="49FS3SZX%y:FGLH~~Zv)"><field name="x_coordinate">472</field><field name="y_coordinate">242</field></block></value><next><block type="move" id="dJcN[.Yngsz:TC`LNE]t"><field name="vehicle">fireBrigade</field><value name="NAME"><block type="xy" id="my$$,GTE|RH085FL7N|l"><field name="x_coordinate">824</field><field name="y_coordinate">226</field></block></value><next><block type="move" id="](B0K~(PhTlRUh~{hl;U"><field name="vehicle">policeCar</field><value name="NAME"><block type="xy" id=";@$MRI(vs?|1W*E#K!pN"><field name="x_coordinate">466</field><field name="y_coordinate">175</field></block></value></block></next></block></next></block></next></block></xml>';
 
 function completedFlag() {
     if (d1 && d2 && d3 && d4)
@@ -471,52 +471,4 @@ function getNoOfBlocks() {
 
 const updateImports = ["import city"]
 
-const instruction = {
-    "heading": "The task is to send the vehicles to their appropriate parking destinations.",
-    "steps": [
-        {
-            "checkbox": false,
-            "rescue": false,
-            "text": "",
-            "title": "Touch and obtain the x and y coordinate for parking the vehicle at thier parking slot and use it to send the vehicles to their parking lots",
-            "workspace": ""
-        },
-        {
-            "checkbox": true,
-            "rescue": true,
-            "text": "Ambulance to Parking Sign Near Hospital",
-            "title": "Send",
-            "workspace": "<xml xmlns=\"https://developers.google.com/blockly/xml\"><block type=\"move\" id=\"XA]$l*l/^5~kqisG_eg%\" x=\"43\" y=\"172\"><field name=\"vehicle\">ambulance</field><value name=\"NAME\"><block type=\"xy\" id=\".n{-F^laf4/~!tyS_XY5\"><field name=\"x_coordinate\">119</field><field name=\"y_coordinate\">268</field></block></value></block></xml>"
-        },
-        {
-            "checkbox": true,
-            "rescue": true,
-            "text": "Bus to Parking Sign Near Bus Stop",
-            "workspace": "<xml xmlns=\"https://developers.google.com/blockly/xml\"><block type=\"move\" id=\"XA]$l*l/^5~kqisG_eg%\" x=\"43\" y=\"172\"><field name=\"vehicle\">ambulance</field><value name=\"NAME\"><block type=\"xy\" id=\".n{-F^laf4/~!tyS_XY5\"><field name=\"x_coordinate\">119</field><field name=\"y_coordinate\">268</field></block></value><next><block type=\"move\" id=\"ufF6?X$lg!#XM!5Wl#xA\"><field name=\"vehicle\">bus</field><value name=\"NAME\"><block type=\"xy\" id=\"49FS3SZX%y:FGLH~~Zv)\"><field name=\"x_coordinate\">472</field><field name=\"y_coordinate\">242</field></block></value></block></next></block></xml>"
-        },
-        {
-            "checkbox": true,
-            "rescue": true,
-            "text": "Fire Brigade to Parking Sign Near Fire Station",
-            "workspace": "<xml xmlns=\"https://developers.google.com/blockly/xml\"><block type=\"move\" id=\"XA]$l*l/^5~kqisG_eg%\" x=\"43\" y=\"172\"><field name=\"vehicle\">ambulance</field><value name=\"NAME\"><block type=\"xy\" id=\".n{-F^laf4/~!tyS_XY5\"><field name=\"x_coordinate\">119</field><field name=\"y_coordinate\">268</field></block></value><next><block type=\"move\" id=\"ufF6?X$lg!#XM!5Wl#xA\"><field name=\"vehicle\">bus</field><value name=\"NAME\"><block type=\"xy\" id=\"49FS3SZX%y:FGLH~~Zv)\"><field name=\"x_coordinate\">472</field><field name=\"y_coordinate\">242</field></block></value><next><block type=\"move\" id=\"dJcN[.Yngsz:TC`LNE]t\"><field name=\"vehicle\">fireBrigade</field><value name=\"NAME\"><block type=\"xy\" id=\"my$$,GTE|RH085FL7N|l\"><field name=\"x_coordinate\">824</field><field name=\"y_coordinate\">226</field></block></value></block></next></block></next></block></xml>"
-        },
-        {
-            "checkbox": true,
-            "rescue": true,
-            "text": "Police Car to Parking Sign Near Police Station",
-            "workspace": "<xml xmlns=\"https://developers.google.com/blockly/xml\"><block type=\"move\" id=\"XA]$l*l/^5~kqisG_eg%\" x=\"43\" y=\"172\"><field name=\"vehicle\">ambulance</field><value name=\"NAME\"><block type=\"xy\" id=\".n{-F^laf4/~!tyS_XY5\"><field name=\"x_coordinate\">119</field><field name=\"y_coordinate\">268</field></block></value><next><block type=\"move\" id=\"ufF6?X$lg!#XM!5Wl#xA\"><field name=\"vehicle\">bus</field><value name=\"NAME\"><block type=\"xy\" id=\"49FS3SZX%y:FGLH~~Zv)\"><field name=\"x_coordinate\">472</field><field name=\"y_coordinate\">242</field></block></value><next><block type=\"move\" id=\"dJcN[.Yngsz:TC`LNE]t\"><field name=\"vehicle\">fireBrigade</field><value name=\"NAME\"><block type=\"xy\" id=\"my$$,GTE|RH085FL7N|l\"><field name=\"x_coordinate\">824</field><field name=\"y_coordinate\">226</field></block></value><next><block type=\"move\" id=\"](B0K~(PhTlRUh~{hl;U\"><field name=\"vehicle\">policeCar</field><value name=\"NAME\"><block type=\"xy\" id=\";@$MRI(vs?|1W*E#K!pN\"><field name=\"x_coordinate\">466</field><field name=\"y_coordinate\">175</field></block></value></block></next></block></next></block></next></block></xml>"
-        }
-    ]
-};
-
-export {
-    completedFlag,
-    reset_output,
-    runCode,
-    // helpCode,
-    instruction,
-    GAME_CONSTANT,
-    moveVehicleTo,
-    getNoOfBlocks,
-    updateImports,
-};
+export { completedFlag, reset_output, runCode, helpCode, GAME_CONSTANT, moveVehicleTo, getNoOfBlocks, updateImports }

@@ -1,21 +1,14 @@
-/* Developed by Marvsoft LLP */
+// /* Developed by Marvsoft LLP */
 
 // const GAME_CONSTANT = {
 //   images: {
-//     medicinBG: "medicinBG",
-//     speechBubble: "speechBubble"
+//     whackBG: "whackBG",
+//     bang: "bang"
 //   },
 //   spritesImages: {
-//     firstBoyFever:     "firstBoyFever",
-//     firstBoyFeverOk:   "firstBoyFeverOk",
-//     firstGirlFever:    "firstGirlFever",
-//     firstGirlFeverOk:  "firstGirlFeverOk",
-//     secondGirlFever:   "secondGirlFever",
-//     secondGirlFeverOk: "secondGirlFeverOk",
-//     patientTemp:       "patientTemp",
-//     patientTempHigh:   "patientTempHigh",
-//     tempIndicator:     "tempIndicator"
-// }
+//     beaver: "beaver",
+//     hammer: "hammer"
+//   }
 // };
-// const INCORRECT_MESSAGE = 'Wrong temperature entry.';
+// const ERROR_MESSAGE = 'Error Message: <Write error message here>';
 // const CORRECT_MESSAGE = 'Correct Message: <Write correct message here>';

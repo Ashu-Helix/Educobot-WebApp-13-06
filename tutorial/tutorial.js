@@ -52,11 +52,15 @@ function getPlayAudio() {
     return playAudio
 }
 
-function play_audio_tutorial(lesson_id, file, language) {
-    let path = `https://app.educobot.com/liveLessons/python/${lesson_id}/audios/${language}/`;
-    // let path = `http://localhost:7001/scripts/${lesson_id}/audios/${language}/`;
+function play_audio_tutorial(lesson_id, file, language, type) {
+    // let path = `https://app.educobot.com/liveLessons/python/${lesson_id}/audios/${language}/`;
+    let path = ``;
+    if (type === 4) {
+        path = `http://localhost:7001/turtlePredictive/${lesson_id}/audios/${language}/`;
+    } else {
+        path = `http://localhost:7001/scripts/${lesson_id}/audios/${language}/`;
+    }
     // let path = `../` + language.audio_folder + `/`;
-    // console.log(language);
     // if (!audio.paused) audio.pause();
     // audio = new Audio(path + file);
     // audio.play();
@@ -149,7 +153,7 @@ function helpCode(lesson_id, user_code) {
     tutorial_guide_updater(lesson_id, user_code);
 };
 
-function tutorial_guide_updater(lesson_id, user_code, selectedLanguage) {
+function tutorial_guide_updater(lesson_id, user_code, selectedLanguage, type) {
     pred_guide.forEach((i) => {
         if (i.shown == false && i.code === user_code.join("")) {
             // document.getElementById('modal').innerHTML = i.html;
@@ -160,7 +164,7 @@ function tutorial_guide_updater(lesson_id, user_code, selectedLanguage) {
 
             i.shown = true;
             if (!(i.audio === undefined || i.audio == "")) {
-                play_audio_tutorial(lesson_id, i.audio, selectedLanguage);
+                play_audio_tutorial(lesson_id, i.audio, selectedLanguage, type);
             }
         }
     });

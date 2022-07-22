@@ -176,7 +176,7 @@ export default function Help({ instruction, open }) {
         $('#undo_btn').css('display', 'inline-block');
         setRescued(true);
 
-        if(!window['rescue_btn_click_count_wb'].includes(i) && ele.rescue)
+        if (!window['rescue_btn_click_count_wb'].includes(i) && ele.rescue)
             window['rescue_btn_click_count_wb'].push(i)
     }
 

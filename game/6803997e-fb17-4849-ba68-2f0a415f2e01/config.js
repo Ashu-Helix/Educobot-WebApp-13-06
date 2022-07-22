@@ -1,22 +1,32 @@
-/* Developed by Marvsoft LLP */
+// /* Developed by Marvsoft LLP */
 
 // let _gameThis = null;
 // const baseURL = "assets";
-// const gameWidth = 4001;
-// const gameHeight = 2251;
+// const gameWidth = 1920;
+// const gameHeight = 1080;
 // const gameScale = 1;
 
 // const spritesElement = {
-//     firstBoyFever: { x: 2003, y: 1123, stayAt: 4, frameWidth: 2073, frameHeight: 2251, frameFrom: 0, frameTo: 4, frameRate: 1 },
-//     firstBoyFeverOk: { x: 2003, y: 1123, stayAt: 3, frameWidth: 2073, frameHeight: 2251, frameFrom: 0, frameTo: 3, frameRate: 1 },
-//     firstGirlFever: { x: 2003, y: 1123, stayAt: 4, frameWidth: 2073, frameHeight: 2251, frameFrom: 0, frameTo: 4, frameRate: 1 },
-//     firstGirlFeverOk: { x: 2003, y: 1123, stayAt: 3, frameWidth: 2073, frameHeight: 2251, frameFrom: 0, frameTo: 3, frameRate: 1 },
-//     secondGirlFever: { x: 2003, y: 1123, stayAt: 4, frameWidth: 2073, frameHeight: 2251, frameFrom: 0, frameTo: 4, frameRate: 1 },
-//     secondGirlFeverOk: { x: 2003, y: 1123, stayAt: 3, frameWidth: 2073, frameHeight: 2251, frameFrom: 0, frameTo: 3, frameRate: 1 },
-//     patientTemp: { x: 300, y: 1400, stayAt: 62, frameWidth: 120, frameHeight: 750, frameFrom: 0, frameTo: 62, frameRate: 38 },
-//     patientTempHigh: { x: 300, y: 1400, stayAt: 99, frameWidth: 120, frameHeight: 750, frameFrom: 0, frameTo: 99, frameRate: 38 },
-//     tempIndicator: { x: 300, y: 290, stayAt: 6, frameWidth: 270, frameHeight: 235, frameFrom: 0, frameTo: 3, frameFromHigh: 4, frameToHigh: 6,frameRate: 1 },
+//     beaver: { x: 420, y: 650, stay: 0, frameWidth: 354, frameHeight: 389, frameFrom: 0, frameTo: 9, frameRate: 8, repeat: -1 },
+//     hammer: { x: 1300, y: 500, stay: 0, frameWidth: 650, frameHeight: 617, frameFrom: 0, frameTo: 7, frameRate: 16, repeat: 0 }
 // }
 
-// const temperatureRange = {min: 37, max: 37.5};
-// const randomTemperatureRange = [36.1, 36.2, 36.3, 37.0, 39.1, 39.2, 39.3];
+// const beaverPos=[
+//     {x:420,y:650},
+//     {x:725,y:514},
+//     {x:1030,y:600},
+//     {x:1350,y:530},
+//     {x:1623,y:630},
+//     {x:1314,y:800},
+//     {x:756,y:800}    
+// ]
+
+// const hammerPos=[
+//     {x:250,y:350,r:0},
+//     {x:550,y:220,r:0},
+//     {x:850,y:290,r:0},
+//     {x:1180,y:250,r:0},
+//     {x:1450,y:320,r:0},
+//     {x:1150,y:490,r:0},
+//     {x:580,y:490,r:0}    
+// ]

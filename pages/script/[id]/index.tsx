@@ -9,6 +9,7 @@ import { Button } from "@mui/material";
 import { Icon } from '@iconify/react'
 import axios from "axios";
 import FormData from 'form-data';
+const url: any = process.env.devUrls;
 
 const PythonCode = dynamic(import("../../../components/pythonCode"), {
     ssr: false,
@@ -29,11 +30,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     let { code, guide, type } = res
 
     var bodyFormData = new FormData();
-    bodyFormData.append('lessonID', context.params.id);
+    bodyFormData.append('lessonID', "4a46c77f-562b-464c-b906-6417bb0c7ac9");
 
     const lessonDetails = await axios({
         method: "post",
-        url: "https://appssl.educobot.com:8443/EduCobotWS/lessonsWS/getLessonsByID",
+        url: `${url.EduCobotBaseUrl}${url.getLessonByID}`,
         data: bodyFormData,
         headers: { "Content-Type": "multipart/form-data" },
     });
@@ -72,7 +73,7 @@ export default function Scripts(props) {
 
             const userDetails = await axios({
                 method: "post",
-                url: "https://appssl.educobot.com:8443/EduCobotWS/studentsWS/getStudents",
+                url: `${url.EduCobotBaseUrl}${url.getStudents}`,
                 data: formD,
                 headers: { "Content-Type": "multipart/form-data" },
             });
@@ -96,7 +97,9 @@ export default function Scripts(props) {
     const onLoad = () => {
         let tutorial = require("../../../tutorial/tutorial.js");
         const { tutorial_guide_updater, make_pred_guide } = tutorial;
-        tutorial_guide_updater(id, user_code, lang);
+        tutorial_guide_updater(id, user_code, lang, type);
+        // console.log(guide);
+        // console.log(Array.isArray(guide));
         if (Array.isArray(guide)) {
             guide.forEach(g => make_pred_guide(g.id, g.img, g.code, g.audio, id, type))
         } else {
@@ -114,7 +117,7 @@ export default function Scripts(props) {
     useEffect(() => {
         let tutorial = require("../../../tutorial/tutorial.js");
         const { tutorial_guide_updater, make_pred_guide } = tutorial;
-        tutorial_guide_updater(id, user_code, lang);
+        tutorial_guide_updater(id, user_code, lang, type);
         if (Array.isArray(guide)) {
             guide.forEach(g => make_pred_guide(g.id, g.img, g.code, g.audio, id, type))
         } else {
@@ -177,7 +180,7 @@ export default function Scripts(props) {
         }
         document.getElementsByClassName(" CodeMirror-line ")[0].innerHTML =
             editor_display.join("");
-        tutorial_guide_updater(id, user_code, lang);
+        tutorial_guide_updater(id, user_code, lang, type);
     }
 
     const handleClick = () => {

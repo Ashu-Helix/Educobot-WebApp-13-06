@@ -90,7 +90,7 @@ type Props = {
     // getCoins: (value) => void
     // slug: any;
     lessonDetails?: any;
-    userDetails?:any;
+    userDetails?: any;
     testDialogInfo: {
         dialogStatus: String;
 
@@ -262,24 +262,25 @@ export default function TestDialog(
     // POST EVAL DATA
     const [coins, setCoins] = useState([]);
     useEffect(() => {
-        open==="second" && postEvalData();
+        open === "second" && postEvalData();
     }, [open])
-    
+
 
     //SAVE COINS
-    const saveCoins = async(body:any, coins: number) => {
+    const saveCoins = async (body: any, coins: number) => {
         if (coins) {
             body["edcoins"] = coins;
+            body["coins"] = coins;
         }
 
         try {
             const res = await axios({
-                method:"post",
-                url:"https://api.educobot.com/users/postEvalData",
-                data:body,
+                method: "post",
+                url: "https://api.educobot.com/users/postEvalData",
+                data: body,
                 headers: { "Content-Type": "application/json" },
             });
-            if(res.status==200 && res.data.msg){
+            if (res.status == 200 && res.data.msg) {
                 console.log(res.data.msg)
             }
         }
@@ -291,18 +292,18 @@ export default function TestDialog(
 
     //POST EVAL DATA
     const postEvalData = () => {
-        
+
         let body = {
-                "userID": userDetails?.sdUID,
-                "edType":"B",
-                "std": userDetails?.sdClass,
-                "div": userDetails?.sdDiv,
-                "status":"C",
-                "lessonID": lessonDetails?.lsID,
-                "rollNo": userDetails?.sdRollNo,
-                "pin" : userDetails?.otp,
-                "schoolID" : userDetails?.sdSchoolID,
-                "coins":1.0
+            "userID": userDetails?.sdUID,
+            "edType": "B",
+            "std": userDetails?.sdClass,
+            "div": userDetails?.sdDiv,
+            "status": "C",
+            "lessonID": lessonDetails?.lsID,
+            "rollNo": userDetails?.sdRollNo,
+            "pin": userDetails?.otp,
+            "schoolID": userDetails?.sdSchoolID,
+            "coins": 1.0
         }
         saveCoins(body, 1.0)
     }
@@ -493,6 +494,7 @@ export default function TestDialog(
                                         color: "#fff",
                                         fontFamily: "Public Sans"
                                     }}
+                                    disabled={questionIndex !== 0 ? false : true}
                                 >
                                     Back
                                 </Button>
@@ -627,7 +629,7 @@ export default function TestDialog(
                             </Typography>
 
 
-                                {/* Ratings */}
+                            {/* Ratings */}
                             {/* <Stack justifyContent={"center"} direction={"row"} gap={1}>
                             {
                                 coins.length>0 &&
@@ -650,7 +652,7 @@ export default function TestDialog(
                                 })
                             }
                         </Stack> */}
-                        
+
                         </Box>
 
                         <Typography

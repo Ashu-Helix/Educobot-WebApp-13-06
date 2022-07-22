@@ -10,6 +10,7 @@ import { Button } from "@mui/material";
 import { Icon } from '@iconify/react'
 import axios from "axios";
 import FormData from 'form-data';
+const url: any = process.env.devUrls;
 
 const EditorContainer = dynamic(import("../../../../components/EditorContainer"), {
     ssr: false,
@@ -19,7 +20,8 @@ import { useRouter } from "next/router";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
 
-    const response1 = await fetch(`https://app.educobot.com/liveLessons/turtle/${context.params.id}/code.json`);
+    // const response1 = await fetch(`https://app.educobot.com/liveLessons/turtle/${context.params.id}/code.json`);
+    const response1 = await fetch(`http://localhost:7001/pythonOpenEditor/${context.params.id}/code.json`);
 
     if (response1.status === 404) {
         return {
@@ -35,7 +37,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
     const lessonDetails = await axios({
         method: "post",
-        url: "https://appssl.educobot.com:8443/EduCobotWS/lessonsWS/getLessonsByID",
+        url: `${url.EduCobotBaseUrl}${url.getLessonByID}`,
         data: bodyFormData,
         headers: { "Content-Type": "multipart/form-data" },
     });
@@ -82,7 +84,7 @@ export default function PythonEditor(props) {
 
             const userDetails = await axios({
                 method: "post",
-                url: "https://appssl.educobot.com:8443/EduCobotWS/studentsWS/getStudents",
+                url: `${url.EduCobotBaseUrl}${url.getLessonByID}`,
                 data: formD,
                 headers: { "Content-Type": "multipart/form-data" },
             });

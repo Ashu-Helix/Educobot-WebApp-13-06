@@ -21,10 +21,21 @@ let adapt_orientation = (portait, landscape) => {
     adapt_orientation_array.push([portait, landscape])
     return isPortrait() ? portait : landscape;
 }
-const tour1 = new Shepherd.Tour({ defaultStepOptions: { cancelIcon: { enabled: true }, classes: 'class-1 class-2', scrollTo: { behavior: 'smooth', block: 'center' } } });
 
 function image_scaler(file) { let path = `../assets/` + language.guide_folder + `/` + language.language_packs_folder + `/` + language.language + `/` + language.image_folder + `/`; return `<img src="` + path + file + `"class="tutorial_image">` }
+let flasher = true;
+// let rescue_button_html = "<button type='button' id='rescue_button_id' class='shepherd-custom-rescue-sutton-white' onclick='rescue_button_click();' disabled>Rescue</button>"
+let inter_rescue = setInterval(() => {
+    try {
+        if (flasher) {
+            document.querySelectorAll("#rescue_div")[0].style.color = "white";
+        } else {
+            document.querySelectorAll("#rescue_div")[0].style.color = "black";
+        }
+        flasher = !flasher;
+    } catch { }
 
+}, 750)
 let rescue_button_clicked_at_step = -2;
 
 function handPointAt(hand, element, visibility) {
@@ -75,7 +86,7 @@ function play_audio_tutorial(file, lang) {
 }
 function play_audio_rescue_warning() {
     let file = "";
-    let path = `assets/sounds/rescue_warning.mp3`;
+    let path = `/assets/sounds/rescue_warning.mp3`;
     kill_audio();
     // if (playAudio) {
     audio = new Audio(path + file);
@@ -126,7 +137,7 @@ function add_back_button() {
 function add_rescue_button() {
     window['total_rescue_btns'] += 1;
 
-    return "<div class='row' style='text-align:right;margin-top:10px' ><button id='rescue_button_id' class='shepherd-custom-rescue-button-white' onclick='rescue_button_click();'>Rescue</button></div>"
+    return "<div class='row' style='text-align:right;margin-top:10px' ><button id='rescue_button_id' class='shepherd-custom-rescue-button-white' onclick='confirm_rescue();'>Rescue</button></div>"
 }
 
 function add_rescue_confirm_button() {
@@ -136,27 +147,8 @@ function add_rescue_confirm_button() {
 function add_rescue_close_button() {
     return "<div class='row'><button class='shepherd-custom-back-sutton' onclick='tour1.complete();'>close</button></div>"
 }
-function confirm_rescue() {
-    play_audio_rescue_warning();
-    tour1.addStep({
-        title: 'Alert!',
-        text: `<div id="rescue_div">Using the rescue feature costs you points</div>` + add_rescue_close_button() + add_rescue_confirm_button(),
-        arrow: false,
-        attachTo: { element: '#circle', on: 'left' },
-        buttons: [{
-            action() { return this.next(); },
-            text: 'Close'
-        }, {
-            action() {
-                rescue_button_click();
-                return this.next();
-            },
-            text: 'Rescue'
-        }],
-        id: 'creating'
-    });
-    tour1.start();
-}
+
+
 let rescue_colour_is_yellow = false;
 
 function rescue_button_set_colour() {
@@ -185,7 +177,19 @@ let tour = new Shepherd.Tour({
     defaultStepOptions: {
         cancelIcon: { enabled: true },
         classes: 'educobot-shepherd',
-        scrollTo: { behavior: 'smooth', block: 'center' }
+        scrollTo: { behavior: 'smooth', block: 'center' },
+        // when: {
+        //     show() {
+        //         const currentStepElement = tour.getCurrentStep().el;
+        //         const header = currentStepElement.querySelector('.shepherd-header');
+        //         const progress = document.createElement('div');
+        //         progress.innerHTML = `<img id="s_mute" onclick="shepherd_mute_unmute();" src="assets/unmute_icon.png" width="17" height="17">`;
+        //         header.insertBefore(progress, currentStepElement.querySelector('.shepherd-cancel-icon'));
+        //         rescue_colour_is_yellow = false;
+        //         set_mute_icon();
+        //         rescue_button_set_colour();
+        //     }
+        // }
     }
 });
 function loadAgain() {
@@ -231,7 +235,19 @@ function loadAgain() {
         defaultStepOptions: {
             cancelIcon: { enabled: true },
             classes: 'educobot-shepherd',
-            scrollTo: { behavior: 'smooth', block: 'center' }
+            scrollTo: { behavior: 'smooth', block: 'center' },
+            // when: {
+            //     show() {
+            //         const currentStepElement = tour.getCurrentStep().el;
+            //         const header = currentStepElement.querySelector('.shepherd-header');
+            //         const progress = document.createElement('div');
+            //         progress.innerHTML = `<img id="s_mute" onclick="shepherd_mute_unmute();" src="/assets/sound_unmute.png" width="17" height="17">`;
+            //         header.insertBefore(progress, currentStepElement.querySelector('.shepherd-cancel-icon'));
+            //         rescue_colour_is_yellow = false;
+            //         set_mute_icon();
+            //         rescue_button_set_colour();
+            //     }
+            // }
         }
     });
 
@@ -515,7 +531,51 @@ function loadAgain() {
     // console.log("After Tour Start Shepherd Step", Shepherd?.activeTour?.steps?.indexOf(Shepherd?.activeTour?.currentStep))
     document.getElementById('soundBtn').addEventListener('click', setAudioPreference)
 }
+const tour1 = new Shepherd.Tour({ defaultStepOptions: { cancelIcon: { enabled: true }, classes: 'educobot-shepherd', scrollTo: { behavior: 'smooth', block: 'center' } } });
+window['confirm_rescue'] = () => {
+    play_audio_rescue_warning();
 
+    window['tour1'] = tour1;
+    window['tour1'].addStep({
+        title: 'Alert!',
+        text: `<div id="rescue_div">Using the rescue feature costs you points</div>` + add_rescue_close_button() + add_rescue_confirm_button(),
+        arrow: false,
+        attachTo: { element: '#sprite-container', on: 'left' },
+        buttons: [{
+            action() { return this.next(); },
+            text: 'Close'
+        }, {
+            action() {
+                rescue_button_click();
+                return this.next();
+            },
+            text: 'Rescue'
+        }],
+        id: 'creating'
+    });
+    tour1.start();
+}
+
+function set_mute_icon() {
+    if ((playAudio)) {
+        document.querySelectorAll("#s_mute").forEach((i) => { i.src = i.src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAASCAYAAAC5DOVpAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAGlSURBVHgBnVSxUsJAEN1LgMYmhc442hxUKBSZUdAS/kC/QPgC+APwC9QviPwBfyB2THTGFKDpOAss1CKVDRPWvYs3MpiA4TV3e7v37t3u7ZmQEvzg6Mza3t8NPt/Eso9BSuRLVYxm6GE4Oxe+J7TPWLe5UK60+GGloW1EbNIgSIfNzNwT+ex/kRXK1Q4iu2aMOXpNPD/cYmjUSV6PTIt8d7xo85VkERF043zCHwoxdhsIGBGaWSeRbBVRoXTicNu2lJGdteniAV25xovHtYxco6ROaOB6AyIkgtQ02CwrY+vC8wJert4whI5hmBdaGYdUiJSo6Rz76hCGtbXVTOYzVRWpIJ4WtDlZDDYnw1Ap+n1n6GkyASlABeoL/3GgDMqVGsDwVDUnYze/GEwV6soKxRIBDuBrq6niuG0RSUvO52HYS+zNZUI68E9soVS5QmBteTMpKDFnYuR2kcFl7EGkiIgcRcQwkO0l101YgeB9OrB29l6BGffBx3So1FDjQ86kt8VOFdGcHu+L60vfxl+Qyl1oNmWfal8GUkJ9QQYKMfqp5gK+ASrop99e7Z/mAAAAAElFTkSuQmCC"; })
+    } else {
+        document.querySelectorAll("#s_mute").forEach((i) => { i.src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAASCAYAAAC5DOVpAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAADfSURBVHgBpZNdEcMgEIR3qiASkIAE6qAScNBKwEHrIHFSCa2D1AES6KU5JoS5AGl2Zh8Cm2+WP2CWJt/JCnVdyKYUGMiBPDYAQy2reFIKXck2+bZJ1mNeVTPQ8liqDstqPHY2tJA1cPa5Mf8DeGzvS8/NYsOYNTEQ20jOgXkTx2N9GgiNQJs10UmmCSYBb1nbsAeWA7sjsBHyHsZlvk488EFdZ84pzAegsobvrR+d0Awo30ODgpwAKwGrcgJskkbDg5dksb4G08P3KF/sZkXQdAgGy5J7/CGD9WYr8oOsv0tEhgjHBhLnAAAAAElFTkSuQmCC"; })
+    }
+}
+
+window['shepherd_mute_unmute'] = () => {
+    if (playAudio) {
+        kill_audio();
+    }
+    if (!(playAudio)) {
+        playAudio = true;
+        document.querySelectorAll("#s_mute").forEach((i) => { i.src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAASCAYAAAC5DOVpAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAGlSURBVHgBnVSxUsJAEN1LgMYmhc442hxUKBSZUdAS/kC/QPgC+APwC9QviPwBfyB2THTGFKDpOAss1CKVDRPWvYs3MpiA4TV3e7v37t3u7ZmQEvzg6Mza3t8NPt/Eso9BSuRLVYxm6GE4Oxe+J7TPWLe5UK60+GGloW1EbNIgSIfNzNwT+ex/kRXK1Q4iu2aMOXpNPD/cYmjUSV6PTIt8d7xo85VkERF043zCHwoxdhsIGBGaWSeRbBVRoXTicNu2lJGdteniAV25xovHtYxco6ROaOB6AyIkgtQ02CwrY+vC8wJert4whI5hmBdaGYdUiJSo6Rz76hCGtbXVTOYzVRWpIJ4WtDlZDDYnw1Ap+n1n6GkyASlABeoL/3GgDMqVGsDwVDUnYze/GEwV6soKxRIBDuBrq6niuG0RSUvO52HYS+zNZUI68E9soVS5QmBteTMpKDFnYuR2kcFl7EGkiIgcRcQwkO0l101YgeB9OrB29l6BGffBx3So1FDjQ86kt8VOFdGcHu+L60vfxl+Qyl1oNmWfal8GUkJ9QQYKMfqp5gK+ASrop99e7Z/mAAAAAElFTkSuQmCC"; })
+    } else {
+        playAudio = false;
+        document.querySelectorAll("#s_mute").forEach((i) => { i.src = i.src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAASCAYAAAC5DOVpAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAADfSURBVHgBpZNdEcMgEIR3qiASkIAE6qAScNBKwEHrIHFSCa2D1AES6KU5JoS5AGl2Zh8Cm2+WP2CWJt/JCnVdyKYUGMiBPDYAQy2reFIKXck2+bZJ1mNeVTPQ8liqDstqPHY2tJA1cPa5Mf8DeGzvS8/NYsOYNTEQ20jOgXkTx2N9GgiNQJs10UmmCSYBb1nbsAeWA7sjsBHyHsZlvk488EFdZ84pzAegsobvrR+d0Awo30ODgpwAKwGrcgJskkbDg5dksb4G08P3KF/sZkXQdAgGy5J7/CGD9WYr8oOsv0tEhgjHBhLnAAAAAElFTkSuQmCC"; })
+    }
+}
 function t1() {
 
     clearInterval(myInterval);

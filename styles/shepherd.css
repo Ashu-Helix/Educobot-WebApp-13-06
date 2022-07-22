@@ -1,3 +1,9 @@
+@charset "utf-8";
+
+#s_mute {
+    margin-top: 10px;
+}
+
 .shepherd-button {
     /* background: #3288e6; */
     background: rgba(255, 255, 255, .4);
@@ -11,6 +17,104 @@
     border-radius: 8px;
     padding: .5rem 1.5rem;
     transition: all .5s ease;
+}
+
+.shepherd-custom-rescue-sutton-white {
+    position: absolute;
+    bottom: 2px;
+    right: 11px;
+    border: 1px solid rgb(182, 182, 182);
+    background-color: rgba(182, 182, 182, 0.15);
+    color: black;
+    padding: 3px 10px;
+    font-size: 12px;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: 0.5s;
+}
+
+.shepherd-custom-next-sutton {
+    position: absolute;
+    bottom: -15px;
+    right: 11px;
+    border: 1px solid rgb(182, 182, 182);
+    background-color: rgba(182, 182, 182, 0.15);
+    color: black;
+    padding: 3px 10px;
+    font-size: 12px;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: 0.5s;
+}
+
+.shepherd-custom-next-sutton:hover {
+    position: absolute;
+    bottom: -15px;
+    right: 11px;
+    border: 1px solid rgb(182, 182, 182);
+    background-color: rgb(97, 97, 97);
+    color: rgb(228, 228, 228);
+    padding: 3px 10px;
+    font-size: 12px;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: 0.5s;
+}
+
+.shepherd-custom-next-sutton:active {
+    position: absolute;
+    bottom: -15px;
+    right: 11px;
+    border: 1px solid rgb(182, 182, 182);
+    background-color: rgb(97, 97, 97);
+    color: rgb(228, 228, 228);
+    padding: 3px 10px;
+    font-size: 12px;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: 0.5s;
+}
+
+.shepherd-custom-back-sutton {
+    position: absolute;
+    bottom: -15px;
+    right: 70px;
+    border: 1px solid rgb(182, 182, 182);
+    background-color: rgba(182, 182, 182, 0.15);
+    color: black;
+    padding: 3px 10px;
+    font-size: 12px;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: 0.5s;
+}
+
+.shepherd-custom-back-sutton:hover {
+    position: absolute;
+    bottom: -15px;
+    right: 70px;
+    border: 1px solid rgb(182, 182, 182);
+    background-color: rgb(97, 97, 97);
+    color: rgb(228, 228, 228);
+    padding: 3px 10px;
+    font-size: 12px;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: 0.5s;
+}
+
+.shepherd-custom-back-sutton:active {
+    position: absolute;
+    bottom: -15px;
+    right: 70px;
+    border: 1px solid rgb(182, 182, 182);
+    background-color: rgb(97, 97, 97);
+    color: rgb(228, 228, 228);
+    padding: 3px 10px;
+    font-size: 12px;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: 0.5s;
 }
 
 #soundBtn {

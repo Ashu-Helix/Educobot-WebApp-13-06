@@ -221,6 +221,7 @@ export default function TestDialog({ getCoins, noOfClicks, testDialogInfo, lesso
     const saveCoins = async (body: any, coins: number) => {
         if (coins) {
             body["edcoins"] = coins;
+            body["coins"] = coins;
             console.log(coins)
 
             // displaying coins logic
@@ -646,6 +647,7 @@ export default function TestDialog({ getCoins, noOfClicks, testDialogInfo, lesso
                         </Typography>
 
                         <Stack justifyContent={"center"} direction={"row"} gap={1}>
+                            {/* {console.log(coins)} */}
                             {
                                 coins.length > 0 &&
                                 coins.map(coin => {
