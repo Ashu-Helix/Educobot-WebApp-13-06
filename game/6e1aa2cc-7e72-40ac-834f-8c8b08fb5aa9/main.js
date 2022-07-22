@@ -852,6 +852,7 @@ function myUpdateFunction(a) {
 function getNoOfBlocks() {
     demoWorkspace = Blockly.getMainWorkspace();
     noOfBlocks = demoWorkspace.getAllBlocks();
+
     return noOfBlocks.length
 }
 
