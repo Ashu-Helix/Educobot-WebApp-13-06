@@ -5,7 +5,7 @@ import $ from 'jquery';
 
 let rescue_btn_cnt = 1;
 
-if(typeof window !== "undefined"){
+if (typeof window !== "undefined") {
     window['total_rescue_btns_wb'] = 0;
     window['rescue_btn_click_count_wb'] = [];
 }
@@ -173,7 +173,7 @@ export default function Help({ instruction, open }) {
     }, [open])
 
 
-    function update_rescue_workspace(e:any, i: number, ele:any) {
+    function update_rescue_workspace(e: any, i: number, ele: any) {
         var xml = Blockly.Xml.textToDom(workspaces[i]);
         Blockly.getMainWorkspace().clear();
         Blockly.Xml.domToWorkspace(xml, Blockly.getMainWorkspace());
@@ -181,7 +181,7 @@ export default function Help({ instruction, open }) {
         setRescued(true);
 
         let id = parseInt(e.target.id)
-        if(!window['rescue_btn_click_count_wb'].includes(id) && ele.rescue){
+        if (!window['rescue_btn_click_count_wb'].includes(id) && ele.rescue) {
             window['rescue_btn_click_count_wb'].push(id)
         }
     }
@@ -228,16 +228,16 @@ export default function Help({ instruction, open }) {
         let rescue_btn = document.createElement('div');
         rescue_btn.classList.add(...["col", "s3", "m3", "l3", "xl3", "right-align", `rescue_btn`])
 
-        
+
         let btn = document.createElement('button'); btn.classList.add(...["shepherd-custom-rescue-sutton-white", "valign-wrapper", "right-align"]);
         btn.style.cssText = "height: 24px;line-height: 24px;padding: 0 0.5rem;margin-right: 0px;"
         btn.innerText = "Rescue"
         btn.setAttribute("id", `${rescue_btn_cnt}`)
-        btn.onclick = (e) => update_rescue_workspace(e,j, ele)
-        
+        btn.onclick = (e) => update_rescue_workspace(e, j, ele)
+
         rescue_btn.appendChild(btn)
-        
-        if(ele.rescue) {
+
+        if (ele.rescue) {
             window['total_rescue_btns_wb'] += 1
             rescue_btn_cnt++;
         };
@@ -275,7 +275,7 @@ export default function Help({ instruction, open }) {
             document.getElementById("content").appendChild(title);
         }
 
-        let textDiv = document.createElement("div"); textDiv.innerText = text;
+        let textDiv = document.createElement("div"); textDiv.innerHTML = text;
         textDiv.style.cssText = "text-align:justify;text-justify:inter-word;";
 
         if (checkbox) {
