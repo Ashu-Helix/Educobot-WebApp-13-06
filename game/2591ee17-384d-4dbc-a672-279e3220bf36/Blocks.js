@@ -5,6 +5,16 @@ import "blockly/javascript";
 Blockly.HSV_SATURATION = 1;
 Blockly.HSV_VALUE = 1;
 
+import {
+    update,
+    preload,
+    create,
+    gameHeight,
+    gameWidth,
+    repeat_forever_flag
+} from "./main"
+
+
 //Repeat Forever block
 Blockly.Blocks['forever_repeat_block'] = {
     init: function () {
@@ -30,14 +40,17 @@ Blockly.JavaScript['forever_repeat_block'] = function (block) {
     if (repeat_forever_flag) {
         eval(code);
         game.destroy();
-        document.getElementById('circle').innerHTML = "";
+        document.getElementById('sprite-container').innerHTML = "";
         setTimeout(() => {
-            config = {
+            let config = {
                 type: Phaser.AUTO,
                 width: gameWidth,
                 height: gameHeight,
                 backgroundColor: "#eeeeee",
-                parent: "circle",
+                parent: "sprite-container",
+                canvasStyle: `width: 100%;
+                object-fit: revert;
+                aspect-ratio: 738 / 436;`,
                 physics: {
                     default: "arcade",
                     arcade: {
@@ -51,7 +64,7 @@ Blockly.JavaScript['forever_repeat_block'] = function (block) {
                     update: update,
                 },
             };
-            game = new Phaser.Game(config);
+            let game1 = new Phaser.Game(config);
         }, 100);
 
     }

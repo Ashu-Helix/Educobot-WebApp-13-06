@@ -782,7 +782,7 @@ function runCode() {
 //     Blockly.Xml.domToWorkspace(xml, demoWorkspace);
 // }
 
-var helpCode = '<xml xmlns="https://developers.google.com/blockly/xml"><block type="show_variable_block" id="i[`eB$?Qrijjw`l^MzV." x="-11" y="-187"><field name="NAME">option1</field><next><block type="forever_repeat_block" id="^w(gCwSoS-0#?a`C=f72"><statement name="NAME"><block type="customer_block" id="n_2o2A6h}@RYS1Viy@b_"><next><block type="controls_if" id="NXM?~ZS~ztPOz-aE%hNF"><value name="IF0"><block type="pointertouch__block" id="S@MUR2d}UUJ36[o7B:N1"><field name="options2">option1</field></block></value><statement name="DO0"><block type="single_action_block" id="Af~O(O)-2$|};Q/(14_I"></block></statement><next><block type="controls_if" id="W{*yz%!}(|Iln.GpT?#W"><value name="IF0"><block type="pointertouch__block" id="`RDp4H*Do9UoK.`q0r-k"><field name="options2">option2</field></block></value><statement name="DO0"><block type="action_block" id="qwoH$/S]F6Ip+D8(;K,U"></block></statement><next><block type="controls_if" id="@HMqlHR9uiq9WB@XY4d2"><value name="IF0"><block type="spritetouch__block" id="K|X2]Al/rqq^s(Yo?trg"><field name="options1">option3</field><field name="options2">option4</field></block></value><statement name="DO0"><block type="secondary_action_block" id="mH-Nemj1uB.owTv/nUd*"></block></statement><next><block type="controls_if" id="Qm7ddcz?(Yyy.uN]gp/T"><value name="IF0"><block type="variables" id="(QHd!s?n+=Z^WqiNUfB6"><field name="Options">option1</field></block></value><statement name="DO0"><block type="say_block" id="!ps{1kBX]+.OkMM08KR:"><field name="say">You have failed to serve all customers</field><next><block type="end_block" id="#b9=qi4cdCdo|x]e@(^`"></block></next></block></statement><next><block type="controls_if" id="qOrz5}PZ,:p[i.si5Z@("><value name="IF0"><block type="logic_compare" id=".c9QZnp5~!..}f=FZqsr"><field name="OP">EQ</field><value name="A"><block type="variables" id="C}2;^4Q%EVJNG!_LV{i;"><field name="Options">OPTIONNAME</field></block></value><value name="B"><block type="math_number" id="LZV}wH%:+dXOOMOSVOKD"><field name="NUM">0</field></block></value></block></value><statement name="DO0"><block type="say_block" id="#uRlRBfg_ySNHfn22I?P"><field name="say">You have served all you customers!</field><next><block type="end_block" id="Tr{/hDhB2DLz@ZmawrE:"></block></next></block></statement></block></next></block></next></block></next></block></next></block></next></block></statement></block></next></block></xml>';
+// var helpCode = '<xml xmlns="https://developers.google.com/blockly/xml"><block type="show_variable_block" id="i[`eB$?Qrijjw`l^MzV." x="-11" y="-187"><field name="NAME">option1</field><next><block type="forever_repeat_block" id="^w(gCwSoS-0#?a`C=f72"><statement name="NAME"><block type="customer_block" id="n_2o2A6h}@RYS1Viy@b_"><next><block type="controls_if" id="NXM?~ZS~ztPOz-aE%hNF"><value name="IF0"><block type="pointertouch__block" id="S@MUR2d}UUJ36[o7B:N1"><field name="options2">option1</field></block></value><statement name="DO0"><block type="single_action_block" id="Af~O(O)-2$|};Q/(14_I"></block></statement><next><block type="controls_if" id="W{*yz%!}(|Iln.GpT?#W"><value name="IF0"><block type="pointertouch__block" id="`RDp4H*Do9UoK.`q0r-k"><field name="options2">option2</field></block></value><statement name="DO0"><block type="action_block" id="qwoH$/S]F6Ip+D8(;K,U"></block></statement><next><block type="controls_if" id="@HMqlHR9uiq9WB@XY4d2"><value name="IF0"><block type="spritetouch__block" id="K|X2]Al/rqq^s(Yo?trg"><field name="options1">option3</field><field name="options2">option4</field></block></value><statement name="DO0"><block type="secondary_action_block" id="mH-Nemj1uB.owTv/nUd*"></block></statement><next><block type="controls_if" id="Qm7ddcz?(Yyy.uN]gp/T"><value name="IF0"><block type="variables" id="(QHd!s?n+=Z^WqiNUfB6"><field name="Options">option1</field></block></value><statement name="DO0"><block type="say_block" id="!ps{1kBX]+.OkMM08KR:"><field name="say">You have failed to serve all customers</field><next><block type="end_block" id="#b9=qi4cdCdo|x]e@(^`"></block></next></block></statement><next><block type="controls_if" id="qOrz5}PZ,:p[i.si5Z@("><value name="IF0"><block type="logic_compare" id=".c9QZnp5~!..}f=FZqsr"><field name="OP">EQ</field><value name="A"><block type="variables" id="C}2;^4Q%EVJNG!_LV{i;"><field name="Options">OPTIONNAME</field></block></value><value name="B"><block type="math_number" id="LZV}wH%:+dXOOMOSVOKD"><field name="NUM">0</field></block></value></block></value><statement name="DO0"><block type="say_block" id="#uRlRBfg_ySNHfn22I?P"><field name="say">You have served all you customers!</field><next><block type="end_block" id="Tr{/hDhB2DLz@ZmawrE:"></block></next></block></statement></block></next></block></next></block></next></block></next></block></next></block></statement></block></next></block></xml>';
 
 function myUpdateFunction(a) {
     var code = Blockly.Python.workspaceToCode(demoWorkspace);
@@ -804,12 +804,82 @@ function getNoOfBlocks() {
 
 const updateImports = ["from chocolate_shop import *"]
 
+const instruction = {
+    "steps": [
+        {
+            "title": "Show customer count",
+            "text": "Display the Customers To Be Served On Screen",
+            "rescue": true,
+            "checkbox": true,
+            "workspace": "<xml xmlns=\"https://developers.google.com/blockly/xml\"><block type=\"show_variable_block\" id=\"i[`eB$?Qrijjw`l^MzV.\" x=\"-11\" y=\"-187\"><field name=\"NAME\">option1</field></block></xml>"
+        },
+        {
+            "title": "Repeat forever",
+            "text": "The following statements should function within the loop",
+            "rescue": true,
+            "checkbox": true,
+            "workspace": "<xml xmlns=\"https://developers.google.com/blockly/xml\"><block type=\"show_variable_block\" id=\"i[`eB$?Qrijjw`l^MzV.\" x=\"-11\" y=\"-187\"><field name=\"NAME\">option1</field><next><block type=\"forever_repeat_block\" id=\"^w(gCwSoS-0#?a`C=f72\"></block></next></block></xml>"
+        },
+        {
+            "title": "Show customer",
+            "text": "Start customer sttival",
+            "rescue": true,
+            "checkbox": true,
+            "workspace": "<xml xmlns=\"https://developers.google.com/blockly/xml\"><block type=\"show_variable_block\" id=\"i[`eB$?Qrijjw`l^MzV.\" x=\"-11\" y=\"-187\"><field name=\"NAME\">option1</field><next><block type=\"forever_repeat_block\" id=\"^w(gCwSoS-0#?a`C=f72\"><statement name=\"NAME\"><block type=\"customer_block\" id=\"n_2o2A6h}@RYS1Viy@b_\"></block></statement></block></next></block></xml>"
+        },
+        {
+            "title": "Pick up Chocolate",
+            "text": "If I Touch Chocolate, pick up the Chocolate",
+            "rescue": true,
+            "checkbox": true,
+            "workspace": "<xml xmlns=\"https://developers.google.com/blockly/xml\"><block type=\"show_variable_block\" id=\"i[`eB$?Qrijjw`l^MzV.\" x=\"-11\" y=\"-187\"><field name=\"NAME\">option1</field><next><block type=\"forever_repeat_block\" id=\"^w(gCwSoS-0#?a`C=f72\"><statement name=\"NAME\"><block type=\"customer_block\" id=\"n_2o2A6h}@RYS1Viy@b_\"><next><block type=\"controls_if\" id=\"NXM?~ZS~ztPOz-aE%hNF\"><value name=\"IF0\"><block type=\"pointertouch__block\" id=\"S@MUR2d}UUJ36[o7B:N1\"><field name=\"options2\">option1</field></block></value><statement name=\"DO0\"><block type=\"single_action_block\" id=\"Af~O(O)-2$|};Q/(14_I\"></block></statement></block></next></block></statement></block></next></block></xml>"
+        },
+        {
+            "title": "Chocolate Wrapping",
+            "text": "If I touch Wrapper, Wrap the chocolate",
+            "rescue": true,
+            "checkbox": true,
+            "workspace": "<xml xmlns=\"https://developers.google.com/blockly/xml\"><block type=\"show_variable_block\" id=\"i[`eB$?Qrijjw`l^MzV.\" x=\"-11\" y=\"-187\"><field name=\"NAME\">option1</field><next><block type=\"forever_repeat_block\" id=\"^w(gCwSoS-0#?a`C=f72\"><statement name=\"NAME\"><block type=\"customer_block\" id=\"n_2o2A6h}@RYS1Viy@b_\"><next><block type=\"controls_if\" id=\"NXM?~ZS~ztPOz-aE%hNF\"><value name=\"IF0\"><block type=\"pointertouch__block\" id=\"S@MUR2d}UUJ36[o7B:N1\"><field name=\"options2\">option1</field></block></value><statement name=\"DO0\"><block type=\"single_action_block\" id=\"Af~O(O)-2$|};Q/(14_I\"></block></statement><next><block type=\"controls_if\" id=\"W{*yz%!}(|Iln.GpT?#W\"><value name=\"IF0\"><block type=\"pointertouch__block\" id=\"`RDp4H*Do9UoK.`q0r-k\"><field name=\"options2\">option2</field></block></value><statement name=\"DO0\"><block type=\"action_block\" id=\"qwoH$/S]F6Ip+D8(;K,U\"></block></statement></block></next></block></next></block></statement></block></next></block></xml>"
+        },
+        {
+            "title": "Serve the chocolate",
+            "text": "Select the Wrapped Chocolate and touch Customer to be Served",
+            "rescue": true,
+            "checkbox": true,
+            "workspace": "<xml xmlns=\"https://developers.google.com/blockly/xml\"><block type=\"show_variable_block\" id=\"i[`eB$?Qrijjw`l^MzV.\" x=\"-11\" y=\"-187\"><field name=\"NAME\">option1</field><next><block type=\"forever_repeat_block\" id=\"^w(gCwSoS-0#?a`C=f72\"><statement name=\"NAME\"><block type=\"customer_block\" id=\"n_2o2A6h}@RYS1Viy@b_\"><next><block type=\"controls_if\" id=\"NXM?~ZS~ztPOz-aE%hNF\"><value name=\"IF0\"><block type=\"pointertouch__block\" id=\"S@MUR2d}UUJ36[o7B:N1\"><field name=\"options2\">option1</field></block></value><statement name=\"DO0\"><block type=\"single_action_block\" id=\"Af~O(O)-2$|};Q/(14_I\"></block></statement><next><block type=\"controls_if\" id=\"W{*yz%!}(|Iln.GpT?#W\"><value name=\"IF0\"><block type=\"pointertouch__block\" id=\"`RDp4H*Do9UoK.`q0r-k\"><field name=\"options2\">option2</field></block></value><statement name=\"DO0\"><block type=\"action_block\" id=\"qwoH$/S]F6Ip+D8(;K,U\"></block></statement><next><block type=\"controls_if\" id=\"@HMqlHR9uiq9WB@XY4d2\"><value name=\"IF0\"><block type=\"spritetouch__block\" id=\"K|X2]Al/rqq^s(Yo?trg\"><field name=\"options1\">option3</field><field name=\"options2\">option4</field></block></value><statement name=\"DO0\"><block type=\"secondary_action_block\" id=\"mH-Nemj1uB.owTv/nUd*\"></block></statement></block></next></block></next></block></next></block></statement></block></next></block></xml>"
+        },
+        {
+            "title": "Customer Patience",
+            "text": "If any Customer Patience Bar becomes 0, Say 'You have failed to serve all customers', and end all",
+            "rescue": true,
+            "checkbox": true,
+            "workspace": "<xml xmlns=\"https://developers.google.com/blockly/xml\"><block type=\"show_variable_block\" id=\"i[`eB$?Qrijjw`l^MzV.\" x=\"-11\" y=\"-187\"><field name=\"NAME\">option1</field><next><block type=\"forever_repeat_block\" id=\"^w(gCwSoS-0#?a`C=f72\"><statement name=\"NAME\"><block type=\"customer_block\" id=\"n_2o2A6h}@RYS1Viy@b_\"><next><block type=\"controls_if\" id=\"NXM?~ZS~ztPOz-aE%hNF\"><value name=\"IF0\"><block type=\"pointertouch__block\" id=\"S@MUR2d}UUJ36[o7B:N1\"><field name=\"options2\">option1</field></block></value><statement name=\"DO0\"><block type=\"single_action_block\" id=\"Af~O(O)-2$|};Q/(14_I\"></block></statement><next><block type=\"controls_if\" id=\"W{*yz%!}(|Iln.GpT?#W\"><value name=\"IF0\"><block type=\"pointertouch__block\" id=\"`RDp4H*Do9UoK.`q0r-k\"><field name=\"options2\">option2</field></block></value><statement name=\"DO0\"><block type=\"action_block\" id=\"qwoH$/S]F6Ip+D8(;K,U\"></block></statement><next><block type=\"controls_if\" id=\"@HMqlHR9uiq9WB@XY4d2\"><value name=\"IF0\"><block type=\"spritetouch__block\" id=\"K|X2]Al/rqq^s(Yo?trg\"><field name=\"options1\">option3</field><field name=\"options2\">option4</field></block></value><statement name=\"DO0\"><block type=\"secondary_action_block\" id=\"mH-Nemj1uB.owTv/nUd*\"></block></statement><next><block type=\"controls_if\" id=\"Qm7ddcz?(Yyy.uN]gp/T\"><value name=\"IF0\"><block type=\"variables\" id=\"(QHd!s?n+=Z^WqiNUfB6\"><field name=\"Options\">option1</field></block></value><statement name=\"DO0\"><block type=\"say_block\" id=\"!ps{1kBX]+.OkMM08KR:\"><field name=\"say\">You have failed to serve all customers</field><next><block type=\"end_block\" id=\"#b9=qi4cdCdo|x]e@(^`\"></block></next></block></statement></block></next></block></next></block></next></block></next></block></statement></block></next></block></xml>"
+        },
+        {
+            "title": "Player Wins",
+            "text": "If Customers to be served is 0, Say 'You have served all your customers!', and end all",
+            "rescue": true,
+            "checkbox": true,
+            "workspace": "<xml xmlns=\"https://developers.google.com/blockly/xml\"><block type=\"show_variable_block\" id=\"i[`eB$?Qrijjw`l^MzV.\" x=\"-11\" y=\"-187\"><field name=\"NAME\">option1</field><next><block type=\"forever_repeat_block\" id=\"^w(gCwSoS-0#?a`C=f72\"><statement name=\"NAME\"><block type=\"customer_block\" id=\"n_2o2A6h}@RYS1Viy@b_\"><next><block type=\"controls_if\" id=\"NXM?~ZS~ztPOz-aE%hNF\"><value name=\"IF0\"><block type=\"pointertouch__block\" id=\"S@MUR2d}UUJ36[o7B:N1\"><field name=\"options2\">option1</field></block></value><statement name=\"DO0\"><block type=\"single_action_block\" id=\"Af~O(O)-2$|};Q/(14_I\"></block></statement><next><block type=\"controls_if\" id=\"W{*yz%!}(|Iln.GpT?#W\"><value name=\"IF0\"><block type=\"pointertouch__block\" id=\"`RDp4H*Do9UoK.`q0r-k\"><field name=\"options2\">option2</field></block></value><statement name=\"DO0\"><block type=\"action_block\" id=\"qwoH$/S]F6Ip+D8(;K,U\"></block></statement><next><block type=\"controls_if\" id=\"@HMqlHR9uiq9WB@XY4d2\"><value name=\"IF0\"><block type=\"spritetouch__block\" id=\"K|X2]Al/rqq^s(Yo?trg\"><field name=\"options1\">option3</field><field name=\"options2\">option4</field></block></value><statement name=\"DO0\"><block type=\"secondary_action_block\" id=\"mH-Nemj1uB.owTv/nUd*\"></block></statement><next><block type=\"controls_if\" id=\"Qm7ddcz?(Yyy.uN]gp/T\"><value name=\"IF0\"><block type=\"variables\" id=\"(QHd!s?n+=Z^WqiNUfB6\"><field name=\"Options\">option1</field></block></value><statement name=\"DO0\"><block type=\"say_block\" id=\"!ps{1kBX]+.OkMM08KR:\"><field name=\"say\">You have failed to serve all customers</field><next><block type=\"end_block\" id=\"#b9=qi4cdCdo|x]e@(^`\"></block></next></block></statement><next><block type=\"controls_if\" id=\"qOrz5}PZ,:p[i.si5Z@(\"><value name=\"IF0\"><block type=\"logic_compare\" id=\".c9QZnp5~!..}f=FZqsr\"><field name=\"OP\">EQ</field><value name=\"A\"><block type=\"variables\" id=\"C}2;^4Q%EVJNG!_LV{i;\"><field name=\"Options\">OPTIONNAME</field></block></value><value name=\"B\"><block type=\"math_number\" id=\"LZV}wH%:+dXOOMOSVOKD\"><field name=\"NUM\">0</field></block></value></block></value><statement name=\"DO0\"><block type=\"say_block\" id=\"#uRlRBfg_ySNHfn22I?P\"><field name=\"say\">You have served all you customers!</field><next><block type=\"end_block\" id=\"Tr{/hDhB2DLz@ZmawrE:\"></block></next></block></statement></block></next></block></next></block></next></block></next></block></next></block></statement></block></next></block></xml>"
+        },
+        {
+            "title": "Instructions to play",
+            "text": "Touch the chocolates, to place them on tray. Now touch the chocolate on tray and choose a coloured wrapper to wrap it. Now drag the wrapped chocolate to the customer wearing the same coloured shirt to deliver. You win if all customers have been served. You lose if any customer runs out of patience before you deliver him the chocolate. Manage the time well!",
+            "rescue": false,
+            "checkbox": false,
+            "workspace": "<xml xmlns=\"https://developers.google.com/blockly/xml\"></xml>"
+        }
+    ],
+    "heading": "Place the chocolate in the two tray's in front and wrap them in the right color as the customer and deliver."
+};
+
 
 export {
     completedFlag,
     repeat_forever_flag,
     myUpdateFunction,
-    helpCode,
+    // helpCode,
+    instruction,
     runCode,
     reset_output,
     reInitValues,

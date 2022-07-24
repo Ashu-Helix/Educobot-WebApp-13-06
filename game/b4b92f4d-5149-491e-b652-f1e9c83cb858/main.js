@@ -407,7 +407,7 @@ function runCode() {
 //     Blockly.Xml.domToWorkspace(xml, demoWorkspace);
 // }
 
-const helpCode = '<xml xmlns="https://developers.google.com/blockly/xml"><block type="set_variable_holder" id="BChs[87}Rh#_cK0Y7f=_" x="39" y="83"><field name="Variable name">healthValue</field><value name="NAME"><block type="math_number" id="%4keyWJFqnqig]MLV_`F"><field name="NUM">50</field></block></value><next><block type="set_variable_holder" id="HVg0]Ff+H$X0HRoaSi?Q"><field name="Variable name">timerValue</field><value name="NAME"><block type="math_number" id="jB4xt*0{kS:YMzx3OcDi"><field name="NUM">30</field></block></value><next><block type="show_variable_block" id=",c[99{|bOdq5MowonI)}"><field name="NAME">health</field><next><block type="show_variable_block" id="NvrkHQD?^Xhjkl1e}_O2"><field name="NAME">timer</field><next><block type="forever_repeat_block" id="xP~m1|Ei4,RQf2{Ifzzp"><statement name="NAME"><block type="controls_if" id="xRA=m2D(sAua7V9B|H6L"><value name="IF0"><block type="pointertouch__block" id="j9GealsiBsLFO.+3!cBm"><field name="options2">mosquito</field></block></value><statement name="DO0"><block type="change_variable_holder" id=":cSvG]s42DEy*|BZo(V~"><field name="Variable name">healthValue</field><value name="NAME"><block type="math_number" id="/}Q6jVrO5tu.T=)+s-~U"><field name="NUM">5</field></block></value><next><block type="hide_block" id=";|9vw}@n6$-v.aM:PWmL"><field name="NAME">option1</field></block></next></block></statement></block></statement></block></next></block></next></block></next></block></next></block></xml>';
+// const helpCode = '<xml xmlns="https://developers.google.com/blockly/xml"><block type="set_variable_holder" id="BChs[87}Rh#_cK0Y7f=_" x="39" y="83"><field name="Variable name">healthValue</field><value name="NAME"><block type="math_number" id="%4keyWJFqnqig]MLV_`F"><field name="NUM">50</field></block></value><next><block type="set_variable_holder" id="HVg0]Ff+H$X0HRoaSi?Q"><field name="Variable name">timerValue</field><value name="NAME"><block type="math_number" id="jB4xt*0{kS:YMzx3OcDi"><field name="NUM">30</field></block></value><next><block type="show_variable_block" id=",c[99{|bOdq5MowonI)}"><field name="NAME">health</field><next><block type="show_variable_block" id="NvrkHQD?^Xhjkl1e}_O2"><field name="NAME">timer</field><next><block type="forever_repeat_block" id="xP~m1|Ei4,RQf2{Ifzzp"><statement name="NAME"><block type="controls_if" id="xRA=m2D(sAua7V9B|H6L"><value name="IF0"><block type="pointertouch__block" id="j9GealsiBsLFO.+3!cBm"><field name="options2">mosquito</field></block></value><statement name="DO0"><block type="change_variable_holder" id=":cSvG]s42DEy*|BZo(V~"><field name="Variable name">healthValue</field><value name="NAME"><block type="math_number" id="/}Q6jVrO5tu.T=)+s-~U"><field name="NUM">5</field></block></value><next><block type="hide_block" id=";|9vw}@n6$-v.aM:PWmL"><field name="NAME">option1</field></block></next></block></statement></block></statement></block></next></block></next></block></next></block></next></block></xml>';
 
 // function myUpdateFunction(a) {
 //     var code = Blockly.Python.workspaceToCode(demoWorkspace);
@@ -429,12 +429,66 @@ function getNoOfBlocks() {
 
 const updateImports = ["from mosquito_room_lesson import *"]
 
-
+const instruction = {
+    "heading": "Use the mosquito bat to kill the mosquito, touch the mosquito so the mosquito bat can hit it",
+    "steps": [
+        {
+            "checkbox": true,
+            "rescue": true,
+            "text": "Set the health level to 50",
+            "title": "Health Level",
+            "workspace": "<xml xmlns=\"https://developers.google.com/blockly/xml\"><block type=\"set_variable_holder\" id=\"BChs[87}Rh#_cK0Y7f=_\" x=\"39\" y=\"83\"><field name=\"Variable name\">healthValue</field><value name=\"NAME\"><block type=\"math_number\" id=\"%4keyWJFqnqig]MLV_`F\"><field name=\"NUM\">50</field></block></value></block></xml>"
+        },
+        {
+            "checkbox": true,
+            "rescue": true,
+            "text": "Set the timer to 30",
+            "title": "Timer",
+            "workspace": "<xml xmlns=\"https://developers.google.com/blockly/xml\"><block type=\"set_variable_holder\" id=\"BChs[87}Rh#_cK0Y7f=_\" x=\"39\" y=\"83\"><field name=\"Variable name\">healthValue</field><value name=\"NAME\"><block type=\"math_number\" id=\"%4keyWJFqnqig]MLV_`F\"><field name=\"NUM\">50</field></block></value><next><block type=\"set_variable_holder\" id=\"HVg0]Ff+H$X0HRoaSi?Q\"><field name=\"Variable name\">timerValue</field><value name=\"NAME\"><block type=\"math_number\" id=\"jB4xt*0{kS:YMzx3OcDi\"><field name=\"NUM\">30</field></block></value></block></next></block></xml>"
+        },
+        {
+            "checkbox": true,
+            "rescue": true,
+            "text": "Display Health on screen",
+            "title": "Show health",
+            "workspace": "<xml xmlns=\"https://developers.google.com/blockly/xml\"><block type=\"set_variable_holder\" id=\"BChs[87}Rh#_cK0Y7f=_\" x=\"39\" y=\"83\"><field name=\"Variable name\">healthValue</field><value name=\"NAME\"><block type=\"math_number\" id=\"%4keyWJFqnqig]MLV_`F\"><field name=\"NUM\">50</field></block></value><next><block type=\"set_variable_holder\" id=\"HVg0]Ff+H$X0HRoaSi?Q\"><field name=\"Variable name\">timerValue</field><value name=\"NAME\"><block type=\"math_number\" id=\"jB4xt*0{kS:YMzx3OcDi\"><field name=\"NUM\">30</field></block></value><next><block type=\"show_variable_block\" id=\",c[99{|bOdq5MowonI)}\"><field name=\"NAME\">health</field></block></next></block></next></block></xml>"
+        },
+        {
+            "checkbox": true,
+            "rescue": true,
+            "text": "Display Timer on screen",
+            "title": "Show timer",
+            "workspace": "<xml xmlns=\"https://developers.google.com/blockly/xml\"><block type=\"set_variable_holder\" id=\"BChs[87}Rh#_cK0Y7f=_\" x=\"39\" y=\"83\"><field name=\"Variable name\">healthValue</field><value name=\"NAME\"><block type=\"math_number\" id=\"%4keyWJFqnqig]MLV_`F\"><field name=\"NUM\">50</field></block></value><next><block type=\"set_variable_holder\" id=\"HVg0]Ff+H$X0HRoaSi?Q\"><field name=\"Variable name\">timerValue</field><value name=\"NAME\"><block type=\"math_number\" id=\"jB4xt*0{kS:YMzx3OcDi\"><field name=\"NUM\">30</field></block></value><next><block type=\"show_variable_block\" id=\",c[99{|bOdq5MowonI)}\"><field name=\"NAME\">health</field><next><block type=\"show_variable_block\" id=\"NvrkHQD?^Xhjkl1e}_O2\"><field name=\"NAME\">timer</field></block></next></block></next></block></next></block></xml>"
+        },
+        {
+            "checkbox": true,
+            "rescue": true,
+            "text": "The following statements should function within the loop",
+            "title": "Repeat forever",
+            "workspace": "<xml xmlns=\"https://developers.google.com/blockly/xml\"><block type=\"set_variable_holder\" id=\"BChs[87}Rh#_cK0Y7f=_\" x=\"39\" y=\"83\"><field name=\"Variable name\">healthValue</field><value name=\"NAME\"><block type=\"math_number\" id=\"%4keyWJFqnqig]MLV_`F\"><field name=\"NUM\">50</field></block></value><next><block type=\"set_variable_holder\" id=\"HVg0]Ff+H$X0HRoaSi?Q\"><field name=\"Variable name\">timerValue</field><value name=\"NAME\"><block type=\"math_number\" id=\"jB4xt*0{kS:YMzx3OcDi\"><field name=\"NUM\">30</field></block></value><next><block type=\"show_variable_block\" id=\",c[99{|bOdq5MowonI)}\"><field name=\"NAME\">health</field><next><block type=\"show_variable_block\" id=\"NvrkHQD?^Xhjkl1e}_O2\"><field name=\"NAME\">timer</field><next><block type=\"forever_repeat_block\" id=\"xP~m1|Ei4,RQf2{Ifzzp\"></block></next></block></next></block></next></block></next></block></xml>"
+        },
+        {
+            "checkbox": true,
+            "rescue": true,
+            "text": "If the mosquito is touched, Hide the mosquito, and add health by 5",
+            "title": "Kill Mosquito",
+            "workspace": "<xml xmlns=\"https://developers.google.com/blockly/xml\"><block type=\"set_variable_holder\" id=\"BChs[87}Rh#_cK0Y7f=_\" x=\"39\" y=\"83\"><field name=\"Variable name\">healthValue</field><value name=\"NAME\"><block type=\"math_number\" id=\"%4keyWJFqnqig]MLV_`F\"><field name=\"NUM\">50</field></block></value><next><block type=\"set_variable_holder\" id=\"HVg0]Ff+H$X0HRoaSi?Q\"><field name=\"Variable name\">timerValue</field><value name=\"NAME\"><block type=\"math_number\" id=\"jB4xt*0{kS:YMzx3OcDi\"><field name=\"NUM\">30</field></block></value><next><block type=\"show_variable_block\" id=\",c[99{|bOdq5MowonI)}\"><field name=\"NAME\">health</field><next><block type=\"show_variable_block\" id=\"NvrkHQD?^Xhjkl1e}_O2\"><field name=\"NAME\">timer</field><next><block type=\"forever_repeat_block\" id=\"xP~m1|Ei4,RQf2{Ifzzp\"><statement name=\"NAME\"><block type=\"controls_if\" id=\"xRA=m2D(sAua7V9B|H6L\"><value name=\"IF0\"><block type=\"pointertouch__block\" id=\"j9GealsiBsLFO.+3!cBm\"><field name=\"options2\">mosquito</field></block></value><statement name=\"DO0\"><block type=\"change_variable_holder\" id=\":cSvG]s42DEy*|BZo(V~\"><field name=\"Variable name\">healthValue</field><value name=\"NAME\"><block type=\"math_number\" id=\"/}Q6jVrO5tu.T=)+s-~U\"><field name=\"NUM\">5</field></block></value><next><block type=\"hide_block\" id=\";|9vw}@n6$-v.aM:PWmL\"><field name=\"NAME\">option1</field></block></next></block></statement></block></statement></block></next></block></next></block></next></block></next></block></xml>"
+        },
+        {
+            "checkbox": false,
+            "rescue": false,
+            "text": "Touch the mosquito to kill it. Kill all mosquitoes before time runs out!",
+            "title": "Instructions to play the game",
+            "workspace": "<xml xmlns=\"https://developers.google.com/blockly/xml\"></xml>"
+        }
+    ]
+};
 
 export {
     completedFlag,
     // myUpdateFunction,
-    helpCode,
+    // helpCode,
+    instruction,
     runCode,
     reset_output,
     reInitValues,

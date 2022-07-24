@@ -391,8 +391,8 @@ function runCode() {
 //     return block_code;
 // }
 
-const helpCode =
-    '<xml xmlns="https://developers.google.com/blockly/xml"><block type="set_variable_holder" id="3{e#GCr93N__5{qht{pO" x="66" y="99"><field name="Variable name">jump_count</field><value name="NAME"><block type="math_number" id="o%[*{26$PL0jH1Fp?Y!$"><field name="NUM">0</field></block></value><next><block type="controls_repeat_ext" id="FHgToy[fv[Jt80j]Hhj,"><value name="TIMES"><block type="math_number" id="-2`*Rv;d4o`+N?fTvL6r"><field name="NUM">40</field></block></value><statement name="DO"><block type="controls_if" id=")[aj^7I?B%l^]rF,rw*k"><value name="IF0"><block type="logic_compare" id="VUa%v:Wi;+Da5nJNp}j1"><field name="OP">EQ</field><value name="A"><block type="variables" id="6_)]+/r`=|BL_]J?VAV)"><field name="Options">jump_count</field></block></value><value name="B"><block type="math_number" id="7C^adtdShLbX4irnX3Mh"><field name="NUM">20</field></block></value></block></value><statement name="DO0"><block type="say_block" id="c^L5jRQsekb[_$KN^9w2"><field name="dialogue">Taking rest</field><next><block type="wait_block" id="4FIsA^y~KJy2AI)wL5wJ"><field name="NAME">Wait for</field><value name="NAME"><block type="math_number" id="g}irJ,c]=VVKFdzMWFM_"><field name="NUM">5</field></block></value></block></next></block></statement><next><block type="action_block" id="XV074BO+BTQ?JLNF;8Bn"><next><block type="change_variable_holder" id="$G_j*Bc.cw9XU8i;]m#s"><field name="Variable name">jump_count</field><value name="NAME"><block type="math_number" id="I`ozDv}pwo)=nv^:CQ?x"><field name="NUM">1</field></block></value><next><block type="wait_block" id="D={lQsSv)#Tr~/:K6:6O"><field name="NAME">Wait for</field><value name="NAME"><block type="math_number" id="A$H+KEXIuDO](J8sd[U*"><field name="NUM">0.2</field></block></value></block></next></block></next></block></next></block></statement></block></next></block></xml>';
+// const helpCode =
+//     '<xml xmlns="https://developers.google.com/blockly/xml"><block type="set_variable_holder" id="3{e#GCr93N__5{qht{pO" x="66" y="99"><field name="Variable name">jump_count</field><value name="NAME"><block type="math_number" id="o%[*{26$PL0jH1Fp?Y!$"><field name="NUM">0</field></block></value><next><block type="controls_repeat_ext" id="FHgToy[fv[Jt80j]Hhj,"><value name="TIMES"><block type="math_number" id="-2`*Rv;d4o`+N?fTvL6r"><field name="NUM">40</field></block></value><statement name="DO"><block type="controls_if" id=")[aj^7I?B%l^]rF,rw*k"><value name="IF0"><block type="logic_compare" id="VUa%v:Wi;+Da5nJNp}j1"><field name="OP">EQ</field><value name="A"><block type="variables" id="6_)]+/r`=|BL_]J?VAV)"><field name="Options">jump_count</field></block></value><value name="B"><block type="math_number" id="7C^adtdShLbX4irnX3Mh"><field name="NUM">20</field></block></value></block></value><statement name="DO0"><block type="say_block" id="c^L5jRQsekb[_$KN^9w2"><field name="dialogue">Taking rest</field><next><block type="wait_block" id="4FIsA^y~KJy2AI)wL5wJ"><field name="NAME">Wait for</field><value name="NAME"><block type="math_number" id="g}irJ,c]=VVKFdzMWFM_"><field name="NUM">5</field></block></value></block></next></block></statement><next><block type="action_block" id="XV074BO+BTQ?JLNF;8Bn"><next><block type="change_variable_holder" id="$G_j*Bc.cw9XU8i;]m#s"><field name="Variable name">jump_count</field><value name="NAME"><block type="math_number" id="I`ozDv}pwo)=nv^:CQ?x"><field name="NUM">1</field></block></value><next><block type="wait_block" id="D={lQsSv)#Tr~/:K6:6O"><field name="NAME">Wait for</field><value name="NAME"><block type="math_number" id="A$H+KEXIuDO](J8sd[U*"><field name="NUM">0.2</field></block></value></block></next></block></next></block></next></block></statement></block></next></block></xml>';
 
 function get_number_of_blocks() {
     return demoWorkspace.getAllBlocks(false).length;
@@ -415,11 +415,58 @@ function getNoOfBlocks() {
     return noOfBlocks.length
 }
 
+const instruction = {
+    "heading": "Program a bot to guide Shivani to do skipping and stay healthy. Make her jump 40 times with 0.2 secs wait time. During skipping, if 20 counts is done give her 5 secs rest to recover.",
+    "steps": [
+        {
+            "checkbox": true,
+            "rescue": true,
+            "text": "set jump_count to 0",
+            "title": "Initialize variables",
+            "workspace": "<xml xmlns=\"https://developers.google.com/blockly/xml\"><block type=\"set_variable_holder\" id=\"3{e#GCr93N__5{qht{pO\" x=\"66\" y=\"99\"><field name=\"Variable name\">jump_count</field><value name=\"NAME\"><block type=\"math_number\" id=\"o%[*{26$PL0jH1Fp?Y!$\"><field name=\"NUM\">0</field></block></value></block></xml>"
+        },
+        {
+            "checkbox": true,
+            "rescue": true,
+            "text": "Add the loop and do all the following operations in it",
+            "title": "Repeat 40 times",
+            "workspace": "<xml xmlns=\"https://developers.google.com/blockly/xml\"><block type=\"set_variable_holder\" id=\"3{e#GCr93N__5{qht{pO\" x=\"66\" y=\"99\"><field name=\"Variable name\">jump_count</field><value name=\"NAME\"><block type=\"math_number\" id=\"o%[*{26$PL0jH1Fp?Y!$\"><field name=\"NUM\">0</field></block></value><next><block type=\"controls_repeat_ext\" id=\"FHgToy[fv[Jt80j]Hhj,\"><value name=\"TIMES\"><block type=\"math_number\" id=\"-2`*Rv;d4o`+N?fTvL6r\"><field name=\"NUM\">40</field></block></value></block></next></block></xml>"
+        },
+        {
+            "checkbox": true,
+            "rescue": true,
+            "text": "if jump_count is 20, say \"take rest\" and wait for 5 sec",
+            "title": "Take a break after 20 counts",
+            "workspace": "<xml xmlns=\"https://developers.google.com/blockly/xml\"><block type=\"set_variable_holder\" id=\"3{e#GCr93N__5{qht{pO\" x=\"66\" y=\"99\"><field name=\"Variable name\">jump_count</field><value name=\"NAME\"><block type=\"math_number\" id=\"o%[*{26$PL0jH1Fp?Y!$\"><field name=\"NUM\">0</field></block></value><next><block type=\"controls_repeat_ext\" id=\"FHgToy[fv[Jt80j]Hhj,\"><value name=\"TIMES\"><block type=\"math_number\" id=\"-2`*Rv;d4o`+N?fTvL6r\"><field name=\"NUM\">40</field></block></value><statement name=\"DO\"><block type=\"controls_if\" id=\")[aj^7I?B%l^]rF,rw*k\"><value name=\"IF0\"><block type=\"logic_compare\" id=\"VUa%v:Wi;+Da5nJNp}j1\"><field name=\"OP\">EQ</field><value name=\"A\"><block type=\"variables\" id=\"6_)]+/r`=|BL_]J?VAV)\"><field name=\"Options\">jump_count</field></block></value><value name=\"B\"><block type=\"math_number\" id=\"7C^adtdShLbX4irnX3Mh\"><field name=\"NUM\">20</field></block></value></block></value><statement name=\"DO0\"><block type=\"say_block\" id=\"c^L5jRQsekb[_$KN^9w2\"><field name=\"dialogue\">Take rest</field><next><block type=\"wait_block\" id=\"4FIsA^y~KJy2AI)wL5wJ\"><field name=\"NAME\">Wait for</field><value name=\"NAME\"><block type=\"math_number\" id=\"g}irJ,c]=VVKFdzMWFM_\"><field name=\"NUM\">5</field></block></value></block></next></block></statement></block></statement></block></next></block></xml>"
+        },
+        {
+            "checkbox": true,
+            "rescue": true,
+            "text": "Jump",
+            "title": "Jump",
+            "workspace": "<xml xmlns=\"https://developers.google.com/blockly/xml\"><block type=\"set_variable_holder\" id=\"3{e#GCr93N__5{qht{pO\" x=\"66\" y=\"99\"><field name=\"Variable name\">jump_count</field><value name=\"NAME\"><block type=\"math_number\" id=\"o%[*{26$PL0jH1Fp?Y!$\"><field name=\"NUM\">0</field></block></value><next><block type=\"controls_repeat_ext\" id=\"FHgToy[fv[Jt80j]Hhj,\"><value name=\"TIMES\"><block type=\"math_number\" id=\"-2`*Rv;d4o`+N?fTvL6r\"><field name=\"NUM\">40</field></block></value><statement name=\"DO\"><block type=\"controls_if\" id=\")[aj^7I?B%l^]rF,rw*k\"><value name=\"IF0\"><block type=\"logic_compare\" id=\"VUa%v:Wi;+Da5nJNp}j1\"><field name=\"OP\">EQ</field><value name=\"A\"><block type=\"variables\" id=\"6_)]+/r`=|BL_]J?VAV)\"><field name=\"Options\">jump_count</field></block></value><value name=\"B\"><block type=\"math_number\" id=\"7C^adtdShLbX4irnX3Mh\"><field name=\"NUM\">20</field></block></value></block></value><statement name=\"DO0\"><block type=\"say_block\" id=\"c^L5jRQsekb[_$KN^9w2\"><field name=\"dialogue\">Take rest</field><next><block type=\"wait_block\" id=\"4FIsA^y~KJy2AI)wL5wJ\"><field name=\"NAME\">Wait for</field><value name=\"NAME\"><block type=\"math_number\" id=\"g}irJ,c]=VVKFdzMWFM_\"><field name=\"NUM\">5</field></block></value></block></next></block></statement><next><block type=\"action_block\" id=\"XV074BO+BTQ?JLNF;8Bn\"></block></next></block></statement></block></next></block></xml>"
+        },
+        {
+            "checkbox": true,
+            "rescue": true,
+            "text": "change jump_count by 1",
+            "workspace": "<xml xmlns=\"https://developers.google.com/blockly/xml\"><block type=\"set_variable_holder\" id=\"3{e#GCr93N__5{qht{pO\" x=\"66\" y=\"99\"><field name=\"Variable name\">jump_count</field><value name=\"NAME\"><block type=\"math_number\" id=\"o%[*{26$PL0jH1Fp?Y!$\"><field name=\"NUM\">0</field></block></value><next><block type=\"controls_repeat_ext\" id=\"FHgToy[fv[Jt80j]Hhj,\"><value name=\"TIMES\"><block type=\"math_number\" id=\"-2`*Rv;d4o`+N?fTvL6r\"><field name=\"NUM\">40</field></block></value><statement name=\"DO\"><block type=\"controls_if\" id=\")[aj^7I?B%l^]rF,rw*k\"><value name=\"IF0\"><block type=\"logic_compare\" id=\"VUa%v:Wi;+Da5nJNp}j1\"><field name=\"OP\">EQ</field><value name=\"A\"><block type=\"variables\" id=\"6_)]+/r`=|BL_]J?VAV)\"><field name=\"Options\">jump_count</field></block></value><value name=\"B\"><block type=\"math_number\" id=\"7C^adtdShLbX4irnX3Mh\"><field name=\"NUM\">20</field></block></value></block></value><statement name=\"DO0\"><block type=\"say_block\" id=\"c^L5jRQsekb[_$KN^9w2\"><field name=\"dialogue\">Take rest</field><next><block type=\"wait_block\" id=\"4FIsA^y~KJy2AI)wL5wJ\"><field name=\"NAME\">Wait for</field><value name=\"NAME\"><block type=\"math_number\" id=\"g}irJ,c]=VVKFdzMWFM_\"><field name=\"NUM\">5</field></block></value></block></next></block></statement><next><block type=\"action_block\" id=\"XV074BO+BTQ?JLNF;8Bn\"><next><block type=\"change_variable_holder\" id=\"$G_j*Bc.cw9XU8i;]m#s\"><field name=\"Variable name\">jump_count</field><value name=\"NAME\"><block type=\"math_number\" id=\"I`ozDv}pwo)=nv^:CQ?x\"><field name=\"NUM\">1</field></block></value></block></next></block></next></block></statement></block></next></block></xml>"
+        },
+        {
+            "checkbox": true,
+            "rescue": true,
+            "text": "wait for 0.2 secs",
+            "workspace": "<xml xmlns=\"https://developers.google.com/blockly/xml\"><block type=\"set_variable_holder\" id=\"3{e#GCr93N__5{qht{pO\" x=\"66\" y=\"99\"><field name=\"Variable name\">jump_count</field><value name=\"NAME\"><block type=\"math_number\" id=\"o%[*{26$PL0jH1Fp?Y!$\"><field name=\"NUM\">0</field></block></value><next><block type=\"controls_repeat_ext\" id=\"FHgToy[fv[Jt80j]Hhj,\"><value name=\"TIMES\"><block type=\"math_number\" id=\"-2`*Rv;d4o`+N?fTvL6r\"><field name=\"NUM\">40</field></block></value><statement name=\"DO\"><block type=\"controls_if\" id=\")[aj^7I?B%l^]rF,rw*k\"><value name=\"IF0\"><block type=\"logic_compare\" id=\"VUa%v:Wi;+Da5nJNp}j1\"><field name=\"OP\">EQ</field><value name=\"A\"><block type=\"variables\" id=\"6_)]+/r`=|BL_]J?VAV)\"><field name=\"Options\">jump_count</field></block></value><value name=\"B\"><block type=\"math_number\" id=\"7C^adtdShLbX4irnX3Mh\"><field name=\"NUM\">20</field></block></value></block></value><statement name=\"DO0\"><block type=\"say_block\" id=\"c^L5jRQsekb[_$KN^9w2\"><field name=\"dialogue\">Take rest</field><next><block type=\"wait_block\" id=\"4FIsA^y~KJy2AI)wL5wJ\"><field name=\"NAME\">Wait for</field><value name=\"NAME\"><block type=\"math_number\" id=\"g}irJ,c]=VVKFdzMWFM_\"><field name=\"NUM\">5</field></block></value></block></next></block></statement><next><block type=\"action_block\" id=\"XV074BO+BTQ?JLNF;8Bn\"><next><block type=\"change_variable_holder\" id=\"$G_j*Bc.cw9XU8i;]m#s\"><field name=\"Variable name\">jump_count</field><value name=\"NAME\"><block type=\"math_number\" id=\"I`ozDv}pwo)=nv^:CQ?x\"><field name=\"NUM\">1</field></block></value><next><block type=\"wait_block\" id=\"D={lQsSv)#Tr~/:K6:6O\"><field name=\"NAME\">Wait for</field><value name=\"NAME\"><block type=\"math_number\" id=\"A$H+KEXIuDO](J8sd[U*\"><field name=\"NUM\">0.2</field></block></value></block></next></block></next></block></next></block></statement></block></next></block></xml>"
+        }
+    ]
+};
+
 export {
     completedFlag,
     myUpdateFunction,
     get_number_of_blocks,
-    helpCode,
+    // helpCode,
+    instruction,
     runCode,
     reset_output,
     reInitValues,

@@ -483,6 +483,62 @@ function getNoOfBlocks() {
 
 const updateImports = ["import dog"]
 
-const helpCode = '<xml xmlns="https://developers.google.com/blockly/xml"><block type="move" id="Fz*0]%*jp=Y4|}#ZPjd1" x="58" y="180"><field name="NAME">Move Forward</field><value name="NAME"><block type="math_number" id="?sPpSeKwbmPrOE$?y}0R"><field name="NUM">7</field></block></value><next><block type="eat" id="/V{R[y?e1J%5w3?s.iKB"><next><block type="turn" id="9C3oFK!7eM~`8y4X1=gN"><field name="turn">around</field><next><block type="move" id="U%fCpvs*SC8sIiY8XlQr"><field name="NAME">Move Forward</field><value name="NAME"><block type="math_number" id="HVuI!7(:TzNg7`FIgzIT"><field name="NUM">3</field></block></value><next><block type="turn" id="Y@;.p%KK})LNbs.rmO%B"><field name="turn">right</field><next><block type="move" id="7dNcVuGNN8hA=(G,_7/L"><field name="NAME">Move Forward</field><value name="NAME"><block type="math_number" id="@(2d|}yGpJEKOfK8vN*~"><field name="NUM">16</field></block></value></block></next></block></next></block></next></block></next></block></next></block></xml>';
+// const helpCode = '<xml xmlns="https://developers.google.com/blockly/xml"><block type="move" id="Fz*0]%*jp=Y4|}#ZPjd1" x="58" y="180"><field name="NAME">Move Forward</field><value name="NAME"><block type="math_number" id="?sPpSeKwbmPrOE$?y}0R"><field name="NUM">7</field></block></value><next><block type="eat" id="/V{R[y?e1J%5w3?s.iKB"><next><block type="turn" id="9C3oFK!7eM~`8y4X1=gN"><field name="turn">around</field><next><block type="move" id="U%fCpvs*SC8sIiY8XlQr"><field name="NAME">Move Forward</field><value name="NAME"><block type="math_number" id="HVuI!7(:TzNg7`FIgzIT"><field name="NUM">3</field></block></value><next><block type="turn" id="Y@;.p%KK})LNbs.rmO%B"><field name="turn">right</field><next><block type="move" id="7dNcVuGNN8hA=(G,_7/L"><field name="NAME">Move Forward</field><value name="NAME"><block type="math_number" id="@(2d|}yGpJEKOfK8vN*~"><field name="NUM">16</field></block></value></block></next></block></next></block></next></block></next></block></next></block></xml>';
 
-export { reset_output, completedFlag, runCode, getNoOfBlocks, updateImports, helpCode };
+const instruction = {
+    "heading": "Guide the dog to reach bone, eat it, and then go home",
+    "steps": [
+        {
+            "checkbox": true,
+            "rescue": true,
+            "text": "Figure out steps needed to reach something in move forward block through trial and error method",
+            "title": "General Instruction",
+            "workspace": "<xml xmlns=\"https://developers.google.com/blockly/xml\"><block type=\"move\" id=\"Fz*0]%*jp=Y4|}#ZPjd1\" x=\"58\" y=\"180\"><field name=\"NAME\">Move Forward</field><value name=\"NAME\"><block type=\"math_number\" id=\"?sPpSeKwbmPrOE$?y}0R\"><field name=\"NUM\">7</field></block></value></block></xml>"
+        },
+        {
+            "checkbox": true,
+            "rescue": true,
+            "text": "Figure the steps needed by dog to reach the bone",
+            "title": "Reach the bone",
+            "workspace": "<xml xmlns=\"https://developers.google.com/blockly/xml\"></xml>"
+        },
+        {
+            "checkbox": true,
+            "rescue": true,
+            "text": "Eat bone",
+            "title": "Eat the bone",
+            "workspace": "<xml xmlns=\"https://developers.google.com/blockly/xml\"><block type=\"move\" id=\"Fz*0]%*jp=Y4|}#ZPjd1\" x=\"58\" y=\"180\"><field name=\"NAME\">Move Forward</field><value name=\"NAME\"><block type=\"math_number\" id=\"?sPpSeKwbmPrOE$?y}0R\"><field name=\"NUM\">7</field></block></value><next><block type=\"eat\" id=\"/V{R[y?e1J%5w3?s.iKB\"></block></next></block></xml>"
+        },
+        {
+            "checkbox": true,
+            "rescue": true,
+            "text": "Turn around",
+            "title": "Go home",
+            "workspace": "<xml xmlns=\"https://developers.google.com/blockly/xml\"><block type=\"move\" id=\"Fz*0]%*jp=Y4|}#ZPjd1\" x=\"58\" y=\"180\"><field name=\"NAME\">Move Forward</field><value name=\"NAME\"><block type=\"math_number\" id=\"?sPpSeKwbmPrOE$?y}0R\"><field name=\"NUM\">7</field></block></value><next><block type=\"eat\" id=\"/V{R[y?e1J%5w3?s.iKB\"><next><block type=\"turn\" id=\"9C3oFK!7eM~`8y4X1=gN\"><field name=\"turn\">around</field></block></next></block></next></block></xml>"
+        },
+        {
+            "checkbox": true,
+            "rescue": true,
+            "text": "move forward",
+            "workspace": "<xml xmlns=\"https://developers.google.com/blockly/xml\"><block type=\"move\" id=\"Fz*0]%*jp=Y4|}#ZPjd1\" x=\"58\" y=\"180\"><field name=\"NAME\">Move Forward</field><value name=\"NAME\"><block type=\"math_number\" id=\"?sPpSeKwbmPrOE$?y}0R\"><field name=\"NUM\">7</field></block></value><next><block type=\"eat\" id=\"/V{R[y?e1J%5w3?s.iKB\"><next><block type=\"turn\" id=\"9C3oFK!7eM~`8y4X1=gN\"><field name=\"turn\">around</field><next><block type=\"move\" id=\"U%fCpvs*SC8sIiY8XlQr\"><field name=\"NAME\">Move Forward</field><value name=\"NAME\"><block type=\"math_number\" id=\"HVuI!7(:TzNg7`FIgzIT\"><field name=\"NUM\">3</field></block></value></block></next></block></next></block></next></block></xml>"
+        },
+        {
+            "checkbox": true,
+            "rescue": true,
+            "text": "turn right",
+            "workspace": "<xml xmlns=\"https://developers.google.com/blockly/xml\"><block type=\"move\" id=\"Fz*0]%*jp=Y4|}#ZPjd1\" x=\"58\" y=\"180\"><field name=\"NAME\">Move Forward</field><value name=\"NAME\"><block type=\"math_number\" id=\"?sPpSeKwbmPrOE$?y}0R\"><field name=\"NUM\">7</field></block></value><next><block type=\"eat\" id=\"/V{R[y?e1J%5w3?s.iKB\"><next><block type=\"turn\" id=\"9C3oFK!7eM~`8y4X1=gN\"><field name=\"turn\">around</field><next><block type=\"move\" id=\"U%fCpvs*SC8sIiY8XlQr\"><field name=\"NAME\">Move Forward</field><value name=\"NAME\"><block type=\"math_number\" id=\"HVuI!7(:TzNg7`FIgzIT\"><field name=\"NUM\">3</field></block></value><next><block type=\"turn\" id=\"Y@;.p%KK})LNbs.rmO%B\"><field name=\"turn\">right</field></block></next></block></next></block></next></block></next></block></xml>"
+        },
+        {
+            "checkbox": true,
+            "rescue": true,
+            "text": "move forward",
+            "workspace": "<xml xmlns=\"https://developers.google.com/blockly/xml\"><block type=\"move\" id=\"Fz*0]%*jp=Y4|}#ZPjd1\" x=\"58\" y=\"180\"><field name=\"NAME\">Move Forward</field><value name=\"NAME\"><block type=\"math_number\" id=\"?sPpSeKwbmPrOE$?y}0R\"><field name=\"NUM\">7</field></block></value><next><block type=\"eat\" id=\"/V{R[y?e1J%5w3?s.iKB\"><next><block type=\"turn\" id=\"9C3oFK!7eM~`8y4X1=gN\"><field name=\"turn\">around</field><next><block type=\"move\" id=\"U%fCpvs*SC8sIiY8XlQr\"><field name=\"NAME\">Move Forward</field><value name=\"NAME\"><block type=\"math_number\" id=\"HVuI!7(:TzNg7`FIgzIT\"><field name=\"NUM\">3</field></block></value><next><block type=\"turn\" id=\"Y@;.p%KK})LNbs.rmO%B\"><field name=\"turn\">right</field><next><block type=\"move\" id=\"7dNcVuGNN8hA=(G,_7/L\"><field name=\"NAME\">Move Forward</field><value name=\"NAME\"><block type=\"math_number\" id=\"@(2d|}yGpJEKOfK8vN*~\"><field name=\"NUM\">16</field></block></value></block></next></block></next></block></next></block></next></block></next></block></xml>"
+        }
+    ]
+};
+
+export {
+    reset_output, completedFlag, runCode, getNoOfBlocks, updateImports,
+    // helpCode
+    instruction
+};

@@ -411,7 +411,7 @@ function runCode() {
 //     Blockly.Xml.domToWorkspace(xml, demoWorkspace);
 // }
 
-const helpCode = '<xml xmlns="https://developers.google.com/blockly/xml"><block type="show_variable_block" id="o9?wI@}%m,5({wylt2Jw" x="67" y="87"><field name="NAME">fishCount</field><next><block type="forever_repeat_block" id="D$Zv$s6mxII_?^C9:qbT"><statement name="NAME"><block type="controls_if" id=";zbX9[sueq_Zdf4|$1+d"><value name="IF0"><block type="spritetouch__block" id="Y]l3U0}2-G$NCF|c$Md)"><field name="options1">fish</field><field name="options2">hook</field></block></value><statement name="DO0"><block type="action_block" id="2lqY+Ze8t~{T~f_udxr%"><next><block type="addition_block" id="jakL]kzr3J7h~%-mwnKu"><field name="NAME">fishCount</field><field name="NAME2">5</field></block></next></block></statement></block></statement></block></next></block></xml>';
+// const helpCode = '<xml xmlns="https://developers.google.com/blockly/xml"><block type="show_variable_block" id="o9?wI@}%m,5({wylt2Jw" x="67" y="87"><field name="NAME">fishCount</field><next><block type="forever_repeat_block" id="D$Zv$s6mxII_?^C9:qbT"><statement name="NAME"><block type="controls_if" id=";zbX9[sueq_Zdf4|$1+d"><value name="IF0"><block type="spritetouch__block" id="Y]l3U0}2-G$NCF|c$Md)"><field name="options1">fish</field><field name="options2">hook</field></block></value><statement name="DO0"><block type="action_block" id="2lqY+Ze8t~{T~f_udxr%"><next><block type="addition_block" id="jakL]kzr3J7h~%-mwnKu"><field name="NAME">fishCount</field><field name="NAME2">5</field></block></next></block></statement></block></statement></block></next></block></xml>';
 
 function myUpdateFunction(a) {
     var code = Blockly.Python.workspaceToCode(demoWorkspace);
@@ -456,10 +456,45 @@ function getNoOfBlocks() {
 
 const updateImports = ["from catch_the_fish import *"]
 
+const instruction = {
+    "heading": "Touch the fish when in line with the hook to catch it",
+    "steps": [
+        {
+            "checkbox": true,
+            "rescue": true,
+            "text": "Display Fish count on screen",
+            "title": "Display Fish Caught",
+            "workspace": "<xml xmlns=\"https://developers.google.com/blockly/xml\"><block type=\"show_variable_block\" id=\"o9?wI@}%m,5({wylt2Jw\" x=\"67\" y=\"87\"><field name=\"NAME\">fishCount</field></block></xml>"
+        },
+        {
+            "checkbox": true,
+            "rescue": true,
+            "text": "The following statements should function within the loop",
+            "title": "Repeat forever",
+            "workspace": "<xml xmlns=\"https://developers.google.com/blockly/xml\"><block type=\"show_variable_block\" id=\"o9?wI@}%m,5({wylt2Jw\" x=\"67\" y=\"87\"><field name=\"NAME\">fishCount</field><next><block type=\"forever_repeat_block\" id=\"D$Zv$s6mxII_?^C9:qbT\"></block></next></block></xml>"
+        },
+        {
+            "checkbox": true,
+            "rescue": true,
+            "text": "if fish touches the hook, catch the fish, and add fish count by 5",
+            "title": "Catch fish and update the count",
+            "workspace": "<xml xmlns=\"https://developers.google.com/blockly/xml\"><block type=\"show_variable_block\" id=\"o9?wI@}%m,5({wylt2Jw\" x=\"67\" y=\"87\"><field name=\"NAME\">fishCount</field><next><block type=\"forever_repeat_block\" id=\"D$Zv$s6mxII_?^C9:qbT\"><statement name=\"NAME\"><block type=\"controls_if\" id=\";zbX9[sueq_Zdf4|$1+d\"><value name=\"IF0\"><block type=\"spritetouch__block\" id=\"Y]l3U0}2-G$NCF|c$Md)\"><field name=\"options1\">fish</field><field name=\"options2\">hook</field></block></value><statement name=\"DO0\"><block type=\"action_block\" id=\"2lqY+Ze8t~{T~f_udxr%\"><next><block type=\"addition_block\" id=\"jakL]kzr3J7h~%-mwnKu\"><field name=\"NAME\">fishCount</field><field name=\"NAME2\">5</field></block></next></block></statement></block></statement></block></next></block></xml>"
+        },
+        {
+            "checkbox": false,
+            "rescue": false,
+            "text": "Touch the fish when it is below the hook to catch it. Catch all the fishes to win the game.",
+            "title": "Instructions to play the game",
+            "workspace": "<xml xmlns=\"https://developers.google.com/blockly/xml\"></xml>"
+        }
+    ]
+};
+
 export {
     completedFlag,
     myUpdateFunction,
-    helpCode,
+    // helpCode,
+    instruction,
     runCode,
     reset_output,
     reInitValues,
