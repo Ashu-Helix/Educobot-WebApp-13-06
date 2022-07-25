@@ -60,7 +60,7 @@ function handOnRun() {
     }, 1000);
 }
 
-function play_audio_tutorial(file) {
+function play_audio_tutorial(file, lang) {
     let path = `../assets/` + language.guide_folder + `/` + slug + '/' + language.language_packs_folder + `/` + lang + `/` + language.audio_folder + `/`;
     kill_audio();
     if (playAudio) {
@@ -345,7 +345,7 @@ tour.addStep({
     // attachTo: { element: '.blocklyToolboxContents', on: adapt_orientation('bottom', 'right') },
     buttons: [{
         action() {
-            play_audio_tutorial("tut[1].mp3");
+            play_audio_tutorial("tut[1].mp3", lang);
             clearInterval(myInterval);
             return this.back();
         },
@@ -422,7 +422,7 @@ tour.addStep({
     {
         action() {
             if (val1()) {
-                play_audio_tutorial("tut[4].mp3");
+                play_audio_tutorial("tut[4].mp3", lang);
                 clearInterval(myInterval);
                 handPointAt($("#hand"), $($(".blocklyDraggable")[1]), "hidden");
                 return this.next();
@@ -475,7 +475,7 @@ tour.addStep({
     },
     {
         action() {
-            play_audio_tutorial("tut[6].mp3");
+            play_audio_tutorial("tut[6].mp3", lang);
             clearInterval(myInterval);
             let id = (demoWorkspace.getToolbox().contents_[0].id_)
             handPointAt($("#hand"), $("#" + id), "visible");
@@ -565,7 +565,7 @@ tour.addStep({
         action() {
             if (val3()) {
                 clearInterval(myInterval);
-                play_audio_tutorial("tut[8].mp3");
+                play_audio_tutorial("tut[8].mp3", lang);
                 hideHand();
                 return this.next();
             } else M.toast({ html: "Wrong block or values selected!" });
@@ -728,30 +728,30 @@ tour.addStep({
 
 function i0() {
     clearInterval(myInterval);
-    play_audio_tutorial("tut[0].mp3");
+    play_audio_tutorial("tut[0].mp3", lang);
 }
 
 function i1() {
     clearInterval(myInterval);
-    play_audio_tutorial("tut[1].mp3");
+    play_audio_tutorial("tut[1].mp3", lang);
 }
 
 
 function i2() {
     clearInterval(myInterval);
-    play_audio_tutorial("tut[2].mp3");
+    play_audio_tutorial("tut[2].mp3", lang);
 }
 
 
 function i3() {
     clearInterval(myInterval);
-    play_audio_tutorial("tut[3].mp3");
+    play_audio_tutorial("tut[3].mp3", lang);
 }
 
 
 function t1() {
     clearInterval(myInterval);
-    play_audio_tutorial("tut[31].mp3");
+    play_audio_tutorial("tut[31].mp3", lang);
     // handPointAt($("#hand"), $("#blockly-0"), "visible");
     handPointAt($("#hand"), $($(".blocklyDraggable")[1]), "visible");
     let krr = false;
@@ -769,19 +769,19 @@ function t1() {
 
 function i4() {
     clearInterval(myInterval);
-    play_audio_tutorial("tut[5].mp3");
+    play_audio_tutorial("tut[5].mp3", lang);
 }
 
 
 function i5() {
     clearInterval(myInterval);
-    play_audio_tutorial("tut[4].mp3");
+    play_audio_tutorial("tut[4].mp3", lang);
 }
 
 
 function t2() {
     clearInterval(myInterval);
-    play_audio_tutorial("tut[61].mp3");
+    play_audio_tutorial("tut[61].mp3", lang);
     handPointAt($("#hand"), $($(".blocklyDraggable")[1]), "visible");
     let krr = false;
     myInterval = setInterval(function () {
@@ -798,7 +798,7 @@ function t2() {
 
 function t3() {
     clearInterval(myInterval);
-    play_audio_tutorial("tut[7].mp3"), hideHand();
+    play_audio_tutorial("tut[7].mp3", lang), hideHand();
     // handPointAt($("#hand"), $($(".blocklyFieldRect")[1]), "visible");
     // krr = false;
     // myInterval = setInterval(function () {
@@ -814,25 +814,25 @@ function t3() {
 
 function i6() {
     clearInterval(myInterval);
-    play_audio_tutorial("tut[9].mp3");
+    play_audio_tutorial("tut[9].mp3", lang);
 }
 
 
 function i7() {
     clearInterval(myInterval);
-    play_audio_tutorial("tut[10].mp3");
+    play_audio_tutorial("tut[10].mp3", lang);
 }
 
 
 function i8() {
     clearInterval(myInterval);
-    play_audio_tutorial("tut[11].mp3");
+    play_audio_tutorial("tut[11].mp3", lang);
 }
 
 
 function i9() {
     clearInterval(myInterval);
-    play_audio_tutorial("tut[12].mp3");
+    play_audio_tutorial("tut[12].mp3", lang);
     handOnRun();
 }
 
@@ -1152,5 +1152,19 @@ setInterval(function () {
         }
     } catch { }
 }, 100);
+
+document.getElementById('soundBtn').addEventListener('click', setAudioPreference)
+function setAudioPreference() {
+    if (playAudio) {
+        kill_audio();
+    }
+    if (!(playAudio)) {
+        playAudio = true;
+        document.getElementById('soundImg').src = "../assets/sound_icon.png";
+    } else {
+        playAudio = false;
+        document.getElementById('soundImg').src = "../assets/sound_unmute.png";
+    }
+}
 
 document.getElementById('runbtn').addEventListener("click", function () { isRunBtnClicked = true; });
