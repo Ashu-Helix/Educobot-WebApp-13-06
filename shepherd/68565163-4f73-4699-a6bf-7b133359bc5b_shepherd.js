@@ -405,7 +405,7 @@ tour.addStep({
             if (val1()) {
                 clearInterval(myInterval);
                 let id = (demoWorkspace.getToolbox().contents_[0].id_)
-                handPointAt($("#hand"), $(id), "visible");
+                handPointAt($("#hand"), $($("#" + id)), "visible");
                 play_audio_tutorial("tut[6].mp3", lang);
                 return this.next();
             } else M.toast({ html: "Wrong block or values selected!" });
@@ -528,6 +528,7 @@ tour.addStep({
                 clearInterval(myInterval);
                 handPointAt($("#hand"), $($(".neumorphic_button")[2]), "visible");
                 play_audio_tutorial("tut[11].mp3", lang);
+                isRunBtnClicked = false;
                 return this.next();
             } else M.toast({ html: "Wrong block or values selected!" });
         },
@@ -539,7 +540,7 @@ tour.addStep({
 
 tour.addStep({
     eval() {
-        return false;
+        return isRunBtnClicked;
     },
     title: "Run",
     text: tut[11] + add_next_button(),
