@@ -174,7 +174,9 @@ export default function Scripts(props) {
             let interval = setInterval(() => {
                 if (!dialogOpen) {
                     if (script.completedFlag()) {
-                        document.getElementById("openTest").click();
+                        setTimeout(() => {
+                            document.getElementById("openTest").click();
+                        }, 2000);
                         setDialogOpen(true);
                         clearInterval(interval);
                     }
