@@ -1,9 +1,4 @@
-import Blockly from "blockly";
-import "blockly/python";
-import "blockly/javascript";
 
-let demoWorkspace = Blockly.getMainWorkspace();
-let noOfBlocks;
 
 import M from 'materialize-css';
 import {
@@ -17,6 +12,14 @@ let _gameThis = null;
 const baseURL = '../img/images/2591ee17-384d-4dbc-a672-279e3220bf36';
 const gameWidth = 960;
 const gameHeight = 540;
+
+
+import Blockly from "blockly";
+import "blockly/python";
+import "blockly/javascript";
+
+let demoWorkspace = Blockly.getMainWorkspace();
+let noOfBlocks;
 
 const GAME_CONSTANT = {
     images: {
@@ -326,16 +329,22 @@ function completedFlag() {
 }
 
 function fn_validate() {
-    let wrong_counter = 0;
-    let all_buttons = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.', 'ac', '+', '-', '*', '/', '=', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.', 'ac', '+', '-', '*', '/', '=']
-    added_buttons.forEach((i) => {
-        if (!all_buttons.includes(i)) wrong_counter++;
-    })
+    // if (Blockly.getMainWorkspace()) {
+    try {
+        let wrong_counter = 0;
+        let all_buttons = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.', 'ac', '+', '-', '*', '/', '=', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.', 'ac', '+', '-', '*', '/', '=']
+        added_buttons.forEach((i) => {
+            if (!all_buttons.includes(i)) wrong_counter++;
+        })
 
-    if (!Blockly.Python.workspaceToCode(Blockly.getMainWorkspace()).toLowerCase().includes("compute")) wrong_counter++;
-    if (!Blockly.Python.workspaceToCode(Blockly.getMainWorkspace()).toLowerCase().includes("clear_display")) wrong_counter++;
-    if (!Blockly.Python.workspaceToCode(Blockly.getMainWorkspace()).toLowerCase().includes("displayonscreen")) wrong_counter++;
-    setTimeout(() => { if (wrong_counter <= 0) GameIsOver = true; }, 4500)
+        if (!Blockly.Python.workspaceToCode(Blockly.getMainWorkspace()).toLowerCase().includes("compute")) wrong_counter++;
+        if (!Blockly.Python.workspaceToCode(Blockly.getMainWorkspace()).toLowerCase().includes("clear_display")) wrong_counter++;
+        if (!Blockly.Python.workspaceToCode(Blockly.getMainWorkspace()).toLowerCase().includes("displayonscreen")) wrong_counter++;
+        setTimeout(() => { if (wrong_counter <= 0) GameIsOver = true; }, 4500)
+    } catch (err) {
+        console.log(err)
+    }
+    // }
 }
 
 var repeat_forever_flag = true;
@@ -348,7 +357,7 @@ function runCode() {
     reInitValues();
     window.LoopTrap = 1E3;
     Blockly.JavaScript.INFINITE_LOOP_TRAP = 'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
-    var a = "async function c(){" + Blockly.JavaScript.workspaceToCode(Blockly.getMainWorkspace()) + "} c();fn_validate();";
+    var a = "async function c(){ " + Blockly.JavaScript.workspaceToCode(demoWorkspace) + "} c();fn_validate();";
     // Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
     try {
         eval(a);
@@ -359,7 +368,7 @@ function runCode() {
         setTimeout(() => {
             repeat_forever_flag = true;
         }, 3000);
-    } catch (b) { alert(b) }
+    } catch (b) { console.log(b) }
     // try {
     //     if (tour.getCurrentStep().options.title.includes("Run")) {
     //         let btns = document.querySelectorAll('.shepherd-button');
