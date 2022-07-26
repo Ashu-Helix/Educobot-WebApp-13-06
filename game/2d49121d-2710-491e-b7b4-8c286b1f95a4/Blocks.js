@@ -97,7 +97,7 @@ Blockly.JavaScript['forever_repeat_block'] = function (block) {
    }}`
     if (repeat_forever_flag) {
         eval(code);
-        game.destroy();
+        window['game'].destroy();
         document.getElementById('sprite-container').innerHTML = "";
         setTimeout(() => {
             let config = {
@@ -122,7 +122,7 @@ Blockly.JavaScript['forever_repeat_block'] = function (block) {
                     update: update,
                 },
             };
-            let game1 = new Phaser.Game(config);
+            window['game'] = new Phaser.Game(config);
         }, 100);
 
     }

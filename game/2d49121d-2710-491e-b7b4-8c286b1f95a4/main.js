@@ -1,17 +1,14 @@
-// import M from 'materialize-css';
-// import {
-//     AUTO,
-//     Game,
-// } from 'phaser';
+import M from 'materialize-css';
+import {
+    AUTO,
+    Game,
+} from 'phaser';
 
-// import MSPhaserLib from '../msPhaserLib.min';
+import MSPhaserLib from '../msPhaserLib.min';
 
-import M from "materialize-css";
 import Blockly from "blockly";
 import "blockly/python";
 import "blockly/javascript";
-import MSPhaserLib from "../msPhaserLib.min";
-import { CANVAS, Game, AUTO } from "phaser";
 
 let demoWorkspace = Blockly.getMainWorkspace();
 let noOfBlocks;
@@ -25,21 +22,44 @@ let is_game_completed = false;
 
 const GAME_CONSTANT = {
     images: {
-        cleverCrowBG: "cleverCrowBG"
+        cleverCrowBG: "cleverCrowBG",
     },
     spritesImages: {
         potSprites: "potSprites",
-        cleverCrowSprite: "cleverCrowSprite"
-    }
+        cleverCrowSprite: "cleverCrowSprite",
+    },
 };
-const INCORRECT_MESSAGE = 'Drop pabbel before drinking water.';
-const CORRECT_MESSAGE = 'Successfully completed.';
-
+const INCORRECT_MESSAGE = "Drop pabbel before drinking water.";
+const CORRECT_MESSAGE = "Successfully completed.";
 
 const spritesElement = {
-    potSprites: { x: 1230, y: 655, stayAt: 0, frameWidth: 277, frameHeight: 252, frameFrom: 0, frameTo: 4, frameRate: 30, anim: { anim13: 1, anim16: 2, anim19: 3, anim22: 4 } },
-    cleverCrowSprite: { x: 1330, y: 680, stayAt: 0, frameWidth: 509, frameHeight: 764, frameFrom: 0, frameTo: 27, frameRate: 1, pabelPickAnim: 10, dropPabel: [14, 16, 19, 22, 23], pabelAnim: 23, drinkWater: { frameFrom: 24, frameTo: 26 }, afterDrinkWater: 27 },
-}
+    potSprites: {
+        x: 1230,
+        y: 655,
+        stayAt: 0,
+        frameWidth: 277,
+        frameHeight: 252,
+        frameFrom: 0,
+        frameTo: 4,
+        frameRate: 30,
+        anim: { anim13: 1, anim16: 2, anim19: 3, anim22: 4 },
+    },
+    cleverCrowSprite: {
+        x: 1330,
+        y: 680,
+        stayAt: 0,
+        frameWidth: 509,
+        frameHeight: 764,
+        frameFrom: 0,
+        frameTo: 27,
+        frameRate: 1,
+        pabelPickAnim: 10,
+        dropPabel: [14, 16, 19, 22, 23],
+        pabelAnim: 23,
+        drinkWater: { frameFrom: 24, frameTo: 26 },
+        afterDrinkWater: 27,
+    },
+};
 
 let _oMSPhaserLib;
 let currentFrameCrow = 0;
@@ -56,6 +76,7 @@ let config = {
     height: gameHeight,
     backgroundColor: "#eeeeee",
     parent: "sprite-container",
+    //canvas: canvas1,
     canvasStyle: `width: 100%;
     object-fit: revert;
     aspect-ratio: 738 / 436;`,
@@ -73,7 +94,7 @@ let config = {
 };
 
 // Initialize Phaser with config
-let game = new Phaser.Game(config);
+window['game'] = new Phaser.Game(config);
 
 // Phaser preload function
 function preload() {
@@ -102,8 +123,16 @@ function create() {
             const element = spritesImages[key];
             const elementValue = spritesElement[element];
 
-            _gameThis[element] = _gameThis.add.sprite(elementValue.x, elementValue.y, element);
-            _oMSPhaserLib.stopSpriteAt(_gameThis[element], element, elementValue.stayAt);
+            _gameThis[element] = _gameThis.add.sprite(
+                elementValue.x,
+                elementValue.y,
+                element
+            );
+            _oMSPhaserLib.stopSpriteAt(
+                _gameThis[element],
+                element,
+                elementValue.stayAt
+            );
             // _gameThis[element].visible = false;
         }
     }
@@ -131,7 +160,10 @@ function loadImages() {
             const element = spritesImages[key];
             const elementValue = spritesElement[element];
 
-            _gameThis.load.spritesheet(element, "images/" + element + ".png", { frameWidth: elementValue.frameWidth, frameHeight: elementValue.frameHeight });
+            _gameThis.load.spritesheet(element, "images/" + element + ".png", {
+                frameWidth: elementValue.frameWidth,
+                frameHeight: elementValue.frameHeight,
+            });
         }
     }
 }
@@ -152,19 +184,28 @@ async function drinkWater() {
         let elementValueCrow = spritesElement.cleverCrowSprite;
 
         hasDrunkWater = true;
-        _oMSPhaserLib.spriteAnimation(oTargetCrow, elementNameCrow, elementValueCrow.drinkWater.frameFrom, elementValueCrow.drinkWater.frameTo, elementValueCrow.frameRate, 0);
+        _oMSPhaserLib.spriteAnimation(
+            oTargetCrow,
+            elementNameCrow,
+            elementValueCrow.drinkWater.frameFrom,
+            elementValueCrow.drinkWater.frameTo,
+            elementValueCrow.frameRate,
+            0
+        );
 
         clearTimeout(afterDrinkInterval);
         afterDrinkInterval = setTimeout(async () => {
             await sleep(3000);
             afterDrinkWater();
+            is_game_completed = true;
+            console.log("setting flag");
             M.toast({ html: CORRECT_MESSAGE });
-            setTimeout(() => { is_game_completed = true; }, 2500)
+            // setTimeout(async() => { is_game_completed = true; }, 2500)
         }, 500);
     }
     /* else {
-      M.toast({ html: INCORRECT_MESSAGE });
-    } */
+        M.toast({ html: INCORRECT_MESSAGE });
+      } */
 }
 
 // Show crow action after drink water
@@ -173,7 +214,11 @@ function afterDrinkWater() {
     let elementNameCrow = spritesImages.cleverCrowSprite;
     let oTargetCrow = _gameThis[elementNameCrow];
     let elementValueCrow = spritesElement.cleverCrowSprite;
-    _oMSPhaserLib.stopSpriteAt(oTargetCrow, elementNameCrow, elementValueCrow.afterDrinkWater);
+    _oMSPhaserLib.stopSpriteAt(
+        oTargetCrow,
+        elementNameCrow,
+        elementValueCrow.afterDrinkWater
+    );
 }
 
 // Wait till drinking
@@ -184,7 +229,9 @@ async function waitDuration(time) {
 
         afterDrinkWater();
         M.toast({ html: CORRECT_MESSAGE });
-        setTimeout(() => { is_game_completed = true; }, 2500)
+        setTimeout(() => {
+            is_game_completed = true;
+        }, 2500);
     }
 }
 
@@ -207,9 +254,13 @@ async function dropPabel() {
         let interval = setInterval(() => {
             currentFrameCrow++;
             if (currentFrameCrow <= pabelAnim) {
-                _oMSPhaserLib.stopSpriteAt(oTargetCrow, elementNameCrow, currentFrameCrow);
+                _oMSPhaserLib.stopSpriteAt(
+                    oTargetCrow,
+                    elementNameCrow,
+                    currentFrameCrow
+                );
 
-                const potAnimFrame = elementValuePot.anim['anim' + currentFrameCrow];
+                const potAnimFrame = elementValuePot.anim["anim" + currentFrameCrow];
                 if (potAnimFrame)
                     _oMSPhaserLib.stopSpriteAt(oTargetPot, elementNamePot, potAnimFrame);
             } else {
@@ -250,9 +301,13 @@ var repeat_forever_flag = true;
 function runCode() {
     // tour_over && tour.complete();
     reInitValues();
-    window.LoopTrap = 1E3;
-    Blockly.JavaScript.INFINITE_LOOP_TRAP = 'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
-    var a = "async function c(){" + Blockly.JavaScript.workspaceToCode(demoWorkspace) + "} c();";
+    window.LoopTrap = 1e3;
+    Blockly.JavaScript.INFINITE_LOOP_TRAP =
+        'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
+    var a =
+        "async function c(){" +
+        Blockly.JavaScript.workspaceToCode(demoWorkspace) +
+        "} c();";
     try {
         eval(a);
         repeat_forever_flag = false;
@@ -262,15 +317,16 @@ function runCode() {
         setTimeout(() => {
             repeat_forever_flag = true;
         }, 3000);
-    } catch (b) { alert(b) }
+    } catch (b) {
+        alert(b);
+    }
     // try {
     //     if (tour.getCurrentStep().options.title.includes("Run")) {
-    //         let btns = document.querySelectorAll('.shepherd-button');
+    //         let btns = document.querySelectorAll(".shepherd-button");
     //         btns[btns.length - 1].click();
     //     }
     // } catch { }
 }
-
 
 // function helpCode() {
 //     var xml_wkspace = '<xml xmlns="https://developers.google.com/blockly/xml"><block type="forever_repeat_block" id="?.1;M:QWDG@)8HUMfijU" x="59" y="96"><statement name="NAME"><block type="action_block" id="bP?jnNh~:pd/rI!mduhi"><next><block type="controls_if" id=";IR(;LAz(VF{/;gciUZa"><value name="IF0"><block type="spritetouch__block" id=";rzhdWCH$Jbc$I?YU8OU"><field name="options1">water</field><field name="options2">potLid</field></block></value><statement name="DO0"><block type="drink_block" id="XTiUFisBE!hzpFt}$jB]"><next><block type="wait_block" id="8p]XMWw85`/r+-QUq,{;"><field name="NAME">Wait for</field><value name="NAME"><block type="math_number" id="ApUIp!9a-4dd_dmRjTp)"><field name="NUM">3</field></block></value></block></next></block></statement></block></next></block></statement></block></xml>';
@@ -285,8 +341,8 @@ const helpCode = '<xml xmlns="https://developers.google.com/blockly/xml"><block 
 function myUpdateFunction(a) {
     var code = Blockly.Python.workspaceToCode(demoWorkspace);
     var import_statement = "from clever_crow import *\nfrom time import sleep\n";
-    document.getElementById('pycode').innerHTML = import_statement + code;
-    document.getElementById('modal1').innerHTML = import_statement + code;
+    document.getElementById("pycode").innerHTML = import_statement + code;
+    document.getElementById("modal1").innerHTML = import_statement + code;
 }
 // demoWorkspace.addChangeListener(myUpdateFunction);
 
@@ -302,7 +358,6 @@ function getNoOfBlocks() {
 
 const updateImports = ["from clever_crow import *", "from time import sleep"]
 
-
 export {
     completedFlag,
     myUpdateFunction,
@@ -311,20 +366,19 @@ export {
     reset_output,
     reInitValues,
     waitDuration,
-    // drink_Water,
     drinkWater,
     hasDroppedpabel,
     // water,
     // potLid,
     dropPabel,
     isDropping,
-    updateImports,
     getNoOfBlocks,
+    updateImports,
     update,
-    game,
     preload,
     create,
     gameHeight,
     gameWidth,
-    repeat_forever_flag
+    repeat_forever_flag,
+    // game
 }
